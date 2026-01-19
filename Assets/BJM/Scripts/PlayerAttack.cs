@@ -4,7 +4,14 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] GameObject attackPos;
+    [SerializeField] GameObject swordAttackObj;
     float rotateSpeed = 100f;
+
+    Vector3 targetDir;
+    float angle;
+
+    float attackTime;
+    bool attack = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,6 +22,17 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         AttackArrow();
+
+        if (attack)
+        {
+            attackTime += Time.deltaTime;
+
+            if (attackTime > 1)
+            {
+                attack = false;
+                attackTime = 0;
+            }
+        }
     }
 
     void AttackArrow()
@@ -25,13 +43,22 @@ public class PlayerAttack : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             //Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
-            Vector3 targetDir = hit.point - attackPos.transform.position; //방향 벡터
-            float angle = Mathf.Atan2(targetDir.x, targetDir.z) * Mathf.Rad2Deg; //수평면 상에서 몇 도 방향인지 계산
+            targetDir = hit.point - attackPos.transform.position; //방향 벡터
+            angle = Mathf.Atan2(targetDir.x, targetDir.z) * Mathf.Rad2Deg; //수평면 상에서 몇 도 방향인지 계산
             Quaternion targetRotation = Quaternion.Euler(90f, 0f, -angle);
             attackPos.transform.localRotation = Quaternion.Slerp(
                 attackPos.transform.localRotation,
                 targetRotation,
                 rotateSpeed * Time.deltaTime);
+        }
+    }
+
+    private void OnAttack(InputValue value)
+    {
+        if (!attack)
+        {
+            Instantiate(swordAttackObj, transform.position, attackPos.transform.rotation);
+            attack = true;
         }
     }
 }
