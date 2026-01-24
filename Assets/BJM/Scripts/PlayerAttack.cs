@@ -4,14 +4,19 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] GameObject attackPos;
+    [Header("SkillObject")]
     [SerializeField] GameObject swordAttackObj;
+    [SerializeField] GameObject bowAttackObj;
     float rotateSpeed = 100f;
 
     Vector3 targetDir;
     float angle;
 
     float attackTime;
+    float attackDelay = 1;
     bool attack = false;
+
+    [SerializeField] int skillCount = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
         {
             attackTime += Time.deltaTime;
 
-            if (attackTime > 1)
+            if (attackTime > attackDelay)
             {
                 attack = false;
                 attackTime = 0;
@@ -53,12 +58,66 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnAttack(InputValue value)
+    public void OnAttack(InputAction.CallbackContext context)
     {
         if (!attack)
         {
-            Instantiate(swordAttackObj, transform.position, attackPos.transform.rotation);
-            attack = true;
+            switch (skillCount)
+            {
+                case 1:
+                    {
+                        Instantiate(swordAttackObj, transform.position, attackPos.transform.rotation);
+                        attack = true;
+                    }
+                    break;
+                case 2:
+                    {
+                        Instantiate(bowAttackObj, transform.position, attackPos.transform.rotation);
+                        attack = true;
+                    }
+                    break;
+                case 3:
+                    {
+
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void OnSkillChange(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            string pressNumber = context.control.name;
+
+            switch (pressNumber)
+            {
+                case "1":
+                    {
+                        Debug.Log("swordskill");
+                        attackDelay = 1;
+                        attack = false;
+                        skillCount = 1;
+                    }
+                    break;
+                case "2":
+                    {
+                        Debug.Log("bowskill");
+                        attackDelay = 0.5f;
+                        attack = false;
+                        skillCount = 2;
+                    }
+                    break;
+                case "3":
+                    {
+                        Debug.Log("stampskill");
+                        attackDelay = 2.5f;
+                        attack = false;
+                        skillCount = 3;
+                    }
+                    break;
+            }
         }
     }
 }

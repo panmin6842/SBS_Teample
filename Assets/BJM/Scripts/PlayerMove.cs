@@ -20,8 +20,8 @@ public class PlayerMove : MonoBehaviour
         transform.localPosition += new Vector3(xOffset, 0f, yOffset);
     }
 
-    private void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        movement = value.Get<Vector2>();
+        movement = context.ReadValue<Vector2>();
     }
 }
