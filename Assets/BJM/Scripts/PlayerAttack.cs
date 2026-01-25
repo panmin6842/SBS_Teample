@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("SkillObject")]
     [SerializeField] GameObject swordAttackObj;
     [SerializeField] GameObject bowAttackObj;
+    [SerializeField] GameObject stampAttackObj;
     float rotateSpeed = 100f;
 
     Vector3 targetDir;
@@ -78,7 +79,8 @@ public class PlayerAttack : MonoBehaviour
                     break;
                 case 3:
                     {
-
+                        Instantiate(stampAttackObj, transform.position, attackPos.transform.rotation);
+                        attack = true;
                     }
                     break;
             }

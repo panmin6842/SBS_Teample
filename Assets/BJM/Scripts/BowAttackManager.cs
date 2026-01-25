@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BowAttackManager : MonoBehaviour
 {
-    float power = 4.0f;
+    float power = 7.0f;
 
     Vector3 startPos;
     float distance;

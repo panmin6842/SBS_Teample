@@ -286,6 +286,7 @@ MonoBehaviour:
   attackPos: {fileID: 8468066079552233896}
   swordAttackObj: {fileID: 6084993611769339035, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
   bowAttackObj: {fileID: 4047336886330174727, guid: 7d753be6d7c68be4c880dbf67283b23f, type: 3}
+  stampAttackObj: {fileID: 7257923731058189080, guid: f33bf049778e33349b1b2613b1f413d4, type: 3}
   skillCount: 1
 --- !u!54 &689531621105289874
 Rigidbody:
@@ -352,6 +353,7 @@ MonoBehaviour:
   hp: 500
   atk: 50
   def: 1
+  actCount: 2
 --- !u!1 &8468066079552233896
 GameObject:
   m_ObjectHideFlags: 0
