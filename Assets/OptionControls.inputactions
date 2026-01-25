@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "name": "OptionControls",
+    "maps": [
+        {
+            "name": "Option",
+            "id": "025e7280-04e6-4ec9-969f-1db3127cd111",
+            "actions": [
+                {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "5420b0d4-f490-4956-a4bf-153e9f57d107",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "58c892b0-9e31-42c5-b233-6fafc2a34fe2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "PC",
+            "bindingGroup": "PC",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
