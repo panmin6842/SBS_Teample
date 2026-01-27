@@ -18,7 +18,7 @@ public class EquipmentInventory : InventoryBase
     private void OnEnable()
     {
         uiActionMap.Enable();
-        uiActionMap.FindAction("OpenEquipment").performed += OnOpenEquipment;
+        uiActionMap.FindAction("OpenInventory").performed += OnOpenInventory;
     }
 
     void Update()
@@ -26,7 +26,7 @@ public class EquipmentInventory : InventoryBase
 
     }
 
-    private void OnOpenEquipment(InputAction.CallbackContext context)
+    private void OnOpenInventory(InputAction.CallbackContext context)
     {
         //옵션이 켜져있는 경우 활성화 안 함 나중에 작성
 
