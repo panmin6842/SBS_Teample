@@ -10,7 +10,7 @@ public class InventoryBase : MonoBehaviour
     [SerializeField] protected GameObject inventoryBase;
     [SerializeField] protected GameObject inventorySlotsParent;
 
-    InventorySlot slots;
+    protected InventorySlot[] slots;
 
     /// <summary>
     /// 인벤토리 베이스 초기화
@@ -22,6 +22,6 @@ public class InventoryBase : MonoBehaviour
             inventoryBase.SetActive(false);
         }
 
-        slots = inventorySlotsParent.GetComponentInChildren<InventorySlot>();
+        slots = inventorySlotsParent.GetComponentsInChildren<InventorySlot>();
     }
 }
