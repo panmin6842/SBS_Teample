@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6430823037f83e478bec5124980ed35, type: 3}
   m_Name: Top1
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 1
   canOverlap: 0
   isInteractivity: 1
   isConsumable: 0
-  itemType: 6
+  itemType: 32
   itemImage: {fileID: 21300000, guid: fa8852460f13bf4488e21303f4c5b0b9, type: 3}

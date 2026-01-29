@@ -30,7 +30,7 @@ public class EquipmentInventory : InventoryBase
     {
         //옵션이 켜져있는 경우 활성화 안 함 나중에 작성
 
-        if (inventoryBase.activeInHierarchy)
+        if (IsInventoryActive)
         {
             inventoryBase.SetActive(false);
             IsInventoryActive = false;

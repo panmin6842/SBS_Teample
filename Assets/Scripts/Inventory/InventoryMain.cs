@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class InventoryMain : InventoryBase
 {
     public InputActionAsset uiInputAction;
-    private InputActionMap uiActionMap;
+    public InputActionMap uiActionMap;
 
     public static bool IsInventoryActive = false;
 
@@ -98,7 +98,6 @@ public class InventoryMain : InventoryBase
             }
         }
 
-        //장비 아이템이 아닐 경우 새로운 슬롯에 놓는다
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].Item == null && slots[i].IsMask(item))
@@ -107,5 +106,10 @@ public class InventoryMain : InventoryBase
                 return;
             }
         }
+    }
+
+    public InventorySlot[] GetAllItems()
+    {
+        return slots;
     }
 }

@@ -20,7 +20,7 @@ public class InventorySlot : MonoBehaviour
     [Header("해당 슬롯에 어떤 타입이 들어올 수 있는가")]
     [SerializeField] private ItemType slotMask;
 
-    private int itemCount; //획득한 아이템 개수
+    public int itemCount; //획득한 아이템 개수
 
     [Header("아이템 슬롯에 있는 UI 오브젝트")]
     [SerializeField] private Image itemImage;
@@ -53,7 +53,9 @@ public class InventorySlot : MonoBehaviour
 
         if (item.Type <= ItemType.Equipment_WEAPON)
         {
-            textCount.text = "";
+            //textCount.text = "";
+            //임시
+            textCount.text = itemCount.ToString();
         }
         else
         {

@@ -25,7 +25,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenEquipment",
+                    "name": "OpenStorage",
                     "type": "Button",
                     "id": "8f9f4207-b072-4c23-b389-b17fd2e70431",
                     "expectedControlType": "",
@@ -60,11 +60,11 @@
                 {
                     "name": "",
                     "id": "82a43cd0-c189-4de2-96d8-2643d0250a97",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "OpenEquipment",
+                    "action": "OpenStorage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
