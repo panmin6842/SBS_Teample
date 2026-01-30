@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Item
   - Storage
+  - FadeBackground
+  - Wall
   layers:
   - Default
   - TransparentFX

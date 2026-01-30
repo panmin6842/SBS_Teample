@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Unity.Cinemachine;
 
 public class PortalManager : MonoBehaviour
 {
@@ -14,17 +15,20 @@ public class PortalManager : MonoBehaviour
     public Transform PlayerTpSpotTransform;
     public Transform MainCameraTpSpotTransform;
     [Space(10f)]
-    public GameObject PlayerObject;
-    public GameObject MainCameraObject;
-    public Image PortalEffectImage;
+    [HideInInspector] public GameObject PlayerObject;
+    [HideInInspector] public GameObject MainCameraObject;
+    [HideInInspector] public Image PortalEffectImage;
+    [HideInInspector] public CinemachineCamera CinemachineCamera;
     [HideInInspector] public Transform PlayerTransform;
     [HideInInspector] public Transform MainCameraTransform;
-    [Space(10f)]
-    public int Direction; //0:¾Õ, 1:µÚ, 2:¿Þ, 3:¿À
 
     void Awake()
     {
         instance = this;
+        PlayerObject = GameObject.FindGameObjectWithTag("Player");
+        MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        CinemachineCamera = GameObject.Find("PlayerCamera").GetComponent<CinemachineCamera>();
+        PortalEffectImage = GameObject.FindWithTag("FadeBackground").GetComponent<Image>();
     }
 
     void Start()
