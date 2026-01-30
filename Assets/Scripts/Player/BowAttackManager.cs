@@ -6,6 +6,8 @@ public class BowAttackManager : MonoBehaviour
 
     Vector3 startPos;
     float distance;
+
+    [SerializeField] string hitTag;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +29,9 @@ public class BowAttackManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag(hitTag))
+        {
+            Destroy(gameObject);
+        }
     }
 }

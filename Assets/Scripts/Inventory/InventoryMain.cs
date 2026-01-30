@@ -40,18 +40,24 @@ public class InventoryMain : InventoryBase
 
     private void OpenInventory()
     {
-        inventoryBase.SetActive(true);
-        IsInventoryActive = true;
+        if (inventoryBase != null)
+        {
+            inventoryBase.SetActive(true);
+            IsInventoryActive = true;
 
-        Cursor.visible = true;
+            Cursor.visible = true;
+        }
     }
 
     private void CloseInventory()
     {
-        inventoryBase.SetActive(false);
-        IsInventoryActive = false;
+        if (inventoryBase != null)
+        {
+            inventoryBase.SetActive(false);
+            IsInventoryActive = false;
 
-        //Cursor.visible = false;
+            //Cursor.visible = false;
+        }
     }
 
     /// <summary>

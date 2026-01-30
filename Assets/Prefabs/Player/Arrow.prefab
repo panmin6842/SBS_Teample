@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1841088818633426522}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: ArrowBasicAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,3 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85962c9294652e449ae4c74b0fbf3604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitTag: Enemy
