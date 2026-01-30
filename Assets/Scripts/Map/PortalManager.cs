@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PortalManager : MonoBehaviour
 {
@@ -15,8 +16,9 @@ public class PortalManager : MonoBehaviour
     [Space(10f)]
     public GameObject PlayerObject;
     public GameObject MainCameraObject;
-    public Transform PlayerTransform;
-    public Transform MainCameraTransform;
+    public Image PortalEffectImage;
+    [HideInInspector] public Transform PlayerTransform;
+    [HideInInspector] public Transform MainCameraTransform;
     [Space(10f)]
     public int Direction; //0:¾Õ, 1:µÚ, 2:¿Þ, 3:¿À
 
@@ -29,6 +31,7 @@ public class PortalManager : MonoBehaviour
     {
         PlayerTransform = PlayerObject.GetComponent<Transform>();
         MainCameraTransform = MainCameraObject.GetComponent<Transform>();
+        Debug.Log(PortalEffectImage.color);
     }
 
     void Update()
