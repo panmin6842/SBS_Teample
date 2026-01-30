@@ -34,7 +34,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Physics.Raycast(transform.position, new Vector3(movement.x, 0f, movement.y), out hit, rayDistance))
         {
-            if (hit.transform.tag == "Wall")
+            if (hit.transform.CompareTag("Wall"))
             {
                 return true;
             }

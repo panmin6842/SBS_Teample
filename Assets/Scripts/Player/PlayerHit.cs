@@ -11,17 +11,21 @@ public class PlayerHit : PlayerState
 
     private void Update()
     {
-        hpText.text = "hp : " + maxHp;
+        hpText.text = "hp : " + curHp;
         actCountText.text = "actCount : " + actCount;
 
-        if (maxHp <= 0)
+        if (curHp <= 0)
         {
+            curHp = 0;
             SceneManager.LoadScene("MainScene");
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag("EnemyTestAttack"))
+        {
+            curHp -= 2;
+        }
     }
 
     public void OnTestKey(InputAction.CallbackContext context)
