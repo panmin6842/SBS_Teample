@@ -31,7 +31,6 @@ public class PortalManager : MonoBehaviour
     {
         PlayerTransform = PlayerObject.GetComponent<Transform>();
         MainCameraTransform = MainCameraObject.GetComponent<Transform>();
-        Debug.Log(PortalEffectImage.color);
     }
 
     void Update()

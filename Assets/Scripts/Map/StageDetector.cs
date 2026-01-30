@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class StageDetector : MonoBehaviour
 {
     PortalManager portalManager;
-
     private void Awake()
     {
     }
@@ -38,15 +37,5 @@ public class StageDetector : MonoBehaviour
             yield return new WaitForSeconds(0f);
         }
         portalManager.PortalEffectImage.gameObject.SetActive(false);
-
-        //portalEffect.gameObject.SetActive(true);
-        //Color c = Color.black;
-        //for (float i = 1; i > 0; i -= Time.deltaTime * 2)
-        //{
-        //    c.a = i;
-        //    portalEffect.color = c;
-        //    yield return new WaitForSeconds(0.1f);
-        //}
-        //portalEffect.gameObject.SetActive(false);
     }
 }
