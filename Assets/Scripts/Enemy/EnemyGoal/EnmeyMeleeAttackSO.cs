@@ -1,10 +1,10 @@
 using GoalAgent;
 using UnityEngine;
 
-namespace JJW._02_Code
+namespace Enemy.EnemyGoal
 {
     [CreateAssetMenu(fileName = "MeleeAttack", menuName = "JJW/Goal/MeleeAttack", order = 0)]
-    public class MeleeAttack: AgentGoal
+    public class EnmeyMeleeAttackSO : AgentGoal
     {
         [field: SerializeField] public float DetectionRange {get;private set; }
         [field: SerializeField] public float AttackCoolTime {get; private set; }
@@ -14,14 +14,14 @@ namespace JJW._02_Code
         
         public override bool CanExecute()
         {
-            return OwnerAgent.Target && Vector3.Distance(OwnerAgent.Target.position,OwnerAgent.transform.position) <= DetectionRange && Time.time > _lastAttackTime + AttackCoolTime;
+            return ownerAgent.Target && Vector3.Distance(ownerAgent.Target.position,ownerAgent.transform.position) <= DetectionRange && Time.time > _lastAttackTime + AttackCoolTime;
         }
 
         public override bool CanContinue() => CanExecute();
 
         public override void Tick()
         {
-            int damage = OwnerAgent.EnemyInfo.AttackPower + AdditionalMeleeAttackDamage;
+            int damage = ownerAgent.EnemyInfoSoso.AttackPower + AdditionalMeleeAttackDamage;
             Debug.Log(damage);
             _lastAttackTime = Time.time;
         }

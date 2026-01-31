@@ -4,11 +4,11 @@ namespace GoalAgent
 {
     public abstract class AgentGoal : ScriptableObject
     {
-        protected GoalAgent OwnerAgent;
+        protected GoalAgent ownerAgent;
 
         public void Init(GoalAgent agent)
         {
-            OwnerAgent = agent;
+            ownerAgent = agent;
         }
 
         public abstract bool CanExecute();
