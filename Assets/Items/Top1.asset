@@ -18,4 +18,4 @@ MonoBehaviour:
   isConsumable: 0
   itemType: 32
   itemImage: {fileID: 21300000, guid: fa8852460f13bf4488e21303f4c5b0b9, type: 3}
-  explanation: "\uC0C1\uC758"
+  explanation: top

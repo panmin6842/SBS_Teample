@@ -104,7 +104,7 @@ public class Item : ScriptableObject
     }
 
     [Header("아이템 설명")]
-    [SerializeField] string explanation;
+    [SerializeField] private string explanation;
 
     public string Explanation
     {

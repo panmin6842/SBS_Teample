@@ -52,7 +52,10 @@ public class InventorySlot : MonoBehaviour
         item = nItem;
         itemCount = count;
         itemImage.sprite = item.Image;
-        //explanText.text = item.Explanation;
+        if (explanText != null)
+        {
+            explanText.text = item.Explanation;
+        }
 
         if (item.Type <= ItemType.Equipment_WEAPON)
         {
