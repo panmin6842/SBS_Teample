@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Interface;
 using UnityEngine;
@@ -7,36 +8,61 @@ namespace Enemy
 {
     public class HealthSystem : MonoBehaviour
     {
-        public NotifyValue<int> CurrentHp { get; set; }
-        public NotifyValue<int> MaxHp { get; set; }
+        public IReadOnlyNotifyValue<int> CurrentHp => _currentHp;
+        public IReadOnlyNotifyValue<int> MaxHp => _maxHp;
         
-        [SerializeField] private List<IHealthObserver> observers = new List<IHealthObserver>();
+        public event Action<int,int> OnHealthDecreased;
+        public event Action<int,int> OnHealthIncreased;
+        public event Action OnDead;
+        
+        private NotifyValue<int> _currentHp;
+        private NotifyValue<int> _maxHp;
+        
 
         public void Init(int maxHp)
         {
-            MaxHp.Value = maxHp;
-            CurrentHp.Value = maxHp;
-
+            _currentHp.Value = maxHp;
+            _maxHp.Value = maxHp;
+            
             CurrentHp.OnValueChanged += (beforeHp, currentHp) =>
             {
-                if (beforeHp - currentHp < 0)
+                if (currentHp <= 0)
                 {
-                    foreach (var observer in  observers)
-                    {
-                        observer.OnHealthIncreased(beforeHp, currentHp);
-                    }
+                    OnDead?.Invoke();
+                }
+                else if (beforeHp - currentHp < 0)
+                {
+                    OnHealthDecreased?.Invoke(currentHp, maxHp);
                 }
                 else
                 {
-                    foreach (var observer in observers)
-                    {
-                        observer.OnHealthDecreased(beforeHp, currentHp);
-                        Debug.Log("체력닳음");
-                    }
+                    OnHealthIncreased?.Invoke(currentHp, maxHp);
                 }
-
-                
             };
         }
-    }
+
+        public void ApplyDamage(int damage)
+        {
+            if (CurrentHp.Value <= 0 || CurrentHp.Value - damage <= 0)
+            {
+                OnDead?.Invoke();
+            }
+            else
+            {
+                _currentHp.Value -= damage;
+            }
+        }
+
+        public void ApplyHeal(int heal)
+        {
+            if (CurrentHp.Value <= 0 || CurrentHp.Value + heal >= _maxHp.Value)
+            {
+                _currentHp.Value =  MaxHp.Value;
+            }
+            else
+            {
+                _currentHp.Value += heal;
+            }
+        }
+    } 
 }
