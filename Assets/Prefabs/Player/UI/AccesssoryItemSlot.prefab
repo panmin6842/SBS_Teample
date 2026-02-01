@@ -815,6 +815,7 @@ MonoBehaviour:
   slotMask: 224
   itemCount: 0
   itemImage: {fileID: 3633739168290853830}
+  explanToolTip: {fileID: 3114837549597282870}
   textCount: {fileID: 5734728705451142532}
   explanText: {fileID: 825741721379762261}
 --- !u!1 &8379469364707815588

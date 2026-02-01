@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// 인벤토리 슬롯 하나를 담당
 /// </summary>
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     private Item item;
     public Item Item
@@ -95,12 +95,9 @@ public class InventorySlot : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("slot click");
         if (item != null)
         {
             explanToolTip.SetActive(true);
         }
     }
-
-
 }

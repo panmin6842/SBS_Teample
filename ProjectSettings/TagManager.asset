@@ -12,7 +12,6 @@ TagManager:
   - SwordBasicAttack
   - StampBasicAttack
   - ArrowBasicAttack
-  - EnemyTestAttack
   layers:
   - Default
   - TransparentFX
@@ -21,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 

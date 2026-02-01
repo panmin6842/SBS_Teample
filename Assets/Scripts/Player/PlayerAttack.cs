@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
@@ -17,7 +16,7 @@ public class PlayerAttack : MonoBehaviour
     float attackTime;
     float attackDelay = 1;
     bool attack = false;
-    bool uiClicking = false;
+    public bool uiClicking = false;
 
     [SerializeField] int skillCount = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,15 +39,6 @@ public class PlayerAttack : MonoBehaviour
                 attack = false;
                 attackTime = 0;
             }
-        }
-
-        if (EventSystem.current.IsPointerOverGameObject())
-        {
-            uiClicking = true;
-        }
-        else if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            uiClicking = false;
         }
 
     }
