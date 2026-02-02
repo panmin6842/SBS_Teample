@@ -10,6 +10,9 @@ public class InventoryMain : InventoryBase
     public InputActionMap uiActionMap;
 
     public static bool IsInventoryActive = false;
+    public bool slotClick = false;
+
+    PlayerAttack playerAttack;
 
     new void Awake()
     {
@@ -22,6 +25,8 @@ public class InventoryMain : InventoryBase
     {
         uiActionMap.Enable();
         uiActionMap.FindAction("OpenInventory").performed += OnOpenInventory;
+
+        playerAttack = GameObject.FindWithTag("Player").GetComponent<PlayerAttack>();
     }
 
     private void OnOpenInventory(InputAction.CallbackContext value)
@@ -44,6 +49,7 @@ public class InventoryMain : InventoryBase
         {
             inventoryBase.SetActive(true);
             IsInventoryActive = true;
+            playerAttack.uiClicking = true;
 
             Cursor.visible = true;
         }
@@ -55,6 +61,7 @@ public class InventoryMain : InventoryBase
         {
             inventoryBase.SetActive(false);
             IsInventoryActive = false;
+            playerAttack.uiClicking = false;
 
             //Cursor.visible = false;
         }

@@ -15,9 +15,12 @@ public class ItemRaycast : MonoBehaviour
 
     [SerializeField] private InventoryMain inventory;
 
+    private PlayerAttack playerAttack;
+
     private void Awake()
     {
         inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void OnEnable()
@@ -56,12 +59,14 @@ public class ItemRaycast : MonoBehaviour
             if (!storageInventory.activeSelf)
             {
                 storageInventory.SetActive(true);
+                playerAttack.uiClicking = true;
                 Time.timeScale = 0f;
             }
             else if (storageInventory.activeSelf)
             {
                 Time.timeScale = 1f;
                 storageInventory.SetActive(false);
+                playerAttack.uiClicking = false;
                 isStorageActive = false;
             }
         }

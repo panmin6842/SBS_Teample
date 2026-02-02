@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class EquipmentInventory : InventoryBase
@@ -17,32 +16,35 @@ public class EquipmentInventory : InventoryBase
 
     private void OnEnable()
     {
-        uiActionMap.Enable();
-        uiActionMap.FindAction("OpenInventory").performed += OnOpenInventory;
+        //uiActionMap.Enable();
+        //uiActionMap.FindAction("OpenInventory").performed += OnOpenInventory;
     }
 
-    void Update()
+    /// <summary>
+    /// 장비 장착
+    /// </summary>
+    public void EquipmentInstall()
     {
 
     }
 
-    private void OnOpenInventory(InputAction.CallbackContext context)
-    {
-        //옵션이 켜져있는 경우 활성화 안 함 나중에 작성
+    //private void OnOpenInventory(InputAction.CallbackContext context)
+    //{
+    //    //옵션이 켜져있는 경우 활성화 안 함 나중에 작성
 
-        if (IsInventoryActive)
-        {
-            inventoryBase.SetActive(false);
-            IsInventoryActive = false;
+    //    if (IsInventoryActive)
+    //    {
+    //        inventoryBase.SetActive(false);
+    //        IsInventoryActive = false;
 
-            //Cursor.visible = false;
-        }
-        else
-        {
-            inventoryBase.SetActive(true);
-            IsInventoryActive = true;
+    //        //Cursor.visible = false;
+    //    }
+    //    else
+    //    {
+    //        inventoryBase.SetActive(true);
+    //        IsInventoryActive = true;
 
-            Cursor.visible = true;
-        }
-    }
+    //        Cursor.visible = true;
+    //    }
+    //}
 }

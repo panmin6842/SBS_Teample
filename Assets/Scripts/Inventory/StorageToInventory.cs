@@ -12,12 +12,16 @@ public class StorageToInventory : MonoBehaviour
     private InventorySlot[] e_InventorySlots;
     private InventorySlot[] a_InventorySlots;
 
+    [SerializeField] private GameObject equipmentSlotsPartent;
+    private EquipmentItemSlot[] equipmentSlots;
+
     [SerializeField] private InventoryMain inventory;
 
     private void Awake()
     {
         e_InventorySlots = e_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
         a_InventorySlots = a_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
+        equipmentSlots = equipmentSlotsPartent.GetComponentsInChildren<EquipmentItemSlot>();
     }
     public void GetAll()
     {
@@ -26,54 +30,106 @@ public class StorageToInventory : MonoBehaviour
         int aCount = 0;
         for (int i = 0; i < allSlots.Length; i++)
         {
-            //중첩 가능하면
             if (allSlots[i].Item != null)
             {
+                //중첩 가능하면
                 if (allSlots[i].Item.CanOverlap)
                 {
-                    if (e_InventorySlots[eCount].Item == null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
+                    for (int j = 0; j < e_InventorySlots.Length; j++)
                     {
-                        e_InventorySlots[eCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
-                        allSlots[i].ClearSlot();
-                        eCount++;
-                    }
-                    else if (e_InventorySlots[eCount].Item != null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
-                    {
-                        if (e_InventorySlots[eCount].Item.ItemID == allSlots[i].Item.ItemID)
+                        if (e_InventorySlots[eCount].Item == null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
                         {
-                            e_InventorySlots[eCount].UpdateSlotCount(allSlots[i].itemCount);
+                            e_InventorySlots[eCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
                             allSlots[i].ClearSlot();
+                            eCount++;
+                            break;
                         }
-                    }
-
-                    if (a_InventorySlots[aCount].Item == null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
-                    {
-                        a_InventorySlots[aCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
-                        allSlots[i].ClearSlot();
-                        aCount++;
-                    }
-                    else if (a_InventorySlots[aCount].Item != null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
-                    {
-                        if (a_InventorySlots[aCount].Item.ItemID == allSlots[i].Item.ItemID)
+                        else if (e_InventorySlots[eCount].Item != null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
                         {
-                            a_InventorySlots[aCount].UpdateSlotCount(allSlots[i].itemCount);
+                            if (e_InventorySlots[eCount].Item.ItemID == allSlots[i].Item.ItemID)
+                            {
+                                e_InventorySlots[eCount].UpdateSlotCount(allSlots[i].itemCount);
+                                allSlots[i].ClearSlot();
+                                break;
+                            }
+                        }
+
+                        if (a_InventorySlots[aCount].Item == null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
+                        {
+                            a_InventorySlots[aCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
                             allSlots[i].ClearSlot();
+                            aCount++;
+                            break;
+                        }
+                        else if (a_InventorySlots[aCount].Item != null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
+                        {
+                            if (a_InventorySlots[aCount].Item.ItemID == allSlots[i].Item.ItemID)
+                            {
+                                a_InventorySlots[aCount].UpdateSlotCount(allSlots[i].itemCount);
+                                allSlots[i].ClearSlot();
+                                break;
+                            }
                         }
                     }
                 }
-                else
+                else if (!allSlots[i].Item.CanOverlap)
                 {
-                    if (e_InventorySlots[eCount].Item == null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
+                    for (int j = 0; j < e_InventorySlots.Length; j++)
                     {
-                        e_InventorySlots[eCount].AddItem(allSlots[i].Item, 1);
-                        allSlots[i].ClearSlot();
-                        eCount++;
+                        if (e_InventorySlots[eCount].Item == null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
+                        {
+                            e_InventorySlots[eCount].AddItem(allSlots[i].Item, 1);
+                            allSlots[i].ClearSlot();
+                            eCount++;
+                            break;
+                        }
+                        else if (a_InventorySlots[aCount].Item == null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
+                        {
+                            a_InventorySlots[aCount].AddItem(allSlots[i].Item, 1);
+                            allSlots[i].ClearSlot();
+                            aCount++;
+                            break;
+                        }
+
+                        if (e_InventorySlots[eCount].Item != null)
+                        {
+                            eCount++;
+                        }
+                        if (a_InventorySlots[aCount].Item != null)
+                        {
+                            aCount++;
+                        }
                     }
-                    else if (a_InventorySlots[aCount].Item == null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
+                }
+            }
+        }
+    }
+
+    public void Install(InventorySlot inventorySlot)
+    {
+        Item newItem = null;
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            if (inventorySlot.Item != null)
+            {
+                if (equipmentSlots[i].Item != null) //장비 교체
+                {
+                    if (equipmentSlots[i].IsMask(inventorySlot.Item))
                     {
-                        a_InventorySlots[aCount].AddItem(allSlots[i].Item, 1);
-                        allSlots[i].ClearSlot();
-                        aCount++;
+                        newItem = equipmentSlots[i].Item;
+                        equipmentSlots[i].AddItem(inventorySlot.Item);
+                        inventorySlot.ClearSlot();
+                        inventorySlot.AddItem(newItem);
+                        return;
+                    }
+                }
+                else if (equipmentSlots[i].Item == null) //그대로 장비 착용
+                {
+                    if (equipmentSlots[i].IsMask(inventorySlot.Item))
+                    {
+                        equipmentSlots[i].AddItem(inventorySlot.Item);
+                        inventorySlot.ClearSlot();
+                        return;
                     }
                 }
             }

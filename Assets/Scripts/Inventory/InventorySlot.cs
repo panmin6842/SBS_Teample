@@ -26,8 +26,17 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     [Header("아이템 슬롯에 있는 UI 오브젝트")]
     [SerializeField] private Image itemImage;
     [SerializeField] private GameObject explanToolTip;
-    [SerializeField] TextMeshProUGUI textCount;
-    [SerializeField] TextMeshProUGUI explanText;
+    [SerializeField] private TextMeshProUGUI textCount;
+    [SerializeField] private TextMeshProUGUI explanText;
+
+    private InventoryMain inventory;
+    private StorageToInventory storageToInventory;
+
+    private void OnEnable()
+    {
+        inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
+        storageToInventory = GameObject.Find("InventorySystem").GetComponent<StorageToInventory>();
+    }
 
     // 아이템 이미지의 투명도 조절
     private void SetColor(float _alpha)
@@ -93,11 +102,32 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
         textCount.text = "";
     }
 
+    /// <summary>
+    /// 슬롯 클릭하면 설명창이 나옴
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (item != null)
+        if (item != null && !inventory.slotClick)
         {
             explanToolTip.SetActive(true);
+            inventory.slotClick = true;
         }
+    }
+
+    /// <summary>
+    /// 설명창 닫기
+    /// </summary>
+    public void ExplainToolTipClose()
+    {
+        explanToolTip.SetActive(false);
+        inventory.slotClick = false;
+    }
+
+    public void EquipmentInstall()
+    {
+        storageToInventory.Install(this);
+        explanToolTip.SetActive(false);
+        inventory.slotClick = false;
     }
 }
