@@ -36,6 +36,12 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     {
         inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
         storageToInventory = GameObject.Find("InventorySystem").GetComponent<StorageToInventory>();
+
+        if (explanToolTip != null)
+        {
+            explanToolTip.SetActive(false);
+            inventory.slotClick = false;
+        }
     }
 
     // 아이템 이미지의 투명도 조절

@@ -16,10 +16,7 @@ public enum ItemType
     Equipment_RING = 1 << 6, //64
     Equipment_AMULET = 1 << 7, //128
     Equipment_WEAPON = 1 << 8, //256
-
-    //스킬
-    Skill_Active = 1 << 9,
-    Skill_Passive = 1 << 10,
+    Equipment_CHARM = 1 << 9,
 
     //물약 아이템
 }

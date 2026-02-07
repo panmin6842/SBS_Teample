@@ -13,7 +13,7 @@ public class InventoryMain : InventoryBase
     public bool slotClick = false;
 
     public GameObject player;
-    private PlayerAttack playerAttack;
+    public PlayerAttack playerAttack;
     private ItemRaycast itemRaycast;
 
     public int uiOpen = 0; //어떤 ui를 열었는지 (인벤토리 = 1, 상자 인벤토리 = 2, 스킬 창 = 3)

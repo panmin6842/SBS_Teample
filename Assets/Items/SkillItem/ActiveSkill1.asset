@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6430823037f83e478bec5124980ed35, type: 3}
-  m_Name: Hat1
+  m_Script: {fileID: 11500000, guid: fe1455b89ecba984a991166a65d12614, type: 3}
+  m_Name: ActiveSkill1
   m_EditorClassIdentifier: 
-  itemID: 0
-  canOverlap: 0
-  isInteractivity: 1
-  isConsumable: 0
-  itemType: 8
-  itemImage: {fileID: 21300000, guid: ebaa7152648dbb342b585cb374233f78, type: 3}
-  explanation: hat
+  itemID: 50
+  skillItemType: 1024
+  itemName: Active1
+  itemImage: {fileID: 21300000, guid: 738ffac71a7be3f49851e0cef86dd21b, type: 3}
+  explanation: 
   buff: 0
