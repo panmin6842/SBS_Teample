@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3581325701126494275}
   - component: {fileID: 7133356876189250769}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5429040187789939197}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 286855209952272089}
   - component: {fileID: 6123579153821113704}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,8 +221,9 @@ GameObject:
   - component: {fileID: 9034309685242804896}
   - component: {fileID: 5840808710461513049}
   - component: {fileID: 448567626270011711}
-  - component: {fileID: 3594163252158639283}
-  m_Layer: 0
+  - component: {fileID: 6011735589120359625}
+  - component: {fileID: 159998826501532946}
+  m_Layer: 6
   m_Name: PlayerParent
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -352,7 +353,7 @@ MonoBehaviour:
     m_ActionName: 'Player/SkillChange[/Keyboard/1,/Keyboard/2,/Keyboard/3]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3594163252158639283}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerHit, Assembly-CSharp
         m_MethodName: OnTestKey
         m_Mode: 0
@@ -435,7 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageInventory: {fileID: 0}
   inventory: {fileID: 0}
---- !u!114 &3594163252158639283
+--- !u!114 &6011735589120359625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,11 +445,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 6079222889359566662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fd5519bafd8d24439065ab4e6c1b8fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 11aa1187db69485680e21b6db3ae1645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpText: {fileID: 0}
-  actCountText: {fileID: 0}
+--- !u!114 &159998826501532946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079222889359566662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41867a38075e8444eab4c3fab16c8b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 20
+  atk: 10
+  def: 1
+  actCount: 2
+  healthSystem: {fileID: 6011735589120359625}
 --- !u!1 &6453711728712729560
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8975096322411502852
 Transform:
   m_ObjectHideFlags: 0
@@ -546,7 +562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8978969190427154288}
   - component: {fileID: 4689537249941507456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

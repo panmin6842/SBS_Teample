@@ -10,6 +10,13 @@ public class InventoryMain : InventoryBase
     public InputActionMap uiActionMap;
 
     public static bool IsInventoryActive = false;
+    public bool slotClick = false;
+
+    public GameObject player;
+    public PlayerAttack playerAttack;
+    private ItemRaycast itemRaycast;
+
+    public int uiOpen = 0; //어떤 ui를 열었는지 (인벤토리 = 1, 상자 인벤토리 = 2, 스킬 창 = 3)
 
     new void Awake()
     {
@@ -22,17 +29,20 @@ public class InventoryMain : InventoryBase
     {
         uiActionMap.Enable();
         uiActionMap.FindAction("OpenInventory").performed += OnOpenInventory;
+        player = GameObject.FindWithTag("Player");
+        playerAttack = player.GetComponent<PlayerAttack>();
+        itemRaycast = player.GetComponent<ItemRaycast>();
     }
 
     private void OnOpenInventory(InputAction.CallbackContext value)
     {
         //옵션이 켜저있는 경우 활성화 안 함 나중에 작성
 
-        if (!IsInventoryActive)
+        if (!IsInventoryActive && uiOpen == 0)
         {
             OpenInventory();
         }
-        else
+        else if (IsInventoryActive && uiOpen == 1)
         {
             CloseInventory();
         }
@@ -44,6 +54,8 @@ public class InventoryMain : InventoryBase
         {
             inventoryBase.SetActive(true);
             IsInventoryActive = true;
+            playerAttack.uiClicking = true;
+            uiOpen = 1;
 
             Cursor.visible = true;
         }
@@ -55,6 +67,8 @@ public class InventoryMain : InventoryBase
         {
             inventoryBase.SetActive(false);
             IsInventoryActive = false;
+            playerAttack.uiClicking = false;
+            uiOpen = 0;
 
             //Cursor.visible = false;
         }

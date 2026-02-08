@@ -1,12 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
 /// 인벤토리 슬롯 하나를 담당
 /// </summary>
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     private Item item;
     public Item Item
@@ -24,7 +25,24 @@ public class InventorySlot : MonoBehaviour
 
     [Header("아이템 슬롯에 있는 UI 오브젝트")]
     [SerializeField] private Image itemImage;
-    [SerializeField] TextMeshProUGUI textCount;
+    [SerializeField] private GameObject explanToolTip;
+    [SerializeField] private TextMeshProUGUI textCount;
+    [SerializeField] private TextMeshProUGUI explanText;
+
+    private InventoryMain inventory;
+    private StorageToInventory storageToInventory;
+
+    private void OnEnable()
+    {
+        inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
+        storageToInventory = GameObject.Find("InventorySystem").GetComponent<StorageToInventory>();
+
+        if (explanToolTip != null)
+        {
+            explanToolTip.SetActive(false);
+            inventory.slotClick = false;
+        }
+    }
 
     // 아이템 이미지의 투명도 조절
     private void SetColor(float _alpha)
@@ -50,12 +68,14 @@ public class InventorySlot : MonoBehaviour
         item = nItem;
         itemCount = count;
         itemImage.sprite = item.Image;
+        if (explanText != null)
+        {
+            explanText.text = item.Explanation;
+        }
 
         if (item.Type <= ItemType.Equipment_WEAPON)
         {
-            //textCount.text = "";
-            //임시
-            textCount.text = itemCount.ToString();
+            textCount.text = "";
         }
         else
         {
@@ -86,5 +106,34 @@ public class InventorySlot : MonoBehaviour
         SetColor(0);
 
         textCount.text = "";
+    }
+
+    /// <summary>
+    /// 슬롯 클릭하면 설명창이 나옴
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (item != null && !inventory.slotClick)
+        {
+            explanToolTip.SetActive(true);
+            inventory.slotClick = true;
+        }
+    }
+
+    /// <summary>
+    /// 설명창 닫기
+    /// </summary>
+    public void ExplainToolTipClose()
+    {
+        explanToolTip.SetActive(false);
+        inventory.slotClick = false;
+    }
+
+    public void EquipmentInstall()
+    {
+        storageToInventory.Install(this);
+        explanToolTip.SetActive(false);
+        inventory.slotClick = false;
     }
 }

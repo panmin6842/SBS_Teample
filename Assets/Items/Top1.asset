@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Top1
   m_EditorClassIdentifier: 
   itemID: 1
-  canOverlap: 1
+  canOverlap: 0
   isInteractivity: 1
   isConsumable: 0
   itemType: 32
   itemImage: {fileID: 21300000, guid: fa8852460f13bf4488e21303f4c5b0b9, type: 3}
+  explanation: top

@@ -16,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
     float attackTime;
     float attackDelay = 1;
     bool attack = false;
+    public bool uiClicking = false;
 
     [SerializeField] int skillCount = 1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
                 attackTime = 0;
             }
         }
+
     }
 
     void AttackArrow()
@@ -61,7 +63,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!attack)
+        if (!attack && !uiClicking)
         {
             switch (skillCount)
             {

@@ -32,6 +32,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInfoUI",
+                    "type": "Button",
+                    "id": "0e570431-3586-416c-b459-0ac2b6e82c00",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -65,6 +74,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenStorage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2da15b83-2ad3-49cd-afbd-2bc93e28847e",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInfoUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -16,6 +16,9 @@ public enum ItemType
     Equipment_RING = 1 << 6, //64
     Equipment_AMULET = 1 << 7, //128
     Equipment_WEAPON = 1 << 8, //256
+    Equipment_CHARM = 1 << 9,
+
+    //물약 아이템
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "Add Item/Item")]
@@ -98,6 +101,28 @@ public class Item : ScriptableObject
         get
         {
             return itemImage;
+        }
+    }
+
+    [Header("아이템 설명")]
+    [SerializeField] private string explanation;
+
+    public string Explanation
+    {
+        get
+        {
+            return explanation;
+        }
+    }
+
+    [Header("효과")]
+    [SerializeField] float buff;
+
+    public float Buff
+    {
+        get
+        {
+            return buff;
         }
     }
 }
