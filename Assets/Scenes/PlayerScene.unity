@@ -2379,7 +2379,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1858061600}
   - component: {fileID: 1858061601}
-  - component: {fileID: 1858061602}
   - component: {fileID: 1858061603}
   - component: {fileID: 1858061604}
   - component: {fileID: 1858061605}
@@ -2429,22 +2428,8 @@ MonoBehaviour:
   slotClick: 0
   player: {fileID: 0}
   playerAttack: {fileID: 0}
+  playerProfile: {fileID: 2056261081}
   uiOpen: 0
---- !u!114 &1858061602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858061598}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ba784864df2c645821d1900043f292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryBase: {fileID: 31859763}
-  inventorySlotsParent: {fileID: 764202194}
-  uiInputAction: {fileID: -944628639613478452, guid: e384c5bb4117dfe4cb1d6b8987004de4, type: 3}
 --- !u!114 &1858061603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2635,6 +2620,11 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 10, z: -10}
+--- !u!1 &2056261081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9053511570588595750, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4011188036222705545
 PrefabInstance:
   m_ObjectHideFlags: 0

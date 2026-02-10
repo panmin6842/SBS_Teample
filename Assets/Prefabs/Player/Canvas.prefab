@@ -603,6 +603,7 @@ GameObject:
   - component: {fileID: 2206139660072983113}
   - component: {fileID: 929644237379732160}
   - component: {fileID: 6389966743142510315}
+  - component: {fileID: 8406527243571773072}
   m_Layer: 5
   m_Name: SkillInstallSlot1 (1)
   m_TagString: Untagged
@@ -670,6 +671,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8406527243571773072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396402047400700367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4acab1f30758f24689f6a783d5b8c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 4458318411286915402}
+  itemText: {fileID: 2526543649093868542}
+  slot: {fileID: 5901154686099386345}
 --- !u!1 &401569784115552049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,7 +2010,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 17, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &897198911444618713
@@ -2815,7 +2831,7 @@ GameObject:
   - component: {fileID: 8797150941263291591}
   m_Layer: 5
   m_Name: SkillInstallSlot1 (2)
-  m_TagString: Untagged
+  m_TagString: PassiveSkillSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3689,6 +3705,7 @@ GameObject:
   - component: {fileID: 3639384315819218951}
   - component: {fileID: 5527640537221347577}
   - component: {fileID: 1483948090633433113}
+  - component: {fileID: 8086748588867710365}
   m_Layer: 5
   m_Name: SkillInstallSlot1 (2)
   m_TagString: Untagged
@@ -3756,6 +3773,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8086748588867710365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608765908972380152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4acab1f30758f24689f6a783d5b8c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 4921634099025711237}
+  itemText: {fileID: 6090452623765327307}
+  slot: {fileID: 8808991228830288103}
 --- !u!1 &1633718785531028337
 GameObject:
   m_ObjectHideFlags: 0
@@ -7546,7 +7578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -61, y: -439}
+  m_AnchoredPosition: {x: -73, y: -439}
   m_SizeDelta: {x: 20, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &19222686760600057
@@ -10142,7 +10174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -26, y: -486}
+  m_AnchoredPosition: {x: -31, y: -486}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4872703967922774990
@@ -10209,8 +10241,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -10240,7 +10272,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 47.580383, w: 0}
+  m_margin: {x: -47.653564, y: 0, z: 38.194336, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12365,7 +12397,7 @@ GameObject:
   - component: {fileID: 1231913726651446012}
   m_Layer: 5
   m_Name: SkillInstallSlot1 (1)
-  m_TagString: Untagged
+  m_TagString: ActiveSkill2Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14693,6 +14725,7 @@ GameObject:
   - component: {fileID: 3508561801421950388}
   - component: {fileID: 8556380331545533155}
   - component: {fileID: 5133255552524216004}
+  - component: {fileID: 526524470930738803}
   m_Layer: 5
   m_Name: SkillInstallSlot1
   m_TagString: Untagged
@@ -14760,6 +14793,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &526524470930738803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6806574151491943228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4acab1f30758f24689f6a783d5b8c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 6262917207923714157}
+  itemText: {fileID: 677656562474567172}
+  slot: {fileID: 4574478456222418816}
 --- !u!1 &6868611418851784267
 GameObject:
   m_ObjectHideFlags: 0
@@ -17360,7 +17408,7 @@ GameObject:
   - component: {fileID: 2022454577203372110}
   m_Layer: 5
   m_Name: SkillInstallSlot1
-  m_TagString: Untagged
+  m_TagString: ActiveSkill1Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19552,7 +19600,8 @@ MonoBehaviour:
   curMp: 20
   atk: 10
   def: 1
-  actCount: 2
+  maxActCount: 10
+  curActCount: 10
   skillPoint: 0
   healthSystem: {fileID: 0}
   hpBackground: {fileID: 1469440674639278425}
@@ -19561,6 +19610,8 @@ MonoBehaviour:
   mpBackground: {fileID: 1623267658612939173}
   mpMask: {fileID: 7442712553708629095}
   mpText: {fileID: 2910148642954550067}
+  acSlider: {fileID: 19222686760600057}
+  acText: {fileID: 8935009257023589390}
 --- !u!1 &9075101025382002707
 GameObject:
   m_ObjectHideFlags: 0

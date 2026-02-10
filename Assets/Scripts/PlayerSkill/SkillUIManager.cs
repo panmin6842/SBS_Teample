@@ -35,6 +35,7 @@ public class SkillUIManager : MonoBehaviour
             if (!playerInfo.activeSelf)
             {
                 playerInfo.SetActive(true);
+                inventory.playerProfile.SetActive(false);
                 inventory.playerAttack.uiClicking = true;
                 inventory.uiOpen = 3;
                 Time.timeScale = 0f;
@@ -44,6 +45,7 @@ public class SkillUIManager : MonoBehaviour
         {
             Time.timeScale = 1f;
             playerInfo.SetActive(false);
+            inventory.playerProfile.SetActive(true);
             inventory.playerAttack.uiClicking = false;
             slotClickSlot = 0;
             inventory.uiOpen = 0;

@@ -13,15 +13,52 @@ public class PlayerProfile : PlayerState
     [SerializeField] private Image mpMask;
     [SerializeField] private TextMeshProUGUI mpText;
 
+    [Header("행동력관련 오브젝트")]
+    [SerializeField] private Slider acSlider;
+    [SerializeField] private TextMeshProUGUI acText;
+
     private float lerpSpeed = 5;
+
+    private void Start()
+    {
+    }
 
     private void Update()
     {
         UpdateStateBarStatue(curHp, maxHp, hpText, hpMask, hpBackground);
         UpdateStateBarStatue(curMp, maxMp, mpText, mpMask, mpBackground);
+
+        UpdateActCountBar();
     }
 
-    void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)
+    public void GetDamage(int damage)
+    {
+        curHp -= damage;
+
+        curHp = Mathf.Clamp(curHp, 0, maxHp);
+
+        UpdateStateBarStatue(curHp, maxHp, hpText, hpMask, hpBackground);
+    }
+
+    public void UseMP(int mp)
+    {
+        curMp -= mp;
+
+        curHp = Mathf.Clamp(curMp, 0, maxMp);
+
+        UpdateStateBarStatue(curMp, maxMp, mpText, mpMask, mpBackground);
+    }
+
+    public void UseActCount(int actCount)
+    {
+        curActCount -= actCount;
+
+        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+
+        UpdateActCountBar();
+    }
+
+    private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)
     {
         float _curState = curState;
         float _maxState = maxState;
@@ -40,5 +77,14 @@ public class PlayerProfile : PlayerState
         //게이지 부드럽게 이동
         float newWidth = Mathf.Lerp(curWidth, targetWidth, Time.deltaTime * lerpSpeed);
         _mask.GetComponent<RectTransform>().sizeDelta = new Vector2(newWidth, height);
+    }
+
+    private void UpdateActCountBar()
+    {
+        acText.text = string.Format("{0} / {1}", curActCount, maxActCount);
+
+        float _curActCount = (float)curActCount / (float)maxActCount;
+
+        acSlider.value = Mathf.Lerp(acSlider.value, _curActCount, Time.deltaTime * lerpSpeed);
     }
 }

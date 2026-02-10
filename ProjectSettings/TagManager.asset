@@ -12,6 +12,9 @@ TagManager:
   - SwordBasicAttack
   - StampBasicAttack
   - ArrowBasicAttack
+  - ActiveSkill1Slot
+  - ActiveSkill2Slot
+  - PassiveSkillSlot
   layers:
   - Default
   - TransparentFX
