@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1455b89ecba984a991166a65d12614, type: 3}
-  m_Name: ActiveSkill1
+  m_Name: SwordActiveSkill5
   m_EditorClassIdentifier: 
-  itemID: 50
+  itemID: 54
   skillItemType: 1024
-  itemName: Active1
-  itemImage: {fileID: 21300000, guid: 738ffac71a7be3f49851e0cef86dd21b, type: 3}
+  itemName: Active5
+  itemImage: {fileID: 21300000, guid: 6b6199c800015564ea4822a6a829ec4e, type: 3}
   explanation: 
-  buff: 0
+  number: 5

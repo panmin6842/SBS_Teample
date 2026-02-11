@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe1455b89ecba984a991166a65d12614, type: 3}
-  m_Name: PassiveSkill3
+  m_Name: SwordPassiveSkill2
   m_EditorClassIdentifier: 
-  itemID: 58
+  itemID: 57
   skillItemType: 2048
-  itemName: Passive3
-  itemImage: {fileID: 21300000, guid: ba37f7394cf39c541b037e718cb13577, type: 3}
+  itemName: Passive2
+  itemImage: {fileID: 21300000, guid: 5820e875e132a344d87b64ca39f18fb4, type: 3}
   explanation: 
-  buff: 0
+  number: 2

@@ -32,6 +32,8 @@ public class SkillUISlot : MonoBehaviour, IPointerClickHandler
 
     private SkillUIManager skillUIManager;
 
+    private int choiceSkill = 0;
+
     private void OnEnable()
     {
         skillUIManager = GameObject.Find("InventorySystem").GetComponent<SkillUIManager>();
@@ -59,6 +61,7 @@ public class SkillUISlot : MonoBehaviour, IPointerClickHandler
         skillItem = nItem;
         itemImage.sprite = skillItem.Image;
         itemText.text = skillItem.ItemName;
+        choiceSkill = skillItem.Number;
 
         SetColor(1);
     }

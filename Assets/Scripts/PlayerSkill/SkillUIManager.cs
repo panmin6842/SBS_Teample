@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,10 @@ public class SkillUIManager : MonoBehaviour
     public SkillUISlot checkSkillSlot;
 
     public int slotClickSlot = 0;
+
+    [SerializeField] private TextMeshProUGUI skillPointText;
+    private int skillPointCount = 9;
+
 
     [SerializeField] private GameObject playerInfo;
 
@@ -28,6 +33,17 @@ public class SkillUIManager : MonoBehaviour
         inventory.uiActionMap.FindAction("OpenInfoUI").performed += OnOpenInfoUI;
     }
 
+    public void SkillPointUse()
+    {
+        skillPointCount--;
+        skillPointText.text = "SkillPoint : " + skillPointCount;
+    }
+
+    public int SkillPointCount()
+    {
+        return skillPointCount;
+    }
+
     private void OnOpenInfoUI(InputAction.CallbackContext context)
     {
         if (inventory.uiOpen == 0)
@@ -37,6 +53,7 @@ public class SkillUIManager : MonoBehaviour
                 playerInfo.SetActive(true);
                 inventory.playerProfile.SetActive(false);
                 inventory.playerAttack.uiClicking = true;
+                skillPointText.text = "SkillPoint : " + skillPointCount;
                 inventory.uiOpen = 3;
                 Time.timeScale = 0f;
             }
@@ -51,6 +68,11 @@ public class SkillUIManager : MonoBehaviour
             inventory.uiOpen = 0;
         }
     }
+
+    /// <summary>
+    /// ½ºÅ³ ÀåÂø
+    /// </summary>
+    /// <param name="skillSlot"></param>
     public void Install(SkillPick skillSlot)
     {
         if (checkSkillSlot != null)
