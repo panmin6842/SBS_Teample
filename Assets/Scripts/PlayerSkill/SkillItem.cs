@@ -78,4 +78,15 @@ public class SkillItem : ScriptableObject
             return number;
         }
     }
+
+    [Header("ÄğÅ¸ÀÓ")]
+    [SerializeField] float coolTime;
+
+    public float CoolTime
+    {
+        get
+        {
+            return coolTime;
+        }
+    }
 }

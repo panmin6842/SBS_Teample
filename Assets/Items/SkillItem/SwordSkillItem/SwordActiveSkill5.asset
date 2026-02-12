@@ -18,3 +18,4 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 6b6199c800015564ea4822a6a829ec4e, type: 3}
   explanation: 
   number: 5
+  coolTime: 5

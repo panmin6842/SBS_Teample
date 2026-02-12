@@ -25,6 +25,8 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
 
     private bool clearSuccess = false;
 
+    public bool install = false; //장착 됐는지 확인
+
     /// <summary>
     /// 상호작용 가능한 객체가 가지고 있는 아이템
     /// /// </summary>
@@ -88,7 +90,7 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
             skillUIManager.SkillPointUse();
             clearSuccess = true;
         }
-        else if (clearSuccess && skillUIManager != null)
+        else if (clearSuccess && skillUIManager != null && !skillUIManager.InstallPossibility(this))
         {
             skillUIManager.Install(this);
             explanToolTip.SetActive(false);

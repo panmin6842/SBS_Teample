@@ -9,7 +9,7 @@ public class JobChoice : MonoBehaviour
     [SerializeField] private GameObject skillSlotParent;
     private SkillPick[] slots;
 
-    [SerializeField] private int jobChoiceCount = 0; //0 = 무직, 1 = 전사, 2 = 궁수, 3 = 법사
+    [SerializeField] private int jobChoiceCount = 1; //0 = 무직, 1 = 전사, 2 = 궁수, 3 = 법사
     private bool choice = false; //임시
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

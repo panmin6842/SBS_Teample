@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SwordSkill : MonoBehaviour
 {
@@ -7,32 +8,114 @@ public class SwordSkill : MonoBehaviour
     private int actSkill2Number = 0;
     private int passiveSkillNumber = 0;
 
-    public int ActSkill1Number()
+    [SerializeField] private GameObject slotParent;
+    private PlayerProfileSkill[] slots;
+
+    [Header("ÄðÅ¸ÀÓ")]
+    [SerializeField] private Slider[] coolTimeSlider;
+    [SerializeField] private float coolTimeSkill1;
+    [SerializeField] private float coolTimeSkill2;
+    [SerializeField] private float curCoolTimeSkill1;
+    [SerializeField] private float curCoolTimeSkill2;
+
+    [SerializeField] private bool skill1Start = false;
+    [SerializeField] private bool skill2Start = false;
+
+    private void Update()
     {
-        return actSkill1Number;
+        if (skill1Start)
+        {
+            if (curCoolTimeSkill1 <= 0)
+            {
+                skill1Start = false;
+                curCoolTimeSkill1 = 0f;
+
+                if (coolTimeSlider != null) coolTimeSlider[0].value = 0f;
+            }
+            else
+            {
+                curCoolTimeSkill1 -= Time.deltaTime;
+                UpdateSlider(0, curCoolTimeSkill1);
+            }
+        }
+
+        if (skill2Start)
+        {
+            if (curCoolTimeSkill2 <= 0)
+            {
+                skill2Start = false;
+                curCoolTimeSkill2 = 0f;
+
+                if (coolTimeSlider != null) coolTimeSlider[1].value = 0f;
+            }
+            else
+            {
+                curCoolTimeSkill2 -= Time.deltaTime;
+                UpdateSlider(1, curCoolTimeSkill2);
+            }
+        }
     }
-    public int ActSkill2Number()
+
+    private void UpdateSlider(int number, float curCollTime)
     {
-        return actSkill2Number;
+        if (coolTimeSlider != null)
+        {
+            coolTimeSlider[number].value = curCollTime;
+        }
     }
-    public int PassiveSkillNumber()
+    public void SkillNumberSetting()
     {
-        return passiveSkillNumber;
+        slots = slotParent.GetComponentsInChildren<PlayerProfileSkill>();
+        actSkill1Number = slots[0].choiceNumber;
+        actSkill2Number = slots[1].choiceNumber;
+        passiveSkillNumber = slots[2].choiceNumber;
+        coolTimeSkill1 = slots[0].coolTime;
+        coolTimeSkill2 = slots[1].coolTime;
+        coolTimeSlider[0].value = 0;
+        coolTimeSlider[1].value = 0;
     }
 
     public void OnSkillAttack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            if (context.action.name == "1")
+            if (context.control.name == "1" && slots[0].coolTime > 0)
             {
-                ActiveSkill(actSkill1Number);
+                if (skill1Start) return;
+                Debug.Log("ActiveSkill1Attack");
+
+                skill1Start = true;
+                curCoolTimeSkill1 = coolTimeSkill1;
+                coolTimeSkill1 = slots[0].coolTime;
+                coolTimeSlider[0].maxValue = coolTimeSkill1;
+                coolTimeSlider[0].value = coolTimeSkill1;
+                //ActiveSkill(actSkill1Number);
+            }
+
+            if (context.control.name == "2" && slots[1].coolTime > 0)
+            {
+                if (skill2Start) return;
+                Debug.Log("ActiveSkill2Attack");
+
+                skill2Start = true;
+                curCoolTimeSkill2 = coolTimeSkill2;
+                coolTimeSkill2 = slots[1].coolTime;
+                coolTimeSlider[1].maxValue = coolTimeSkill2;
+                coolTimeSlider[1].value = coolTimeSkill2;
+                //ActiveSkill(actSkill2Number);
             }
         }
     }
 
     private void ActiveSkill(int number)
     {
+        switch (number)
+        {
+            case 1:
+                {
 
+                }
+                break;
+        }
     }
 }

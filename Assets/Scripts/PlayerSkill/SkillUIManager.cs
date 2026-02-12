@@ -18,6 +18,9 @@ public class SkillUIManager : MonoBehaviour
 
     [SerializeField] private GameObject playerInfo;
 
+    [Header("엑티브 스킬 슬롯")]
+    [SerializeField] private SkillUISlot[] slots;
+
     private InventoryMain inventory;
 
     private void Awake()
@@ -86,5 +89,19 @@ public class SkillUIManager : MonoBehaviour
                 Debug.Log("타입이 다름 장착 불가");
             }
         }
+    }
+
+    /// <summary>
+    /// 이미 존재하는지 확인
+    /// </summary>
+    /// <param name="skillSlot"></param>
+    /// <returns></returns>
+    public bool InstallPossibility(SkillPick skillSlot)
+    {
+        if (slots[0].SkillItem == skillSlot.skillItem || slots[1].SkillItem == skillSlot.skillItem)
+        {
+            return true;
+        }
+        return false;
     }
 }
