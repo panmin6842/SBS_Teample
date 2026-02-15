@@ -15,6 +15,7 @@ TagManager:
   - ActiveSkill1Slot
   - ActiveSkill2Slot
   - PassiveSkillSlot
+  - PlayerProfile
   layers:
   - Default
   - TransparentFX

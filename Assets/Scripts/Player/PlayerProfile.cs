@@ -36,17 +36,23 @@ public class PlayerProfile : PlayerState
         curHp -= damage;
 
         curHp = Mathf.Clamp(curHp, 0, maxHp);
-
-        UpdateStateBarStatue(curHp, maxHp, hpText, hpMask, hpBackground);
     }
 
     public void UseMP(int mp)
     {
         curMp -= mp;
 
-        curHp = Mathf.Clamp(curMp, 0, maxMp);
+        curMp = Mathf.Clamp(curMp, 0, maxMp);
+    }
 
-        UpdateStateBarStatue(curMp, maxMp, mpText, mpMask, mpBackground);
+    public float ATK(float damagePercent)
+    {
+        return atk * (damagePercent / 100f);
+    }
+
+    public void ChangeMoveSpeed(float changePercent)
+    {
+        moveSpeed = originMoveSpeed * (1f + (changePercent / 100f));
     }
 
     public void UseActCount(int actCount)
@@ -54,8 +60,6 @@ public class PlayerProfile : PlayerState
         curActCount -= actCount;
 
         curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
-
-        UpdateActCountBar();
     }
 
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)

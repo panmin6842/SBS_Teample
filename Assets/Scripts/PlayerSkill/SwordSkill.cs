@@ -21,6 +21,9 @@ public class SwordSkill : MonoBehaviour
     [SerializeField] private bool skill1Start = false;
     [SerializeField] private bool skill2Start = false;
 
+    [Header("Ä® ¿ÀºêÁ§Æ®")]
+    [SerializeField] private GameObject sword;
+
     private void Update()
     {
         if (skill1Start)
@@ -77,25 +80,23 @@ public class SwordSkill : MonoBehaviour
 
     public void OnSkillAttack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && actSkill1Number > 0)
         {
             if (context.control.name == "1" && slots[0].coolTime > 0)
             {
                 if (skill1Start) return;
-                Debug.Log("ActiveSkill1Attack");
 
                 skill1Start = true;
                 curCoolTimeSkill1 = coolTimeSkill1;
                 coolTimeSkill1 = slots[0].coolTime;
                 coolTimeSlider[0].maxValue = coolTimeSkill1;
                 coolTimeSlider[0].value = coolTimeSkill1;
-                //ActiveSkill(actSkill1Number);
+                ActiveSkill(actSkill1Number);
             }
 
             if (context.control.name == "2" && slots[1].coolTime > 0)
             {
                 if (skill2Start) return;
-                Debug.Log("ActiveSkill2Attack");
 
                 skill2Start = true;
                 curCoolTimeSkill2 = coolTimeSkill2;
@@ -113,7 +114,7 @@ public class SwordSkill : MonoBehaviour
         {
             case 1:
                 {
-
+                    Instantiate(sword, transform.position, sword.transform.rotation);
                 }
                 break;
         }

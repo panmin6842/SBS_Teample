@@ -222,7 +222,8 @@ GameObject:
   - component: {fileID: 5840808710461513049}
   - component: {fileID: 448567626270011711}
   - component: {fileID: 6011735589120359625}
-  - component: {fileID: 159998826501532946}
+  - component: {fileID: 5759918450950251797}
+  - component: {fileID: 7655924410801576270}
   m_Layer: 6
   m_Name: PlayerParent
   m_TagString: Player
@@ -247,6 +248,7 @@ Transform:
   - {fileID: 3581325701126494275}
   - {fileID: 286855209952272089}
   - {fileID: 8975096322411502852}
+  - {fileID: 6849141055182927352}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8432717420701669217
@@ -277,6 +279,7 @@ MonoBehaviour:
   swordAttackObj: {fileID: 6084993611769339035, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
   bowAttackObj: {fileID: 4047336886330174727, guid: 7d753be6d7c68be4c880dbf67283b23f, type: 3}
   stampAttackObj: {fileID: 7257923731058189080, guid: f33bf049778e33349b1b2613b1f413d4, type: 3}
+  uiClicking: 0
   skillCount: 1
 --- !u!114 &5468712068099768932
 MonoBehaviour:
@@ -337,10 +340,10 @@ MonoBehaviour:
     m_ActionName: 'Player/Attack[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1348866554234698275}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
-        m_MethodName: OnSkillChange
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -367,6 +370,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cf837b24-9672-4bd8-81c7-a0dd827a055d
     m_ActionName: 'Player/TestKey[/Keyboard/y]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5759918450950251797}
+        m_TargetAssemblyTypeName: SwordSkill, Assembly-CSharp
+        m_MethodName: OnSkillAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a2d8fd4f-a37d-4257-993d-7b88645100e1
+    m_ActionName: 'Player/SkillAttack[/Keyboard/1,/Keyboard/2]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -448,7 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11aa1187db69485680e21b6db3ae1645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &159998826501532946
+--- !u!114 &5759918450950251797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -457,14 +476,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 6079222889359566662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41867a38075e8444eab4c3fab16c8b82, type: 3}
+  m_Script: {fileID: 11500000, guid: b95df9aa54a9f184894997f8ef6aa4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotParent: {fileID: 0}
+  coolTimeSlider:
+  - {fileID: 0}
+  - {fileID: 0}
+  coolTimeSkill1: 0
+  coolTimeSkill2: 0
+  curCoolTimeSkill1: 0
+  curCoolTimeSkill2: 0
+  skill1Start: 0
+  skill2Start: 0
+  sword: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+--- !u!114 &7655924410801576270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079222889359566662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd5519bafd8d24439065ab4e6c1b8fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5.5
   maxHp: 20
+  curHp: 20
+  maxMp: 20
+  curMp: 20
   atk: 10
   def: 1
-  actCount: 2
-  healthSystem: {fileID: 6011735589120359625}
+  maxActCount: 10
+  curActCount: 10
+  skillPoint: 0
+  healthSystem: {fileID: 0}
+  hpBackground: {fileID: 0}
+  hpMask: {fileID: 0}
+  hpText: {fileID: 0}
+  mpBackground: {fileID: 0}
+  mpMask: {fileID: 0}
+  mpText: {fileID: 0}
+  acSlider: {fileID: 0}
+  acText: {fileID: 0}
 --- !u!1 &6453711728712729560
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,3 +695,97 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &3945552797801736372
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5053195077053781742}
+    m_Modifications:
+    - target: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_Name
+      value: SwordSkill1Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: center.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: boxSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: boxSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: boxSize.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.7825153
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+--- !u!4 &6849141055182927352 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7623576971116387660, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+  m_PrefabInstance: {fileID: 3945552797801736372}
+  m_PrefabAsset: {fileID: 0}
