@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 3731431}
   - component: {fileID: 3731430}
   - component: {fileID: 3731434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 242470481}
   m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 260657247}
   m_Layer: 7
   m_Name: Enemy (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1808,7 +1808,7 @@ GameObject:
   - component: {fileID: 889848835}
   - component: {fileID: 889848834}
   - component: {fileID: 889848837}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground (4)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2125,7 +2125,7 @@ GameObject:
   - component: {fileID: 1278141171}
   - component: {fileID: 1278141170}
   - component: {fileID: 1278141174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2412,7 +2412,7 @@ GameObject:
   - component: {fileID: 1564743683}
   - component: {fileID: 1564743682}
   - component: {fileID: 1564743686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground (3)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2953,6 +2953,67 @@ MonoBehaviour:
   slots:
   - {fileID: 1414388925}
   - {fileID: 167531418}
+--- !u!1001 &1864681126
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.8559809
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.6377625
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 712417398937732485, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2466642687867599595, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_Name
+      value: SwordSkill2Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 2466642687867599595, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
 --- !u!1 &1920929937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9075101025382002707, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -3447,10 +3508,6 @@ PrefabInstance:
       propertyPath: storageInventory
       value: 
       objectReference: {fileID: 1920929937}
-    - target: {fileID: 2636413070716763367, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5053195077053781742, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.2287606
@@ -3574,3 +3631,4 @@ SceneRoots:
   - {fileID: 260657254}
   - {fileID: 662313440}
   - {fileID: 1533108651}
+  - {fileID: 1864681126}

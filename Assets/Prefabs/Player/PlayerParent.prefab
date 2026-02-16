@@ -489,7 +489,8 @@ MonoBehaviour:
   curCoolTimeSkill2: 0
   skill1Start: 0
   skill2Start: 0
-  sword: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+  sword1: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+  sword2: {fileID: 2466642687867599595, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
 --- !u!114 &7655924410801576270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,7 +513,6 @@ MonoBehaviour:
   maxActCount: 10
   curActCount: 10
   skillPoint: 0
-  healthSystem: {fileID: 0}
   hpBackground: {fileID: 0}
   hpMask: {fileID: 0}
   hpText: {fileID: 0}
@@ -709,7 +709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2146516415490465630, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
       propertyPath: center.x
