@@ -491,6 +491,7 @@ MonoBehaviour:
   skill2Start: 0
   sword1: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
   sword2: {fileID: 2466642687867599595, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+  sword3: {fileID: 5045881779274103757, guid: da75e32fcf088d041af4647ccc885974, type: 3}
 --- !u!114 &7655924410801576270
 MonoBehaviour:
   m_ObjectHideFlags: 0
