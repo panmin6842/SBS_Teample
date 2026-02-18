@@ -22,7 +22,16 @@ public class SwordSkill : MonoBehaviour
     [SerializeField] private bool skill2Start = false;
 
     [Header("Ä® ¿ÀºêÁ§Æ®")]
-    [SerializeField] private GameObject sword;
+    [SerializeField] private GameObject sword1;
+    [SerializeField] private GameObject sword2;
+    [SerializeField] private GameObject sword3;
+
+    PlayerAttack playerAttack;
+
+    private void Start()
+    {
+        playerAttack = GetComponent<PlayerAttack>();
+    }
 
     private void Update()
     {
@@ -91,7 +100,7 @@ public class SwordSkill : MonoBehaviour
                 coolTimeSkill1 = slots[0].coolTime;
                 coolTimeSlider[0].maxValue = coolTimeSkill1;
                 coolTimeSlider[0].value = coolTimeSkill1;
-                ActiveSkill(actSkill1Number);
+                SwordActiveSkill(actSkill1Number);
             }
 
             if (context.control.name == "2" && slots[1].coolTime > 0)
@@ -103,18 +112,28 @@ public class SwordSkill : MonoBehaviour
                 coolTimeSkill2 = slots[1].coolTime;
                 coolTimeSlider[1].maxValue = coolTimeSkill2;
                 coolTimeSlider[1].value = coolTimeSkill2;
-                //ActiveSkill(actSkill2Number);
             }
         }
     }
 
-    private void ActiveSkill(int number)
+    private void SwordActiveSkill(int number)
     {
         switch (number)
         {
             case 1:
                 {
-                    Instantiate(sword, transform.position, sword.transform.rotation);
+                    Instantiate(sword1, transform.position, sword1.transform.rotation);
+                }
+                break;
+            case 2:
+                {
+                    Instantiate(sword2, transform.position, 
+                        Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                }
+                break;
+            case 3:
+                {
+                    Instantiate(sword3, transform.position, sword3.transform.rotation);
                 }
                 break;
         }

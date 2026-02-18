@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SwordManager : MonoBehaviour
+public class CuttingSwordSkill : MonoBehaviour
 {
     [SerializeField] private Vector3 boxSize;
     [SerializeField] private LayerMask enemyLayer;

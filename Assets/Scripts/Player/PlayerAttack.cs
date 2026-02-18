@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] GameObject attackPos;
+    public GameObject attackPos;
     [Header("SkillObject")]
     [SerializeField] GameObject swordAttackObj;
     [SerializeField] GameObject bowAttackObj;
@@ -59,6 +59,11 @@ public class PlayerAttack : MonoBehaviour
                 targetRotation,
                 rotateSpeed * Time.deltaTime);
         }
+    }
+
+    public GameObject AttackPos
+    {
+        get { return attackPos; }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
