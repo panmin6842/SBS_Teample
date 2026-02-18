@@ -42,13 +42,13 @@ public class ReleaseOfSwordSkill : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            if(enemy.CompareTag("Wall"))
+            if (enemy.CompareTag("Wall"))
             {
                 Destroy(gameObject);
             }
             if (enemy.CompareTag("Enemy"))
             {
-                Debug.Log(enemy.gameObject.name + "을(를) 공격했습니다!");
+                Debug.Log("스킬 : 검기방출" + enemy.gameObject.name + "을(를) 공격했습니다!");
                 //적 hp 감소
             }
         }

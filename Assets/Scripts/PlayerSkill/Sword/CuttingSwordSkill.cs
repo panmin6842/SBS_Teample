@@ -51,7 +51,7 @@ public class CuttingSwordSkill : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            Debug.Log(enemy.gameObject.name + "을(를) 공격했습니다!");
+            Debug.Log("스킬 : 회전베기" + enemy.gameObject.name + "을(를) 공격했습니다!");
             //적 hp 감소
         }
     }

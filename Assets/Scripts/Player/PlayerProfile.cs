@@ -31,6 +31,12 @@ public class PlayerProfile : PlayerState
         UpdateActCountBar();
     }
 
+    public bool NoDamage
+    {
+        set { NoDamage = value; }
+        get { return NoDamage; }
+    }
+
     public void GetDamage(int damage)
     {
         curHp -= damage;

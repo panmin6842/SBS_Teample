@@ -4,6 +4,7 @@ public class PlayerState : MonoBehaviour
 {
     protected float originMoveSpeed = 5.5f;
     public float moveSpeed = 5.5f;
+    protected bool noDamage = false;
 
     [SerializeField] protected int maxHp = 20; //Ã¼·Â
     [SerializeField] protected int curHp = 20;

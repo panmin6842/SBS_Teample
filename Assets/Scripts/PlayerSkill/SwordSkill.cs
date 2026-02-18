@@ -25,6 +25,7 @@ public class SwordSkill : MonoBehaviour
     [SerializeField] private GameObject sword1;
     [SerializeField] private GameObject sword2;
     [SerializeField] private GameObject sword3;
+    [SerializeField] private GameObject sword4;
 
     PlayerAttack playerAttack;
 
@@ -127,13 +128,18 @@ public class SwordSkill : MonoBehaviour
                 break;
             case 2:
                 {
-                    Instantiate(sword2, transform.position, 
+                    Instantiate(sword2, transform.position,
                         Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
                 }
                 break;
             case 3:
                 {
                     Instantiate(sword3, transform.position, sword3.transform.rotation);
+                }
+                break;
+            case 4:
+                {
+                    Instantiate(sword4, transform.position, sword4.transform.rotation);
                 }
                 break;
         }
