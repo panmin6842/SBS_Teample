@@ -35,6 +35,7 @@ public class CuttingSwordSkill : MonoBehaviour
     private void DestroyGameObject()
     {
         playerProfile.ChangeMoveSpeed(0);
+        playerProfile.SkillStart = false;
         Destroy(gameObject);
     }
 

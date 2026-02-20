@@ -29,7 +29,7 @@ public class BlowSkill : MonoBehaviour
         {
             playerProfile.UseMP(2);
             damage = playerProfile.ATK(1900f);
-            playerProfile.NoDamage = true;
+            //playerProfile.NoDamage = true;
             playerProfile.moveSpeed = 0;
         }
     }
@@ -83,7 +83,7 @@ public class BlowSkill : MonoBehaviour
     private void Hit()
     {
         playerRid.linearVelocity = Vector3.zero;
-        playerProfile.NoDamage = false;
+        //playerProfile.NoDamage = false;
         attack = true;
         playerProfile.ChangeMoveSpeed(1);
         Destroy(this.gameObject);

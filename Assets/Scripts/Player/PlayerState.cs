@@ -19,4 +19,5 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected int skillPoint = 0; //스킬 포인트
 
     [SerializeField] protected int swordBasicAttackCount = 0; //검 기본 공격 횟수
+    [SerializeField] protected bool skillStart = false;
 }

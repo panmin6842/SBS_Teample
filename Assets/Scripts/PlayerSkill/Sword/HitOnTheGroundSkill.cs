@@ -28,7 +28,13 @@ public class HitOnTheGroundSkill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, 10);
+        Invoke("ObjectDestory", 5);
+    }
+
+    void ObjectDestory()
+    {
+        playerProfile.SkillStart = false;
+        Destroy(gameObject);
     }
     void CheckAttack()
     {
@@ -63,7 +69,7 @@ public class HitOnTheGroundSkill : MonoBehaviour
         Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
         //넉백도 들어가야함
         enemyRb.linearVelocity = Vector3.zero;
-        enemyRb.AddForce(Vector3.forward * 2, ForceMode.Impulse);
+        enemyRb.AddForce(Vector3.forward * 5, ForceMode.Impulse);
     }
 
     private void OnDrawGizmos()

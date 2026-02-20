@@ -31,10 +31,16 @@ public class PlayerProfile : PlayerState
         UpdateActCountBar();
     }
 
-    public bool NoDamage
+    //public bool NoDamage
+    //{
+    //    set { NoDamage = value; }
+    //    get { return NoDamage; }
+    //}
+
+    public bool SkillStart
     {
-        set { NoDamage = value; }
-        get { return NoDamage; }
+        set { skillStart = value; }
+        get { return skillStart; }
     }
 
     public int SwordAttackCount

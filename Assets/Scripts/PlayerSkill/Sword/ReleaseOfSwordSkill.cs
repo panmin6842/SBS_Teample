@@ -33,6 +33,7 @@ public class ReleaseOfSwordSkill : MonoBehaviour
     {
         if (other.CompareTag("Wall"))
         {
+            playerProfile.SkillStart = false;
             Destroy(gameObject);
         }
         if (other.CompareTag("Enemy"))

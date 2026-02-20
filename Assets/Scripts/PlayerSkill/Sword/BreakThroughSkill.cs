@@ -85,6 +85,7 @@ public class BreakThroughSkill : MonoBehaviour
         playerRid.linearVelocity = Vector3.zero;
         attack = true;
         playerProfile.ChangeMoveSpeed(1);
+        playerProfile.SkillStart = false;
         Destroy(this.gameObject);
     }
 }

@@ -30,10 +30,11 @@ public class SwordSkill : MonoBehaviour
     [SerializeField] private GameObject sword6;
 
     PlayerAttack playerAttack;
-
+    PlayerProfile playerProfile;
     private void Start()
     {
         playerAttack = GetComponent<PlayerAttack>();
+        playerProfile = GetComponent<PlayerProfile>();
     }
 
     private void Update()
@@ -92,7 +93,7 @@ public class SwordSkill : MonoBehaviour
 
     public void OnSkillAttack(InputAction.CallbackContext context)
     {
-        if (context.started && actSkill1Number > 0)
+        if (context.started && actSkill1Number > 0 && !playerProfile.SkillStart)
         {
             if (context.control.name == "1" && slots[0].coolTime > 0)
             {
@@ -103,6 +104,7 @@ public class SwordSkill : MonoBehaviour
                 coolTimeSkill1 = slots[0].coolTime;
                 coolTimeSlider[0].maxValue = coolTimeSkill1;
                 coolTimeSlider[0].value = coolTimeSkill1;
+                playerProfile.SkillStart = true;
                 SwordActiveSkill(actSkill1Number);
             }
 
@@ -115,6 +117,7 @@ public class SwordSkill : MonoBehaviour
                 coolTimeSkill2 = slots[1].coolTime;
                 coolTimeSlider[1].maxValue = coolTimeSkill2;
                 coolTimeSlider[1].value = coolTimeSkill2;
+                playerProfile.SkillStart = true;
                 SwordActiveSkill(actSkill2Number);
             }
         }
@@ -147,7 +150,8 @@ public class SwordSkill : MonoBehaviour
                 break;
             case 5:
                 {
-                    Instantiate(sword5, transform.position, sword5.transform.rotation);
+                    //Instantiate(sword5, transform.position, sword5.transform.rotation);
+                    Instantiate(sword5, transform.position, Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
                 }
                 break;
             case 6:
