@@ -37,6 +37,21 @@ public class PlayerProfile : PlayerState
         get { return NoDamage; }
     }
 
+    public int SwordAttackCount
+    {
+        set { swordBasicAttackCount = value; }
+        get { return swordBasicAttackCount; }
+    }
+
+    public void IncreasedHp(float increasedPercent)
+    {
+        maxHp = (int)(maxHp * (increasedPercent / 100f));
+    }
+    public void IncreasedMp(float increasedPercent)
+    {
+        maxMp = (int)(maxMp * (increasedPercent / 100f));
+    }
+
     public void GetDamage(int damage)
     {
         curHp -= damage;
@@ -53,7 +68,12 @@ public class PlayerProfile : PlayerState
 
     public float ATK(float damagePercent)
     {
-        return atk * (damagePercent / 100f);
+        return curATK * (damagePercent / 100f);
+    }
+
+    public void ChangeATK(float changePercent)
+    {
+        curATK = maxATK * (1f + changePercent / 100f);
     }
 
     public void ChangeMoveSpeed(float changePercent)

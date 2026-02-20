@@ -27,6 +27,7 @@ public class SwordSkill : MonoBehaviour
     [SerializeField] private GameObject sword3;
     [SerializeField] private GameObject sword4;
     [SerializeField] private GameObject sword5;
+    [SerializeField] private GameObject sword6;
 
     PlayerAttack playerAttack;
 
@@ -114,6 +115,7 @@ public class SwordSkill : MonoBehaviour
                 coolTimeSkill2 = slots[1].coolTime;
                 coolTimeSlider[1].maxValue = coolTimeSkill2;
                 coolTimeSlider[1].value = coolTimeSkill2;
+                SwordActiveSkill(actSkill2Number);
             }
         }
     }
@@ -146,6 +148,11 @@ public class SwordSkill : MonoBehaviour
             case 5:
                 {
                     Instantiate(sword5, transform.position, sword5.transform.rotation);
+                }
+                break;
+            case 6:
+                {
+                    Instantiate(sword6, transform.position, sword6.transform.rotation);
                 }
                 break;
         }
