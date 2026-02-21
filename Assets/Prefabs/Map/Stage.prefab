@@ -57,12 +57,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497495427294859200}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7560381821120080026}
+  m_Father: {fileID: 2652078531936724205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &764290321800393491
 BoxCollider:
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 7390411430677730006}
   - component: {fileID: 2678506210256385501}
   - component: {fileID: 1284809451602010477}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SideWall_R
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -242,7 +242,6 @@ Transform:
   - {fileID: 2652078531936724205}
   - {fileID: 6981340529627803001}
   - {fileID: 909130398814576352}
-  - {fileID: 6403619312570128892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3701794365856672757
@@ -397,6 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 3
 --- !u!1 &5144979569810962450
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 2
 --- !u!1 &6814660579665246470
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +639,7 @@ GameObject:
   - component: {fileID: 8632166638531792868}
   - component: {fileID: 2957594713877384652}
   - component: {fileID: 5598600871830522601}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackWall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -855,6 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 1
 --- !u!1 &7828864564084967939
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,7 +869,7 @@ GameObject:
   - component: {fileID: 80623824257106242}
   - component: {fileID: 7291265072047404045}
   - component: {fileID: 3747746684999872851}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SideWall_L
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1084,6 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
 --- !u!1 &8076056445954916831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1099,7 @@ GameObject:
   - component: {fileID: 6882778836161577908}
   - component: {fileID: 1293581487114998036}
   - component: {fileID: 4083234465623639518}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontWall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1209,7 +1212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2652078531936724205
 Transform:
   m_ObjectHideFlags: 0
@@ -1227,6 +1230,7 @@ Transform:
   - {fileID: 6758475753065487265}
   - {fileID: 7825000287518589531}
   - {fileID: 8307612679917325971}
+  - {fileID: 6403619312570128892}
   m_Father: {fileID: 7560381821120080026}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3809560422600107664
@@ -1252,7 +1256,6 @@ MonoBehaviour:
   PortalEffectImage: {fileID: 0}
   CinemachineCamera: {fileID: 0}
   PlayerTransform: {fileID: 0}
-  MainCameraTransform: {fileID: 0}
 --- !u!65 &6379256313729913447
 BoxCollider:
   m_ObjectHideFlags: 0

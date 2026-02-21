@@ -13,7 +13,7 @@ public class StageDetector : MonoBehaviour
 
     void Start()
     {
-        portalManager = PortalManager.instance;
+        portalManager = GetComponentInParent<PortalManager>();
     }
 
     void Update()

@@ -12,6 +12,7 @@ TagManager:
   - SwordBasicAttack
   - StampBasicAttack
   - ArrowBasicAttack
+  - PortalManager
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - 
+  - Wall
   - 
   - 
   - 

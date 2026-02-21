@@ -12,8 +12,6 @@ public enum WallDirection
 
 public class PortalManager : MonoBehaviour
 {
-    public static PortalManager instance;
-
     public bool isPortalActive;
     [Space(10f)]
     public GameObject PortalObject;
@@ -32,11 +30,9 @@ public class PortalManager : MonoBehaviour
     [HideInInspector] public Image PortalEffectImage;
     [HideInInspector] public CinemachineCamera CinemachineCamera;
     [HideInInspector] public Transform PlayerTransform;
-    [HideInInspector] public Transform MainCameraTransform;
 
     void Awake()
     {
-        instance = this;
         ThisStage = gameObject;
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
@@ -47,7 +43,6 @@ public class PortalManager : MonoBehaviour
     void Start()
     {
         PlayerTransform = PlayerObject.GetComponent<Transform>();
-        MainCameraTransform = MainCameraObject.GetComponent<Transform>();
     }
 
     void Update()

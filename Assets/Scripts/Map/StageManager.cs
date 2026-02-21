@@ -7,8 +7,7 @@ public class StageManager : MonoBehaviour
     public static StageManager instance;
 
     public GameObject stage;
-    float spacing = 40f;
-    public List<GameObject> StageList = new List<GameObject>();
+    public float spacing = 40f;
 
     private void Awake()
     {
