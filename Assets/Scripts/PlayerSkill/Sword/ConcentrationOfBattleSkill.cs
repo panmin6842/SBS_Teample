@@ -35,6 +35,8 @@ public class ConcentrationOfBattleSkill : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("스킬 : 전투 집중" + other.gameObject.name + "을(를) 공격했습니다!");
+            if (playerProfile.BloodHeal)
+                playerProfile.BloodHealHp(10, damage);
         }
         if (other.CompareTag("Wall"))
         {

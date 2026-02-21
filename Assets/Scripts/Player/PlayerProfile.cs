@@ -21,7 +21,9 @@ public class PlayerProfile : PlayerState
     [SerializeField] private TextMeshProUGUI hpTestText;
     [SerializeField] private TextMeshProUGUI mpTestText;
     [SerializeField] private TextMeshProUGUI atkTestText;
+    [SerializeField] private TextMeshProUGUI basicAtkTestText;
     [SerializeField] private TextMeshProUGUI defTestText;
+    [SerializeField] private TextMeshProUGUI moveSpeedTestText;
 
     private float lerpSpeed = 5;
 
@@ -42,9 +44,11 @@ public class PlayerProfile : PlayerState
     private void StateTestText()
     {
         hpTestText.text = "hp : " + curHp;
-        hpTestText.text = "mp : " + curMp;
-        hpTestText.text = "atk : " + curATK;
-        hpTestText.text = "def : " + curDEF;
+        mpTestText.text = "mp : " + curMp;
+        atkTestText.text = "atk : " + curATK;
+        basicAtkTestText.text = "basicAtk : " + basicATK;
+        defTestText.text = "def : " + curDEF;
+        moveSpeedTestText.text = "moveSpeed : " + moveSpeed;
     }
 
     //public bool NoDamage
@@ -65,15 +69,60 @@ public class PlayerProfile : PlayerState
         get { return swordBasicAttackCount; }
     }
 
+    public bool BloodHeal
+    {
+        set { bloodHeal = value; }
+        get { return bloodHeal; }
+    }
+
+    public float BasicATK
+    {
+        get { return basicATK; }
+    }
+
     public void IncreasedHp(float increasedPercent)
     {
-        maxHp = (int)(maxHp * (increasedPercent / 100f));
+        maxHp = maxHp * (increasedPercent / 100f);
     }
     public void IncreasedMp(float increasedPercent)
     {
         maxMp = (int)(maxMp * (increasedPercent / 100f));
     }
 
+    //패시브 효과
+    public void PassiveATK(float increasedPercent)
+    {
+        passiveATK = maxATK * (1f + (increasedPercent / 100f));
+        curATK = passiveATK;
+    }
+
+    public void PassiveBasicATK(float increasedPercent)
+    {
+        passiveATK = maxATK * (1f + (increasedPercent / 100f));
+        basicATK = passiveATK;
+    }
+    public void PassiveDEF(float increasedPercent)
+    {
+        passiveDEF = maxDEF * (1f + (increasedPercent / 100f));
+        curDEF = passiveDEF;
+    }
+
+    public void PassiveMoveSpeed(float increasedPercent)
+    {
+        passiveMoveSpeed = (int)(originMoveSpeed * (1f + (increasedPercent / 100f)));
+        moveSpeed = passiveMoveSpeed;
+    }
+
+    //패시브 효과 초기화
+    public void StateReset()
+    {
+        passiveATK = maxATK;
+        passiveDEF = maxDEF;
+        passiveMoveSpeed = originMoveSpeed;
+        bloodHeal = false;
+    }
+
+    //스킬 효과
     public void GetDamage(int damage)
     {
         curHp -= damage;
@@ -95,17 +144,26 @@ public class PlayerProfile : PlayerState
 
     public void ChangeATK(float changePercent)
     {
-        curATK = maxATK * (1f + changePercent / 100f);
+        curATK = passiveATK * (1f + changePercent / 100f);
     }
 
     public void ChangeDEF(float changePercent)
     {
-        curDEF = maxDEF * (1f + changePercent / 100f);
+        curDEF = passiveDEF * (1f + changePercent / 100f);
     }
 
     public void ChangeMoveSpeed(float changePercent)
     {
-        moveSpeed = originMoveSpeed * (1f + (changePercent / 100f));
+        moveSpeed = passiveMoveSpeed * (1f + (changePercent / 100f));
+    }
+
+    public void BloodHealHp(float bloodPercent, float damage)
+    {
+        float bloodValue;
+        bloodValue = damage * (bloodPercent / 100f);
+        curHp += bloodValue;
+
+        curHp = Mathf.Clamp(curHp, 0, maxHp);
     }
 
     public void UseActCount(int actCount)
@@ -120,7 +178,7 @@ public class PlayerProfile : PlayerState
         float _curState = curState;
         float _maxState = maxState;
 
-        stateText.text = string.Format("{0} / {1}", _curState, _maxState);
+        stateText.text = string.Format("{0} / {1}", Mathf.CeilToInt(_curState), Mathf.CeilToInt(_maxState));
 
         float height = _mask.GetComponent<RectTransform>().sizeDelta.y;
         float fullWidth = _background.GetComponent<RectTransform>().sizeDelta.x;

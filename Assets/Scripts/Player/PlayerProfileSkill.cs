@@ -31,6 +31,7 @@ public class PlayerProfileSkill : MonoBehaviour
         if (swordSkill != null)
         {
             swordSkill.SkillNumberSetting();
+            swordSkill.SwordPassiveSkill();
         }
     }
 

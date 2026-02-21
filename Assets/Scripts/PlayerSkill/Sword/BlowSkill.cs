@@ -71,6 +71,8 @@ public class BlowSkill : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("스킬 : 회심의 일격" + other.gameObject.name + "을(를) 공격했습니다!");
+            if (playerProfile.BloodHeal)
+                playerProfile.BloodHealHp(10, damage);
             Hit();
         }
         if (other.CompareTag("Wall"))
@@ -86,6 +88,7 @@ public class BlowSkill : MonoBehaviour
         //playerProfile.NoDamage = false;
         attack = true;
         playerProfile.ChangeMoveSpeed(1);
+        playerProfile.SkillStart = false;
         Destroy(this.gameObject);
     }
 }

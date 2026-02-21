@@ -11,6 +11,8 @@ public class SwordAttackManager : MonoBehaviour
     [SerializeField] private Vector3 originalSize;
 
     public float debugDuration = 5f; // 디버그 박스가 유지될 시간
+
+    private float damage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
@@ -21,7 +23,8 @@ public class SwordAttackManager : MonoBehaviour
     {
         playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         playerProfile.SwordAttackCount++;
-        Debug.Log(playerProfile.SwordAttackCount);
+
+        damage = playerProfile.BasicATK;
 
         StartCoroutine(CheckAttackRoutine());
     }
@@ -58,6 +61,8 @@ public class SwordAttackManager : MonoBehaviour
         {
             Debug.Log(enemy.gameObject.name + "을(를) 공격했습니다!");
             //적 hp 감소
+            if (playerProfile.BloodHeal)
+                playerProfile.BloodHealHp(10, damage);
         }
     }
 

@@ -15,6 +15,8 @@ public class SwordSkill : MonoBehaviour
     [SerializeField] private Slider[] coolTimeSlider;
     [SerializeField] private float coolTimeSkill1;
     [SerializeField] private float coolTimeSkill2;
+    [SerializeField] private float passiveCoolTimeSkill1;
+    [SerializeField] private float passiveCoolTimeSkill2;
     [SerializeField] private float curCoolTimeSkill1;
     [SerializeField] private float curCoolTimeSkill2;
 
@@ -31,6 +33,7 @@ public class SwordSkill : MonoBehaviour
 
     PlayerAttack playerAttack;
     PlayerProfile playerProfile;
+    [SerializeField] private SwordAttackManager swordAttackManager;
     private void Start()
     {
         playerAttack = GetComponent<PlayerAttack>();
@@ -50,7 +53,6 @@ public class SwordSkill : MonoBehaviour
             {
                 skill1Start = false;
                 curCoolTimeSkill1 = 0f;
-
                 if (coolTimeSlider != null) coolTimeSlider[0].value = 0f;
             }
             else
@@ -66,7 +68,6 @@ public class SwordSkill : MonoBehaviour
             {
                 skill2Start = false;
                 curCoolTimeSkill2 = 0f;
-
                 if (coolTimeSlider != null) coolTimeSlider[1].value = 0f;
             }
             else
@@ -94,6 +95,9 @@ public class SwordSkill : MonoBehaviour
         coolTimeSkill2 = slots[1].coolTime;
         coolTimeSlider[0].value = 0;
         coolTimeSlider[1].value = 0;
+
+        curCoolTimeSkill1 = coolTimeSkill1;
+        curCoolTimeSkill2 = coolTimeSkill2;
     }
 
     public void OnSkillAttack(InputAction.CallbackContext context)
@@ -105,10 +109,10 @@ public class SwordSkill : MonoBehaviour
                 if (skill1Start) return;
 
                 skill1Start = true;
-                curCoolTimeSkill1 = coolTimeSkill1;
+                curCoolTimeSkill1 = passiveCoolTimeSkill1;
                 coolTimeSkill1 = slots[0].coolTime;
-                coolTimeSlider[0].maxValue = coolTimeSkill1;
-                coolTimeSlider[0].value = coolTimeSkill1;
+                coolTimeSlider[0].maxValue = curCoolTimeSkill1;
+                coolTimeSlider[0].value = curCoolTimeSkill1;
                 playerProfile.SkillStart = true;
                 SwordActiveSkill(actSkill1Number);
             }
@@ -118,10 +122,10 @@ public class SwordSkill : MonoBehaviour
                 if (skill2Start) return;
 
                 skill2Start = true;
-                curCoolTimeSkill2 = coolTimeSkill2;
+                curCoolTimeSkill2 = passiveCoolTimeSkill2;
                 coolTimeSkill2 = slots[1].coolTime;
-                coolTimeSlider[1].maxValue = coolTimeSkill2;
-                coolTimeSlider[1].value = coolTimeSkill2;
+                coolTimeSlider[1].maxValue = curCoolTimeSkill2;
+                coolTimeSlider[1].value = curCoolTimeSkill2;
                 playerProfile.SkillStart = true;
                 SwordActiveSkill(actSkill2Number);
             }
@@ -168,15 +172,49 @@ public class SwordSkill : MonoBehaviour
 
     }
 
-    private void SwordPassiveSkill(int number)
+    public void SwordPassiveSkill()
     {
-        switch (number)
+        switch (passiveSkillNumber)
         {
             case 1:
                 {
-                    playerProfile.ChangeDEF(30);
+                    PassiveBuff(30, -30, -30, -20, 0, 0, 0, false, 0, 0);
+                }
+                break;
+            case 2:
+                {
+                    PassiveBuff(-25, 25, 25, 0, 0, 0, 0, true, 0, 0);
+                }
+                break;
+            case 3:
+                {
+                    if (actSkill1Number == 6)
+                    {
+                        PassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 10, 0);
+                    }
+                    else if (actSkill2Number == 6)
+                        PassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 0, 10);
+                    else
+                        PassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 0, 0);
                 }
                 break;
         }
+    }
+
+    private void PassiveBuff(float passiveDef, float passiveBasicAtk, float passiveAtk, float passiveMoveSpeed,
+        float increasedColliderSize, float changeAttackDelay, float coolTimePersent, bool bloodHeal, float coolTimePlue1, float coolTimePlue2)
+    {
+        playerProfile.PassiveDEF(passiveDef);
+        playerProfile.PassiveBasicATK(passiveBasicAtk);
+        playerProfile.PassiveATK(passiveAtk);
+        playerProfile.PassiveMoveSpeed(passiveMoveSpeed);
+        if (swordAttackManager != null)
+        {
+            swordAttackManager.IncreasedColliderSize(increasedColliderSize);
+        }
+        playerAttack.ChangeAttackDelay(changeAttackDelay);
+        passiveCoolTimeSkill1 = (coolTimeSkill1 * (1f + (coolTimePersent / 100))) + coolTimePlue1;
+        passiveCoolTimeSkill2 = (coolTimeSkill2 * (1f + (coolTimePersent / 100))) + coolTimePlue2;
+        playerProfile.BloodHeal = bloodHeal;
     }
 }

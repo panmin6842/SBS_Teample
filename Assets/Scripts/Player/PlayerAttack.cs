@@ -14,7 +14,8 @@ public class PlayerAttack : MonoBehaviour
     float angle;
 
     float attackTime;
-    float attackDelay = 1;
+    [SerializeField] private float attackDelay = 1;
+    float originattackDelay = 1;
     bool attack = false;
     public bool uiClicking = false;
 
@@ -41,6 +42,11 @@ public class PlayerAttack : MonoBehaviour
             }
         }
 
+    }
+
+    public void ChangeAttackDelay(float changePercent)
+    {
+        attackDelay = originattackDelay * (1f + (changePercent / 100f));
     }
 
     void AttackArrow()
@@ -96,37 +102,37 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnSkillChange(InputAction.CallbackContext context)
     {
-        //if (context.started)
-        //{
-        //    string pressNumber = context.control.name;
+        if (context.started)
+        {
+            string pressNumber = context.control.name;
 
-        //    switch (pressNumber)
-        //    {
-        //        case "1":
-        //            {
-        //                Debug.Log("swordskill");
-        //                attackDelay = 1;
-        //                attack = false;
-        //                skillCount = 1;
-        //            }
-        //            break;
-        //        case "2":
-        //            {
-        //                Debug.Log("bowskill");
-        //                attackDelay = 0.5f;
-        //                attack = false;
-        //                skillCount = 2;
-        //            }
-        //            break;
-        //        case "3":
-        //            {
-        //                Debug.Log("stampskill");
-        //                attackDelay = 2.5f;
-        //                attack = false;
-        //                skillCount = 3;
-        //            }
-        //            break;
-        //    }
-        //}
+            switch (pressNumber)
+            {
+                case "z":
+                    {
+                        Debug.Log("swordskill");
+                        attackDelay = 1;
+                        attack = false;
+                        skillCount = 1;
+                    }
+                    break;
+                case "x":
+                    {
+                        Debug.Log("bowskill");
+                        attackDelay = 0.5f;
+                        attack = false;
+                        skillCount = 2;
+                    }
+                    break;
+                case "c":
+                    {
+                        Debug.Log("stampskill");
+                        attackDelay = 2.5f;
+                        attack = false;
+                        skillCount = 3;
+                    }
+                    break;
+            }
+        }
     }
 }

@@ -54,6 +54,8 @@ public class HitOnTheGroundSkill : MonoBehaviour
             if (dist <= 2)
             {
                 Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                if (playerProfile.BloodHeal)
+                    playerProfile.BloodHealHp(10, damage1);
             }
             else if (dist > 2 && dist <= 5)
             {
@@ -67,6 +69,8 @@ public class HitOnTheGroundSkill : MonoBehaviour
         //시간 차 공격
         yield return new WaitForSeconds(2);
         Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+        if (playerProfile.BloodHeal)
+            playerProfile.BloodHealHp(10, damage2);
         //넉백도 들어가야함
         enemyRb.linearVelocity = Vector3.zero;
         enemyRb.AddForce(Vector3.forward * 5, ForceMode.Impulse);

@@ -279,6 +279,7 @@ MonoBehaviour:
   swordAttackObj: {fileID: 6084993611769339035, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
   bowAttackObj: {fileID: 4047336886330174727, guid: 7d753be6d7c68be4c880dbf67283b23f, type: 3}
   stampAttackObj: {fileID: 7257923731058189080, guid: f33bf049778e33349b1b2613b1f413d4, type: 3}
+  attackDelay: 1
   uiClicking: 0
   skillCount: 1
 --- !u!114 &5468712068099768932
@@ -340,10 +341,10 @@ MonoBehaviour:
     m_ActionName: 'Player/Attack[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1348866554234698275}
         m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: OnSkillChange
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -485,6 +486,8 @@ MonoBehaviour:
   - {fileID: 0}
   coolTimeSkill1: 0
   coolTimeSkill2: 0
+  passiveCoolTimeSkill1: 0
+  passiveCoolTimeSkill2: 0
   curCoolTimeSkill1: 0
   curCoolTimeSkill2: 0
   skill1Start: 0
@@ -494,6 +497,8 @@ MonoBehaviour:
   sword3: {fileID: 5045881779274103757, guid: da75e32fcf088d041af4647ccc885974, type: 3}
   sword4: {fileID: 3436173615126604055, guid: 7a2a07fca208285499fc41eb6a5a1aaa, type: 3}
   sword5: {fileID: 6191426551495023619, guid: e7fcb2b50373f5d46ac289052a4c9565, type: 3}
+  sword6: {fileID: 6044470341994163391, guid: 8e8bd734ae94e9d4eb5475c41752cfb6, type: 3}
+  swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
 --- !u!114 &7655924410801576270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,11 +516,19 @@ MonoBehaviour:
   curHp: 20
   maxMp: 20
   curMp: 20
-  atk: 10
-  def: 1
+  curATK: 10
+  maxATK: 10
+  passiveATK: 10
+  basicATK: 10
+  curDEF: 1
+  maxDEF: 1
+  passiveDEF: 1
   maxActCount: 10
   curActCount: 10
   skillPoint: 0
+  swordBasicAttackCount: 0
+  skillStart: 0
+  bloodHeal: 0
   hpBackground: {fileID: 0}
   hpMask: {fileID: 0}
   hpText: {fileID: 0}
@@ -524,6 +537,12 @@ MonoBehaviour:
   mpText: {fileID: 0}
   acSlider: {fileID: 0}
   acText: {fileID: 0}
+  hpTestText: {fileID: 0}
+  mpTestText: {fileID: 0}
+  atkTestText: {fileID: 0}
+  basicAtkTestText: {fileID: 0}
+  defTestText: {fileID: 0}
+  moveSpeedTestText: {fileID: 0}
 --- !u!1 &6453711728712729560
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,6 +39,8 @@ public class ReleaseOfSwordSkill : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("스킬 : 검기방출" + other.gameObject.name + "을(를) 공격했습니다!");
+            if (playerProfile.BloodHeal)
+                playerProfile.BloodHealHp(10, damage);
             //적 hp 감소
         }
     }
