@@ -17,6 +17,12 @@ public class PlayerProfile : PlayerState
     [SerializeField] private Slider acSlider;
     [SerializeField] private TextMeshProUGUI acText;
 
+    [Header("스테이터스 표시")]
+    [SerializeField] private TextMeshProUGUI hpTestText;
+    [SerializeField] private TextMeshProUGUI mpTestText;
+    [SerializeField] private TextMeshProUGUI atkTestText;
+    [SerializeField] private TextMeshProUGUI defTestText;
+
     private float lerpSpeed = 5;
 
     private void Start()
@@ -29,6 +35,16 @@ public class PlayerProfile : PlayerState
         UpdateStateBarStatue(curMp, maxMp, mpText, mpMask, mpBackground);
 
         UpdateActCountBar();
+
+        StateTestText();
+    }
+
+    private void StateTestText()
+    {
+        hpTestText.text = "hp : " + curHp;
+        hpTestText.text = "mp : " + curMp;
+        hpTestText.text = "atk : " + curATK;
+        hpTestText.text = "def : " + curDEF;
     }
 
     //public bool NoDamage
@@ -80,6 +96,11 @@ public class PlayerProfile : PlayerState
     public void ChangeATK(float changePercent)
     {
         curATK = maxATK * (1f + changePercent / 100f);
+    }
+
+    public void ChangeDEF(float changePercent)
+    {
+        curDEF = maxDEF * (1f + changePercent / 100f);
     }
 
     public void ChangeMoveSpeed(float changePercent)

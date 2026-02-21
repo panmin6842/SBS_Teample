@@ -39,6 +39,11 @@ public class SwordSkill : MonoBehaviour
 
     private void Update()
     {
+        CoolTime();
+    }
+
+    private void CoolTime()
+    {
         if (skill1Start)
         {
             if (curCoolTimeSkill1 <= 0)
@@ -157,6 +162,19 @@ public class SwordSkill : MonoBehaviour
             case 6:
                 {
                     Instantiate(sword6, transform.position, sword6.transform.rotation);
+                }
+                break;
+        }
+
+    }
+
+    private void SwordPassiveSkill(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                {
+                    playerProfile.ChangeDEF(30);
                 }
                 break;
         }
