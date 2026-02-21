@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SkillPick : MonoBehaviour, IPointerClickHandler
 {
     [Header("해당 오브젝트에 할당되는 스킬아이템")]
-    [SerializeField] private SkillItem skillItem;
+    public SkillItem skillItem;
 
     [Header("테스트 이름")]
     [SerializeField] private TextMeshProUGUI testText;
@@ -25,6 +25,8 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
 
     private bool clearSuccess = false;
 
+    public bool install = false; //장착 됐는지 확인
+
     /// <summary>
     /// 상호작용 가능한 객체가 가지고 있는 아이템
     /// /// </summary>
@@ -41,19 +43,22 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
     {
         inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
         skillUIManager = GameObject.Find("InventorySystem").GetComponent<SkillUIManager>();
-        if (skillItem.Type == SkillItemType.Skill_Active)
+        if (skillItem != null)
         {
-            testText.text = "ActiveSkill";
-        }
-        else if (skillItem.Type == SkillItemType.Skill_Passive)
-        {
-            testText.text = "PassiveSkill";
-        }
+            if (skillItem.Type == SkillItemType.Skill_Active)
+            {
+                testText.text = "ActiveSkill";
+            }
+            else if (skillItem.Type == SkillItemType.Skill_Passive)
+            {
+                testText.text = "PassiveSkill";
+            }
 
-        slotImage.sprite = skillItem.Image;
-        explanToolTip.SetActive(false);
-        inventory.slotClick = false;
-        SetColor(1);
+            slotImage.sprite = skillItem.Image;
+            explanToolTip.SetActive(false);
+            inventory.slotClick = false;
+            SetColor(1);
+        }
     }
 
     // 아이템 이미지의 투명도 조절
@@ -79,12 +84,13 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
 
     public void SkillClearSuccess()
     {
-        if (!clearSuccess)
+        if (!clearSuccess && skillUIManager.SkillPointCount() > 0)
         {
             clearButton.GetComponentInChildren<TextMeshProUGUI>().text = "Install";
+            skillUIManager.SkillPointUse();
             clearSuccess = true;
         }
-        else if (clearSuccess && skillUIManager != null)
+        else if (clearSuccess && skillUIManager != null && !skillUIManager.InstallPossibility(this))
         {
             skillUIManager.Install(this);
             explanToolTip.SetActive(false);

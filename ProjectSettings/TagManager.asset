@@ -12,7 +12,9 @@ TagManager:
   - SwordBasicAttack
   - StampBasicAttack
   - ArrowBasicAttack
-  - PortalManager
+  - PassiveSkillSlot
+  - ActiveSkill2Slot
+  - ActiveSkill1Slot
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,8 @@ public class InventoryMain : InventoryBase
     public PlayerAttack playerAttack;
     private ItemRaycast itemRaycast;
 
+    public GameObject playerProfile;
+
     public int uiOpen = 0; //어떤 ui를 열었는지 (인벤토리 = 1, 상자 인벤토리 = 2, 스킬 창 = 3)
 
     new void Awake()
@@ -53,6 +55,7 @@ public class InventoryMain : InventoryBase
         if (inventoryBase != null)
         {
             inventoryBase.SetActive(true);
+            playerProfile.SetActive(false);
             IsInventoryActive = true;
             playerAttack.uiClicking = true;
             uiOpen = 1;
@@ -66,6 +69,7 @@ public class InventoryMain : InventoryBase
         if (inventoryBase != null)
         {
             inventoryBase.SetActive(false);
+            playerProfile.SetActive(true);
             IsInventoryActive = false;
             playerAttack.uiClicking = false;
             uiOpen = 0;

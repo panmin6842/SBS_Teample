@@ -3,25 +3,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
-    float moveSpeed = 5.5f;
+    private PlayerProfile playerProfile;
 
-    Vector2 movement;
-    RaycastHit hit;
-    float rayDistance = 2;
+    private Vector2 movement;
+    private RaycastHit hit;
+    private float rayDistance = 2;
 
-    Rigidbody rb;
+    private Rigidbody rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerProfile = GetComponent<PlayerProfile>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float xOffset = movement.x * moveSpeed * Time.deltaTime;
-        float yOffset = movement.y * moveSpeed * Time.deltaTime;
+        float xOffset = movement.x * playerProfile.moveSpeed * Time.deltaTime;
+        float yOffset = movement.y * playerProfile.moveSpeed * Time.deltaTime;
         if (!HitWall())
         {
             transform.localPosition += new Vector3(xOffset, 0f, yOffset);

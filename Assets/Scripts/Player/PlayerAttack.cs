@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] GameObject attackPos;
+    public GameObject attackPos;
     [Header("SkillObject")]
     [SerializeField] GameObject swordAttackObj;
     [SerializeField] GameObject bowAttackObj;
@@ -61,6 +61,11 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    public GameObject AttackPos
+    {
+        get { return attackPos; }
+    }
+
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (!attack && !uiClicking)
@@ -91,37 +96,37 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnSkillChange(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            string pressNumber = context.control.name;
+        //if (context.started)
+        //{
+        //    string pressNumber = context.control.name;
 
-            switch (pressNumber)
-            {
-                case "1":
-                    {
-                        Debug.Log("swordskill");
-                        attackDelay = 1;
-                        attack = false;
-                        skillCount = 1;
-                    }
-                    break;
-                case "2":
-                    {
-                        Debug.Log("bowskill");
-                        attackDelay = 0.5f;
-                        attack = false;
-                        skillCount = 2;
-                    }
-                    break;
-                case "3":
-                    {
-                        Debug.Log("stampskill");
-                        attackDelay = 2.5f;
-                        attack = false;
-                        skillCount = 3;
-                    }
-                    break;
-            }
-        }
+        //    switch (pressNumber)
+        //    {
+        //        case "1":
+        //            {
+        //                Debug.Log("swordskill");
+        //                attackDelay = 1;
+        //                attack = false;
+        //                skillCount = 1;
+        //            }
+        //            break;
+        //        case "2":
+        //            {
+        //                Debug.Log("bowskill");
+        //                attackDelay = 0.5f;
+        //                attack = false;
+        //                skillCount = 2;
+        //            }
+        //            break;
+        //        case "3":
+        //            {
+        //                Debug.Log("stampskill");
+        //                attackDelay = 2.5f;
+        //                attack = false;
+        //                skillCount = 3;
+        //            }
+        //            break;
+        //    }
+        //}
     }
 }

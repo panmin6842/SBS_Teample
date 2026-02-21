@@ -59,6 +59,7 @@ public class ItemRaycast : MonoBehaviour
             if (!storageInventory.activeSelf)
             {
                 storageInventory.SetActive(true);
+                inventory.playerProfile.SetActive(false);
                 playerAttack.uiClicking = true;
                 inventory.uiOpen = 2;
                 Time.timeScale = 0f;
@@ -67,6 +68,7 @@ public class ItemRaycast : MonoBehaviour
             {
                 Time.timeScale = 1f;
                 storageInventory.SetActive(false);
+                inventory.playerProfile.SetActive(true);
                 playerAttack.uiClicking = false;
                 inventory.uiOpen = 0;
                 isStorageActive = false;

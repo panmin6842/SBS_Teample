@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,14 @@ public class SkillUIManager : MonoBehaviour
 
     public int slotClickSlot = 0;
 
+    [SerializeField] private TextMeshProUGUI skillPointText;
+    private int skillPointCount = 9;
+
+
     [SerializeField] private GameObject playerInfo;
+
+    [Header("엑티브 스킬 슬롯")]
+    [SerializeField] private SkillUISlot[] slots;
 
     private InventoryMain inventory;
 
@@ -28,6 +36,17 @@ public class SkillUIManager : MonoBehaviour
         inventory.uiActionMap.FindAction("OpenInfoUI").performed += OnOpenInfoUI;
     }
 
+    public void SkillPointUse()
+    {
+        skillPointCount--;
+        skillPointText.text = "SkillPoint : " + skillPointCount;
+    }
+
+    public int SkillPointCount()
+    {
+        return skillPointCount;
+    }
+
     private void OnOpenInfoUI(InputAction.CallbackContext context)
     {
         if (inventory.uiOpen == 0)
@@ -35,7 +54,9 @@ public class SkillUIManager : MonoBehaviour
             if (!playerInfo.activeSelf)
             {
                 playerInfo.SetActive(true);
+                inventory.playerProfile.SetActive(false);
                 inventory.playerAttack.uiClicking = true;
+                skillPointText.text = "SkillPoint : " + skillPointCount;
                 inventory.uiOpen = 3;
                 Time.timeScale = 0f;
             }
@@ -44,11 +65,17 @@ public class SkillUIManager : MonoBehaviour
         {
             Time.timeScale = 1f;
             playerInfo.SetActive(false);
+            inventory.playerProfile.SetActive(true);
             inventory.playerAttack.uiClicking = false;
             slotClickSlot = 0;
             inventory.uiOpen = 0;
         }
     }
+
+    /// <summary>
+    /// 스킬 장착
+    /// </summary>
+    /// <param name="skillSlot"></param>
     public void Install(SkillPick skillSlot)
     {
         if (checkSkillSlot != null)
@@ -62,5 +89,19 @@ public class SkillUIManager : MonoBehaviour
                 Debug.Log("타입이 다름 장착 불가");
             }
         }
+    }
+
+    /// <summary>
+    /// 이미 존재하는지 확인
+    /// </summary>
+    /// <param name="skillSlot"></param>
+    /// <returns></returns>
+    public bool InstallPossibility(SkillPick skillSlot)
+    {
+        if (slots[0].SkillItem == skillSlot.skillItem || slots[1].SkillItem == skillSlot.skillItem)
+        {
+            return true;
+        }
+        return false;
     }
 }

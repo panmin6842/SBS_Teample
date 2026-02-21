@@ -68,14 +68,25 @@ public class SkillItem : ScriptableObject
         }
     }
 
-    [Header("효과")]
-    [SerializeField] float buff;
+    [Header("스킬 번호")]
+    [SerializeField] int number;
 
-    public float Buff
+    public int Number
     {
         get
         {
-            return buff;
+            return number;
+        }
+    }
+
+    [Header("쿨타임")]
+    [SerializeField] float coolTime;
+
+    public float CoolTime
+    {
+        get
+        {
+            return coolTime;
         }
     }
 }

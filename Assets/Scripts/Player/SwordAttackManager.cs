@@ -3,16 +3,25 @@ using UnityEngine;
 
 public class SwordAttackManager : MonoBehaviour
 {
-    public Vector3 boxSize;
-    public LayerMask enemyLayer;
-    public Vector3 center;
-    PlayerState playerState;
+    [SerializeField] private Vector3 boxSize = new Vector3(3f, 2f, 0.5f);
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private Vector3 center;
+    PlayerProfile playerProfile;
+
+    [SerializeField] private Vector3 originalSize;
 
     public float debugDuration = 5f; // 디버그 박스가 유지될 시간
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Awake()
+    {
+        originalSize = boxSize;
+    }
     void Start()
     {
-        playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
+        playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
+        playerProfile.SwordAttackCount++;
+        Debug.Log(playerProfile.SwordAttackCount);
 
         StartCoroutine(CheckAttackRoutine());
     }
@@ -25,6 +34,15 @@ public class SwordAttackManager : MonoBehaviour
         CheckAttack(); // 여기서 판정 실행
 
         Destroy(gameObject, 0.5f);
+    }
+
+    public void IncreasedColliderSize(float size)
+    {
+        if (originalSize == Vector3.zero)
+        {
+            originalSize = new Vector3(3f, 2f, 0.5f);
+        }
+        boxSize = originalSize * (1f + (size / 100f));
     }
     void CheckAttack()
     {
