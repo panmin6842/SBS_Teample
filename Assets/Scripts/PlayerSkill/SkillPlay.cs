@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class SwordSkill : MonoBehaviour
+public class SkillPlay : MonoBehaviour
 {
     private int actSkill1Number = 0;
     private int actSkill2Number = 0;
@@ -115,6 +115,7 @@ public class SwordSkill : MonoBehaviour
                 coolTimeSlider[0].value = curCoolTimeSkill1;
                 playerProfile.SkillStart = true;
                 SwordActiveSkill(actSkill1Number);
+                //BowActiveSkill(actSkill1Number);
             }
 
             if (context.control.name == "2" && slots[1].coolTime > 0)
@@ -128,6 +129,7 @@ public class SwordSkill : MonoBehaviour
                 coolTimeSlider[1].value = curCoolTimeSkill2;
                 playerProfile.SkillStart = true;
                 SwordActiveSkill(actSkill2Number);
+                //BowActiveSkill(actSkill2Number);
             }
         }
     }
@@ -159,7 +161,6 @@ public class SwordSkill : MonoBehaviour
                 break;
             case 5:
                 {
-                    //Instantiate(sword5, transform.position, sword5.transform.rotation);
                     Instantiate(sword5, transform.position, Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
                 }
                 break;
@@ -170,6 +171,43 @@ public class SwordSkill : MonoBehaviour
                 break;
         }
 
+    }
+
+    private void BowActiveSkill(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                {
+
+                }
+                break;
+            case 2:
+                {
+
+                }
+                break;
+            case 3:
+                {
+
+                }
+                break;
+            case 4:
+                {
+
+                }
+                break;
+            case 5:
+                {
+
+                }
+                break;
+            case 6:
+                {
+
+                }
+                break;
+        }
     }
 
     public void SwordPassiveSkill()

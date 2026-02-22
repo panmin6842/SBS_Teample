@@ -11,6 +11,9 @@ public class CuttingSwordSkill : MonoBehaviour
 
     private float rotateSpeed = 360f; //회전 속도
     private float damage;
+
+    [SerializeField] private GameObject effect;
+    GameObject newEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +24,7 @@ public class CuttingSwordSkill : MonoBehaviour
             damage = playerProfile.ATK(190f);
             playerProfile.ChangeMoveSpeed(-90f);
         }
+        newEffect = Instantiate(effect, transform.position, effect.transform.rotation);
         //InvokeRepeating("CheckAttack", 0.01f, 0.1f);
     }
 
@@ -36,6 +40,7 @@ public class CuttingSwordSkill : MonoBehaviour
     {
         playerProfile.ChangeMoveSpeed(0);
         playerProfile.SkillStart = false;
+        Destroy(newEffect);
         Destroy(gameObject);
     }
 

@@ -4,12 +4,13 @@ public class JobChoice : MonoBehaviour
 {
     [Header("직업별 스킬 아이템")]
     [SerializeField] private SkillItem[] swordSkillItems;
+    [SerializeField] private SkillItem[] bowSkillItems;
 
     [Header("스킬 슬롯")]
     [SerializeField] private GameObject skillSlotParent;
     private SkillPick[] slots;
 
-    [SerializeField] private int jobChoiceCount = 1; //0 = 무직, 1 = 전사, 2 = 궁수, 3 = 법사
+    [SerializeField] private int jobChoiceCount = 2; //0 = 무직, 1 = 전사, 2 = 궁수, 3 = 법사
     private bool choice = false; //임시
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +40,16 @@ public class JobChoice : MonoBehaviour
                     for (int i = 0; i < slots.Length; i++)
                     {
                         slots[i].skillItem = swordSkillItems[i];
+                    }
+
+                    choice = true;
+                }
+                break;
+            case 2:
+                {
+                    for (int i = 0; i < slots.Length; i++)
+                    {
+                        slots[i].skillItem = bowSkillItems[i];
                     }
 
                     choice = true;

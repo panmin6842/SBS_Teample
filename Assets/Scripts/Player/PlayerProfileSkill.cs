@@ -12,12 +12,12 @@ public class PlayerProfileSkill : MonoBehaviour
     public float coolTime;
     public int choiceNumber; //선택한 스킬
 
-    private SwordSkill swordSkill;
+    private SkillPlay swordSkill;
 
 
     private void Start()
     {
-        swordSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<SwordSkill>();
+        swordSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<SkillPlay>();
     }
 
     private void OnEnable()

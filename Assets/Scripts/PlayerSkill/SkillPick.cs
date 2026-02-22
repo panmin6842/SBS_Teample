@@ -19,6 +19,8 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
 
     [Header("툴 팁 오브젝트")]
     [SerializeField] private GameObject explanToolTip;
+    [SerializeField] private TextMeshProUGUI explainText;
+    [SerializeField] private TextMeshProUGUI skillName;
 
     private InventoryMain inventory;
     private SkillUIManager skillUIManager;
@@ -55,6 +57,8 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
             }
 
             slotImage.sprite = skillItem.Image;
+            explainText.text = skillItem.Explanation;
+            skillName.text = skillItem.ItemName;
             explanToolTip.SetActive(false);
             inventory.slotClick = false;
             SetColor(1);

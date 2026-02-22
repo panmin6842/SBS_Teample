@@ -109,7 +109,7 @@ public class PlayerProfile : PlayerState
 
     public void PassiveMoveSpeed(float increasedPercent)
     {
-        passiveMoveSpeed = (int)(originMoveSpeed * (1f + (increasedPercent / 100f)));
+        passiveMoveSpeed = originMoveSpeed * (1f + (increasedPercent / 100f));
         moveSpeed = passiveMoveSpeed;
     }
 
@@ -161,9 +161,14 @@ public class PlayerProfile : PlayerState
     {
         float bloodValue;
         bloodValue = damage * (bloodPercent / 100f);
-        curHp += bloodValue;
+        float limitValue = maxHp * 0.01f;
+
+        float finalHealAmount = Mathf.Min(bloodValue, limitValue); //더 작은 값 반환
+        curHp += finalHealAmount;
 
         curHp = Mathf.Clamp(curHp, 0, maxHp);
+
+        Debug.Log($"데미지: {damage} | 계산된 흡혈: {bloodValue} | 실제 흡혈(제한적용): {finalHealAmount}");
     }
 
     public void UseActCount(int actCount)

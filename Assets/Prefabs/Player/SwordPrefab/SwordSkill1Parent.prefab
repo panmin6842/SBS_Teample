@@ -139,6 +139,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   center: {x: 0, y: 0, z: 3}
+  effect: {fileID: 5222568026173452923, guid: fdb06975ee244004eb3cf459a9b542c6, type: 3}
 --- !u!54 &7153061494565359294
 Rigidbody:
   m_ObjectHideFlags: 0

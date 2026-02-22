@@ -222,8 +222,8 @@ GameObject:
   - component: {fileID: 5840808710461513049}
   - component: {fileID: 448567626270011711}
   - component: {fileID: 6011735589120359625}
-  - component: {fileID: 5759918450950251797}
   - component: {fileID: 7655924410801576270}
+  - component: {fileID: 5343555876010511114}
   m_Layer: 6
   m_Name: PlayerParent
   m_TagString: Player
@@ -373,8 +373,8 @@ MonoBehaviour:
     m_ActionName: 'Player/TestKey[/Keyboard/y]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5759918450950251797}
-        m_TargetAssemblyTypeName: SwordSkill, Assembly-CSharp
+      - m_Target: {fileID: 5343555876010511114}
+        m_TargetAssemblyTypeName: SkillPlay, Assembly-CSharp
         m_MethodName: OnSkillAttack
         m_Mode: 0
         m_Arguments:
@@ -468,37 +468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11aa1187db69485680e21b6db3ae1645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5759918450950251797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6079222889359566662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b95df9aa54a9f184894997f8ef6aa4ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotParent: {fileID: 0}
-  coolTimeSlider:
-  - {fileID: 0}
-  - {fileID: 0}
-  coolTimeSkill1: 0
-  coolTimeSkill2: 0
-  passiveCoolTimeSkill1: 0
-  passiveCoolTimeSkill2: 0
-  curCoolTimeSkill1: 0
-  curCoolTimeSkill2: 0
-  skill1Start: 0
-  skill2Start: 0
-  sword1: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
-  sword2: {fileID: 2466642687867599595, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
-  sword3: {fileID: 5045881779274103757, guid: da75e32fcf088d041af4647ccc885974, type: 3}
-  sword4: {fileID: 3436173615126604055, guid: 7a2a07fca208285499fc41eb6a5a1aaa, type: 3}
-  sword5: {fileID: 6191426551495023619, guid: e7fcb2b50373f5d46ac289052a4c9565, type: 3}
-  sword6: {fileID: 6044470341994163391, guid: 8e8bd734ae94e9d4eb5475c41752cfb6, type: 3}
-  swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
 --- !u!114 &7655924410801576270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +512,37 @@ MonoBehaviour:
   basicAtkTestText: {fileID: 0}
   defTestText: {fileID: 0}
   moveSpeedTestText: {fileID: 0}
+--- !u!114 &5343555876010511114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079222889359566662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95df9aa54a9f184894997f8ef6aa4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotParent: {fileID: 0}
+  coolTimeSlider:
+  - {fileID: 0}
+  - {fileID: 0}
+  coolTimeSkill1: 0
+  coolTimeSkill2: 0
+  passiveCoolTimeSkill1: 0
+  passiveCoolTimeSkill2: 0
+  curCoolTimeSkill1: 0
+  curCoolTimeSkill2: 0
+  skill1Start: 0
+  skill2Start: 0
+  sword1: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
+  sword2: {fileID: 2466642687867599595, guid: 7bcfe72bd83df0242be77925f5bc0b72, type: 3}
+  sword3: {fileID: 5045881779274103757, guid: da75e32fcf088d041af4647ccc885974, type: 3}
+  sword4: {fileID: 3436173615126604055, guid: 7a2a07fca208285499fc41eb6a5a1aaa, type: 3}
+  sword5: {fileID: 6191426551495023619, guid: e7fcb2b50373f5d46ac289052a4c9565, type: 3}
+  sword6: {fileID: 6044470341994163391, guid: 8e8bd734ae94e9d4eb5475c41752cfb6, type: 3}
+  swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
 --- !u!1 &6453711728712729560
 GameObject:
   m_ObjectHideFlags: 0
