@@ -34,6 +34,7 @@ public class SkillPlay : MonoBehaviour
 
     [Header("활 오브젝트")]
     [SerializeField] private GameObject bow1;
+    [SerializeField] private GameObject bow2;
 
     PlayerAttack playerAttack;
     PlayerProfile playerProfile;
@@ -183,22 +184,25 @@ public class SkillPlay : MonoBehaviour
 
     }
 
-    Quaternion rotation;
+    float rotation;
     private void BowActiveSkill(int number)
     {
         switch (number)
         {
             case 1:
                 {
-                    rotation = Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0);
+                    rotation = playerAttack.AttackPos.transform.eulerAngles.y;
                     playerProfile.UseMP(1);
 
-                    StartCoroutine(BowSkillRoutine());
+                    StartCoroutine(BowSkill1Routine());
                 }
                 break;
             case 2:
                 {
+                    rotation = playerAttack.AttackPos.transform.eulerAngles.y;
+                    playerProfile.UseMP(1);
 
+                    StartCoroutine(BowSkill2Routine());
                 }
                 break;
             case 3:
@@ -223,7 +227,7 @@ public class SkillPlay : MonoBehaviour
                 break;
         }
     }
-    IEnumerator BowSkillRoutine()
+    IEnumerator BowSkill1Routine()
     {
         int count = 0;
         while (count < 5)
@@ -238,7 +242,27 @@ public class SkillPlay : MonoBehaviour
     }
     private void BowSkill1Create()
     {
-        Instantiate(bow1, transform.position, rotation);
+        Instantiate(bow1, transform.position, Quaternion.Euler(0, rotation, 0));
+    }
+
+    IEnumerator BowSkill2Routine()
+    {
+        int count = 0;
+        while (count < 3)
+        {
+            BowSkill2Create(); // 화살 생성
+            count++;
+            yield return new WaitForSeconds(0.1f); // 0.1초 대기
+        }
+
+        // 5번 다 실행 후 종료 로직
+        playerProfile.SkillStart = false;
+    }
+    private void BowSkill2Create()
+    {
+        Instantiate(bow2, transform.position, Quaternion.Euler(0, rotation, 0));
+        Instantiate(bow2, transform.position, Quaternion.Euler(0, rotation + 45, 0));
+        Instantiate(bow2, transform.position, Quaternion.Euler(0, rotation - 45, 0));
     }
 
     public void SwordPassiveSkill()
