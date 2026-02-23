@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -30,6 +31,9 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private GameObject sword4;
     [SerializeField] private GameObject sword5;
     [SerializeField] private GameObject sword6;
+
+    [Header("활 오브젝트")]
+    [SerializeField] private GameObject bow1;
 
     PlayerAttack playerAttack;
     PlayerProfile playerProfile;
@@ -109,13 +113,16 @@ public class SkillPlay : MonoBehaviour
                 if (skill1Start) return;
 
                 skill1Start = true;
-                curCoolTimeSkill1 = passiveCoolTimeSkill1;
+                if (passiveCoolTimeSkill1 > 0)
+                    curCoolTimeSkill1 = passiveCoolTimeSkill1;
+                else
+                    curCoolTimeSkill1 = coolTimeSkill1;
                 coolTimeSkill1 = slots[0].coolTime;
                 coolTimeSlider[0].maxValue = curCoolTimeSkill1;
                 coolTimeSlider[0].value = curCoolTimeSkill1;
                 playerProfile.SkillStart = true;
-                SwordActiveSkill(actSkill1Number);
-                //BowActiveSkill(actSkill1Number);
+                //SwordActiveSkill(actSkill1Number);
+                BowActiveSkill(actSkill1Number);
             }
 
             if (context.control.name == "2" && slots[1].coolTime > 0)
@@ -123,13 +130,16 @@ public class SkillPlay : MonoBehaviour
                 if (skill2Start) return;
 
                 skill2Start = true;
-                curCoolTimeSkill2 = passiveCoolTimeSkill2;
+                if (passiveCoolTimeSkill2 > 0)
+                    curCoolTimeSkill2 = passiveCoolTimeSkill2;
+                else
+                    curCoolTimeSkill2 = coolTimeSkill2;
                 coolTimeSkill2 = slots[1].coolTime;
                 coolTimeSlider[1].maxValue = curCoolTimeSkill2;
                 coolTimeSlider[1].value = curCoolTimeSkill2;
                 playerProfile.SkillStart = true;
-                SwordActiveSkill(actSkill2Number);
-                //BowActiveSkill(actSkill2Number);
+                //SwordActiveSkill(actSkill2Number);
+                BowActiveSkill(actSkill2Number);
             }
         }
     }
@@ -173,13 +183,17 @@ public class SkillPlay : MonoBehaviour
 
     }
 
+    Quaternion rotation;
     private void BowActiveSkill(int number)
     {
         switch (number)
         {
             case 1:
                 {
+                    rotation = Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0);
+                    playerProfile.UseMP(1);
 
+                    StartCoroutine(BowSkillRoutine());
                 }
                 break;
             case 2:
@@ -208,6 +222,23 @@ public class SkillPlay : MonoBehaviour
                 }
                 break;
         }
+    }
+    IEnumerator BowSkillRoutine()
+    {
+        int count = 0;
+        while (count < 5)
+        {
+            BowSkill1Create(); // 화살 생성
+            count++;
+            yield return new WaitForSeconds(0.1f); // 0.1초 대기
+        }
+
+        // 5번 다 실행 후 종료 로직
+        playerProfile.SkillStart = false;
+    }
+    private void BowSkill1Create()
+    {
+        Instantiate(bow1, transform.position, rotation);
     }
 
     public void SwordPassiveSkill()

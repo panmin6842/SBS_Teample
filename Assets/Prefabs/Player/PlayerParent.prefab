@@ -542,6 +542,7 @@ MonoBehaviour:
   sword4: {fileID: 3436173615126604055, guid: 7a2a07fca208285499fc41eb6a5a1aaa, type: 3}
   sword5: {fileID: 6191426551495023619, guid: e7fcb2b50373f5d46ac289052a4c9565, type: 3}
   sword6: {fileID: 6044470341994163391, guid: 8e8bd734ae94e9d4eb5475c41752cfb6, type: 3}
+  bow1: {fileID: 3645250375765768131, guid: 95e06189c8ed9724baa008c9593185b3, type: 3}
   swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
 --- !u!1 &6453711728712729560
 GameObject:

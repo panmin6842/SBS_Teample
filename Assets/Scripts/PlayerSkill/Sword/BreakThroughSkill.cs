@@ -57,7 +57,7 @@ public class BreakThroughSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Wall"))
+        if (other.CompareTag("Wall") || other.CompareTag("Storage"))
         {
             Debug.Log("wall hit");
             Hit();

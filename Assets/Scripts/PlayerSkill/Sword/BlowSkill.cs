@@ -75,7 +75,7 @@ public class BlowSkill : MonoBehaviour
                 playerProfile.BloodHealHp(10, damage);
             Hit();
         }
-        if (other.CompareTag("Wall"))
+        if (other.CompareTag("Wall") || other.CompareTag("Storage"))
         {
             Hit();
         }

@@ -28,18 +28,25 @@ public class ConcentrationOfBattleSkill : MonoBehaviour
     {
         transform.position += transform.forward * moveSpeed * Time.deltaTime;
         dist = Vector3.Distance(firstPos, transform.position);
+
+        if (dist >= stopDist)
+        {
+            playerProfile.SkillStart = false;
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("스킬 : 전투 집중" + other.gameObject.name + "을(를) 공격했습니다!");
+            Debug.Log("스킬 : 전투 집중" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
         }
-        if (other.CompareTag("Wall"))
+        if (other.CompareTag("Wall") || other.CompareTag("Storage"))
         {
+            playerProfile.SkillStart = false;
             Destroy(gameObject);
         }
     }
