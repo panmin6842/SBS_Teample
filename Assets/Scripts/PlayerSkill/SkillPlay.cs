@@ -35,6 +35,7 @@ public class SkillPlay : MonoBehaviour
     [Header("활 오브젝트")]
     [SerializeField] private GameObject bow1;
     [SerializeField] private GameObject bow2;
+    [SerializeField] private GameObject bow3;
 
     PlayerAttack playerAttack;
     PlayerProfile playerProfile;
@@ -207,7 +208,13 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 3:
                 {
-
+                    int pos = 0;
+                    playerProfile.UseMP(1);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Instantiate(bow3, transform.position, Quaternion.Euler(0, rotation + pos, 0));
+                        pos += 36;
+                    }
                 }
                 break;
             case 4:
