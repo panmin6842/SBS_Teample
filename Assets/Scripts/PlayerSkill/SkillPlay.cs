@@ -36,6 +36,7 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private GameObject bow1;
     [SerializeField] private GameObject bow2;
     [SerializeField] private GameObject bow3;
+    [SerializeField] private GameObject bow4;
 
     PlayerAttack playerAttack;
     PlayerProfile playerProfile;
@@ -219,7 +220,7 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 4:
                 {
-
+                    StartCoroutine(BowSkill4Create());
                 }
                 break;
             case 5:
@@ -270,6 +271,20 @@ public class SkillPlay : MonoBehaviour
         Instantiate(bow2, transform.position, Quaternion.Euler(0, rotation, 0));
         Instantiate(bow2, transform.position, Quaternion.Euler(0, rotation + 45, 0));
         Instantiate(bow2, transform.position, Quaternion.Euler(0, rotation - 45, 0));
+    }
+
+    IEnumerator BowSkill4Create()
+    {
+        playerProfile.UseMP(1);
+        playerProfile.ChangeMoveSpeed(-100f);
+
+        yield return new WaitForSeconds(3);
+        rotation = playerAttack.AttackPos.transform.eulerAngles.y;
+        transform.GetComponent<Rigidbody>().AddForce(-transform.forward * 2, ForceMode.Impulse);
+        Instantiate(bow4, transform.position, Quaternion.Euler(0, rotation, 0));
+
+        yield return new WaitForSeconds(0.5f);
+        playerProfile.ChangeMoveSpeed(0);
     }
 
     public void SwordPassiveSkill()
