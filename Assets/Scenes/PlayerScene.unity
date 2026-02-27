@@ -3251,6 +3251,128 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4104b93a2b12d7e418b896c17edf196f, type: 3}
+--- !u!1001 &3677753598721305737
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 453339733402514775, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_Name
+      value: BowSkill6Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 453339733402514775, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.052897193
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.896296
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.7872835
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109188393326084982, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+--- !u!1001 &3974028871777704418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1406749461433369853, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_Name
+      value: BowSkill5Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406749461433369853, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414684340899645366, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
 --- !u!1001 &4011188036222705545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3751,14 +3873,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5343555876010511114, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
-      propertyPath: bow3
-      value: 
-      objectReference: {fileID: 1645594178654592684, guid: beb4df73ada0e074bb6f2b434af79625, type: 3}
-    - target: {fileID: 5343555876010511114, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
-      propertyPath: bow4
-      value: 
-      objectReference: {fileID: 5940054961304018578, guid: 4104b93a2b12d7e418b896c17edf196f, type: 3}
-    - target: {fileID: 5343555876010511114, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
       propertyPath: slotParent
       value: 
       objectReference: {fileID: 406379827}
@@ -3930,3 +4044,5 @@ SceneRoots:
   - {fileID: 4372964685824527313}
   - {fileID: 4098085567729513395}
   - {fileID: 374884836466277085}
+  - {fileID: 3974028871777704418}
+  - {fileID: 3677753598721305737}

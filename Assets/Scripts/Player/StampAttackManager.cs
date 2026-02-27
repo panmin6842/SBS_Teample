@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class StampAttackManager : MonoBehaviour
 {
-    float power = 5.0f;
-
     Vector3 startPos;
     float distance;
     bool bomb = false;
 
     SpriteRenderer sr;
+    private PlayerAttack playerAttack;
 
     float bombScale = 0.1f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +16,7 @@ public class StampAttackManager : MonoBehaviour
     {
         startPos = transform.position;
         sr = GetComponent<SpriteRenderer>();
+        playerAttack = GameObject.Find("Player").GetComponent<PlayerAttack>();
     }
 
     // Update is called once per frame
@@ -24,11 +24,11 @@ public class StampAttackManager : MonoBehaviour
     {
         if (!bomb)
         {
-            transform.position += transform.up * power * Time.deltaTime;
+            transform.position += transform.up * playerAttack.power * Time.deltaTime;
 
             distance = Vector3.Distance(startPos, transform.position);
 
-            if (distance > 10)
+            if (distance > playerAttack.shotDistance)
             {
                 Destroy(gameObject);
             }

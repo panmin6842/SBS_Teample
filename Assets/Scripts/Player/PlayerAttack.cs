@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,15 +16,26 @@ public class PlayerAttack : MonoBehaviour
 
     float attackTime;
     [SerializeField] private float attackDelay = 1;
+    public float attackStartDelay = 0;
     float originattackDelay = 1;
     bool attack = false;
     public bool uiClicking = false;
+    public float shotDistance;
+    private float originShotDistance;
+    public float power;
+    private float originPower;
+
+    public float scalePercent = 0;
+
+    public bool through = false;
 
     [SerializeField] int skillCount = 1;
+
+    PlayerProfile playerProfile;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        playerProfile = GetComponent<PlayerProfile>();
     }
 
     // Update is called once per frame
@@ -47,6 +59,16 @@ public class PlayerAttack : MonoBehaviour
     public void ChangeAttackDelay(float changePercent)
     {
         attackDelay = originattackDelay * (1f + (changePercent / 100f));
+    }
+
+    public void ChangeShotDistance(float changePercent)
+    {
+        shotDistance = originShotDistance * (1f + (changePercent / 100f));
+    }
+
+    public void ChangePower(float changePercent)
+    {
+        power = originPower * (1f + (changePercent / 100f));
     }
 
     void AttackArrow()
@@ -86,8 +108,7 @@ public class PlayerAttack : MonoBehaviour
                     break;
                 case 2:
                     {
-                        Instantiate(bowAttackObj, transform.position, attackPos.transform.rotation);
-                        attack = true;
+                        StartCoroutine(BowAttack());
                     }
                     break;
                 case 3:
@@ -98,6 +119,22 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
         }
+    }
+
+    IEnumerator BowAttack()
+    {
+        attack = true;
+        if (attackStartDelay > 0)
+        {
+            playerProfile.ChangeMoveSpeed(-20);
+        }
+        yield return new WaitForSeconds(attackStartDelay);
+        GameObject newBow;
+        Vector3 bowScale;
+        newBow = Instantiate(bowAttackObj, transform.position, attackPos.transform.rotation);
+        bowScale = newBow.transform.localScale;
+        newBow.transform.localScale = bowScale * (1f + (scalePercent / 100f));
+        playerProfile.ChangeMoveSpeed(0);
     }
 
     public void OnSkillChange(InputAction.CallbackContext context)
@@ -111,7 +148,8 @@ public class PlayerAttack : MonoBehaviour
                 case "z":
                     {
                         Debug.Log("swordskill");
-                        attackDelay = 1;
+                        originattackDelay = 1;
+                        attackDelay = originattackDelay;
                         attack = false;
                         skillCount = 1;
                     }
@@ -119,7 +157,12 @@ public class PlayerAttack : MonoBehaviour
                 case "x":
                     {
                         Debug.Log("bowskill");
-                        attackDelay = 0.5f;
+                        originattackDelay = 0.5f;
+                        attackDelay = originattackDelay;
+                        originShotDistance = 10;
+                        shotDistance = originShotDistance;
+                        originPower = 7.0f;
+                        power = originPower;
                         attack = false;
                         skillCount = 2;
                     }
@@ -127,7 +170,12 @@ public class PlayerAttack : MonoBehaviour
                 case "c":
                     {
                         Debug.Log("stampskill");
-                        attackDelay = 2.5f;
+                        originattackDelay = 2.5f;
+                        attackDelay = originattackDelay;
+                        originShotDistance = 10;
+                        shotDistance = originShotDistance;
+                        originPower = 5.0f;
+                        power = originPower;
                         attack = false;
                         skillCount = 3;
                     }

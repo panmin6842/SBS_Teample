@@ -15,6 +15,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected float maxATK = 10f;
     [SerializeField] protected float passiveATK = 10f;
     [SerializeField] protected float basicATK = 10f;
+    [SerializeField] protected float maxBasicATK = 10f;
     [SerializeField] protected float curDEF = 1f; //¹æ¾î·Â
     [SerializeField] protected float maxDEF = 1f;
     [SerializeField] protected float passiveDEF = 1f;

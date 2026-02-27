@@ -75,11 +75,6 @@ public class PlayerProfile : PlayerState
         get { return bloodHeal; }
     }
 
-    public float BasicATK
-    {
-        get { return basicATK; }
-    }
-
     public void IncreasedHp(float increasedPercent)
     {
         maxHp = maxHp * (increasedPercent / 100f);
@@ -98,7 +93,7 @@ public class PlayerProfile : PlayerState
 
     public void PassiveBasicATK(float increasedPercent)
     {
-        passiveATK = maxATK * (1f + (increasedPercent / 100f));
+        passiveATK = maxBasicATK * (1f + (increasedPercent / 100f));
         basicATK = passiveATK;
     }
     public void PassiveDEF(float increasedPercent)
@@ -141,10 +136,19 @@ public class PlayerProfile : PlayerState
     {
         return curATK * (damagePercent / 100f);
     }
+    public float BasicATK(float damagePercent)
+    {
+        return basicATK * (damagePercent / 100f);
+    }
 
     public void ChangeATK(float changePercent)
     {
         curATK = passiveATK * (1f + changePercent / 100f);
+    }
+
+    public void ChangeBasicATK(float changePercent)
+    {
+        basicATK = passiveATK * (1f + changePercent / 100f);
     }
 
     public void ChangeDEF(float changePercent)

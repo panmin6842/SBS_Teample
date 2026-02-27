@@ -37,6 +37,8 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private GameObject bow2;
     [SerializeField] private GameObject bow3;
     [SerializeField] private GameObject bow4;
+    [SerializeField] private GameObject bow5;
+    [SerializeField] private GameObject bow6;
 
     PlayerAttack playerAttack;
     PlayerProfile playerProfile;
@@ -225,12 +227,12 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 5:
                 {
-
+                    Instantiate(bow5, transform.position, bow5.transform.rotation);
                 }
                 break;
             case 6:
                 {
-
+                    Instantiate(bow6, transform.position, bow6.transform.rotation);
                 }
                 break;
         }
