@@ -295,30 +295,64 @@ public class SkillPlay : MonoBehaviour
         {
             case 1:
                 {
-                    PassiveBuff(30, -30, -30, -20, 0, 0, 0, false, 0, 0);
+                    SwordPassiveBuff(30, -30, -30, -20, 0, 0, 0, false, 0, 0);
                 }
                 break;
             case 2:
                 {
-                    PassiveBuff(-25, 25, 25, 0, 0, 0, 0, true, 0, 0);
+                    SwordPassiveBuff(-25, 25, 25, 0, 0, 0, 0, true, 0, 0);
                 }
                 break;
             case 3:
                 {
                     if (actSkill1Number == 6)
                     {
-                        PassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 10, 0);
+                        SwordPassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 10, 0);
                     }
                     else if (actSkill2Number == 6)
-                        PassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 0, 10);
+                        SwordPassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 0, 10);
                     else
-                        PassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 0, 0);
+                        SwordPassiveBuff(0, 10, 15, 0, 20, -25, 100, false, 0, 0);
                 }
                 break;
         }
     }
 
-    private void PassiveBuff(float passiveDef, float passiveBasicAtk, float passiveAtk, float passiveMoveSpeed,
+    public void BowPassiveSkill()
+    {
+        switch (passiveSkillNumber)
+        {
+            case 1:
+                {
+                    BowPassiveBuff(-20, -20, 20, true, false, 0, false, false);
+                }
+                break;
+            case 2:
+                {
+                    BowPassiveBuff(0, 0, 0, false, true, 0, false, false);
+                }
+                break;
+            case 3:
+                {
+                    BowPassiveBuff(0, 200, 0, false, false, 250, true, true);
+                }
+                break;
+        }
+    }
+
+    private void BowPassiveBuff(float passiveDef, float attackDelay, float power, bool bloodHeal, bool bowExplosion,
+        float passiveBasicAtk, bool through, bool passiveSkill3)
+    {
+        playerProfile.PassiveDEF(passiveDef);
+        playerAttack.ChangeAttackDelay(attackDelay);
+        playerAttack.ChangePower(power);
+        playerProfile.BloodHeal = bloodHeal;
+        playerAttack.bowExplosion = bowExplosion;
+        playerProfile.PassiveBasicATK(passiveBasicAtk);
+        playerAttack.through = through;
+        playerAttack.bowPassiveSkill3 = passiveSkill3;
+    }
+    private void SwordPassiveBuff(float passiveDef, float passiveBasicAtk, float passiveAtk, float passiveMoveSpeed,
         float increasedColliderSize, float changeAttackDelay, float coolTimePersent, bool bloodHeal, float coolTimePlue1, float coolTimePlue2)
     {
         playerProfile.PassiveDEF(passiveDef);

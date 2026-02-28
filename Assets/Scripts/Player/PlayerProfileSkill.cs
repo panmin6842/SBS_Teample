@@ -12,12 +12,12 @@ public class PlayerProfileSkill : MonoBehaviour
     public float coolTime;
     public int choiceNumber; //선택한 스킬
 
-    private SkillPlay swordSkill;
+    private SkillPlay skillPlay;
 
 
     private void Start()
     {
-        swordSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<SkillPlay>();
+        skillPlay = GameObject.FindGameObjectWithTag("Player").GetComponent<SkillPlay>();
     }
 
     private void OnEnable()
@@ -28,10 +28,11 @@ public class PlayerProfileSkill : MonoBehaviour
         }
 
         //구분하는거 바꿀 수 있으면 바꾸자
-        if (swordSkill != null)
+        if (skillPlay != null)
         {
-            swordSkill.SkillNumberSetting();
-            swordSkill.SwordPassiveSkill();
+            skillPlay.SkillNumberSetting();
+            //skillPlay.SwordPassiveSkill();
+            skillPlay.BowPassiveSkill();
         }
     }
 

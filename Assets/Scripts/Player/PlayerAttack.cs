@@ -28,6 +28,8 @@ public class PlayerAttack : MonoBehaviour
     public float scalePercent = 0;
 
     public bool through = false;
+    public bool bowExplosion = false;
+    public bool bowPassiveSkill3 = false;
 
     [SerializeField] int skillCount = 1;
 

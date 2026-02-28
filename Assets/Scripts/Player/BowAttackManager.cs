@@ -6,6 +6,7 @@ public class BowAttackManager : MonoBehaviour
     private float distance;
 
     [SerializeField] private string hitTag;
+    [SerializeField] private GameObject bowExplosionObj;
 
     private PlayerAttack playerAttack;
     private PlayerProfile playerProfile;
@@ -20,8 +21,16 @@ public class BowAttackManager : MonoBehaviour
         playerProfile = GameObject.Find("Player").GetComponent<PlayerProfile>();
         startPos = transform.position;
 
-        damage1 = playerProfile.BasicATK(300);
-        damage2 = playerProfile.BasicATK(200);
+        if (!playerAttack.bowPassiveSkill3)
+        {
+            damage1 = playerProfile.BasicATK(300);
+            damage2 = playerProfile.BasicATK(200);
+        }
+        else if (playerAttack.bowPassiveSkill3)
+        {
+            damage1 = playerProfile.BasicATK(350);
+            damage2 = playerProfile.BasicATK(230);
+        }
     }
 
     // Update is called once per frame
@@ -41,15 +50,26 @@ public class BowAttackManager : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            if (playerAttack.bowExplosion)
+            {
+                int number = Random.Range(1, 101);
+                Debug.Log("BowExplosionRandomNumber : " + number);
+                if (number > 0 && number <= 30)
+                {
+                    Instantiate(bowExplosionObj, transform.position, transform.rotation);
+                }
+            }
+
             if (playerAttack.through)
             {
                 throughCount++;
                 if (throughCount == 1)
                 {
-
+                    Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
                 }
                 else if (throughCount == 2)
                 {
+                    Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
                     Destroy(gameObject);
                 }
             }
