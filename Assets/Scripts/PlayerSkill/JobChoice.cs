@@ -5,6 +5,7 @@ public class JobChoice : MonoBehaviour
     [Header("직업별 스킬 아이템")]
     [SerializeField] private SkillItem[] swordSkillItems;
     [SerializeField] private SkillItem[] bowSkillItems;
+    [SerializeField] private SkillItem[] stampSkillItems;
 
     [Header("스킬 슬롯")]
     [SerializeField] private GameObject skillSlotParent;
@@ -50,6 +51,16 @@ public class JobChoice : MonoBehaviour
                     for (int i = 0; i < slots.Length; i++)
                     {
                         slots[i].skillItem = bowSkillItems[i];
+                    }
+
+                    choice = true;
+                }
+                break;
+            case 3:
+                {
+                    for (int i = 0; i < slots.Length; i++)
+                    {
+                        slots[i].skillItem = stampSkillItems[i];
                     }
 
                     choice = true;

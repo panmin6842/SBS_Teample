@@ -40,6 +40,9 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private GameObject bow5;
     [SerializeField] private GameObject bow6;
 
+    [Header("스탬프 오브젝트")]
+    [SerializeField] private GameObject stamp1;
+
     PlayerAttack playerAttack;
     PlayerProfile playerProfile;
     [SerializeField] private SwordAttackManager swordAttackManager;
@@ -127,7 +130,8 @@ public class SkillPlay : MonoBehaviour
                 coolTimeSlider[0].value = curCoolTimeSkill1;
                 playerProfile.SkillStart = true;
                 //SwordActiveSkill(actSkill1Number);
-                BowActiveSkill(actSkill1Number);
+                //BowActiveSkill(actSkill1Number);
+                StampActiveSkill(actSkill1Number);
             }
 
             if (context.control.name == "2" && slots[1].coolTime > 0)
@@ -144,7 +148,8 @@ public class SkillPlay : MonoBehaviour
                 coolTimeSlider[1].value = curCoolTimeSkill2;
                 playerProfile.SkillStart = true;
                 //SwordActiveSkill(actSkill2Number);
-                BowActiveSkill(actSkill2Number);
+                //BowActiveSkill(actSkill2Number);
+                StampActiveSkill(actSkill2Number);
             }
         }
     }
@@ -233,6 +238,44 @@ public class SkillPlay : MonoBehaviour
             case 6:
                 {
                     Instantiate(bow6, transform.position, bow6.transform.rotation);
+                }
+                break;
+        }
+    }
+
+    private void StampActiveSkill(int number)
+    {
+        switch (number)
+        {
+            case 1:
+                {
+                    playerProfile.UseMP(1);
+                    Instantiate(stamp1, transform.position, stamp1.transform.rotation);
+                }
+                break;
+            case 2:
+                {
+
+                }
+                break;
+            case 3:
+                {
+
+                }
+                break;
+            case 4:
+                {
+
+                }
+                break;
+            case 5:
+                {
+
+                }
+                break;
+            case 6:
+                {
+
                 }
                 break;
         }
