@@ -286,6 +286,8 @@ MonoBehaviour:
   power: 0
   scalePercent: 0
   through: 0
+  bowExplosion: 0
+  bowPassiveSkill3: 0
   skillCount: 1
 --- !u!114 &5468712068099768932
 MonoBehaviour:
@@ -554,6 +556,8 @@ MonoBehaviour:
   bow4: {fileID: 5940054961304018578, guid: 4104b93a2b12d7e418b896c17edf196f, type: 3}
   bow5: {fileID: 1406749461433369853, guid: 2fd11630f125706458e2d19e9fb29d11, type: 3}
   bow6: {fileID: 453339733402514775, guid: 4880eba2ed3f8f14780b53a5275098dd, type: 3}
+  stamp1: {fileID: 7928759340469203140, guid: e4adff69fad873349885461e78bf39c4, type: 3}
+  stamp2: {fileID: 4712995074151065091, guid: 47d05eecd3d2c0d4b8256515cdb4a723, type: 3}
   swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
 --- !u!1 &6453711728712729560
 GameObject:
