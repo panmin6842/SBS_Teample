@@ -18,12 +18,14 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackDelay = 1;
     public float attackStartDelay = 0;
     float originattackDelay = 1;
+    private float passiveDelay;
     bool attack = false;
     public bool uiClicking = false;
     public float shotDistance;
     private float originShotDistance;
     public float power;
     private float originPower;
+    private float passivePower;
 
     public float scalePercent = 0;
 
@@ -60,7 +62,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void ChangeAttackDelay(float changePercent)
     {
-        attackDelay = originattackDelay * (1f + (changePercent / 100f));
+        attackDelay = passiveDelay * (1f + (changePercent / 100f));
+    }
+
+    public void PassiveDelay(float changePercent)
+    {
+        passiveDelay = originattackDelay * (1f + (changePercent / 100f));
+        attackDelay = passiveDelay;
     }
 
     public void ChangeShotDistance(float changePercent)
@@ -70,7 +78,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void ChangePower(float changePercent)
     {
-        power = originPower * (1f + (changePercent / 100f));
+        power = passivePower * (1f + (changePercent / 100f));
+    }
+
+    public void PassivePower(float changePercent)
+    {
+        passivePower = originPower * (1f + (changePercent / 100f));
+        power = passivePower;
     }
 
     void AttackArrow()
@@ -152,6 +166,7 @@ public class PlayerAttack : MonoBehaviour
                         Debug.Log("swordskill");
                         originattackDelay = 1;
                         attackDelay = originattackDelay;
+                        passiveDelay = originattackDelay;
                         attack = false;
                         skillCount = 1;
                     }
@@ -161,10 +176,12 @@ public class PlayerAttack : MonoBehaviour
                         Debug.Log("bowskill");
                         originattackDelay = 0.5f;
                         attackDelay = originattackDelay;
+                        passiveDelay = originattackDelay;
                         originShotDistance = 10;
                         shotDistance = originShotDistance;
-                        originPower = 7.0f;
+                        originPower = 10.0f;
                         power = originPower;
+                        passivePower = originPower;
                         attack = false;
                         skillCount = 2;
                     }
@@ -174,10 +191,12 @@ public class PlayerAttack : MonoBehaviour
                         Debug.Log("stampskill");
                         originattackDelay = 2.5f;
                         attackDelay = originattackDelay;
+                        passiveDelay = originattackDelay;
                         originShotDistance = 10;
                         shotDistance = originShotDistance;
                         originPower = 5.0f;
                         power = originPower;
+                        passivePower = originPower;
                         attack = false;
                         skillCount = 3;
                     }

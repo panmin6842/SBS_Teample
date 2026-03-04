@@ -40,32 +40,39 @@ public class ArrowStormSkill : MonoBehaviour
     {
         dist = Vector3.Distance(firstPos, transform.position);
 
-        if (dist < 5 && !rush)
+        transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+        if (dist > stopDist)
         {
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
-        }
-        else if (dist >= 5 && !rush)
-        {
-            rush = true;
+            Destroy(gameObject);
         }
 
-        if (dist < stopDist && rush)
-        {
-            Vector3 dir = (targetPos - transform.position).normalized;
-            if (dir != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(dir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-            }
+        //if (dist < 5 && !rush)
+        //{
 
-            transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        //}
+        //else if (dist >= 5 && !rush)
+        //{
+        //    rush = true;
+        //}
 
-            if (Vector3.Distance(transform.position, targetPos) < 0.2f)
-            {
-                playerProfile.SkillStart = false;
-                Destroy(gameObject);
-            }
-        }
+        //if (dist < stopDist && rush)
+        //{
+        //    Vector3 dir = (targetPos - transform.position).normalized;
+        //    if (dir != Vector3.zero)
+        //    {
+        //        Quaternion targetRotation = Quaternion.LookRotation(dir);
+        //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+        //    }
+
+        //    transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+        //    if (Vector3.Distance(transform.position, targetPos) < 0.2f)
+        //    {
+        //        playerProfile.SkillStart = false;
+        //        Destroy(gameObject);
+        //    }
+        //}
     }
 
     private void OnTriggerEnter(Collider other)

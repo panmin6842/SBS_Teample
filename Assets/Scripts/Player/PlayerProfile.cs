@@ -75,6 +75,17 @@ public class PlayerProfile : PlayerState
         get { return bloodHeal; }
     }
 
+    public bool Barrier
+    {
+        set { barrier = value; }
+        get { return barrier; }
+    }
+
+    public float MaxHp
+    {
+        get { return maxHp; }
+    }
+
     public void IncreasedHp(float increasedPercent)
     {
         maxHp = maxHp * (increasedPercent / 100f);

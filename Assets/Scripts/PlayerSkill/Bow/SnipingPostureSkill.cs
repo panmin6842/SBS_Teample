@@ -15,7 +15,7 @@ public class SnipingPostureSkill : MonoBehaviour
             playerAttack.ChangeAttackDelay(200f);
             playerAttack.ChangeShotDistance(200);
             playerProfile.ChangeBasicATK(200f);
-            playerAttack.ChangePower(114.28f);
+            playerAttack.ChangePower(150);
             playerAttack.through = true;
             playerAttack.scalePercent = 10;
             playerAttack.attackStartDelay = 0.3f;

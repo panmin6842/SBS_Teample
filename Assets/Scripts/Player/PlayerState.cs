@@ -26,4 +26,5 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected int swordBasicAttackCount = 0; //검 기본 공격 횟수
     [SerializeField] protected bool skillStart = false;
     [SerializeField] protected bool bloodHeal = false;
+    [SerializeField] protected bool barrier = false;
 }

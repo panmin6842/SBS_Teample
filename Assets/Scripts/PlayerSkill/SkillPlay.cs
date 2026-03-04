@@ -43,14 +43,17 @@ public class SkillPlay : MonoBehaviour
     [Header("스탬프 오브젝트")]
     [SerializeField] private GameObject stamp1;
     [SerializeField] private GameObject stamp2;
+    [SerializeField] private GameObject stamp3;
 
-    PlayerAttack playerAttack;
-    PlayerProfile playerProfile;
+    private PlayerAttack playerAttack;
+    private PlayerProfile playerProfile;
+    private Rigidbody playerRid;
     [SerializeField] private SwordAttackManager swordAttackManager;
     private void Start()
     {
         playerAttack = GetComponent<PlayerAttack>();
         playerProfile = GetComponent<PlayerProfile>();
+        playerRid = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -219,6 +222,7 @@ public class SkillPlay : MonoBehaviour
                 {
                     int pos = 0;
                     playerProfile.UseMP(1);
+                    StartCoroutine(BowSkill3Rush());
                     for (int i = 0; i < 10; i++)
                     {
                         Instantiate(bow3, transform.position, Quaternion.Euler(0, rotation + pos, 0));
@@ -262,7 +266,7 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 3:
                 {
-
+                    Instantiate(stamp3, transform.position, stamp3.transform.rotation);
                 }
                 break;
             case 4:
@@ -320,6 +324,22 @@ public class SkillPlay : MonoBehaviour
         Instantiate(bow2, transform.position, Quaternion.Euler(0, rotation - 45, 0));
     }
 
+    private float rushSpeed = 10;
+    IEnumerator BowSkill3Rush()
+    {
+        yield return new WaitForSeconds(0.2f);
+        playerProfile.moveSpeed = 0;
+        Vector3 rushDir = playerAttack.attackPos.transform.up;
+        rushDir.y = 0;
+        rushDir.Normalize();
+        playerRid.AddForce(rushDir * rushSpeed
+                    , ForceMode.Impulse);
+        yield return new WaitForSeconds(1.2f);
+        playerRid.linearVelocity = Vector3.zero;
+        playerProfile.ChangeMoveSpeed(1);
+        playerProfile.SkillStart = false;
+    }
+
     IEnumerator BowSkill4Create()
     {
         playerProfile.UseMP(1);
@@ -327,7 +347,7 @@ public class SkillPlay : MonoBehaviour
 
         yield return new WaitForSeconds(3);
         rotation = playerAttack.AttackPos.transform.eulerAngles.y;
-        transform.GetComponent<Rigidbody>().AddForce(-transform.forward * 2, ForceMode.Impulse);
+        transform.GetComponent<Rigidbody>().AddForce(-transform.forward * 5, ForceMode.Impulse);
         Instantiate(bow4, transform.position, Quaternion.Euler(0, rotation, 0));
 
         yield return new WaitForSeconds(0.5f);
@@ -389,8 +409,8 @@ public class SkillPlay : MonoBehaviour
         float passiveBasicAtk, bool through, bool passiveSkill3)
     {
         playerProfile.PassiveDEF(passiveDef);
-        playerAttack.ChangeAttackDelay(attackDelay);
-        playerAttack.ChangePower(power);
+        playerAttack.PassiveDelay(attackDelay);
+        playerAttack.PassivePower(power);
         playerProfile.BloodHeal = bloodHeal;
         playerAttack.bowExplosion = bowExplosion;
         playerProfile.PassiveBasicATK(passiveBasicAtk);

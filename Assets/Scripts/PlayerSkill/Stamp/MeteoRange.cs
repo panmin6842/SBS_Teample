@@ -15,6 +15,8 @@ public class MeteoRange : MonoBehaviour
     private bool click;
 
     [SerializeField] private GameObject meteo;
+    [SerializeField] private GameObject meteoMark;
+    private GameObject newMeteoMark;
 
     [SerializeField] private InputActionAsset uiInputAction;
     [SerializeField] private InputActionMap uiActionMap;
@@ -46,6 +48,7 @@ public class MeteoRange : MonoBehaviour
         {
             if (gameObject.GetComponent<SpriteRenderer>().enabled)
             {
+                newMeteoMark = Instantiate(meteoMark, new Vector3(mouseClickPoint.x, 1, mouseClickPoint.z), meteoMark.transform.rotation);
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
             }
             click = true;
@@ -56,6 +59,7 @@ public class MeteoRange : MonoBehaviour
 
     private void DestroyObject()
     {
+        Destroy(newMeteoMark);
         Instantiate(meteo, new Vector3(mouseClickPoint.x, 10, mouseClickPoint.z),
                 meteo.transform.rotation);
         playerAttack.uiClicking = false;

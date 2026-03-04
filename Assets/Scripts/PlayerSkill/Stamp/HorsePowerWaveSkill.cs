@@ -35,6 +35,12 @@ public class HorsePowerWaveSkill : MonoBehaviour
         {
             Debug.Log("스킬 : 마력 파동" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
 
+            //임시 넉백
+            Rigidbody enemyRb = other.gameObject.GetComponent<Rigidbody>();
+
+            enemyRb.linearVelocity = Vector3.zero;
+            enemyRb.AddForce(Vector3.forward * 10, ForceMode.Impulse);
+
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
         }
