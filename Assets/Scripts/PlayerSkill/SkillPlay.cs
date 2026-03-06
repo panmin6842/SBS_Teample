@@ -45,6 +45,7 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private GameObject stamp2;
     [SerializeField] private GameObject stamp3;
     [SerializeField] private GameObject stamp4;
+    [SerializeField] private GameObject stamp5;
 
     private PlayerAttack playerAttack;
     private PlayerProfile playerProfile;
@@ -278,7 +279,9 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 5:
                 {
-
+                    playerProfile.UseMP(2);
+                    Instantiate(stamp5, transform.position,
+                        Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
                 }
                 break;
             case 6:

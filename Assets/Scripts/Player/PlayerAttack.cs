@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject bowAttackObj;
     [SerializeField] GameObject stampAttackObj;
     float rotateSpeed = 100f;
+    float maxRotateSpeed = 100f;
 
     Vector3 targetDir;
     float angle;
@@ -74,6 +75,11 @@ public class PlayerAttack : MonoBehaviour
     public void ChangeShotDistance(float changePercent)
     {
         shotDistance = originShotDistance * (1f + (changePercent / 100f));
+    }
+
+    public void AttackPosRotation(float changePercent)
+    {
+        rotateSpeed = maxRotateSpeed * (1f + (changePercent / 100f));
     }
 
     public void ChangePower(float changePercent)
