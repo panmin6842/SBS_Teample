@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MeteoRange : MonoBehaviour
+public class ManaStormRange : MonoBehaviour
 {
     private Vector3 mousePos;
     private Vector3 mouseClickPoint;
-    private Vector3 mouseWorldPos;
 
     private Ray ray;
     private RaycastHit hit;
@@ -14,9 +13,7 @@ public class MeteoRange : MonoBehaviour
     private bool attack;
     private bool click;
 
-    [SerializeField] private GameObject meteo;
-    [SerializeField] private GameObject meteoMark;
-    private GameObject newMeteoMark;
+    [SerializeField] private GameObject manaStorm;
 
     [SerializeField] private InputActionAsset uiInputAction;
     [SerializeField] private InputActionMap uiActionMap;
@@ -48,21 +45,18 @@ public class MeteoRange : MonoBehaviour
         {
             if (gameObject.GetComponent<SpriteRenderer>().enabled)
             {
-                newMeteoMark = Instantiate(meteoMark,
-                    new Vector3(mouseClickPoint.x, transform.position.y, mouseClickPoint.z), meteoMark.transform.rotation);
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
             }
             click = true;
 
-            Invoke("DestroyObject", 2);
+            Invoke("DestroyObject", 0.2f);
         }
     }
 
     private void DestroyObject()
     {
-        Destroy(newMeteoMark);
-        Instantiate(meteo, new Vector3(mouseClickPoint.x, 10, mouseClickPoint.z),
-                meteo.transform.rotation);
+        Instantiate(manaStorm, new Vector3(mouseClickPoint.x, transform.position.y, mouseClickPoint.z),
+                manaStorm.transform.rotation);
         playerAttack.uiClicking = false;
         Destroy(gameObject);
     }

@@ -44,6 +44,7 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private GameObject stamp1;
     [SerializeField] private GameObject stamp2;
     [SerializeField] private GameObject stamp3;
+    [SerializeField] private GameObject stamp4;
 
     private PlayerAttack playerAttack;
     private PlayerProfile playerProfile;
@@ -271,7 +272,8 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 4:
                 {
-
+                    playerProfile.UseMP(1);
+                    Instantiate(stamp4, transform.position, stamp4.transform.rotation);
                 }
                 break;
             case 5:
