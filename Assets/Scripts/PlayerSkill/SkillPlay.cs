@@ -46,6 +46,7 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private GameObject stamp3;
     [SerializeField] private GameObject stamp4;
     [SerializeField] private GameObject stamp5;
+    [SerializeField] private GameObject stamp6;
 
     private PlayerAttack playerAttack;
     private PlayerProfile playerProfile;
@@ -286,7 +287,9 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 6:
                 {
-
+                    playerProfile.UseMP(1);
+                    playerAttack.stampSkill6 = true;
+                    Instantiate(stamp6, transform.position, stamp6.transform.rotation);
                 }
                 break;
         }
@@ -334,7 +337,7 @@ public class SkillPlay : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         playerProfile.moveSpeed = 0;
-        Vector3 rushDir = playerAttack.attackPos.transform.up;
+        Vector3 rushDir = playerAttack.AttackPos.transform.up;
         rushDir.y = 0;
         rushDir.Normalize();
         playerRid.AddForce(rushDir * rushSpeed
@@ -408,6 +411,36 @@ public class SkillPlay : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void StampPassiveSkill()
+    {
+        switch (passiveSkillNumber)
+        {
+            case 1:
+                {
+                    StampPassiveBuff(500f, true, 50f, -20f);
+                }
+                break;
+            case 2:
+                {
+
+                }
+                break;
+            case 3:
+                {
+
+                }
+                break;
+        }
+    }
+
+    private void StampPassiveBuff(float shotDistance, bool stampPassiveSkill1, float passiveDelay, float passiveATK)
+    {
+        playerAttack.ChangeShotDistance(shotDistance);
+        playerAttack.stampPassiveSkill1 = stampPassiveSkill1;
+        playerAttack.PassiveDelay(passiveDelay);
+        playerProfile.PassiveATK(passiveATK);
     }
 
     private void BowPassiveBuff(float passiveDef, float attackDelay, float power, bool bloodHeal, bool bowExplosion,

@@ -562,6 +562,7 @@ MonoBehaviour:
   stamp3: {fileID: 7641708747278107128, guid: dc5b31cab419908448b0f7d9a876b061, type: 3}
   stamp4: {fileID: 2758053851772507698, guid: 6b778bcc2f82fd44ba0e5429c28d654e, type: 3}
   stamp5: {fileID: 4765357629799751588, guid: 9dbd3597868bffb4bb24124d431c7654, type: 3}
+  stamp6: {fileID: 8843407102932007515, guid: 4cec57bb4cffde04295e0bb322576ddd, type: 3}
   swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
 --- !u!1 &6453711728712729560
 GameObject:

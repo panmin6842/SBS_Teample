@@ -32,7 +32,8 @@ public class PlayerProfileSkill : MonoBehaviour
         {
             skillPlay.SkillNumberSetting();
             //skillPlay.SwordPassiveSkill();
-            skillPlay.BowPassiveSkill();
+            //skillPlay.BowPassiveSkill();
+            skillPlay.StampPassiveSkill();
         }
     }
 

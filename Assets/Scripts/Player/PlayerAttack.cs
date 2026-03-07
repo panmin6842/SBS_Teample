@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject attackPos;
+    [SerializeField] private GameObject attackPos;
     [Header("SkillObject")]
     [SerializeField] GameObject swordAttackObj;
     [SerializeField] GameObject bowAttackObj;
@@ -33,6 +33,8 @@ public class PlayerAttack : MonoBehaviour
     public bool through = false;
     public bool bowExplosion = false;
     public bool bowPassiveSkill3 = false;
+    public bool stampSkill6 = false;
+    public bool stampPassiveSkill1 = false;
 
     [SerializeField] int skillCount = 1;
 
@@ -170,44 +172,39 @@ public class PlayerAttack : MonoBehaviour
                 case "z":
                     {
                         Debug.Log("swordskill");
-                        originattackDelay = 1;
-                        attackDelay = originattackDelay;
-                        passiveDelay = originattackDelay;
-                        attack = false;
-                        skillCount = 1;
+
+                        StateDecision(1f, 0f, 0f, false, 1);
                     }
                     break;
                 case "x":
                     {
                         Debug.Log("bowskill");
-                        originattackDelay = 0.5f;
-                        attackDelay = originattackDelay;
-                        passiveDelay = originattackDelay;
-                        originShotDistance = 10;
-                        shotDistance = originShotDistance;
-                        originPower = 10.0f;
-                        power = originPower;
-                        passivePower = originPower;
-                        attack = false;
-                        skillCount = 2;
+
+                        StateDecision(0.5f, 10.0f, 10.0f, false, 2);
                     }
                     break;
                 case "c":
                     {
                         Debug.Log("stampskill");
-                        originattackDelay = 2.5f;
-                        attackDelay = originattackDelay;
-                        passiveDelay = originattackDelay;
-                        originShotDistance = 10;
-                        shotDistance = originShotDistance;
-                        originPower = 5.0f;
-                        power = originPower;
-                        passivePower = originPower;
-                        attack = false;
-                        skillCount = 3;
+
+                        StateDecision(2.5f, 10.0f, 5.0f, false, 3);
                     }
                     break;
             }
         }
+    }
+
+    private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, int _skillCount)
+    {
+        originattackDelay = _attackDelay;
+        attackDelay = originattackDelay;
+        passiveDelay = originattackDelay;
+        originShotDistance = _shotDistance;
+        shotDistance = originShotDistance;
+        originPower = _power;
+        power = originPower;
+        passivePower = originPower;
+        attack = _attack;
+        skillCount = _skillCount;
     }
 }

@@ -26,7 +26,7 @@ public class ArrowStormSkill : MonoBehaviour
         playerAttack = player.GetComponent<PlayerAttack>();
 
         firstPos = transform.position;
-        targetPos = playerAttack.attackPos.transform.position + (playerAttack.attackPos.transform.up * targetDist);
+        targetPos = playerAttack.AttackPos.transform.position + (playerAttack.AttackPos.transform.up * targetDist);
         targetPos.y = transform.position.y;
 
         if (playerProfile != null)
