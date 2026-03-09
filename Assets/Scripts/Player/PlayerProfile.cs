@@ -51,12 +51,6 @@ public class PlayerProfile : PlayerState
         moveSpeedTestText.text = "moveSpeed : " + moveSpeed;
     }
 
-    //public bool NoDamage
-    //{
-    //    set { NoDamage = value; }
-    //    get { return NoDamage; }
-    //}
-
     public bool SkillStart
     {
         set { skillStart = value; }
@@ -84,6 +78,11 @@ public class PlayerProfile : PlayerState
     public float MaxHp
     {
         get { return maxHp; }
+    }
+
+    public bool StampPassiveSkill3
+    {
+        set { stampPassiveSKill3 = value; }
     }
 
     public void IncreasedHp(float increasedPercent)
@@ -119,15 +118,6 @@ public class PlayerProfile : PlayerState
         moveSpeed = passiveMoveSpeed;
     }
 
-    //패시브 효과 초기화
-    public void StateReset()
-    {
-        passiveATK = maxATK;
-        passiveDEF = maxDEF;
-        passiveMoveSpeed = originMoveSpeed;
-        bloodHeal = false;
-    }
-
     //스킬 효과
     public void GetDamage(int damage)
     {
@@ -136,11 +126,43 @@ public class PlayerProfile : PlayerState
         curHp = Mathf.Clamp(curHp, 0, maxHp);
     }
 
+    public void SelfHpDamage(float damagePercent)
+    {
+        float buff = maxHp * damagePercent;
+        curHp -= buff;
+        curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
+    public void HPBuff(float buffPercent)
+    {
+        float buff = maxHp * buffPercent;
+        curHp += buff;
+        curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
     public void UseMP(int mp)
     {
-        curMp -= mp;
+        if (!stampPassiveSKill3)
+        {
+            curMp -= mp;
+        }
+        else if (stampPassiveSKill3)
+        {
+            curMp -= (mp * 2);
+        }
 
         curMp = Mathf.Clamp(curMp, 0, maxMp);
+    }
+
+    public void MPBuff(int buff)
+    {
+        curMp += buff;
+        curMp = Mathf.Clamp(curMp, 0, maxMp);
+    }
+
+    public bool MPBuffStart()
+    {
+        return curMp < maxMp;
     }
 
     public float ATK(float damagePercent)

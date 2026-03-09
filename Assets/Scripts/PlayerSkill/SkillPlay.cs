@@ -52,6 +52,8 @@ public class SkillPlay : MonoBehaviour
     private PlayerProfile playerProfile;
     private Rigidbody playerRid;
     [SerializeField] private SwordAttackManager swordAttackManager;
+
+    private float mpBuffTime;
     private void Start()
     {
         playerAttack = GetComponent<PlayerAttack>();
@@ -62,6 +64,11 @@ public class SkillPlay : MonoBehaviour
     private void Update()
     {
         CoolTime();
+
+        if (playerAttack.stampPassiveSkill2)
+        {
+            MpHeal();
+        }
     }
 
     private void CoolTime()
@@ -94,6 +101,24 @@ public class SkillPlay : MonoBehaviour
                 curCoolTimeSkill2 -= Time.deltaTime;
                 UpdateSlider(1, curCoolTimeSkill2);
             }
+        }
+    }
+
+    private void MpHeal()
+    {
+        if (playerProfile.MPBuffStart())
+        {
+            mpBuffTime += Time.deltaTime;
+
+            if (mpBuffTime >= 10)
+            {
+                playerProfile.MPBuff(1);
+                mpBuffTime = 0;
+            }
+        }
+        else
+        {
+            mpBuffTime = 0;
         }
     }
 
@@ -419,28 +444,38 @@ public class SkillPlay : MonoBehaviour
         {
             case 1:
                 {
-                    StampPassiveBuff(500f, true, 50f, -20f);
+                    StampPassiveBuff(500f, true, 50f, -20f, 0f, 0f, false, 0f, false);
                 }
                 break;
             case 2:
                 {
-
+                    StampPassiveBuff(0f, false, 0f, 10f, -50f, 20f, true, -60f, false);
                 }
                 break;
             case 3:
                 {
-
+                    StampPassiveBuff(0f, false, 0f, 210f, 100f, 0f, false, -15f, true);
                 }
                 break;
         }
     }
 
-    private void StampPassiveBuff(float shotDistance, bool stampPassiveSkill1, float passiveDelay, float passiveATK)
+    private void StampPassiveBuff(float shotDistance, bool stampPassiveSkill1, float passiveDelay, float passiveATK,
+        float coolTimePersent, float passiveMoveSpeed, bool stampPassiveSkill2, float passiveBasicATK
+        , bool stampPassiveSKill3)
     {
         playerAttack.ChangeShotDistance(shotDistance);
         playerAttack.stampPassiveSkill1 = stampPassiveSkill1;
         playerAttack.PassiveDelay(passiveDelay);
         playerProfile.PassiveATK(passiveATK);
+
+        passiveCoolTimeSkill1 = (coolTimeSkill1 * (1f + (coolTimePersent / 100)));
+        passiveCoolTimeSkill2 = (coolTimeSkill2 * (1f + (coolTimePersent / 100)));
+        playerProfile.PassiveMoveSpeed(passiveMoveSpeed);
+        playerAttack.stampPassiveSkill2 = stampPassiveSkill2;
+        playerProfile.PassiveBasicATK(passiveBasicATK);
+
+        playerProfile.StampPassiveSkill3 = stampPassiveSKill3;
     }
 
     private void BowPassiveBuff(float passiveDef, float attackDelay, float power, bool bloodHeal, bool bowExplosion,

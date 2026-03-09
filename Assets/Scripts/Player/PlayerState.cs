@@ -5,7 +5,6 @@ public class PlayerState : MonoBehaviour
     protected float originMoveSpeed = 5.5f;
     public float moveSpeed = 5.5f;
     protected float passiveMoveSpeed = 5.5f;
-    protected bool noDamage = false;
 
     [SerializeField] protected float maxHp = 20; //Ã¼·Â
     [SerializeField] protected float curHp = 20;
@@ -27,4 +26,5 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected bool skillStart = false;
     [SerializeField] protected bool bloodHeal = false;
     [SerializeField] protected bool barrier = false;
+    [SerializeField] protected bool stampPassiveSKill3 = false;
 }

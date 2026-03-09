@@ -70,7 +70,14 @@ public class StampAttackManager : MonoBehaviour
             Debug.Log("스탬프 기본 직격 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
             bomb = true;
             _other = other;
-            StartCoroutine(BombDestroy(_other));
+            if (!playerAttack.stampPassiveSkill2)
+            {
+                StartCoroutine(BombDestroy(_other));
+            }
+            else if (playerAttack.stampPassiveSkill2)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

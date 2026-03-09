@@ -35,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
     public bool bowPassiveSkill3 = false;
     public bool stampSkill6 = false;
     public bool stampPassiveSkill1 = false;
+    public bool stampPassiveSkill2 = false;
 
     [SerializeField] int skillCount = 1;
 
