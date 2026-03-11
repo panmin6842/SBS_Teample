@@ -34,7 +34,7 @@ public class LaserSkill : MonoBehaviour
             playerProfile.ChangeMoveSpeed(-100f);
             damage = playerProfile.ATK(190);
 
-            playerAttack.AttackPosRotation(-80f);
+            playerAttack.AttackPosRotation(-99.5f);
         }
     }
 

@@ -444,7 +444,7 @@ public class SkillPlay : MonoBehaviour
         {
             case 1:
                 {
-                    StampPassiveBuff(500f, true, 50f, -20f, 0f, 0f, false, 0f, false);
+                    StampPassiveBuff(50f, true, 20f, -20f, 0f, 0f, false, 0f, false);
                 }
                 break;
             case 2:
