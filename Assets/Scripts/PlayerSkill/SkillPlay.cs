@@ -161,9 +161,7 @@ public class SkillPlay : MonoBehaviour
                 coolTimeSlider[0].maxValue = curCoolTimeSkill1;
                 coolTimeSlider[0].value = curCoolTimeSkill1;
                 playerProfile.SkillStart = true;
-                //SwordActiveSkill(actSkill1Number);
-                //BowActiveSkill(actSkill1Number);
-                StampActiveSkill(actSkill1Number);
+                JobSkillChoice(actSkill1Number);
             }
 
             if (context.control.name == "2" && slots[1].coolTime > 0)
@@ -179,10 +177,24 @@ public class SkillPlay : MonoBehaviour
                 coolTimeSlider[1].maxValue = curCoolTimeSkill2;
                 coolTimeSlider[1].value = curCoolTimeSkill2;
                 playerProfile.SkillStart = true;
-                //SwordActiveSkill(actSkill2Number);
-                //BowActiveSkill(actSkill2Number);
-                StampActiveSkill(actSkill2Number);
+                JobSkillChoice(actSkill2Number);
             }
+        }
+    }
+
+    private void JobSkillChoice(int number)
+    {
+        if (playerAttack.SkillCount == 1)
+        {
+            SwordActiveSkill(number);
+        }
+        else if (playerAttack.SkillCount == 2)
+        {
+            BowActiveSkill(number);
+        }
+        else if (playerAttack.SkillCount == 3)
+        {
+            StampActiveSkill(number);
         }
     }
 

@@ -276,6 +276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPos: {fileID: 3496575007854648899}
+  jobChoiceUI: {fileID: 0}
+  jobChoice: {fileID: 0}
   swordAttackObj: {fileID: 6084993611769339035, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
   bowAttackObj: {fileID: 4047336886330174727, guid: 7d753be6d7c68be4c880dbf67283b23f, type: 3}
   stampAttackObj: {fileID: 7257923731058189080, guid: f33bf049778e33349b1b2613b1f413d4, type: 3}
@@ -288,7 +290,9 @@ MonoBehaviour:
   through: 0
   bowExplosion: 0
   bowPassiveSkill3: 0
-  skillCount: 1
+  stampSkill6: 0
+  stampPassiveSkill1: 0
+  stampPassiveSkill2: 0
 --- !u!114 &5468712068099768932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +511,7 @@ MonoBehaviour:
   skillStart: 0
   bloodHeal: 0
   barrier: 0
+  stampPassiveSKill3: 0
   hpBackground: {fileID: 0}
   hpMask: {fileID: 0}
   hpText: {fileID: 0}

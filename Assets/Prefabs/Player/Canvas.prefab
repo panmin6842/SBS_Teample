@@ -806,7 +806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4344,7 +4344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -16206,7 +16206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -21295,6 +21295,7 @@ MonoBehaviour:
   maxATK: 10
   passiveATK: 10
   basicATK: 10
+  maxBasicATK: 10
   curDEF: 1
   maxDEF: 1
   passiveDEF: 1
@@ -21304,6 +21305,8 @@ MonoBehaviour:
   swordBasicAttackCount: 0
   skillStart: 0
   bloodHeal: 0
+  barrier: 0
+  stampPassiveSKill3: 0
   hpBackground: {fileID: 1469440674639278425}
   hpMask: {fileID: 4342764261953803851}
   hpText: {fileID: 3844443138421599195}

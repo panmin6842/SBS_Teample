@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject attackPos;
+    [SerializeField] private GameObject jobChoiceUI;
+    [SerializeField] private JobChoice jobChoice;
     [Header("SkillObject")]
     [SerializeField] GameObject swordAttackObj;
     [SerializeField] GameObject bowAttackObj;
@@ -37,13 +39,16 @@ public class PlayerAttack : MonoBehaviour
     public bool stampPassiveSkill1 = false;
     public bool stampPassiveSkill2 = false;
 
-    [SerializeField] int skillCount = 1;
+    private int skillCount;
 
     PlayerProfile playerProfile;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerProfile = GetComponent<PlayerProfile>();
+
+        //처음은 검사
+        StateDecision(1f, 0f, 0f, false, 1);
     }
 
     // Update is called once per frame
@@ -119,6 +124,12 @@ public class PlayerAttack : MonoBehaviour
         get { return attackPos; }
     }
 
+    public int SkillCount
+    {
+        get { return skillCount; }
+    }
+
+    //일반 공격 실행
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (!attack && !uiClicking)
@@ -162,39 +173,6 @@ public class PlayerAttack : MonoBehaviour
         playerProfile.ChangeMoveSpeed(0);
     }
 
-    public void OnSkillChange(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            string pressNumber = context.control.name;
-
-            switch (pressNumber)
-            {
-                case "z":
-                    {
-                        Debug.Log("swordskill");
-
-                        StateDecision(1f, 0f, 0f, false, 1);
-                    }
-                    break;
-                case "x":
-                    {
-                        Debug.Log("bowskill");
-
-                        StateDecision(0.5f, 10.0f, 10.0f, false, 2);
-                    }
-                    break;
-                case "c":
-                    {
-                        Debug.Log("stampskill");
-
-                        StateDecision(2.5f, 10.0f, 5.0f, false, 3);
-                    }
-                    break;
-            }
-        }
-    }
-
     private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, int _skillCount)
     {
         originattackDelay = _attackDelay;
@@ -207,5 +185,31 @@ public class PlayerAttack : MonoBehaviour
         passivePower = originPower;
         attack = _attack;
         skillCount = _skillCount;
+    }
+
+    public void SwordChoice()
+    {
+        Debug.Log("swordskill");
+
+        StateDecision(1f, 0f, 0f, false, 1);
+        jobChoiceUI.SetActive(false);
+        jobChoice.enabled = true;
+
+    }
+    public void BowChoice()
+    {
+        Debug.Log("bowskill");
+
+        StateDecision(0.5f, 10.0f, 10.0f, false, 2);
+        jobChoiceUI.SetActive(false);
+        jobChoice.enabled = true;
+    }
+    public void StampChoice()
+    {
+        Debug.Log("stampskill");
+
+        StateDecision(2.5f, 10.0f, 5.0f, false, 3);
+        jobChoiceUI.SetActive(false);
+        jobChoice.enabled = true;
     }
 }
