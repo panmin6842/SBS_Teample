@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SkillPick : MonoBehaviour, IPointerClickHandler
+public class SkillPick : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("해당 오브젝트에 할당되는 스킬아이템")]
     public SkillItem skillItem;
@@ -74,15 +74,34 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// 슬롯 클릭하면 설명창이 나옴
+    /// 슬롯 드래그하면 설명창이 나옴
     /// </summary>
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (skillItem != null && !inventory.slotClick)
+        if (skillItem != null)
+        {
+            if (clearSuccess && skillUIManager != null && !skillUIManager.InstallPossibility(this))
+            {
+                skillUIManager.Install(this);
+            }
+            //inventory.slotClick = true;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (skillItem != null)
         {
             explanToolTip.SetActive(true);
-            inventory.slotClick = true;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (skillItem != null)
+        {
+            explanToolTip.SetActive(false);
         }
     }
 
@@ -90,15 +109,9 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler
     {
         if (!clearSuccess && skillUIManager.SkillPointCount() > 0)
         {
-            clearButton.GetComponentInChildren<TextMeshProUGUI>().text = "Install";
             skillUIManager.SkillPointUse();
+            clearButton.gameObject.SetActive(false);
             clearSuccess = true;
-        }
-        else if (clearSuccess && skillUIManager != null && !skillUIManager.InstallPossibility(this))
-        {
-            skillUIManager.Install(this);
-            explanToolTip.SetActive(false);
-            inventory.slotClick = false;
         }
     }
 
