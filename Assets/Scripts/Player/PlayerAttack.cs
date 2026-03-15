@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
         playerProfile = GetComponent<PlayerProfile>();
 
         //처음은 검사
-        StateDecision(1f, 0f, 0f, false, 1);
+        StateDecision(1f, 0f, 0f, false, 1, 10, 3, 0);
     }
 
     // Update is called once per frame
@@ -173,7 +173,8 @@ public class PlayerAttack : MonoBehaviour
         playerProfile.ChangeMoveSpeed(0);
     }
 
-    private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, int _skillCount)
+    private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, int _skillCount,
+        float setHp, float setATK, float setDEF)
     {
         originattackDelay = _attackDelay;
         attackDelay = originattackDelay;
@@ -185,13 +186,17 @@ public class PlayerAttack : MonoBehaviour
         passivePower = originPower;
         attack = _attack;
         skillCount = _skillCount;
+
+        playerProfile.SetMaxHp(setHp, 0);
+        playerProfile.SetMaxATK(setATK, 0);
+        playerProfile.SetMaxDEF(setDEF, 0);
     }
 
     public void SwordChoice()
     {
         Debug.Log("swordskill");
 
-        StateDecision(1f, 0f, 0f, false, 1);
+        StateDecision(1f, 0f, 0f, false, 1, 10, 3, 0);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
 
@@ -200,7 +205,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("bowskill");
 
-        StateDecision(0.5f, 10.0f, 10.0f, false, 2);
+        StateDecision(0.5f, 10.0f, 10.0f, false, 2, 8, 3, -10);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
     }
@@ -208,7 +213,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("stampskill");
 
-        StateDecision(2.5f, 10.0f, 5.0f, false, 3);
+        StateDecision(2.5f, 10.0f, 5.0f, false, 3, 7, 4, 0);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
     }

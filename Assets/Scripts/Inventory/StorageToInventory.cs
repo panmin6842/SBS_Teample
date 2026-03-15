@@ -170,7 +170,7 @@ public class StorageToInventory : MonoBehaviour
         {
 
         }
-        else if (item.Type == ItemType.Equipment_RING)
+        else if (item.Type == ItemType.Equipment_Glove)
         {
 
         }

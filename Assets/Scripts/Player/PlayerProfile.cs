@@ -85,6 +85,28 @@ public class PlayerProfile : PlayerState
         set { stampPassiveSKill3 = value; }
     }
 
+    //max스테이터스 설정
+    public void SetMaxHp(float hp, float e_hp)
+    {
+        maxHp = 10 * hp + e_hp;
+        curHp = maxHp;
+    }
+
+    public void SetMaxATK(float atk, float e_atk)
+    {
+        maxBasicATK = 2 * atk + e_atk;
+        maxATK = 2 * atk + e_atk;
+        basicATK = maxBasicATK;
+        curATK = maxATK;
+    }
+
+    public void SetMaxDEF(float def, float e_def)
+    {
+        maxDEF = 0.5f + (def / 100f);
+        maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
+        curDEF = maxDEF;
+    }
+
     public void IncreasedHp(float increasedPercent)
     {
         maxHp = maxHp * (increasedPercent / 100f);
