@@ -61,7 +61,7 @@ public class ItemRaycast : MonoBehaviour
                 storageInventory.SetActive(true);
                 inventory.playerProfile.SetActive(false);
                 playerAttack.uiClicking = true;
-                inventory.uiOpen = 2;
+                inventory.currentUI = UIType.Chest;
                 Time.timeScale = 0f;
             }
             else if (storageInventory.activeSelf)
@@ -70,7 +70,7 @@ public class ItemRaycast : MonoBehaviour
                 storageInventory.SetActive(false);
                 inventory.playerProfile.SetActive(true);
                 playerAttack.uiClicking = false;
-                inventory.uiOpen = 0;
+                inventory.currentUI = UIType.None;
                 isStorageActive = false;
             }
         }
@@ -88,7 +88,7 @@ public class ItemRaycast : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Storage" && !isStorageActive && inventory.uiOpen == 0)
+        if (other.tag == "Storage" && !isStorageActive && inventory.currentUI == UIType.None)
         {
             isStorageActive = true;
         }

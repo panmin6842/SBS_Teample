@@ -184,15 +184,15 @@ public class SkillPlay : MonoBehaviour
 
     private void JobSkillChoice(int number)
     {
-        if (playerAttack.SkillCount == 1)
+        if (playerAttack.curJob == Job.Sword)
         {
             SwordActiveSkill(number);
         }
-        else if (playerAttack.SkillCount == 2)
+        else if (playerAttack.curJob == Job.Bow)
         {
             BowActiveSkill(number);
         }
-        else if (playerAttack.SkillCount == 3)
+        else if (playerAttack.curJob == Job.Stamp)
         {
             StampActiveSkill(number);
         }

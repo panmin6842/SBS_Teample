@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// ÀÎº¥Åä¸® ½½·Ô ÇÏ³ª¸¦ ´ã´ç
 /// </summary>
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler
+public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Item item;
     public Item Item
@@ -109,31 +109,30 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// ½½·Ô Å¬¸¯ÇÏ¸é ¼³¸íÃ¢ÀÌ ³ª¿È
+    /// ½½·Ô µå·¡±×ÇÏ¸é ¼³¸íÃ¢ÀÌ ³ª¿È
     /// </summary>
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (item != null && !inventory.slotClick)
+        if (item != null)
         {
-            explanToolTip.SetActive(true);
-            inventory.slotClick = true;
+            storageToInventory.Install(this);
         }
     }
 
-    /// <summary>
-    /// ¼³¸íÃ¢ ´Ý±â
-    /// </summary>
-    public void ExplainToolTipClose()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        explanToolTip.SetActive(false);
-        inventory.slotClick = false;
+        if (item != null && explanToolTip != null)
+        {
+            explanToolTip.SetActive(true);
+        }
     }
 
-    public void EquipmentInstall()
+    public void OnPointerExit(PointerEventData eventData)
     {
-        storageToInventory.Install(this);
-        explanToolTip.SetActive(false);
-        inventory.slotClick = false;
+        if (explanToolTip != null)
+        {
+            explanToolTip.SetActive(false);
+        }
     }
 }

@@ -1,11 +1,19 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
 /// 장비 아이템 장착 창 슬롯에 관련된 스크립트
 /// </summary>
-public class EquipmentItemSlot : MonoBehaviour
+public class EquipmentItemSlot : MonoBehaviour, IPointerClickHandler
 {
+    private StorageToInventory storageToInventory;
+
+    private void OnEnable()
+    {
+        storageToInventory = GameObject.Find("InventorySystem").GetComponent<StorageToInventory>();
+    }
+
     private Item item;
     public Item Item
     {
@@ -52,5 +60,13 @@ public class EquipmentItemSlot : MonoBehaviour
         item = null;
         itemImage.sprite = null;
         SetColor(0);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            storageToInventory.ReleaseOfEquipment(this);
+        }
     }
 }

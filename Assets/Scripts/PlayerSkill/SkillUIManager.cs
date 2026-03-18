@@ -49,7 +49,7 @@ public class SkillUIManager : MonoBehaviour
 
     private void OnOpenInfoUI(InputAction.CallbackContext context)
     {
-        if (inventory.uiOpen == 0)
+        if (inventory.currentUI == UIType.None)
         {
             if (!playerInfo.activeSelf)
             {
@@ -57,18 +57,18 @@ public class SkillUIManager : MonoBehaviour
                 inventory.playerProfile.SetActive(false);
                 inventory.playerAttack.uiClicking = true;
                 skillPointText.text = "SkillPoint : " + skillPointCount;
-                inventory.uiOpen = 3;
+                inventory.currentUI = UIType.SkillWindow;
                 Time.timeScale = 0f;
             }
         }
-        else if (inventory.uiOpen == 3 && playerInfo.activeSelf)
+        else if (inventory.currentUI == UIType.SkillWindow && playerInfo.activeSelf)
         {
             Time.timeScale = 1f;
             playerInfo.SetActive(false);
             inventory.playerProfile.SetActive(true);
             inventory.playerAttack.uiClicking = false;
             slotClickSlot = 0;
-            inventory.uiOpen = 0;
+            inventory.currentUI = UIType.None;
         }
     }
 

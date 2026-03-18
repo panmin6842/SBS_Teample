@@ -6,6 +6,11 @@ public class GameManager : MonoBehaviour
 
     [Header("PlayerData")]
     public string nickName;
+    public int level;
+    public Job job;
+    public int hpPoint;
+    public int atkPoint;
+    public float defPoint;
 
     private void Awake()
     {
@@ -22,7 +27,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
     }
 
     // Update is called once per frame

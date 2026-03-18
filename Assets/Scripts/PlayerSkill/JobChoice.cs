@@ -23,11 +23,9 @@ public class JobChoice : MonoBehaviour
 
     private void JobChoiceCheck()
     {
-        switch (playerAttack.SkillCount)
+        switch (playerAttack.curJob)
         {
-            case 0:
-                break;
-            case 1:
+            case Job.Sword:
                 {
                     for (int i = 0; i < slots.Length; i++)
                     {
@@ -35,7 +33,7 @@ public class JobChoice : MonoBehaviour
                     }
                 }
                 break;
-            case 2:
+            case Job.Bow:
                 {
                     for (int i = 0; i < slots.Length; i++)
                     {
@@ -43,7 +41,7 @@ public class JobChoice : MonoBehaviour
                     }
                 }
                 break;
-            case 3:
+            case Job.Stamp:
                 {
                     for (int i = 0; i < slots.Length; i++)
                     {

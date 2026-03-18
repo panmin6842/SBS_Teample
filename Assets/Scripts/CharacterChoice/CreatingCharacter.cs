@@ -16,7 +16,7 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     [SerializeField] private TextMeshProUGUI[] infoTexts;
 
     private bool characterClick = false;
-    private string name;
+    private string curName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -55,9 +55,9 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     /// </summary>
     public void NickNameCreate()
     {
-        name = nameInput.text;
-        //GameManager.instance.nickName = name;
-        if (name.Length > 0)
+        curName = nameInput.text;
+        //GameManager.instance.nickName = curName;
+        if (curName.Length > 0)
         {
             UpdatePlayerPreview(0);
             pos.position = new Vector3(pos.position.x, pos.position.y + 34, pos.position.z);
@@ -83,7 +83,7 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void Info()
     {
-        infoTexts[0].text = "Name : " + name;
+        infoTexts[0].text = "Name : " + curName;
     }
 
     public void GamePlay()

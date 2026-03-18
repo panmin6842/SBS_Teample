@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 6011735589120359625}
   - component: {fileID: 7655924410801576270}
   - component: {fileID: 5343555876010511114}
+  - component: {fileID: 3296323806307052892}
   m_Layer: 6
   m_Name: PlayerParent
   m_TagString: Player
@@ -398,6 +399,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a2d8fd4f-a37d-4257-993d-7b88645100e1
     m_ActionName: 'Player/SkillAttack[/Keyboard/1,/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3caf4b4e-4a61-45c3-8d6e-175e79477cd2
+    m_ActionName: 'Player/Dialogue[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -569,6 +586,19 @@ MonoBehaviour:
   stamp5: {fileID: 4765357629799751588, guid: 9dbd3597868bffb4bb24124d431c7654, type: 3}
   stamp6: {fileID: 8843407102932007515, guid: 4cec57bb4cffde04295e0bb322576ddd, type: 3}
   swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
+--- !u!114 &3296323806307052892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079222889359566662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b16111a5d5ff9a429d964c6904461e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  introStory: {fileID: 11400000, guid: 5be9d5916b6f5c6438d7ffbfd98a2603, type: 2}
 --- !u!1 &6453711728712729560
 GameObject:
   m_ObjectHideFlags: 0

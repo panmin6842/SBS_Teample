@@ -29,6 +29,7 @@ public class PlayerProfile : PlayerState
 
     private void Start()
     {
+
     }
 
     private void Update()
@@ -85,6 +86,11 @@ public class PlayerProfile : PlayerState
         set { stampPassiveSKill3 = value; }
     }
 
+    public int Level
+    {
+        get { return level; }
+    }
+
     //max스테이터스 설정
     public void SetMaxHp(float hp, float e_hp)
     {
@@ -102,7 +108,8 @@ public class PlayerProfile : PlayerState
 
     public void SetMaxDEF(float def, float e_def)
     {
-        maxDEF = 0.5f + (def / 100f);
+        float totalDef = def + e_def;
+        maxDEF = 0.5f + (totalDef / 100f);
         maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
         curDEF = maxDEF;
     }
@@ -235,6 +242,32 @@ public class PlayerProfile : PlayerState
         curActCount -= actCount;
 
         curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+    }
+
+    public void LevelUp(int levelCount)
+    {
+        level += levelCount;
+    }
+
+    public int HpPointUp(int _hpPoint)
+    {
+        hpPoint = GameManager.instance.hpPoint;
+        hpPoint += _hpPoint;
+        return hpPoint;
+    }
+
+    public int ATKPointUp(int _atkPoint)
+    {
+        atkPoint = GameManager.instance.atkPoint;
+        atkPoint += _atkPoint;
+        return atkPoint;
+    }
+
+    public float DEFPointUp(float _defPoint)
+    {
+        defPoint = GameManager.instance.defPoint;
+        defPoint += _defPoint;
+        return defPoint;
     }
 
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)
