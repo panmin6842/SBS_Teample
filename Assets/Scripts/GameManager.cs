@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int hpPoint;
     public int atkPoint;
     public float defPoint;
+    public int profileIndex;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        profileIndex = 0;
     }
 
     // Update is called once per frame

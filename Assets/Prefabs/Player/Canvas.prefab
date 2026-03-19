@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4188778416909960399
 RectTransform:
   m_ObjectHideFlags: 0
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 31117026542894720}
   - component: {fileID: 3211584685049688391}
   m_Layer: 5
-  m_Name: level
+  m_Name: job
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3193,6 +3193,7 @@ GameObject:
   - component: {fileID: 491310435599480533}
   - component: {fileID: 6475611513165025967}
   - component: {fileID: 2638031016740785827}
+  - component: {fileID: 4418016428108080642}
   m_Layer: 5
   m_Name: DEF
   m_TagString: Untagged
@@ -3320,6 +3321,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4418016428108080642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122618677977805603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee660c859ff36c4fa2390632c9d11f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusNameText: {fileID: 8493686538867149247}
+  statusExplainText: {fileID: 2507440015828261774}
+  statusName: def
+  statusExplain: def
 --- !u!1 &1137441698526522439
 GameObject:
   m_ObjectHideFlags: 0
@@ -10540,6 +10557,7 @@ GameObject:
   - component: {fileID: 1943090288945826155}
   - component: {fileID: 5716106242143340274}
   - component: {fileID: 3386281020309816256}
+  - component: {fileID: 5505460192951218251}
   m_Layer: 5
   m_Name: HP
   m_TagString: Untagged
@@ -10667,6 +10685,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5505460192951218251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362155298406956793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee660c859ff36c4fa2390632c9d11f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusNameText: {fileID: 8493686538867149247}
+  statusExplainText: {fileID: 2507440015828261774}
+  statusName: hp
+  statusExplain: hp
 --- !u!1 &3372949484746019030
 GameObject:
   m_ObjectHideFlags: 0
@@ -14331,8 +14365,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nickName: {fileID: 7049965710683221845}
-  levelText: {fileID: 8291356817151392466}
-  jobText: {fileID: 2893087051670654301}
+  levelText: {fileID: 8360870483933661863}
+  jobText: {fileID: 3211584685049688391}
   hpPointText: {fileID: 7646369572735335137}
   atkPointText: {fileID: 7967833732364065401}
   defPointText: {fileID: 8559567815873112774}
@@ -14895,7 +14929,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8394398090419901733}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6174473903540264814}
+        m_TargetAssemblyTypeName: StatusUIManager, Assembly-CSharp
+        m_MethodName: ATKPointUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4568194182447846894
 GameObject:
   m_ObjectHideFlags: 0
@@ -15153,7 +15199,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6087485047805280985}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6174473903540264814}
+        m_TargetAssemblyTypeName: StatusUIManager, Assembly-CSharp
+        m_MethodName: HpPointUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4653259041244570197
 GameObject:
   m_ObjectHideFlags: 0
@@ -15240,6 +15298,7 @@ GameObject:
   - component: {fileID: 1061742293608763122}
   - component: {fileID: 12937462424464923}
   - component: {fileID: 6507485533131916984}
+  - component: {fileID: 5773251212560910659}
   m_Layer: 5
   m_Name: ATK
   m_TagString: Untagged
@@ -15367,6 +15426,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5773251212560910659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4727518034210573208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee660c859ff36c4fa2390632c9d11f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusNameText: {fileID: 8493686538867149247}
+  statusExplainText: {fileID: 2507440015828261774}
+  statusName: atk
+  statusExplain: atk
 --- !u!1 &4993362493711882057
 GameObject:
   m_ObjectHideFlags: 0
@@ -20103,7 +20178,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2690985657571064846}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6174473903540264814}
+        m_TargetAssemblyTypeName: StatusUIManager, Assembly-CSharp
+        m_MethodName: DEFPointUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6660190694625171170
 GameObject:
   m_ObjectHideFlags: 0

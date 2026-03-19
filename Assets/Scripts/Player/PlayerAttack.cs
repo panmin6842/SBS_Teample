@@ -11,12 +11,16 @@ public enum Job
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject attackPos;
-    [SerializeField] private GameObject jobChoiceUI;
-    [SerializeField] private JobChoice jobChoice;
+    private GameObject jobChoiceUI;
+    private JobChoice jobChoice;
     [Header("SkillObject")]
-    [SerializeField] GameObject swordAttackObj;
-    [SerializeField] GameObject bowAttackObj;
-    [SerializeField] GameObject stampAttackObj;
+    [SerializeField] private GameObject swordAttackObj;
+    [SerializeField] private GameObject bowAttackObj;
+    [SerializeField] private GameObject stampAttackObj;
+    [Header("직업 별 이미지")]
+    [SerializeField] private Sprite[] profileImages;
+    [SerializeField] private SpriteRenderer playerSpriteRenderer;
+
     float rotateSpeed = 100f;
     float maxRotateSpeed = 100f;
 
@@ -54,9 +58,11 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         playerProfile = GetComponent<PlayerProfile>();
+        jobChoiceUI = UIManager.Instance.jobChoiceUI;
+        jobChoice = UIManager.Instance.jobChoice;
 
         //처음은 검사
-        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0);
+        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0);
     }
 
     // Update is called once per frame
@@ -177,7 +183,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, Job _curJob,
-        float setHp, float setATK, float setDEF)
+        float setHp, float setATK, float setDEF, int profile)
     {
         originattackDelay = _attackDelay;
         attackDelay = originattackDelay;
@@ -198,13 +204,16 @@ public class PlayerAttack : MonoBehaviour
         GameManager.instance.hpPoint = (int)setHp;
         GameManager.instance.atkPoint = (int)setATK;
         GameManager.instance.defPoint = (int)setDEF;
+
+        playerSpriteRenderer.sprite = profileImages[profile];
+        GameManager.instance.profileIndex = profile;
     }
 
     public void SwordChoice()
     {
         Debug.Log("swordskill");
 
-        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0);
+        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
 
@@ -213,7 +222,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("bowskill");
 
-        StateDecision(0.5f, 10.0f, 10.0f, false, Job.Bow, 8, 3, -10);
+        StateDecision(0.5f, 10.0f, 10.0f, false, Job.Bow, 8, 3, -10, 1);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
     }
@@ -221,7 +230,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("stampskill");
 
-        StateDecision(2.5f, 10.0f, 5.0f, false, Job.Stamp, 7, 4, 0);
+        StateDecision(2.5f, 10.0f, 5.0f, false, Job.Stamp, 7, 4, 0, 2);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
     }

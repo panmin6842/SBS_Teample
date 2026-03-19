@@ -4,32 +4,45 @@ using UnityEngine.UI;
 public class PlayerProfile : PlayerState
 {
     [Header("HP관련 오브젝트")]
-    [SerializeField] private Image hpBackground;
-    [SerializeField] private Image hpMask;
-    [SerializeField] private TextMeshProUGUI hpText;
+    private Image hpBackground;
+    private Image hpMask;
+    private TextMeshProUGUI hpText;
 
     [Header("Mp관련 오브젝트")]
-    [SerializeField] private Image mpBackground;
-    [SerializeField] private Image mpMask;
-    [SerializeField] private TextMeshProUGUI mpText;
+    private Image mpBackground;
+    private Image mpMask;
+    private TextMeshProUGUI mpText;
 
     [Header("행동력관련 오브젝트")]
-    [SerializeField] private Slider acSlider;
-    [SerializeField] private TextMeshProUGUI acText;
+    private Slider acSlider;
+    private TextMeshProUGUI acText;
 
     [Header("스테이터스 표시")]
-    [SerializeField] private TextMeshProUGUI hpTestText;
-    [SerializeField] private TextMeshProUGUI mpTestText;
-    [SerializeField] private TextMeshProUGUI atkTestText;
-    [SerializeField] private TextMeshProUGUI basicAtkTestText;
-    [SerializeField] private TextMeshProUGUI defTestText;
-    [SerializeField] private TextMeshProUGUI moveSpeedTestText;
+    private TextMeshProUGUI hpTestText;
+    private TextMeshProUGUI mpTestText;
+    private TextMeshProUGUI atkTestText;
+    private TextMeshProUGUI basicAtkTestText;
+    private TextMeshProUGUI defTestText;
+    private TextMeshProUGUI moveSpeedTestText;
 
     private float lerpSpeed = 5;
 
     private void Start()
     {
-
+        hpBackground = UIManager.Instance.hpBackground;
+        hpMask = UIManager.Instance.hpMask;
+        hpText = UIManager.Instance.hpText;
+        mpBackground = UIManager.Instance.mpBackground;
+        mpMask = UIManager.Instance.mpMask;
+        mpText = UIManager.Instance.mpText;
+        acSlider = UIManager.Instance.acSlider;
+        acText = UIManager.Instance.acText;
+        hpTestText = UIManager.Instance.hpStatusText;
+        mpTestText = UIManager.Instance.mpStatusText;
+        atkTestText = UIManager.Instance.atkStatusText;
+        basicAtkTestText = UIManager.Instance.basicAtkStatusText;
+        defTestText = UIManager.Instance.defStatusText;
+        moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
     }
 
     private void Update()
