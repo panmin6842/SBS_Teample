@@ -19,17 +19,45 @@ public class ItemRaycast : MonoBehaviour
 
     private void Awake()
     {
-        inventory = UIManager.Instance.inventory;
-        inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
-        playerAttack = GetComponent<PlayerAttack>();
+
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        inventory.uiActionMap.Enable();
-        inventory.uiActionMap.FindAction("OpenStorage").performed += OnOpenStorage;
+        inventory = UIManager.Instance.inventory;
 
-        storageInventory = UIManager.Instance.storageInventroy;
+        playerAttack = GetComponent<PlayerAttack>();
+        if (inventory == null)
+        {
+            GameObject obj = GameObject.Find("InventorySystem");
+            if (obj != null) inventory = obj.GetComponent<InventoryMain>();
+        }
+
+        if (inventory != null && inventory.uiInputAction != null)
+        {
+            inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
+            inventory.uiActionMap.Enable();
+            inventory.uiActionMap.FindAction("OpenStorage").performed += OnOpenStorage;
+        }
+
+        if (UIManager.Instance != null)
+        {
+            storageInventory = UIManager.Instance.storageInventroy;
+        }
+
+        if (UIManager.Instance == null)
+        {
+            Debug.Log("instance¾øÀ½");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (inventory != null && inventory.uiActionMap != null)
+        {
+            inventory.uiActionMap.FindAction("OpenStorage").performed -= OnOpenStorage;
+            inventory.uiActionMap.Disable();
+        }
     }
 
     private void ItemGet()

@@ -19,6 +19,13 @@ public enum ItemType
     Equipment_CHARM = 1 << 9,
 
     //물약 아이템
+    HealPotion_Small = 1 << 10,
+    HealPotion_Middle = 1 << 11,
+    HealPotion_Big = 1 << 12,
+
+    MPPotion_Small = 1 << 13,
+    MPPotion_Middle = 1 << 14,
+    MPPotion_Big = 1 << 15,
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "Add Item/Item")]
@@ -101,6 +108,16 @@ public class Item : ScriptableObject
         get
         {
             return itemImage;
+        }
+    }
+
+    [Header("효과")]
+    [SerializeField] float coolTime;
+    public float CoolTime
+    {
+        get
+        {
+            return coolTime;
         }
     }
 

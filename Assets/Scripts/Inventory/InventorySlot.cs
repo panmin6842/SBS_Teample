@@ -135,4 +135,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             explanToolTip.SetActive(false);
         }
     }
+
+    public void InstallButton()
+    {
+        if (item.Type == ItemType.HealPotion_Small || item.Type == ItemType.HealPotion_Middle
+            || item.Type == ItemType.HealPotion_Big)
+            inventory.hpPotionSlot = this;
+        else if (item.Type == ItemType.MPPotion_Small || item.Type == ItemType.MPPotion_Middle
+            || item.Type == ItemType.MPPotion_Big)
+            inventory.mpPotionSlot = this;
+    }
 }

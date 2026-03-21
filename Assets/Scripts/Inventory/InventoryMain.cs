@@ -26,6 +26,8 @@ public class InventoryMain : InventoryBase
     private ItemRaycast itemRaycast;
 
     public GameObject playerProfile;
+    public InventorySlot hpPotionSlot;
+    public InventorySlot mpPotionSlot;
 
     public UIType currentUI = UIType.None;
 
