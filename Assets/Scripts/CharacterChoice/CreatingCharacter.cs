@@ -1,22 +1,33 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private GameObject nameZone;
     [SerializeField] private TMP_InputField nameInput;
 
+    private Image playerDisplayImage;
+    private RectTransform pos;
+    [SerializeField] private Sprite[] playerImage;
+    [SerializeField] private GameObject playZone;
+    [SerializeField] private TextMeshProUGUI[] infoTexts;
+
     private bool characterClick = false;
+    private string name;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerDisplayImage = GetComponent<Image>();
+        pos = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //게임오브젝트에서 직업 뭐 선택했는지 가져와서 해야함.
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -25,12 +36,58 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
             nameZone.SetActive(true);
             characterClick = true;
         }
+        else if (characterClick)
+        {
+            if (!playZone.activeSelf)
+            {
+                playZone.SetActive(true);
+                Info();
+            }
+            else
+            {
+                playZone.SetActive(false);
+            }
+        }
     }
 
+    /// <summary>
+    /// 닉네임 생성
+    /// </summary>
     public void NickNameCreate()
     {
-        string name = nameInput.text;
-        GameManager.instance.nickName = name;
-        nameZone.SetActive(false);
+        name = nameInput.text;
+        //GameManager.instance.nickName = name;
+        if (name.Length > 0)
+        {
+            UpdatePlayerPreview(0);
+            pos.position = new Vector3(pos.position.x, pos.position.y + 34, pos.position.z);
+            pos.localScale = new Vector3(2, 2, 2);
+            nameZone.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// 플레이어 생성 시 이미지 변환
+    /// </summary>
+    /// <param name="jobIndex"></param>
+    private void UpdatePlayerPreview(int jobIndex)
+    {
+        if (jobIndex >= 0 && jobIndex < playerImage.Length)
+        {
+            playerDisplayImage.sprite = playerImage[jobIndex];
+        }
+    }
+
+    /// <summary>
+    /// 스테이터스 설명 작성
+    /// </summary>
+    private void Info()
+    {
+        infoTexts[0].text = "Name : " + name;
+    }
+
+    public void GamePlay()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
