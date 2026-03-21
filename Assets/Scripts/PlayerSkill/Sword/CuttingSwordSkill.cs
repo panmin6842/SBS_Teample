@@ -11,6 +11,9 @@ public class CuttingSwordSkill : MonoBehaviour
 
     private float rotateSpeed = 360f; //회전 속도
     private float damage;
+
+    [SerializeField] private GameObject effect;
+    GameObject newEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +24,7 @@ public class CuttingSwordSkill : MonoBehaviour
             damage = playerProfile.ATK(190f);
             playerProfile.ChangeMoveSpeed(-90f);
         }
+        newEffect = Instantiate(effect, transform.position, effect.transform.rotation);
         //InvokeRepeating("CheckAttack", 0.01f, 0.1f);
     }
 
@@ -36,6 +40,7 @@ public class CuttingSwordSkill : MonoBehaviour
     {
         playerProfile.ChangeMoveSpeed(0);
         playerProfile.SkillStart = false;
+        Destroy(newEffect);
         Destroy(gameObject);
     }
 
@@ -43,7 +48,9 @@ public class CuttingSwordSkill : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("스킬 : 회전베기" + other.gameObject.name + "을(를) 공격했습니다!");
+            Debug.Log("스킬 : 회전베기" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            if (playerProfile.BloodHeal)
+                playerProfile.BloodHealHp(10, damage);
         }
     }
     //void CheckAttack()

@@ -4,29 +4,45 @@ using UnityEngine.UI;
 public class PlayerProfile : PlayerState
 {
     [Header("HP관련 오브젝트")]
-    [SerializeField] private Image hpBackground;
-    [SerializeField] private Image hpMask;
-    [SerializeField] private TextMeshProUGUI hpText;
+    private Image hpBackground;
+    private Image hpMask;
+    private TextMeshProUGUI hpText;
 
     [Header("Mp관련 오브젝트")]
-    [SerializeField] private Image mpBackground;
-    [SerializeField] private Image mpMask;
-    [SerializeField] private TextMeshProUGUI mpText;
+    private Image mpBackground;
+    private Image mpMask;
+    private TextMeshProUGUI mpText;
 
     [Header("행동력관련 오브젝트")]
-    [SerializeField] private Slider acSlider;
-    [SerializeField] private TextMeshProUGUI acText;
+    private Slider acSlider;
+    private TextMeshProUGUI acText;
 
     [Header("스테이터스 표시")]
-    [SerializeField] private TextMeshProUGUI hpTestText;
-    [SerializeField] private TextMeshProUGUI mpTestText;
-    [SerializeField] private TextMeshProUGUI atkTestText;
-    [SerializeField] private TextMeshProUGUI defTestText;
+    private TextMeshProUGUI hpTestText;
+    private TextMeshProUGUI mpTestText;
+    private TextMeshProUGUI atkTestText;
+    private TextMeshProUGUI basicAtkTestText;
+    private TextMeshProUGUI defTestText;
+    private TextMeshProUGUI moveSpeedTestText;
 
     private float lerpSpeed = 5;
 
     private void Start()
     {
+        hpBackground = UIManager.Instance.hpBackground;
+        hpMask = UIManager.Instance.hpMask;
+        hpText = UIManager.Instance.hpText;
+        mpBackground = UIManager.Instance.mpBackground;
+        mpMask = UIManager.Instance.mpMask;
+        mpText = UIManager.Instance.mpText;
+        acSlider = UIManager.Instance.acSlider;
+        acText = UIManager.Instance.acText;
+        hpTestText = UIManager.Instance.hpStatusText;
+        mpTestText = UIManager.Instance.mpStatusText;
+        atkTestText = UIManager.Instance.atkStatusText;
+        basicAtkTestText = UIManager.Instance.basicAtkStatusText;
+        defTestText = UIManager.Instance.defStatusText;
+        moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
     }
 
     private void Update()
@@ -42,16 +58,12 @@ public class PlayerProfile : PlayerState
     private void StateTestText()
     {
         hpTestText.text = "hp : " + curHp;
-        hpTestText.text = "mp : " + curMp;
-        hpTestText.text = "atk : " + curATK;
-        hpTestText.text = "def : " + curDEF;
+        mpTestText.text = "mp : " + curMp;
+        atkTestText.text = "atk : " + curATK;
+        basicAtkTestText.text = "basicAtk : " + basicATK;
+        defTestText.text = "def : " + curDEF;
+        moveSpeedTestText.text = "moveSpeed : " + moveSpeed;
     }
-
-    //public bool NoDamage
-    //{
-    //    set { NoDamage = value; }
-    //    get { return NoDamage; }
-    //}
 
     public bool SkillStart
     {
@@ -65,15 +77,90 @@ public class PlayerProfile : PlayerState
         get { return swordBasicAttackCount; }
     }
 
+    public bool BloodHeal
+    {
+        set { bloodHeal = value; }
+        get { return bloodHeal; }
+    }
+
+    public bool Barrier
+    {
+        set { barrier = value; }
+        get { return barrier; }
+    }
+
+    public float MaxHp
+    {
+        get { return maxHp; }
+    }
+
+    public bool StampPassiveSkill3
+    {
+        set { stampPassiveSKill3 = value; }
+    }
+
+    public int Level
+    {
+        get { return level; }
+    }
+
+    //max스테이터스 설정
+    public void SetMaxHp(float hp, float e_hp)
+    {
+        maxHp = 10 * hp + e_hp;
+        curHp = maxHp;
+    }
+
+    public void SetMaxATK(float atk, float e_atk)
+    {
+        maxBasicATK = 2 * atk + e_atk;
+        maxATK = 2 * atk + e_atk;
+        basicATK = maxBasicATK;
+        curATK = maxATK;
+    }
+
+    public void SetMaxDEF(float def, float e_def)
+    {
+        float totalDef = def + e_def;
+        maxDEF = 0.5f + (totalDef / 100f);
+        maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
+        curDEF = maxDEF;
+    }
+
     public void IncreasedHp(float increasedPercent)
     {
-        maxHp = (int)(maxHp * (increasedPercent / 100f));
+        maxHp = maxHp * (increasedPercent / 100f);
     }
     public void IncreasedMp(float increasedPercent)
     {
         maxMp = (int)(maxMp * (increasedPercent / 100f));
     }
 
+    //패시브 효과
+    public void PassiveATK(float increasedPercent)
+    {
+        passiveATK = maxATK * (1f + (increasedPercent / 100f));
+        curATK = passiveATK;
+    }
+
+    public void PassiveBasicATK(float increasedPercent)
+    {
+        passiveATK = maxBasicATK * (1f + (increasedPercent / 100f));
+        basicATK = passiveATK;
+    }
+    public void PassiveDEF(float increasedPercent)
+    {
+        passiveDEF = maxDEF * (1f + (increasedPercent / 100f));
+        curDEF = passiveDEF;
+    }
+
+    public void PassiveMoveSpeed(float increasedPercent)
+    {
+        passiveMoveSpeed = originMoveSpeed * (1f + (increasedPercent / 100f));
+        moveSpeed = passiveMoveSpeed;
+    }
+
+    //스킬 효과
     public void GetDamage(int damage)
     {
         curHp -= damage;
@@ -81,31 +168,86 @@ public class PlayerProfile : PlayerState
         curHp = Mathf.Clamp(curHp, 0, maxHp);
     }
 
+    public void SelfHpDamage(float damagePercent)
+    {
+        float buff = maxHp * damagePercent;
+        curHp -= buff;
+        curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
+    public void HPBuff(float buffPercent)
+    {
+        float buff = maxHp * buffPercent;
+        curHp += buff;
+        curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
     public void UseMP(int mp)
     {
-        curMp -= mp;
+        if (!stampPassiveSKill3)
+        {
+            curMp -= mp;
+        }
+        else if (stampPassiveSKill3)
+        {
+            curMp -= (mp * 2);
+        }
 
         curMp = Mathf.Clamp(curMp, 0, maxMp);
+    }
+
+    public void MPBuff(int buff)
+    {
+        curMp += buff;
+        curMp = Mathf.Clamp(curMp, 0, maxMp);
+    }
+
+    public bool MPBuffStart()
+    {
+        return curMp < maxMp;
     }
 
     public float ATK(float damagePercent)
     {
         return curATK * (damagePercent / 100f);
     }
+    public float BasicATK(float damagePercent)
+    {
+        return basicATK * (damagePercent / 100f);
+    }
 
     public void ChangeATK(float changePercent)
     {
-        curATK = maxATK * (1f + changePercent / 100f);
+        curATK = passiveATK * (1f + changePercent / 100f);
+    }
+
+    public void ChangeBasicATK(float changePercent)
+    {
+        basicATK = passiveATK * (1f + changePercent / 100f);
     }
 
     public void ChangeDEF(float changePercent)
     {
-        curDEF = maxDEF * (1f + changePercent / 100f);
+        curDEF = passiveDEF * (1f + changePercent / 100f);
     }
 
     public void ChangeMoveSpeed(float changePercent)
     {
-        moveSpeed = originMoveSpeed * (1f + (changePercent / 100f));
+        moveSpeed = passiveMoveSpeed * (1f + (changePercent / 100f));
+    }
+
+    public void BloodHealHp(float bloodPercent, float damage)
+    {
+        float bloodValue;
+        bloodValue = damage * (bloodPercent / 100f);
+        float limitValue = maxHp * 0.01f;
+
+        float finalHealAmount = Mathf.Min(bloodValue, limitValue); //더 작은 값 반환
+        curHp += finalHealAmount;
+
+        curHp = Mathf.Clamp(curHp, 0, maxHp);
+
+        Debug.Log($"데미지: {damage} | 계산된 흡혈: {bloodValue} | 실제 흡혈(제한적용): {finalHealAmount}");
     }
 
     public void UseActCount(int actCount)
@@ -115,12 +257,38 @@ public class PlayerProfile : PlayerState
         curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
     }
 
+    public void LevelUp(int levelCount)
+    {
+        level += levelCount;
+    }
+
+    public int HpPointUp(int _hpPoint)
+    {
+        hpPoint = GameManager.instance.hpPoint;
+        hpPoint += _hpPoint;
+        return hpPoint;
+    }
+
+    public int ATKPointUp(int _atkPoint)
+    {
+        atkPoint = GameManager.instance.atkPoint;
+        atkPoint += _atkPoint;
+        return atkPoint;
+    }
+
+    public float DEFPointUp(float _defPoint)
+    {
+        defPoint = GameManager.instance.defPoint;
+        defPoint += _defPoint;
+        return defPoint;
+    }
+
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)
     {
         float _curState = curState;
         float _maxState = maxState;
 
-        stateText.text = string.Format("{0} / {1}", _curState, _maxState);
+        stateText.text = string.Format("{0} / {1}", Mathf.CeilToInt(_curState), Mathf.CeilToInt(_maxState));
 
         float height = _mask.GetComponent<RectTransform>().sizeDelta.y;
         float fullWidth = _background.GetComponent<RectTransform>().sizeDelta.x;

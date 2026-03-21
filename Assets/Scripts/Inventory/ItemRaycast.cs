@@ -11,14 +11,15 @@ public class ItemRaycast : MonoBehaviour
     private ItemPickUp currentItem; //활성화시 현재 등록된 아이템
 
     [Header("상자 인벤토리")]
-    [SerializeField] private GameObject storageInventory;
+    private GameObject storageInventory;
 
-    [SerializeField] private InventoryMain inventory;
+    private InventoryMain inventory;
 
     private PlayerAttack playerAttack;
 
     private void Awake()
     {
+        inventory = UIManager.Instance.inventory;
         inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
         playerAttack = GetComponent<PlayerAttack>();
     }
@@ -27,6 +28,8 @@ public class ItemRaycast : MonoBehaviour
     {
         inventory.uiActionMap.Enable();
         inventory.uiActionMap.FindAction("OpenStorage").performed += OnOpenStorage;
+
+        storageInventory = UIManager.Instance.storageInventroy;
     }
 
     private void ItemGet()
@@ -61,7 +64,7 @@ public class ItemRaycast : MonoBehaviour
                 storageInventory.SetActive(true);
                 inventory.playerProfile.SetActive(false);
                 playerAttack.uiClicking = true;
-                inventory.uiOpen = 2;
+                inventory.currentUI = UIType.Chest;
                 Time.timeScale = 0f;
             }
             else if (storageInventory.activeSelf)
@@ -70,7 +73,7 @@ public class ItemRaycast : MonoBehaviour
                 storageInventory.SetActive(false);
                 inventory.playerProfile.SetActive(true);
                 playerAttack.uiClicking = false;
-                inventory.uiOpen = 0;
+                inventory.currentUI = UIType.None;
                 isStorageActive = false;
             }
         }
@@ -88,7 +91,7 @@ public class ItemRaycast : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Storage" && !isStorageActive && inventory.uiOpen == 0)
+        if (other.tag == "Storage" && !isStorageActive && inventory.currentUI == UIType.None)
         {
             isStorageActive = true;
         }

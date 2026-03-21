@@ -151,3 +151,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitTag: Enemy
+  bowExplosionObj: {fileID: 6378561587437264206, guid: 6341333bb913cbc49985d0632f1eafda, type: 3}

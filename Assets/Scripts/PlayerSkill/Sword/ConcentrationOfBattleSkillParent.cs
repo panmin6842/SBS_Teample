@@ -48,6 +48,7 @@ public class ConcentrationOfBattleSkillParent : MonoBehaviour
         yield return new WaitForSeconds(20);
         playerProfile.SkillStart = false;
         swordAttackManager.IncreasedColliderSize(0);
+        playerProfile.ChangeATK(0);
         Destroy(gameObject);
     }
 }

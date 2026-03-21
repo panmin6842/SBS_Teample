@@ -13,7 +13,7 @@ public enum ItemType
     Equipment_BOTTOMS = 1 << 3, //8
     Equipment_SHOES = 1 << 4, //16
     Equipment_PENDANT = 1 << 5, //32
-    Equipment_RING = 1 << 6, //64
+    Equipment_Glove = 1 << 6, //64
     Equipment_AMULET = 1 << 7, //128
     Equipment_WEAPON = 1 << 8, //256
     Equipment_CHARM = 1 << 9,

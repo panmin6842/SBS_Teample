@@ -13,9 +13,7 @@ TagManager:
   - StampBasicAttack
   - ArrowBasicAttack
   - PassiveSkillSlot
-  - ActiveSkill2Slot
-  - ActiveSkill1Slot
-  - PortalManager
+
   layers:
   - Default
   - TransparentFX
@@ -26,7 +24,7 @@ TagManager:
   - Player
   - Enemy
   - Wall
-  - Map
+
   - 
   - 
   - 

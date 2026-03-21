@@ -2,46 +2,51 @@ using UnityEngine;
 
 public class JobChoice : MonoBehaviour
 {
+    private PlayerAttack playerAttack;
+
     [Header("직업별 스킬 아이템")]
     [SerializeField] private SkillItem[] swordSkillItems;
+    [SerializeField] private SkillItem[] bowSkillItems;
+    [SerializeField] private SkillItem[] stampSkillItems;
 
     [Header("스킬 슬롯")]
     [SerializeField] private GameObject skillSlotParent;
     private SkillPick[] slots;
 
-    [SerializeField] private int jobChoiceCount = 1; //0 = 무직, 1 = 전사, 2 = 궁수, 3 = 법사
-    private bool choice = false; //임시
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
         slots = skillSlotParent.GetComponentsInChildren<SkillPick>();
-    }
+        playerAttack = GameObject.Find("Player").GetComponent<PlayerAttack>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        //임시로 업데이트에 해 놓는데 만약 선택하는 기획이 나오면 그 때 교체
-        if (!choice)
-        {
-            JobChoiceCheck();
-        }
+        JobChoiceCheck();
     }
 
     private void JobChoiceCheck()
     {
-        switch (jobChoiceCount)
+        switch (playerAttack.curJob)
         {
-            case 0:
-                break;
-            case 1:
+            case Job.Sword:
                 {
                     for (int i = 0; i < slots.Length; i++)
                     {
                         slots[i].skillItem = swordSkillItems[i];
                     }
-
-                    choice = true;
+                }
+                break;
+            case Job.Bow:
+                {
+                    for (int i = 0; i < slots.Length; i++)
+                    {
+                        slots[i].skillItem = bowSkillItems[i];
+                    }
+                }
+                break;
+            case Job.Stamp:
+                {
+                    for (int i = 0; i < slots.Length; i++)
+                    {
+                        slots[i].skillItem = stampSkillItems[i];
+                    }
                 }
                 break;
         }

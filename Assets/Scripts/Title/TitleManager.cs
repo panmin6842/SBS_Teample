@@ -5,6 +5,6 @@ public class TitleManager : MonoBehaviour
 {
     public void GameStart()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("CharacterChoiceScene");
     }
 }
