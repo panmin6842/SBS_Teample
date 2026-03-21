@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 public enum WallDirection
 {
     North,
@@ -14,16 +15,15 @@ public class PortalManager : MonoBehaviour
 {
     public bool isPortalActive;
     [Space(10f)]
-    public GameObject PortalObject;
+    public List<GameObject> PortalObject = new List<GameObject>();
     [Space(10f)]
     public Transform PlayerTpSpotTransform;
     public Transform MainCameraTpSpotTransform;
     [Space(10f)]
     public Dictionary<WallDirection, GameObject> NearStage = new Dictionary<WallDirection, GameObject>();
-    public List<PortalManager> LinkedStageList = new List<PortalManager>();
 
 
-
+    StageManager stageManager;
     [HideInInspector] public GameObject ThisStage;
     [HideInInspector] public GameObject PlayerObject;
     [HideInInspector] public GameObject MainCameraObject;
@@ -38,6 +38,7 @@ public class PortalManager : MonoBehaviour
         MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
         CinemachineCamera = GameObject.Find("PlayerCamera").GetComponent<CinemachineCamera>();
         PortalEffectImage = GameObject.FindWithTag("FadeBackground").GetComponent<Image>();
+        stageManager = StageManager.instance;
     }
 
     void Start()
@@ -48,6 +49,7 @@ public class PortalManager : MonoBehaviour
     void Update()
     {
         PortalActiveCheck();
+        PortalActivation();
     }
 
     void PortalActiveCheck()
@@ -60,5 +62,22 @@ public class PortalManager : MonoBehaviour
         //{
         //    isPortalActive = false;
         //}
+    }
+
+    void PortalActivation()
+    {
+        int x = Mathf.RoundToInt(ThisStage.transform.position.x / stageManager.spacing);
+        int z = Mathf.RoundToInt(ThisStage.transform.position.z / stageManager.spacing);
+        Vector2Int pos = new Vector2Int(x, z);
+
+        bool north = stageManager.StagePositions.Contains(new Vector2Int(pos.x, pos.y + 1));
+        bool south = stageManager.StagePositions.Contains(new Vector2Int(pos.x, pos.y - 1));
+        bool west = stageManager.StagePositions.Contains(new Vector2Int(pos.x - 1, pos.y));
+        bool east = stageManager.StagePositions.Contains(new Vector2Int(pos.x + 1, pos.y));
+
+        PortalObject[0].SetActive(north && isPortalActive);
+        PortalObject[1].SetActive(south && isPortalActive);
+        PortalObject[2].SetActive(west && isPortalActive);
+        PortalObject[3].SetActive(east && isPortalActive);
     }
 }

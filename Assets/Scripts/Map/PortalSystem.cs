@@ -1,14 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-enum PortalDirection
-{
-    Front,
-    Back,
-    Left,
-    Right
-}
-
 public class PortalSystem : MonoBehaviour
 {
     PortalManager portalManager;

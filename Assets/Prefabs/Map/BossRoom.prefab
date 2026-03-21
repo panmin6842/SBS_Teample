@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &353587307873532341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6004410561968186714}
+  m_Layer: 0
+  m_Name: Design
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6004410561968186714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353587307873532341}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7560381821120080026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &609708612432963738
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,8 +156,8 @@ Transform:
   m_GameObject: {fileID: 2613477811451857407}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 20, z: 30}
+  m_LocalPosition: {x: 45, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 20, z: 90}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7560381821120080026}
@@ -215,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7560381821120080026}
   m_Layer: 0
-  m_Name: Stage
+  m_Name: BossRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,6 +273,7 @@ Transform:
   - {fileID: 2652078531936724205}
   - {fileID: 6981340529627803001}
   - {fileID: 909130398814576352}
+  - {fileID: 6004410561968186714}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3701794365856672757
@@ -289,7 +321,7 @@ GameObject:
   - component: {fileID: 2267311011015321709}
   - component: {fileID: 4602621795292340822}
   m_Layer: 0
-  m_Name: Portal (3)
+  m_Name: Portal RIght
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -426,7 +458,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30, y: 1, z: 30}
+  m_LocalScale: {x: 90, y: 1, z: 90}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7560381821120080026}
@@ -519,7 +551,7 @@ GameObject:
   - component: {fileID: 5795575891714520537}
   - component: {fileID: 3753242587494246631}
   m_Layer: 0
-  m_Name: Portal (2)
+  m_Name: Portal Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,8 +687,8 @@ Transform:
   m_GameObject: {fileID: 6814660579665246470}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: -15}
-  m_LocalScale: {x: 30, y: 20, z: 1}
+  m_LocalPosition: {x: 0, y: 10, z: -45}
+  m_LocalScale: {x: 90, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7560381821120080026}
@@ -749,7 +781,7 @@ GameObject:
   - component: {fileID: 3785993574432424367}
   - component: {fileID: 4929294640687788825}
   m_Layer: 0
-  m_Name: Portal (1)
+  m_Name: Portal Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -885,8 +917,8 @@ Transform:
   m_GameObject: {fileID: 7828864564084967939}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 20, z: 30}
+  m_LocalPosition: {x: -45, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 20, z: 90}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7560381821120080026}
@@ -979,7 +1011,7 @@ GameObject:
   - component: {fileID: 7949319057631512692}
   - component: {fileID: 7460299889335259947}
   m_Layer: 0
-  m_Name: Portal
+  m_Name: Portal Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1115,8 +1147,8 @@ Transform:
   m_GameObject: {fileID: 8076056445954916831}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 15}
-  m_LocalScale: {x: 30, y: 20, z: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 45}
+  m_LocalScale: {x: 90, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7560381821120080026}
@@ -1246,10 +1278,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPortalActive: 0
-  PortalObject: {fileID: 8032132873244000005}
+  PortalObject:
+  - {fileID: 8032132873244000005}
+  - {fileID: 7269640967584282100}
+  - {fileID: 6325785953786091344}
+  - {fileID: 4417808012535134601}
   PlayerTpSpotTransform: {fileID: 6981340529627803001}
   MainCameraTpSpotTransform: {fileID: 909130398814576352}
-  LinkedStageList: []
   ThisStage: {fileID: 0}
   PlayerObject: {fileID: 0}
   MainCameraObject: {fileID: 0}
