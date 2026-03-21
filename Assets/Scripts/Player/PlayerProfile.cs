@@ -4,31 +4,45 @@ using UnityEngine.UI;
 public class PlayerProfile : PlayerState
 {
     [Header("HP관련 오브젝트")]
-    [SerializeField] private Image hpBackground;
-    [SerializeField] private Image hpMask;
-    [SerializeField] private TextMeshProUGUI hpText;
+    private Image hpBackground;
+    private Image hpMask;
+    private TextMeshProUGUI hpText;
 
     [Header("Mp관련 오브젝트")]
-    [SerializeField] private Image mpBackground;
-    [SerializeField] private Image mpMask;
-    [SerializeField] private TextMeshProUGUI mpText;
+    private Image mpBackground;
+    private Image mpMask;
+    private TextMeshProUGUI mpText;
 
     [Header("행동력관련 오브젝트")]
-    [SerializeField] private Slider acSlider;
-    [SerializeField] private TextMeshProUGUI acText;
+    private Slider acSlider;
+    private TextMeshProUGUI acText;
 
     [Header("스테이터스 표시")]
-    [SerializeField] private TextMeshProUGUI hpTestText;
-    [SerializeField] private TextMeshProUGUI mpTestText;
-    [SerializeField] private TextMeshProUGUI atkTestText;
-    [SerializeField] private TextMeshProUGUI basicAtkTestText;
-    [SerializeField] private TextMeshProUGUI defTestText;
-    [SerializeField] private TextMeshProUGUI moveSpeedTestText;
+    private TextMeshProUGUI hpTestText;
+    private TextMeshProUGUI mpTestText;
+    private TextMeshProUGUI atkTestText;
+    private TextMeshProUGUI basicAtkTestText;
+    private TextMeshProUGUI defTestText;
+    private TextMeshProUGUI moveSpeedTestText;
 
     private float lerpSpeed = 5;
 
     private void Start()
     {
+        hpBackground = UIManager.Instance.hpBackground;
+        hpMask = UIManager.Instance.hpMask;
+        hpText = UIManager.Instance.hpText;
+        mpBackground = UIManager.Instance.mpBackground;
+        mpMask = UIManager.Instance.mpMask;
+        mpText = UIManager.Instance.mpText;
+        acSlider = UIManager.Instance.acSlider;
+        acText = UIManager.Instance.acText;
+        hpTestText = UIManager.Instance.hpStatusText;
+        mpTestText = UIManager.Instance.mpStatusText;
+        atkTestText = UIManager.Instance.atkStatusText;
+        basicAtkTestText = UIManager.Instance.basicAtkStatusText;
+        defTestText = UIManager.Instance.defStatusText;
+        moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
     }
 
     private void Update()
@@ -83,6 +97,34 @@ public class PlayerProfile : PlayerState
     public bool StampPassiveSkill3
     {
         set { stampPassiveSKill3 = value; }
+    }
+
+    public int Level
+    {
+        get { return level; }
+    }
+
+    //max스테이터스 설정
+    public void SetMaxHp(float hp, float e_hp)
+    {
+        maxHp = 10 * hp + e_hp;
+        curHp = maxHp;
+    }
+
+    public void SetMaxATK(float atk, float e_atk)
+    {
+        maxBasicATK = 2 * atk + e_atk;
+        maxATK = 2 * atk + e_atk;
+        basicATK = maxBasicATK;
+        curATK = maxATK;
+    }
+
+    public void SetMaxDEF(float def, float e_def)
+    {
+        float totalDef = def + e_def;
+        maxDEF = 0.5f + (totalDef / 100f);
+        maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
+        curDEF = maxDEF;
     }
 
     public void IncreasedHp(float increasedPercent)
@@ -213,6 +255,32 @@ public class PlayerProfile : PlayerState
         curActCount -= actCount;
 
         curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+    }
+
+    public void LevelUp(int levelCount)
+    {
+        level += levelCount;
+    }
+
+    public int HpPointUp(int _hpPoint)
+    {
+        hpPoint = GameManager.instance.hpPoint;
+        hpPoint += _hpPoint;
+        return hpPoint;
+    }
+
+    public int ATKPointUp(int _atkPoint)
+    {
+        atkPoint = GameManager.instance.atkPoint;
+        atkPoint += _atkPoint;
+        return atkPoint;
+    }
+
+    public float DEFPointUp(float _defPoint)
+    {
+        defPoint = GameManager.instance.defPoint;
+        defPoint += _defPoint;
+        return defPoint;
     }
 
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)

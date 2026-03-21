@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 83441256743603720}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -1.4, y: -1.4, z: 1.2}
+  m_LocalPosition: {x: 1.6, y: -1.4, z: 1.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 41851154953a65648be9eb7bf7100362, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 97c947b778dfebd49b4e275cc90bf274, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 5739294386339140961}
   serializedVersion: 2
   m_LocalRotation: {x: 0.48872766, y: 0.5110239, z: -0.51102376, w: 0.48872763}
-  m_LocalPosition: {x: -1.8, y: -7.8, z: -6.9}
+  m_LocalPosition: {x: 0.13000011, y: -7.8, z: -8.309998}
   m_LocalScale: {x: 7.7925167, y: 12.214796, z: 10.780865}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 6011735589120359625}
   - component: {fileID: 7655924410801576270}
   - component: {fileID: 5343555876010511114}
+  - component: {fileID: 3296323806307052892}
   m_Layer: 6
   m_Name: PlayerParent
   m_TagString: Player
@@ -276,11 +277,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPos: {fileID: 3496575007854648899}
-  jobChoiceUI: {fileID: 0}
-  jobChoice: {fileID: 0}
   swordAttackObj: {fileID: 6084993611769339035, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
   bowAttackObj: {fileID: 4047336886330174727, guid: 7d753be6d7c68be4c880dbf67283b23f, type: 3}
   stampAttackObj: {fileID: 7257923731058189080, guid: f33bf049778e33349b1b2613b1f413d4, type: 3}
+  profileImages:
+  - {fileID: 21300000, guid: 97c947b778dfebd49b4e275cc90bf274, type: 3}
+  - {fileID: 21300000, guid: 7eb84fbc521011b45a935821591e152e, type: 3}
+  - {fileID: 21300000, guid: f9a10a132d628c240831c340aae3d5d6, type: 3}
+  playerSpriteRenderer: {fileID: 7133356876189250769}
   attackDelay: 1
   attackStartDelay: 0
   uiClicking: 0
@@ -293,6 +297,7 @@ MonoBehaviour:
   stampSkill6: 0
   stampPassiveSkill1: 0
   stampPassiveSkill2: 0
+  curJob: 0
 --- !u!114 &5468712068099768932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,6 +403,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a2d8fd4f-a37d-4257-993d-7b88645100e1
     m_ActionName: 'Player/SkillAttack[/Keyboard/1,/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3296323806307052892}
+        m_TargetAssemblyTypeName: PlayerDialogue, Assembly-CSharp
+        m_MethodName: OnDialogue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3caf4b4e-4a61-45c3-8d6e-175e79477cd2
+    m_ActionName: 'Player/Dialogue[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -465,8 +486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c20442f81e6a947915c9532dfa05ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storageInventory: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!114 &6011735589120359625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,25 +526,12 @@ MonoBehaviour:
   maxActCount: 10
   curActCount: 10
   skillPoint: 0
+  level: 0
   swordBasicAttackCount: 0
   skillStart: 0
   bloodHeal: 0
   barrier: 0
   stampPassiveSKill3: 0
-  hpBackground: {fileID: 0}
-  hpMask: {fileID: 0}
-  hpText: {fileID: 0}
-  mpBackground: {fileID: 0}
-  mpMask: {fileID: 0}
-  mpText: {fileID: 0}
-  acSlider: {fileID: 0}
-  acText: {fileID: 0}
-  hpTestText: {fileID: 0}
-  mpTestText: {fileID: 0}
-  atkTestText: {fileID: 0}
-  basicAtkTestText: {fileID: 0}
-  defTestText: {fileID: 0}
-  moveSpeedTestText: {fileID: 0}
 --- !u!114 &5343555876010511114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,10 +544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b95df9aa54a9f184894997f8ef6aa4ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotParent: {fileID: 0}
-  coolTimeSlider:
-  - {fileID: 0}
-  - {fileID: 0}
   coolTimeSkill1: 0
   coolTimeSkill2: 0
   passiveCoolTimeSkill1: 0
@@ -569,6 +571,19 @@ MonoBehaviour:
   stamp5: {fileID: 4765357629799751588, guid: 9dbd3597868bffb4bb24124d431c7654, type: 3}
   stamp6: {fileID: 8843407102932007515, guid: 4cec57bb4cffde04295e0bb322576ddd, type: 3}
   swordAttackManager: {fileID: 5961063175730277220, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
+--- !u!114 &3296323806307052892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079222889359566662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b16111a5d5ff9a429d964c6904461e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  introStory: {fileID: 11400000, guid: 5be9d5916b6f5c6438d7ffbfd98a2603, type: 2}
 --- !u!1 &6453711728712729560
 GameObject:
   m_ObjectHideFlags: 0

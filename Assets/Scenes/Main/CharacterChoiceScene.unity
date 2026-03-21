@@ -991,7 +991,9 @@ MonoBehaviour:
   nameZone: {fileID: 879908054}
   nameInput: {fileID: 153943494}
   playerImage:
-  - {fileID: 21300000, guid: 41851154953a65648be9eb7bf7100362, type: 3}
+  - {fileID: 21300000, guid: 97c947b778dfebd49b4e275cc90bf274, type: 3}
+  - {fileID: 21300000, guid: 7eb84fbc521011b45a935821591e152e, type: 3}
+  - {fileID: 21300000, guid: f9a10a132d628c240831c340aae3d5d6, type: 3}
   playZone: {fileID: 703971686}
   infoTexts:
   - {fileID: 871695463}

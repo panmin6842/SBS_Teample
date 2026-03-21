@@ -9,11 +9,11 @@ public class SkillPlay : MonoBehaviour
     private int actSkill2Number = 0;
     private int passiveSkillNumber = 0;
 
-    [SerializeField] private GameObject slotParent;
+    private GameObject slotParent;
     private PlayerProfileSkill[] slots;
 
     [Header("ÄðÅ¸ÀÓ")]
-    [SerializeField] private Slider[] coolTimeSlider;
+    private Slider[] coolTimeSlider;
     [SerializeField] private float coolTimeSkill1;
     [SerializeField] private float coolTimeSkill2;
     [SerializeField] private float passiveCoolTimeSkill1;
@@ -59,6 +59,9 @@ public class SkillPlay : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         playerProfile = GetComponent<PlayerProfile>();
         playerRid = GetComponent<Rigidbody>();
+
+        slotParent = UIManager.Instance.slotParent;
+        coolTimeSlider = UIManager.Instance.coolTimeSlider;
     }
 
     private void Update()
@@ -184,15 +187,15 @@ public class SkillPlay : MonoBehaviour
 
     private void JobSkillChoice(int number)
     {
-        if (playerAttack.SkillCount == 1)
+        if (playerAttack.curJob == Job.Sword)
         {
             SwordActiveSkill(number);
         }
-        else if (playerAttack.SkillCount == 2)
+        else if (playerAttack.curJob == Job.Bow)
         {
             BowActiveSkill(number);
         }
-        else if (playerAttack.SkillCount == 3)
+        else if (playerAttack.curJob == Job.Stamp)
         {
             StampActiveSkill(number);
         }

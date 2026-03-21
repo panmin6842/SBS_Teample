@@ -1,6 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum UIType
+{
+    None,
+    Inventory,
+    Chest,
+    SkillWindow,
+    Dialogue
+}
+
 /// <summary>
 /// 여러 아이템을 담을 가장 기본적인 인벤토리
 /// </summary>
@@ -18,7 +27,7 @@ public class InventoryMain : InventoryBase
 
     public GameObject playerProfile;
 
-    public int uiOpen = 0; //어떤 ui를 열었는지 (인벤토리 = 1, 상자 인벤토리 = 2, 스킬 창 = 3)
+    public UIType currentUI = UIType.None;
 
     new void Awake()
     {
@@ -40,11 +49,11 @@ public class InventoryMain : InventoryBase
     {
         //옵션이 켜저있는 경우 활성화 안 함 나중에 작성
 
-        if (!IsInventoryActive && uiOpen == 0)
+        if (!IsInventoryActive && currentUI == UIType.None)
         {
             OpenInventory();
         }
-        else if (IsInventoryActive && uiOpen == 1)
+        else if (IsInventoryActive && currentUI == UIType.Inventory)
         {
             CloseInventory();
         }
@@ -58,7 +67,7 @@ public class InventoryMain : InventoryBase
             playerProfile.SetActive(false);
             IsInventoryActive = true;
             playerAttack.uiClicking = true;
-            uiOpen = 1;
+            currentUI = UIType.Inventory;
 
             Cursor.visible = true;
         }
@@ -72,7 +81,7 @@ public class InventoryMain : InventoryBase
             playerProfile.SetActive(true);
             IsInventoryActive = false;
             playerAttack.uiClicking = false;
-            uiOpen = 0;
+            currentUI = UIType.None;
 
             //Cursor.visible = false;
         }

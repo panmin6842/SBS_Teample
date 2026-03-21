@@ -13,11 +13,12 @@ public class PlayerProfileSkill : MonoBehaviour
     public int choiceNumber; //선택한 스킬
 
     private SkillPlay skillPlay;
-
+    private PlayerAttack playerAttack;
 
     private void Start()
     {
         skillPlay = GameObject.FindGameObjectWithTag("Player").GetComponent<SkillPlay>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     }
 
     private void OnEnable()
@@ -27,13 +28,15 @@ public class PlayerProfileSkill : MonoBehaviour
             GetSkillItem();
         }
 
-        //구분하는거 바꿀 수 있으면 바꾸자
         if (skillPlay != null)
         {
             skillPlay.SkillNumberSetting();
-            //skillPlay.SwordPassiveSkill();
-            //skillPlay.BowPassiveSkill();
-            skillPlay.StampPassiveSkill();
+            if (playerAttack.curJob == Job.Sword)
+                skillPlay.SwordPassiveSkill();
+            else if (playerAttack.curJob == Job.Bow)
+                skillPlay.BowPassiveSkill();
+            else if (playerAttack.curJob == Job.Stamp)
+                skillPlay.StampPassiveSkill();
         }
     }
 

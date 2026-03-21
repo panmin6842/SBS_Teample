@@ -147,6 +147,38 @@ public class StorageToInventory : MonoBehaviour
         }
     }
 
+    public void ReleaseOfEquipment(EquipmentItemSlot slot)
+    {
+        int eCount = 0;
+        int aCount = 0;
+        for (int i = 0; i < e_InventorySlots.Length; i++)
+        {
+            if (e_InventorySlots[eCount].Item == null && e_InventorySlots[eCount].IsMask(slot.Item))
+            {
+                e_InventorySlots[eCount].AddItem(slot.Item, 1);
+                slot.ClearSlot();
+                eCount++;
+                break;
+            }
+            else if (a_InventorySlots[aCount].Item == null && a_InventorySlots[aCount].IsMask(slot.Item))
+            {
+                a_InventorySlots[aCount].AddItem(slot.Item, 1);
+                slot.ClearSlot();
+                aCount++;
+                break;
+            }
+
+            if (e_InventorySlots[eCount].Item != null)
+            {
+                eCount++;
+            }
+            if (a_InventorySlots[aCount].Item != null)
+            {
+                aCount++;
+            }
+        }
+    }
+
     private void BuffGet(Item item)
     {
         playerState = inventory.player.GetComponent<PlayerState>();
@@ -170,7 +202,7 @@ public class StorageToInventory : MonoBehaviour
         {
 
         }
-        else if (item.Type == ItemType.Equipment_RING)
+        else if (item.Type == ItemType.Equipment_Glove)
         {
 
         }
