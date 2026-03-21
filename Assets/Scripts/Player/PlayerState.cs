@@ -6,28 +6,9 @@ public class PlayerState : MonoBehaviour
     public float moveSpeed = 5.5f;
     protected float passiveMoveSpeed = 5.5f;
 
-    [SerializeField] protected float maxHp; //Ã¼·Â
-    [SerializeField] protected float curHp;
-    [SerializeField] protected int maxMp = 20; //¸¶³ª
-    [SerializeField] protected int curMp = 20;
-    [SerializeField] protected float curATK; //°ø°Ý·Â
-    [SerializeField] protected float maxATK;
-    [SerializeField] protected float passiveATK;
-    [SerializeField] protected float basicATK;
-    [SerializeField] protected float maxBasicATK;
-    [SerializeField] protected float curDEF; //¹æ¾î·Â
-    [SerializeField] protected float maxDEF;
-    [SerializeField] protected float passiveDEF;
-    [SerializeField] protected int maxActCount; //Çàµ¿·Â
-    [SerializeField] protected int curActCount;
-    [SerializeField] protected int skillPoint = 0; //½ºÅ³ Æ÷ÀÎÆ®
-    [SerializeField] protected int level = 0;
 
-    protected int hpPoint;
-    protected int atkPoint;
-    protected float defPoint;
 
-    [SerializeField] protected int swordBasicAttackCount = 0; //°Ë ±âº» °ø°Ý È½¼ö
+    [SerializeField] protected int swordBasicAttackCount = 0; //ê²€ ê¸°ë³¸ ê³µê²© íšŸìˆ˜
     [SerializeField] protected bool skillStart = false;
     [SerializeField] protected bool bloodHeal = false;
     [SerializeField] protected bool barrier = false;
