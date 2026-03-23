@@ -47,6 +47,15 @@ public class InventoryMain : InventoryBase
         itemRaycast = player.GetComponent<ItemRaycast>();
     }
 
+    private void OnDisable()
+    {
+        if (uiActionMap != null)
+        {
+            uiActionMap.FindAction("OpenInventory").performed -= OnOpenInventory;
+            uiActionMap.Disable();
+        }
+    }
+
     private void OnOpenInventory(InputAction.CallbackContext value)
     {
         //옵션이 켜저있는 경우 활성화 안 함 나중에 작성

@@ -42,6 +42,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             explanToolTip.SetActive(false);
             inventory.slotClick = false;
         }
+
+        SlotCount();
     }
 
     // 아이템 이미지의 투명도 조절
@@ -92,6 +94,16 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         textCount.text = itemCount.ToString();
 
         if (itemCount == 0)
+        {
+            ClearSlot();
+        }
+    }
+
+    private void SlotCount()
+    {
+        textCount.text = itemCount.ToString();
+
+        if (itemCount <= 0)
         {
             ClearSlot();
         }

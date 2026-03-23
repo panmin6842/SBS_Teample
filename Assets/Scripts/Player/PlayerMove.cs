@@ -11,6 +11,8 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody rb;
 
+    [SerializeField] private Transform pSprite;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +25,7 @@ public class PlayerMove : MonoBehaviour
     {
         float xOffset = movement.x * playerProfile.moveSpeed * Time.deltaTime;
         float yOffset = movement.y * playerProfile.moveSpeed * Time.deltaTime;
+
         if (!HitWall())
         {
             transform.localPosition += new Vector3(xOffset, 0f, yOffset);
@@ -47,5 +50,12 @@ public class PlayerMove : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+
+        if (movement.x != 0)
+        {
+            float direction = movement.x > 0 ? 1f : -1f;
+
+            pSprite.localScale = new Vector3(direction, 1f, 1f);
+        }
     }
 }

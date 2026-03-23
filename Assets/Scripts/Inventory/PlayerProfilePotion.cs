@@ -7,7 +7,7 @@ public class PlayerProfilePotion : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemCountText;
 
-    private InventorySlot slot;
+    public InventorySlot slot;
     public float coolTime;
 
     [SerializeField] private ItemType myType;
@@ -19,6 +19,8 @@ public class PlayerProfilePotion : MonoBehaviour
 
     [SerializeField] private bool hpSlot;
     [SerializeField] private bool mpSlot;
+
+    public bool add = false;
 
     private void Start()
     {
@@ -54,6 +56,7 @@ public class PlayerProfilePotion : MonoBehaviour
                 itemImage.sprite = slot.Item.Image;
                 itemCountText.text = slot.itemCount.ToString();
                 coolTime = slot.Item.CoolTime;
+                add = true;
 
                 SetColor(1);
             }
@@ -73,6 +76,17 @@ public class PlayerProfilePotion : MonoBehaviour
         itemCountText.text = "";
         itemImage.sprite = null;
         type = ItemType.NONE;
+        add = false;
         SetColor(0);
+    }
+    public void Use()
+    {
+        slot.itemCount--;
+        itemCountText.text = slot.itemCount.ToString();
+
+        if (slot.itemCount <= 0)
+        {
+            ClearSlot();
+        }
     }
 }
