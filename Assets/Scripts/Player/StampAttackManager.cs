@@ -29,13 +29,31 @@ public class StampAttackManager : MonoBehaviour
         {
             if (!playerAttack.stampPassiveSkill1)
             {
-                damage1 = playerProfile.BasicATK(250);
-                damage2 = playerProfile.BasicATK(180);
+                bool critical = playerProfile.CriticalProbability();
+                if (critical)
+                {
+                    damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(250));
+                    damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(180));
+                }
+                else
+                {
+                    damage1 = playerProfile.BasicATK(250);
+                    damage2 = playerProfile.BasicATK(180);
+                }
             }
             else if (playerAttack.stampPassiveSkill1)
             {
-                damage1 = playerProfile.BasicATK(280);
-                damage2 = playerProfile.BasicATK(220);
+                bool critical = playerProfile.CriticalProbability();
+                if (critical)
+                {
+                    damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(280));
+                    damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(220));
+                }
+                else
+                {
+                    damage1 = playerProfile.BasicATK(280);
+                    damage2 = playerProfile.BasicATK(220);
+                }
             }
         }
     }

@@ -22,10 +22,12 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected int curActCount;
     [SerializeField] protected int skillPoint = 0; //스킬 포인트
     [SerializeField] protected int level = 0;
+    [SerializeField] protected float critical = 15; //크리티컬
 
     protected int hpPoint;
     protected int atkPoint;
     protected float defPoint;
+    protected float criticalPoint;
 
     [SerializeField] protected int swordBasicAttackCount = 0; //검 기본 공격 횟수
     [SerializeField] protected bool skillStart = false;

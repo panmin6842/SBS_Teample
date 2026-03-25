@@ -24,7 +24,13 @@ public class SwordAttackManager : MonoBehaviour
         playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         playerProfile.SwordAttackCount++;
 
-        damage = playerProfile.BasicATK(100);
+        bool critical = playerProfile.CriticalProbability();
+        if (critical)
+        {
+            damage = playerProfile.CriticalBuff(playerProfile.BasicATK(100));
+        }
+        else
+            damage = playerProfile.BasicATK(100);
 
         StartCoroutine(CheckAttackRoutine());
     }

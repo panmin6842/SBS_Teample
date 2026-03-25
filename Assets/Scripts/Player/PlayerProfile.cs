@@ -24,6 +24,7 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI basicAtkTestText;
     private TextMeshProUGUI defTestText;
     private TextMeshProUGUI moveSpeedTestText;
+    private TextMeshProUGUI criticalTestText;
 
     private float lerpSpeed = 5;
 
@@ -43,6 +44,7 @@ public class PlayerProfile : PlayerState
         basicAtkTestText = UIManager.Instance.basicAtkStatusText;
         defTestText = UIManager.Instance.defStatusText;
         moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
+        criticalTestText = UIManager.Instance.criticalStatusText;
     }
 
     private void Update()
@@ -63,6 +65,7 @@ public class PlayerProfile : PlayerState
         basicAtkTestText.text = "basicAtk : " + basicATK;
         defTestText.text = "def : " + curDEF;
         moveSpeedTestText.text = "moveSpeed : " + moveSpeed;
+        criticalTestText.text = "critical : " + critical;
     }
 
     public bool SkillStart
@@ -105,26 +108,36 @@ public class PlayerProfile : PlayerState
     }
 
     //max스테이터스 설정
-    public void SetMaxHp(float hp, float e_hp)
+    public void SetMaxHp(float hpPoint, float a_hp, float e_hp)
     {
-        maxHp = 10 * hp + e_hp;
+        maxHp = (hpPoint * 10) * (1 + a_hp) + e_hp;
         curHp = maxHp;
     }
 
-    public void SetMaxATK(float atk, float e_atk)
+    public void SetMaxATK(float atkPoint, float a_atk, float e_atk)
     {
-        maxBasicATK = 2 * atk + e_atk;
-        maxATK = 2 * atk + e_atk;
+        maxBasicATK = (2 * atkPoint) + (e_atk + a_atk);
+        maxATK = 2 * atkPoint + (e_atk + a_atk);
         basicATK = maxBasicATK;
         curATK = maxATK;
     }
 
-    public void SetMaxDEF(float def, float e_def)
+    public void SetMaxDEF(float defPoint, float a_def, float e_def)
     {
-        float totalDef = def + e_def;
-        maxDEF = 0.5f + (totalDef / 100f);
-        maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
+        maxDEF = (0.5f * defPoint) + (e_def + e_def);
+        //maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
         curDEF = maxDEF;
+    }
+
+    public void SetCritical(float cpPoint)
+    {
+        critical = 15 + (cpPoint * 0.5f);
+    }
+
+    public void SetMaxMp(int a_mp)
+    {
+        maxMp = maxMp + a_mp;
+        curMp = maxMp;
     }
 
     public void IncreasedHp(float increasedPercent)
@@ -216,6 +229,17 @@ public class PlayerProfile : PlayerState
         return basicATK * (damagePercent / 100f);
     }
 
+    public float CriticalBuff(float damage)
+    {
+        return damage * 1.5f;
+    }
+
+    public bool CriticalProbability()
+    {
+        int random = Random.Range(1, 101);
+        return (random >= 1 && random <= critical);
+    }
+
     public void ChangeATK(float changePercent)
     {
         curATK = passiveATK * (1f + changePercent / 100f);
@@ -281,6 +305,13 @@ public class PlayerProfile : PlayerState
         defPoint = GameManager.instance.defPoint;
         defPoint += _defPoint;
         return defPoint;
+    }
+
+    public float CriticalPointUp(float _cpPoint)
+    {
+        criticalPoint = GameManager.instance.criticalPoint;
+        criticalPoint += _cpPoint;
+        return criticalPoint;
     }
 
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)

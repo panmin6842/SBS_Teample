@@ -20,7 +20,11 @@ public class SplitFireSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(70f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(70f));
+            else
+                damage = playerProfile.ATK(70f);
         }
     }
 

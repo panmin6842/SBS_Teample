@@ -19,8 +19,17 @@ public class HitOnTheGroundSkill : MonoBehaviour
         if (playerProfile != null)
         {
             playerProfile.UseMP(1);
-            damage1 = playerProfile.ATK(650f);
-            damage2 = playerProfile.ATK(200f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.ATK(650f));
+                damage2 = playerProfile.CriticalBuff(playerProfile.ATK(200f));
+            }
+            else
+            {
+                damage1 = playerProfile.ATK(650f);
+                damage2 = playerProfile.ATK(200f);
+            }
         }
         Invoke("CheckAttack", 0.1f);
     }

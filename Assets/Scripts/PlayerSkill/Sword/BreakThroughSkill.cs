@@ -32,8 +32,17 @@ public class BreakThroughSkill : MonoBehaviour
         if (playerProfile != null)
         {
             playerProfile.UseMP(1);
-            damage1 = playerProfile.ATK(400f);
-            damage2 = playerProfile.ATK(150f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.ATK(400f));
+                damage2 = playerProfile.CriticalBuff(playerProfile.ATK(150f));
+            }
+            else
+            {
+                damage1 = playerProfile.ATK(400f);
+                damage2 = playerProfile.ATK(150f);
+            }
             playerProfile.moveSpeed = 0;
         }
     }

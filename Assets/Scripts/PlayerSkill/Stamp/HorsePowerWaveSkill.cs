@@ -13,7 +13,11 @@ public class HorsePowerWaveSkill : MonoBehaviour
         if (playerProfile != null)
         {
             playerProfile.UseMP(1);
-            damage = playerProfile.ATK(300f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(300f));
+            else
+                damage = playerProfile.ATK(300f);
         }
     }
 

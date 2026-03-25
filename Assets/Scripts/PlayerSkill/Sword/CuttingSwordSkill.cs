@@ -21,7 +21,11 @@ public class CuttingSwordSkill : MonoBehaviour
         if (playerProfile != null)
         {
             playerProfile.UseMP(1);
-            damage = playerProfile.ATK(190f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(190f));
+            else
+                damage = playerProfile.ATK(190f);
             playerProfile.ChangeMoveSpeed(-90f);
         }
         newEffect = Instantiate(effect, transform.position, effect.transform.rotation);

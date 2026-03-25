@@ -19,7 +19,11 @@ public class StrongFireSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(1600f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(1600f));
+            else
+                damage = playerProfile.ATK(1600f);
         }
     }
 

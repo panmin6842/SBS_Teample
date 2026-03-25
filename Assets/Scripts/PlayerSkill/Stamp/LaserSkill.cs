@@ -32,7 +32,11 @@ public class LaserSkill : MonoBehaviour
         if (playerProfile != null)
         {
             playerProfile.ChangeMoveSpeed(-100f);
-            damage = playerProfile.ATK(190);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(190));
+            else
+                damage = playerProfile.ATK(190);
 
             playerAttack.AttackPosRotation(-99.5f);
         }

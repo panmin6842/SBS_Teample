@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int hpPoint;
     public int atkPoint;
     public float defPoint;
+    public float criticalPoint;
     public int profileIndex;
 
     private void Awake()

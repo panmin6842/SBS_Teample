@@ -16,7 +16,11 @@ public class ShockWaveManager : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(150);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(150));
+            else
+                damage = playerProfile.ATK(150);
         }
 
         CheckAttack();

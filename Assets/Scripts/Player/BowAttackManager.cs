@@ -23,13 +23,30 @@ public class BowAttackManager : MonoBehaviour
 
         if (!playerAttack.bowPassiveSkill3)
         {
-            damage1 = playerProfile.BasicATK(300);
-            damage2 = playerProfile.BasicATK(200);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(300));
+                damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(200));
+            }
+            else
+            {
+                damage1 = playerProfile.BasicATK(300);
+                damage2 = playerProfile.BasicATK(200);
+            }
         }
         else if (playerAttack.bowPassiveSkill3)
         {
-            damage1 = playerProfile.BasicATK(350);
-            damage2 = playerProfile.BasicATK(230);
+            if (playerProfile.CriticalProbability())
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(350));
+                damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(230));
+            }
+            else
+            {
+                damage1 = playerProfile.BasicATK(350);
+                damage2 = playerProfile.BasicATK(230);
+            }
         }
     }
 

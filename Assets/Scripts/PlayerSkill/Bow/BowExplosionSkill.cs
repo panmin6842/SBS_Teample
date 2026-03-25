@@ -12,7 +12,11 @@ public class BowExplosionSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.BasicATK(60);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.BasicATK(60));
+            else
+                damage = playerProfile.BasicATK(60);
         }
     }
 

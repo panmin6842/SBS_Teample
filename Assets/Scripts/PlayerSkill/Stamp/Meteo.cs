@@ -12,7 +12,11 @@ public class Meteo : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(900);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(900));
+            else
+                damage = playerProfile.ATK(900);
         }
     }
 

@@ -31,7 +31,13 @@ public class ArrowStormSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(150f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(150f));
+            }
+            else
+                damage = playerProfile.ATK(150f);
         }
     }
 

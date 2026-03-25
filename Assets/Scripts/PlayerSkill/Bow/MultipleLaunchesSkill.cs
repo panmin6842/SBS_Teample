@@ -19,11 +19,7 @@ public class MultipleLaunchesSkill : MonoBehaviour
         playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         firstPos = transform.position;
 
-        if (playerProfile != null)
-        {
-            damage1 = playerProfile.ATK(100f);
-            damage2 = playerProfile.ATK(70f);
-        }
+        Attack();
     }
 
     // Update is called once per frame
@@ -64,6 +60,24 @@ public class MultipleLaunchesSkill : MonoBehaviour
         if (other.CompareTag("Wall") || other.CompareTag("Storage"))
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Attack()
+    {
+        if (playerProfile != null)
+        {
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.ATK(100f));
+                damage2 = playerProfile.CriticalBuff(playerProfile.ATK(70f));
+            }
+            else
+            {
+                damage1 = playerProfile.ATK(100f);
+                damage2 = playerProfile.ATK(70f);
+            }
         }
     }
 }

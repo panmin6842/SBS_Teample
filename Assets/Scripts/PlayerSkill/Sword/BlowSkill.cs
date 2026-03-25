@@ -28,8 +28,11 @@ public class BlowSkill : MonoBehaviour
         if (playerProfile != null)
         {
             playerProfile.UseMP(2);
-            damage = playerProfile.ATK(1900f);
-            //playerProfile.NoDamage = true;
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(1900f));
+            else
+                damage = playerProfile.ATK(1900f);
             playerProfile.moveSpeed = 0;
         }
     }

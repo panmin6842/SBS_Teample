@@ -16,7 +16,11 @@ public class SelfBombSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(600);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(600));
+            else
+                damage = playerProfile.ATK(600);
         }
 
         CheckAttack();

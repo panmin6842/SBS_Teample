@@ -18,7 +18,11 @@ public class ReleaseOfSwordSkill : MonoBehaviour
         if (playerProfile != null)
         {
             playerProfile.UseMP(1);
-            damage = playerProfile.ATK(500f);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(500f));
+            else
+                damage = playerProfile.ATK(500f);
         }
         //InvokeRepeating("CheckAttack", 0.01f, 0.1f);
     }

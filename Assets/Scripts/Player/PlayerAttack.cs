@@ -197,9 +197,9 @@ public class PlayerAttack : MonoBehaviour
         curJob = _curJob;
         GameManager.instance.job = _curJob;
 
-        playerProfile.SetMaxHp(setHp, 0);
-        playerProfile.SetMaxATK(setATK, 0);
-        playerProfile.SetMaxDEF(setDEF, 0);
+        playerProfile.SetMaxHp(setHp, 0, 0);
+        playerProfile.SetMaxATK(setATK, 0, 0);
+        playerProfile.SetMaxDEF(setDEF, 0, 0);
 
         GameManager.instance.hpPoint = (int)setHp;
         GameManager.instance.atkPoint = (int)setATK;

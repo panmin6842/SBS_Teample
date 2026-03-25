@@ -16,7 +16,11 @@ public class ManaStormSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(75);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(75));
+            else
+                damage = playerProfile.ATK(75);
         }
 
         InvokeRepeating("CheckAttack", 0.3f, 0.3f);
