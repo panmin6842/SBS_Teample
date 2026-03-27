@@ -51,7 +51,8 @@ public class PlayerAttack : MonoBehaviour
 
     //private int skillCount;
 
-    PlayerProfile playerProfile;
+    private PlayerProfile playerProfile;
+    [SerializeField] private Transform pSprite;
 
     public Job curJob = Job.Sword;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -148,6 +149,10 @@ public class PlayerAttack : MonoBehaviour
                 case Job.Sword:
                     {
                         Instantiate(swordAttackObj, transform.position, attackPos.transform.rotation);
+                        //if (!ani.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+                        playerProfile.ani.SetTrigger("Attack1");
+                        PlayerAttackDirection();
+                        playerProfile.currentState = PlayerSituation.Attack;
                         attack = true;
                     }
                     break;
@@ -163,6 +168,18 @@ public class PlayerAttack : MonoBehaviour
                     }
                     break;
             }
+        }
+    }
+
+    private void PlayerAttackDirection()
+    {
+        if (attackPos.transform.eulerAngles.y >= 1 && attackPos.transform.eulerAngles.y <= 180)
+        {
+            pSprite.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (attackPos.transform.eulerAngles.y > 180 && attackPos.transform.eulerAngles.y <= 360)
+        {
+            pSprite.localScale = new Vector3(-1f, 1f, 1f);
         }
     }
 

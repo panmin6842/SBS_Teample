@@ -12,12 +12,14 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField] private Transform pSprite;
+    private Animator ani;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerProfile = GetComponent<PlayerProfile>();
+        ani = pSprite.gameObject.AddComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -51,11 +53,12 @@ public class PlayerMove : MonoBehaviour
     {
         movement = context.ReadValue<Vector2>();
 
-        if (movement.x != 0)
+        if (movement.x != 0 && playerProfile.currentState != PlayerSituation.Attack)
         {
-            float direction = movement.x > 0 ? 1f : -1f;
-
-            pSprite.localScale = new Vector3(direction, 1f, 1f);
+            if (movement.x > 0)
+                pSprite.localScale = new Vector3(1f, 1f, 1f);
+            else
+                pSprite.localScale = new Vector3(-1f, 1f, 1f);
         }
     }
 }

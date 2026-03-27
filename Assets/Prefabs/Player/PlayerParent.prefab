@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3581325701126494275}
   - component: {fileID: 7133356876189250769}
   - component: {fileID: 9004656422406603952}
+  - component: {fileID: 3337929996929043960}
   m_Layer: 6
   m_Name: PlayerImage
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 83441256743603720}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8000001, y: 0, z: 0}
+  m_LocalPosition: {x: 0.3, y: -15.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 97c947b778dfebd49b4e275cc90bf274, type: 3}
+  m_Sprite: {fileID: -652344529, guid: cfcbc287ba77d0e4e90f204880df7736, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -110,6 +111,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3337929996929043960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83441256743603720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc3ad72e9c415e448d45b5306092e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerProfile: {fileID: 7655924410801576270}
 --- !u!1 &3496575007854648899
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,8 +214,8 @@ Transform:
   m_GameObject: {fileID: 5739294386339140961}
   serializedVersion: 2
   m_LocalRotation: {x: 0.48872766, y: 0.5110239, z: -0.51102376, w: 0.48872763}
-  m_LocalPosition: {x: 0.24000001, y: -7.8, z: -4.040001}
-  m_LocalScale: {x: 7.7925167, y: 12.214796, z: 10.780865}
+  m_LocalPosition: {x: 0.19999993, y: -7.8, z: -4.1}
+  m_LocalScale: {x: 7.7925167, y: 13.486356, z: 10.780865}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5053195077053781742}
@@ -353,6 +367,7 @@ MonoBehaviour:
   stampSkill6: 0
   stampPassiveSkill1: 0
   stampPassiveSkill2: 0
+  pSprite: {fileID: 1371917018998881616}
   curJob: 0
 --- !u!114 &5468712068099768932
 MonoBehaviour:
@@ -589,6 +604,8 @@ MonoBehaviour:
   bloodHeal: 0
   barrier: 0
   stampPassiveSKill3: 0
+  currentState: 0
+  ani: {fileID: 9004656422406603952}
 --- !u!114 &5343555876010511114
 MonoBehaviour:
   m_ObjectHideFlags: 0

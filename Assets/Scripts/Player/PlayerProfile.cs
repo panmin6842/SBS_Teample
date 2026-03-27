@@ -1,6 +1,15 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+public enum PlayerSituation
+{
+    Idle,
+    Move,
+    Attack,
+    Hit,
+    Die
+}
+
 public class PlayerProfile : PlayerState
 {
     [Header("HP관련 오브젝트")]
@@ -28,6 +37,8 @@ public class PlayerProfile : PlayerState
 
     private float lerpSpeed = 5;
 
+    public PlayerSituation currentState = PlayerSituation.Idle;
+    public Animator ani;
     private void Start()
     {
         hpBackground = UIManager.Instance.hpBackground;

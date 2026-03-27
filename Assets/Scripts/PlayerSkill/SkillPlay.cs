@@ -219,6 +219,8 @@ public class SkillPlay : MonoBehaviour
             case 3:
                 {
                     Instantiate(sword3, transform.position, sword3.transform.rotation);
+                    playerProfile.currentState = PlayerSituation.Attack;
+                    playerProfile.ani.SetTrigger("Attack2");
                 }
                 break;
             case 4:
