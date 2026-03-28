@@ -1,13 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
 public class PortalSystem : MonoBehaviour
 {
     PortalManager portalManager;
+    StageManager stageManager;
 
-    int directionX;
-    int directionZ;
-
-    public int Direction; //0:¾Õ, 1:µÚ, 2:¿Þ, 3:¿À
+    //0:¾Õ, 1:µÚ, 2:¿Þ, 3:¿À
+    [SerializeField] PortalDirection direction;
 
     void Start()
     {
@@ -15,9 +15,14 @@ public class PortalSystem : MonoBehaviour
 
     void Update()
     {
-        if (portalManager == null && PortalManager.instance != null)
+        if (portalManager == null)
         {
-            portalManager = PortalManager.instance;
+            portalManager = GetComponentInParent<PortalManager>();
+        }
+
+        if (stageManager == null && StageManager.instance != null)
+        {
+            stageManager = StageManager.instance;
         }
     }
 
@@ -25,49 +30,36 @@ public class PortalSystem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            portalManager.PortalEffectImage.gameObject.SetActive(true);
-            DirectionCheck();
-            portalManager.PlayerTransform.transform.localPosition =
-                new Vector3
-                (
-                    portalManager.PlayerTpSpotTransform.localPosition.x + directionX, 
-                    portalManager.PlayerTpSpotTransform.localPosition.y, 
-                    portalManager.PlayerTpSpotTransform.localPosition.z + directionZ
-                );
-            portalManager.MainCameraTransform.transform.localPosition =
-                new Vector3
-                (
-                    portalManager.MainCameraTpSpotTransform.localPosition.x + directionX, 
-                    portalManager.MainCameraTpSpotTransform.localPosition.y, 
-                    portalManager.MainCameraTpSpotTransform.localPosition.z + directionZ
-                );
+            StartCoroutine(Teleport());
         }
     }
 
-    void DirectionCheck()
+    IEnumerator Teleport()
     {
-        if (Direction == 0) //¾Õ
+        portalManager.PortalEffectImage.gameObject.SetActive(true);
+        portalManager.PlayerTransform.transform.position = portalManager.PlayerTpSpotTransform.position;
+        portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
+
+        switch (direction)
         {
-            directionX = 0;
-            directionZ = 20;
+            case PortalDirection.Front:
+                portalManager.PlayerTransform.transform.position += new Vector3(0f, 0f, stageManager.spacing);
+                portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, stageManager.spacing);
+                break;
+            case PortalDirection.Back:
+                portalManager.PlayerTransform.transform.position += new Vector3(0f, 0f, -stageManager.spacing);
+                portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, -stageManager.spacing);
+                break;
+            case PortalDirection.Left:
+                portalManager.PlayerTransform.transform.position += new Vector3(-stageManager.spacing, 0f, 0f);
+                portalManager.MainCameraObject.transform.position += new Vector3(-stageManager.spacing, 0f, 0f);
+                break;
+            case PortalDirection.Right:
+                portalManager.PlayerTransform.transform.position += new Vector3(stageManager.spacing, 0f, 0f);
+                portalManager.MainCameraObject.transform.position += new Vector3(stageManager.spacing, 0f, 0f);
+                break;
         }
-        else if (Direction == 1) //µÚ
-        {
-            directionX = 0;
-            directionZ = -20;
-        }
-        else if (Direction == 2) //¿Þ
-        {
-            directionX = -20;
-            directionZ = 0;
-        }
-        else if (Direction == 3) //¿À
-        {
-            directionX = 20;
-            directionZ = 0;
-        }
-        else
-        {
-        }
+
+        yield return null;
     }
 }

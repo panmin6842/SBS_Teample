@@ -6,30 +6,30 @@ public class PlayerState : MonoBehaviour
     public float moveSpeed = 5.5f;
     protected float passiveMoveSpeed = 5.5f;
 
-    [SerializeField] protected float maxHp; //Ã¼·Â
+    [SerializeField] protected float maxHp; //Ã¼ï¿½ï¿½
     [SerializeField] protected float curHp;
-    [SerializeField] protected int maxMp = 20; //¸¶³ª
+    [SerializeField] protected int maxMp = 20; //ï¿½ï¿½ï¿½ï¿½
     [SerializeField] protected int curMp = 20;
-    [SerializeField] protected float curATK; //°ø°Ý·Â
+    [SerializeField] protected float curATK; //ï¿½ï¿½ï¿½Ý·ï¿½
     [SerializeField] protected float maxATK;
     [SerializeField] protected float passiveATK;
     [SerializeField] protected float basicATK;
     [SerializeField] protected float maxBasicATK;
-    [SerializeField] protected float curDEF; //¹æ¾î·Â
+    [SerializeField] protected float curDEF; //ï¿½ï¿½ï¿½ï¿½
     [SerializeField] protected float maxDEF;
     [SerializeField] protected float passiveDEF;
-    [SerializeField] protected int maxActCount; //Çàµ¿·Â
+    [SerializeField] protected int maxActCount; //ï¿½àµ¿ï¿½ï¿½
     [SerializeField] protected int curActCount;
-    [SerializeField] protected int skillPoint = 0; //½ºÅ³ Æ÷ÀÎÆ®
+    [SerializeField] protected int skillPoint = 0; //ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
     [SerializeField] protected int level = 0;
-    [SerializeField] protected float critical = 15; //Å©¸®Æ¼ÄÃ
+    [SerializeField] protected float critical = 15; //Å©ï¿½ï¿½Æ¼ï¿½ï¿½
 
     protected int hpPoint;
     protected int atkPoint;
     protected float defPoint;
     protected float criticalPoint;
 
-    [SerializeField] protected int swordBasicAttackCount = 0; //°Ë ±âº» °ø°Ý È½¼ö
+    [SerializeField] protected int swordBasicAttackCount = 0; //ê²€ ê¸°ë³¸ ê³µê²© íšŸìˆ˜
     [SerializeField] protected bool skillStart = false;
     [SerializeField] protected bool bloodHeal = false;
     [SerializeField] protected bool barrier = false;
