@@ -1,3 +1,4 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -13,6 +14,17 @@ public class GameManager : MonoBehaviour
     public float defPoint;
     public float criticalPoint;
     public int profileIndex;
+    public float e_hp;
+    public float a_hp;
+    public float e_atk;
+    public float a_atk;
+    public float e_def;
+    public float a_def;
+    public int a_mp;
+    public float a_skillCoolTime;
+    public float e_critical;
+    public float a_critical;
+    public AnimatorController curAnimation;
 
     private void Awake()
     {

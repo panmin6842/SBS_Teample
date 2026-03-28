@@ -22,12 +22,14 @@ public class SkillUIManager : MonoBehaviour
     [SerializeField] private SkillUISlot[] slots;
 
     private InventoryMain inventory;
+    private SkillPlay skillPlay;
 
     private void Awake()
     {
         inventory = GetComponent<InventoryMain>();
 
         inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
+        skillPlay = inventory.player.GetComponent<SkillPlay>();
     }
 
     private void OnEnable()

@@ -78,6 +78,7 @@ public class InventoryMain : InventoryBase
             playerProfile.SetActive(false);
             IsInventoryActive = true;
             playerAttack.uiClicking = true;
+            Time.timeScale = 0;
             currentUI = UIType.Inventory;
 
             Cursor.visible = true;
@@ -92,6 +93,7 @@ public class InventoryMain : InventoryBase
             playerProfile.SetActive(true);
             IsInventoryActive = false;
             playerAttack.uiClicking = false;
+            Time.timeScale = 1;
             currentUI = UIType.None;
 
             //Cursor.visible = false;

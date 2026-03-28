@@ -19,7 +19,7 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerProfile = GetComponent<PlayerProfile>();
-        ani = pSprite.gameObject.AddComponent<Animator>();
+        ani = pSprite.gameObject.GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -53,12 +53,18 @@ public class PlayerMove : MonoBehaviour
     {
         movement = context.ReadValue<Vector2>();
 
-        if (movement.x != 0 && playerProfile.currentState != PlayerSituation.Attack)
+        if ((movement.x != 0 || movement.y != 0) && playerProfile.currentState != PlayerSituation.Attack)
         {
             if (movement.x > 0)
                 pSprite.localScale = new Vector3(1f, 1f, 1f);
             else
                 pSprite.localScale = new Vector3(-1f, 1f, 1f);
+
+            ani.SetBool("isWalk", true);
+        }
+        else if ((movement.x == 0 && movement.y == 0) && playerProfile.currentState != PlayerSituation.Attack)
+        {
+            ani.SetBool("isWalk", false);
         }
     }
 }

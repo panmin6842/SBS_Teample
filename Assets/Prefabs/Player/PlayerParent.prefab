@@ -355,6 +355,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7eb84fbc521011b45a935821591e152e, type: 3}
   - {fileID: 21300000, guid: f9a10a132d628c240831c340aae3d5d6, type: 3}
   playerSpriteRenderer: {fileID: 7133356876189250769}
+  swordAnimation: {fileID: 9100000, guid: 0b8997fa7930a5b46b10f6325aea1d04, type: 2}
+  stampAnimation: {fileID: 9100000, guid: 712eb49f1218997428217d69f719cfc6, type: 2}
+  bowAnimation: {fileID: 9100000, guid: b2c3ce4a66113824d95ef7654df58ca5, type: 2}
   attackDelay: 1
   attackStartDelay: 0
   uiClicking: 0

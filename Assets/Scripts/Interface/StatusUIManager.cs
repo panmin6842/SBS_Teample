@@ -83,28 +83,28 @@ public class StatusUIManager : MonoBehaviour
     {
         int hpPoint = playerProfile.HpPointUp(1);
         GameManager.instance.hpPoint = hpPoint;
-        playerProfile.SetMaxHp(hpPoint, 0, 0); //장비 착용했을 때 효과는 나중에 넣기 지금은 0
+        playerProfile.SetMaxHp(hpPoint, GameManager.instance.a_hp, GameManager.instance.e_hp);
         hpPointText.text = GameManager.instance.hpPoint.ToString();
     }
     private void ATKPointUp()
     {
         int atkPoint = playerProfile.ATKPointUp(1);
         GameManager.instance.atkPoint = atkPoint;
-        playerProfile.SetMaxATK(atkPoint, 0, 0); //장비 착용했을 때 효과는 나중에 넣기 지금은 0
+        playerProfile.SetMaxATK(atkPoint, GameManager.instance.a_atk, GameManager.instance.e_atk);
         atkPointText.text = GameManager.instance.atkPoint.ToString();
     }
     private void DEFPointUp()
     {
         float defPoint = playerProfile.DEFPointUp(1);
         GameManager.instance.defPoint = defPoint;
-        playerProfile.SetMaxDEF(defPoint, 0, 0); //장비 착용했을 때 효과는 나중에 넣기 지금은 0
+        playerProfile.SetMaxDEF(defPoint, GameManager.instance.a_def, GameManager.instance.e_def);
         defPointText.text = GameManager.instance.defPoint.ToString();
     }
     private void CriticalPointUp()
     {
         float cpPoint = playerProfile.CriticalPointUp(1);
         GameManager.instance.criticalPoint = cpPoint;
-        playerProfile.SetCritical(cpPoint); //장비 착용했을 때 효과는 나중에 넣기 지금은 0
+        playerProfile.SetCritical(cpPoint, GameManager.instance.a_critical, GameManager.instance.e_critical);
         criticalPointText.text = GameManager.instance.criticalPoint.ToString();
     }
 }

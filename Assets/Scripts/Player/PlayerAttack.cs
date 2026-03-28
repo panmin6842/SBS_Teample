@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,10 @@ public class PlayerAttack : MonoBehaviour
     [Header("직업 별 이미지")]
     [SerializeField] private Sprite[] profileImages;
     [SerializeField] private SpriteRenderer playerSpriteRenderer;
+    [Header("직업 별 애니메이션 컨드롤러")]
+    [SerializeField] private AnimatorController swordAnimation;
+    [SerializeField] private AnimatorController stampAnimation;
+    [SerializeField] private AnimatorController bowAnimation;
 
     float rotateSpeed = 100f;
     float maxRotateSpeed = 100f;
@@ -63,7 +68,7 @@ public class PlayerAttack : MonoBehaviour
         jobChoice = UIManager.Instance.jobChoice;
 
         //처음은 검사
-        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0);
+        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0, swordAnimation);
     }
 
     // Update is called once per frame
@@ -200,7 +205,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, Job _curJob,
-        float setHp, float setATK, float setDEF, int profile)
+        float setHp, float setATK, float setDEF, int profile, AnimatorController animation)
     {
         originattackDelay = _attackDelay;
         attackDelay = originattackDelay;
@@ -224,22 +229,25 @@ public class PlayerAttack : MonoBehaviour
 
         playerSpriteRenderer.sprite = profileImages[profile];
         GameManager.instance.profileIndex = profile;
+
+        GameManager.instance.curAnimation = animation;
+        playerProfile.ani.runtimeAnimatorController = animation;
     }
 
     public void SwordChoice()
     {
         Debug.Log("swordskill");
 
-        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0);
+        StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0, swordAnimation);
         jobChoiceUI.SetActive(false);
-        jobChoice.enabled = true;
 
+        jobChoice.enabled = true;
     }
     public void BowChoice()
     {
         Debug.Log("bowskill");
 
-        StateDecision(0.5f, 10.0f, 10.0f, false, Job.Bow, 8, 3, -10, 1);
+        StateDecision(0.5f, 10.0f, 10.0f, false, Job.Bow, 8, 3, -10, 1, bowAnimation);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
     }
@@ -247,7 +255,7 @@ public class PlayerAttack : MonoBehaviour
     {
         Debug.Log("stampskill");
 
-        StateDecision(2.5f, 10.0f, 5.0f, false, Job.Stamp, 7, 4, 0, 2);
+        StateDecision(2.5f, 10.0f, 5.0f, false, Job.Stamp, 7, 4, 0, 2, stampAnimation);
         jobChoiceUI.SetActive(false);
         jobChoice.enabled = true;
     }

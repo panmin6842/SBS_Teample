@@ -28,6 +28,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [SerializeField] private GameObject explanToolTip;
     [SerializeField] private TextMeshProUGUI textCount;
     [SerializeField] private TextMeshProUGUI explanText;
+    [SerializeField] private TextMeshProUGUI nameText;
 
     private InventoryMain inventory;
     private StorageToInventory storageToInventory;
@@ -73,6 +74,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (explanText != null)
         {
             explanText.text = item.Explanation;
+            nameText.text = item.ItemName;
         }
 
         if (item.Type <= ItemType.Equipment_WEAPON)

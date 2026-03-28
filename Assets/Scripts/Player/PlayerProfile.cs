@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public enum PlayerSituation
 {
     Idle,
-    Move,
+    //Move,
     Attack,
     Hit,
     Die
@@ -121,7 +121,7 @@ public class PlayerProfile : PlayerState
     //max스테이터스 설정
     public void SetMaxHp(float hpPoint, float a_hp, float e_hp)
     {
-        maxHp = (hpPoint * 10) * (1 + a_hp) + e_hp;
+        maxHp = Mathf.Round((hpPoint * 10) * (1 + a_hp) + e_hp);
         curHp = maxHp;
     }
 
@@ -135,20 +135,20 @@ public class PlayerProfile : PlayerState
 
     public void SetMaxDEF(float defPoint, float a_def, float e_def)
     {
-        maxDEF = (0.5f * defPoint) + (e_def + e_def);
+        maxDEF = (0.5f * defPoint) + (e_def + a_def);
         //maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
         curDEF = maxDEF;
-    }
-
-    public void SetCritical(float cpPoint)
-    {
-        critical = 15 + (cpPoint * 0.5f);
     }
 
     public void SetMaxMp(int a_mp)
     {
         maxMp = maxMp + a_mp;
         curMp = maxMp;
+    }
+
+    public void SetCritical(float cpPoint, float a_critical, float e_critical)
+    {
+        critical = 15 + (cpPoint * 0.5f) + (a_critical + e_critical);
     }
 
     public void IncreasedHp(float increasedPercent)

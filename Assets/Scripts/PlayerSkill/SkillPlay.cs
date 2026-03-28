@@ -21,6 +21,9 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private float curCoolTimeSkill1;
     [SerializeField] private float curCoolTimeSkill2;
 
+    private float a_coolTimeSkill1;
+    private float a_coolTimeSkill2;
+
     [SerializeField] private bool skill1Start = false;
     [SerializeField] private bool skill2Start = false;
 
@@ -125,6 +128,15 @@ public class SkillPlay : MonoBehaviour
         }
     }
 
+    public void SetSkillCoolTimeBuff(float a_skillCoolTime)
+    {
+        coolTimeSkill1 = a_coolTimeSkill1 * (1 - (a_skillCoolTime / 100));
+        coolTimeSkill2 = a_coolTimeSkill2 * (1 - (a_skillCoolTime / 100));
+
+        curCoolTimeSkill1 = coolTimeSkill1;
+        curCoolTimeSkill2 = coolTimeSkill2;
+    }
+
     private void UpdateSlider(int number, float curCollTime)
     {
         if (coolTimeSlider != null)
@@ -138,13 +150,12 @@ public class SkillPlay : MonoBehaviour
         actSkill1Number = slots[0].choiceNumber;
         actSkill2Number = slots[1].choiceNumber;
         passiveSkillNumber = slots[2].choiceNumber;
-        coolTimeSkill1 = slots[0].coolTime;
-        coolTimeSkill2 = slots[1].coolTime;
+        a_coolTimeSkill1 = slots[0].coolTime;
+        a_coolTimeSkill2 = slots[1].coolTime;
         coolTimeSlider[0].value = 0;
         coolTimeSlider[1].value = 0;
 
-        curCoolTimeSkill1 = coolTimeSkill1;
-        curCoolTimeSkill2 = coolTimeSkill2;
+        SetSkillCoolTimeBuff(GameManager.instance.a_skillCoolTime);
     }
 
     public void OnSkillAttack(InputAction.CallbackContext context)
