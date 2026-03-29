@@ -70,13 +70,13 @@ public class PlayerProfile : PlayerState
 
     private void StateTestText()
     {
-        hpTestText.text = "hp : " + curHp;
-        mpTestText.text = "mp : " + curMp;
-        atkTestText.text = "atk : " + curATK;
-        basicAtkTestText.text = "basicAtk : " + basicATK;
-        defTestText.text = "def : " + curDEF;
-        moveSpeedTestText.text = "moveSpeed : " + moveSpeed;
-        criticalTestText.text = "critical : " + critical;
+        hpTestText.text = maxHp.ToString();
+        mpTestText.text = maxMp.ToString();
+        atkTestText.text = maxATK.ToString();
+        basicAtkTestText.text = maxBasicATK.ToString();
+        defTestText.text = maxDEF.ToString();
+        moveSpeedTestText.text = moveSpeed.ToString();
+        criticalTestText.text = critical.ToString();
     }
 
     public bool SkillStart

@@ -158,6 +158,7 @@ public class PlayerAttack : MonoBehaviour
                         playerProfile.ani.SetTrigger("Attack1");
                         PlayerAttackDirection();
                         playerProfile.currentState = PlayerSituation.Attack;
+                        playerProfile.ChangeMoveSpeed(-100);
                         attack = true;
                     }
                     break;
@@ -169,6 +170,10 @@ public class PlayerAttack : MonoBehaviour
                 case Job.Stamp:
                     {
                         Instantiate(stampAttackObj, transform.position, attackPos.transform.rotation);
+                        playerProfile.ani.SetTrigger("Attack1");
+                        PlayerAttackDirection();
+                        playerProfile.currentState = PlayerSituation.Attack;
+                        playerProfile.ChangeMoveSpeed(-100);
                         attack = true;
                     }
                     break;
@@ -176,7 +181,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void PlayerAttackDirection()
+    public void PlayerAttackDirection()
     {
         if (attackPos.transform.eulerAngles.y >= 1 && attackPos.transform.eulerAngles.y <= 180)
         {
@@ -257,6 +262,7 @@ public class PlayerAttack : MonoBehaviour
 
         StateDecision(2.5f, 10.0f, 5.0f, false, Job.Stamp, 7, 4, 0, 2, stampAnimation);
         jobChoiceUI.SetActive(false);
+        playerProfile.ChangeMoveSpeed(0);
         jobChoice.enabled = true;
     }
 }

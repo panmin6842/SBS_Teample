@@ -9,15 +9,17 @@ public class AnimationManager : MonoBehaviour
     {
         ani = GetComponent<Animator>();
     }
-    public void SwordAttack1AniFalse()
+    public void Attack1AniFalse()
     {
         playerProfile.currentState = PlayerSituation.Idle;
+        playerProfile.ChangeMoveSpeed(0);
         ani.ResetTrigger("Attack1");
     }
 
-    public void SwordAttack2AniFalse()
+    public void Attack2AniFalse()
     {
         playerProfile.currentState = PlayerSituation.Idle;
+        playerProfile.ChangeMoveSpeed(0);
         ani.ResetTrigger("Attack2");
     }
 }

@@ -33,7 +33,7 @@ public class BlowSkill : MonoBehaviour
                 damage = playerProfile.CriticalBuff(playerProfile.ATK(1900f));
             else
                 damage = playerProfile.ATK(1900f);
-            playerProfile.moveSpeed = 0;
+            playerProfile.ChangeMoveSpeed(-100);
         }
     }
 
@@ -47,6 +47,8 @@ public class BlowSkill : MonoBehaviour
             if (!rush)
             {
                 transform.rotation = Quaternion.Euler(0, playerAttack.AttackPos.transform.localRotation.eulerAngles.y, 0);
+                playerProfile.ChangeMoveSpeed(-100);
+                playerProfile.currentState = PlayerSituation.Attack;
                 Invoke("RushStart", 2);
             }
             else //µ¹°Ý
@@ -92,6 +94,7 @@ public class BlowSkill : MonoBehaviour
         attack = true;
         playerProfile.ChangeMoveSpeed(1);
         playerProfile.SkillStart = false;
+        playerProfile.currentState = PlayerSituation.Idle;
         Destroy(this.gameObject);
     }
 }

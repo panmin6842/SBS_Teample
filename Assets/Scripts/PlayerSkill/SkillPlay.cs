@@ -219,38 +219,58 @@ public class SkillPlay : MonoBehaviour
             case 1:
                 {
                     Instantiate(sword1, transform.position, sword1.transform.rotation);
+                    SkillAnimation("Attack2");
                 }
                 break;
             case 2:
                 {
                     Instantiate(sword2, transform.position,
                         Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    SkillAnimation("Attack1");
+                    playerAttack.PlayerAttackDirection();
                 }
                 break;
             case 3:
                 {
                     Instantiate(sword3, transform.position, sword3.transform.rotation);
-                    playerProfile.currentState = PlayerSituation.Attack;
-                    playerProfile.ani.SetTrigger("Attack2");
+                    SkillAnimation("Attack2");
                 }
                 break;
             case 4:
                 {
                     Instantiate(sword4, transform.position, Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    SkillAnimation("Attack1");
+                    playerAttack.PlayerAttackDirection();
                 }
                 break;
             case 5:
                 {
                     Instantiate(sword5, transform.position, Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    Invoke("SwordSkill5Animation", 0.45f);
                 }
                 break;
             case 6:
                 {
                     Instantiate(sword6, transform.position, sword6.transform.rotation);
+                    SkillAnimation("Attack2");
                 }
                 break;
         }
 
+    }
+
+    private void SkillAnimation(string animation)
+    {
+        playerProfile.currentState = PlayerSituation.Attack;
+        playerProfile.ani.SetTrigger(animation);
+        playerProfile.ChangeMoveSpeed(-100);
+    }
+
+    private void SwordSkill5Animation()
+    {
+        playerProfile.currentState = PlayerSituation.Attack;
+        playerProfile.ani.SetTrigger("Attack1");
+        playerAttack.PlayerAttackDirection();
     }
 
     float rotation;
@@ -318,6 +338,8 @@ public class SkillPlay : MonoBehaviour
                 {
                     Instantiate(stamp2, transform.position,
                         Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    SkillAnimation("Attack2");
+                    playerAttack.PlayerAttackDirection();
                 }
                 break;
             case 3:
