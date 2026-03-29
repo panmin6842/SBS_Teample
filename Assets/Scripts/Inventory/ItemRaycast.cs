@@ -8,10 +8,13 @@ using UnityEngine.InputSystem;
 public class ItemRaycast : MonoBehaviour
 {
     private bool isStorageActive = false; //상자를 열수 있나?
+    private bool isStoreActive = false;
     private ItemPickUp currentItem; //활성화시 현재 등록된 아이템
 
     [Header("상자 인벤토리")]
     private GameObject storageInventory;
+    [Header("상점 창")]
+    [SerializeField] private GameObject storeWindow;
 
     private InventoryMain inventory;
 
@@ -87,7 +90,7 @@ public class ItemRaycast : MonoBehaviour
     {
         if (isStorageActive)
         {
-            if (!storageInventory.activeSelf)
+            if (inventory.currentUI == UIType.None)
             {
                 storageInventory.SetActive(true);
                 inventory.playerProfile.SetActive(false);
@@ -95,7 +98,7 @@ public class ItemRaycast : MonoBehaviour
                 inventory.currentUI = UIType.Chest;
                 Time.timeScale = 0f;
             }
-            else if (storageInventory.activeSelf)
+            else if (inventory.currentUI == UIType.Chest)
             {
                 Time.timeScale = 1f;
                 storageInventory.SetActive(false);
@@ -103,6 +106,27 @@ public class ItemRaycast : MonoBehaviour
                 playerAttack.uiClicking = false;
                 inventory.currentUI = UIType.None;
                 isStorageActive = false;
+            }
+        }
+
+        if (isStoreActive)
+        {
+            if (inventory.currentUI == UIType.None)
+            {
+                storeWindow.SetActive(true);
+                inventory.playerProfile.SetActive(false);
+                playerAttack.uiClicking = true;
+                inventory.currentUI = UIType.Store;
+                Time.timeScale = 0f;
+            }
+            else if (inventory.currentUI == UIType.Store)
+            {
+                Time.timeScale = 1f;
+                storeWindow.SetActive(false);
+                inventory.playerProfile.SetActive(true);
+                playerAttack.uiClicking = false;
+                inventory.currentUI = UIType.None;
+                isStoreActive = false;
             }
         }
     }
@@ -122,6 +146,24 @@ public class ItemRaycast : MonoBehaviour
         if (other.tag == "Storage" && !isStorageActive && inventory.currentUI == UIType.None)
         {
             isStorageActive = true;
+        }
+
+        if (other.tag == "Store" && !isStoreActive && inventory.currentUI == UIType.None)
+        {
+            isStoreActive = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Storage")
+        {
+            isStorageActive = false;
+        }
+
+        if (other.tag == "Store")
+        {
+            isStoreActive = false;
         }
     }
 

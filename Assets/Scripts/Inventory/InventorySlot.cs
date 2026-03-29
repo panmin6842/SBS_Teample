@@ -77,7 +77,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             nameText.text = item.ItemName;
         }
 
-        if (item.Type <= ItemType.Equipment_WEAPON)
+        if (item.IsEquipment || item.IsAccessory)
         {
             textCount.text = "";
         }

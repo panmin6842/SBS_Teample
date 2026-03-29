@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public float e_critical;
     public float a_critical;
     public AnimatorController curAnimation;
+    public int gold;
 
     private void Awake()
     {

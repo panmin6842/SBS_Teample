@@ -171,6 +171,39 @@ public class StorageToInventory : MonoBehaviour
         }
     }
 
+    public void BuyProduct(StoreSlot slot)
+    {
+        if (slot.Item != null)
+        {
+            InventorySlot[] allitems = inventory.GetAllItems();
+
+            int count = 0;
+            for (; count < allitems.Length; ++count)
+            {
+                //현재 아이템 칸이 null 이면 주울 수 있음
+                if (allitems[count].Item == null)
+                {
+                    allitems[count].AddItem(slot.Item, 1);
+                    break;
+                }
+
+                //현제 아이템이 null이 아니지만 중첩 가능하면 주울 수 있음
+                if (allitems[count].Item.ItemID == slot.Item.ItemID && allitems[count].Item.CanOverlap)
+                {
+                    allitems[count].UpdateSlotCount(1);
+                    break;
+                }
+            }
+
+            //다 차고 중첩 아니면 못 주움
+            if (count == allitems.Length)
+            {
+                return;
+            }
+
+        }
+    }
+
     private void ReleaseBuff(Item item)
     {
         skillPlay = inventory.player.GetComponent<SkillPlay>();

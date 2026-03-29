@@ -7,7 +7,8 @@ public enum UIType
     Inventory,
     Chest,
     SkillWindow,
-    Dialogue
+    Dialogue,
+    Store
 }
 
 /// <summary>

@@ -131,6 +131,16 @@ public class Item : ScriptableObject
         }
     }
 
+    [Header("가격")]
+    [SerializeField] private int price;
+    public int Price
+    {
+        get
+        {
+            return price;
+        }
+    }
+
     [Header("쿨타임")]
     [SerializeField] float coolTime;
     public float CoolTime
