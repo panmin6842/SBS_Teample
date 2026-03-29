@@ -15,6 +15,8 @@ public class StampAttackManager : MonoBehaviour
     private float bombStartScale;
     private float damage1;
     private float damage2;
+
+    [SerializeField] private GameObject hitPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -86,6 +88,7 @@ public class StampAttackManager : MonoBehaviour
         if (other.tag == "Enemy")
         {
             Debug.Log("스탬프 기본 직격 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+            Instantiate(hitPrefab, transform.position, Quaternion.identity);
             bomb = true;
             _other = other;
             if (!playerAttack.stampPassiveSkill2)
@@ -102,8 +105,8 @@ public class StampAttackManager : MonoBehaviour
     IEnumerator BombDestroy(Collider other)
     {
         yield return new WaitForSeconds(0.2f);
-        Color32 orange = new Color32(255, 160, 0, 255);
-        GetComponent<SpriteRenderer>().color = orange;
+        //Color32 orange = new Color32(255, 160, 0, 255);
+        //GetComponent<SpriteRenderer>().color = orange;
         if ((playerAttack.stampSkill6 && !playerAttack.stampPassiveSkill1)
         || (!playerAttack.stampSkill6 && playerAttack.stampPassiveSkill1))
         {
@@ -113,7 +116,7 @@ public class StampAttackManager : MonoBehaviour
         {
             IncreasedColliderSize(1.0f);
         }
-        transform.localScale = new Vector3(bombScale, bombScale, bombScale);
+        //transform.localScale = new Vector3(bombScale, bombScale, bombScale);
         Debug.Log("스탬프 기본 폭발 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
