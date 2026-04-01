@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2984538763865661384}
   - component: {fileID: 5632265442163672179}
   - component: {fileID: 3336034542267133323}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: StampSkill1Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c126fd168e0d87149adc140fc71cb792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack: 0
   meteo: {fileID: 3234065546714127935, guid: 27a3dc6108136ff4fa85e0937f23366b, type: 3}
   meteoMark: {fileID: 5945890579663075284, guid: dd3dbabcc318b964cbb1cab953f7327f, type: 3}
   uiInputAction: {fileID: -944628639613478452, guid: 5155e0d045830c74dbf51cf6ed3db337, type: 3}

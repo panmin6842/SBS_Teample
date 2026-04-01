@@ -154,7 +154,6 @@ public class PlayerAttack : MonoBehaviour
                 case Job.Sword:
                     {
                         Instantiate(swordAttackObj, transform.position, attackPos.transform.rotation);
-                        //if (!ani.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
                         playerProfile.ani.SetTrigger("Attack1");
                         PlayerAttackDirection();
                         playerProfile.currentState = PlayerSituation.Attack;
@@ -165,6 +164,10 @@ public class PlayerAttack : MonoBehaviour
                 case Job.Bow:
                     {
                         StartCoroutine(BowAttack());
+                        playerProfile.ani.SetTrigger("Attack1");
+                        PlayerAttackDirection();
+                        playerProfile.currentState = PlayerSituation.Attack;
+                        playerProfile.ChangeMoveSpeed(-100);
                     }
                     break;
                 case Job.Stamp:
@@ -206,7 +209,6 @@ public class PlayerAttack : MonoBehaviour
         newBow = Instantiate(bowAttackObj, transform.position, attackPos.transform.rotation);
         bowScale = newBow.transform.localScale;
         newBow.transform.localScale = bowScale * (1f + (scalePercent / 100f));
-        playerProfile.ChangeMoveSpeed(0);
     }
 
     private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, Job _curJob,
