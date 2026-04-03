@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsEquipment: 0
   IsAccessory: 1
-  itemID: 4
+  itemID: 41
   itemName: "\uD0D0\uD5D8\uAC00\uC758 \uD39C\uB358\uD2B8"
   canOverlap: 0
   isInteractivity: 1
   isConsumable: 0
   itemType: 128
   itemImage: {fileID: 21300000, guid: fa8852460f13bf4488e21303f4c5b0b9, type: 3}
+  price: 0
   coolTime: 0
-  explanation: 
+  explanation: "\uD0D0\uD5D8\uAC00\uC758 \uD39C\uB358\uD2B8. \uC804\uBC18\uC801\uC778
+    \uB2A5\uB825\uCE58\uB97C \uD5A5\uC0C1\uC2DC\uD0A8\uB2E4."
   buff: 0
   atkBuff: 10
   criticalBuff: 3

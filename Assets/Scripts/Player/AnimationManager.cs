@@ -22,4 +22,9 @@ public class AnimationManager : MonoBehaviour
         playerProfile.ChangeMoveSpeed(0);
         ani.ResetTrigger("Attack2");
     }
+
+    public void EffectDestory()
+    {
+        Destroy(gameObject);
+    }
 }

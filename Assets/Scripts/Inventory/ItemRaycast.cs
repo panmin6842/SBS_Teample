@@ -9,12 +9,11 @@ public class ItemRaycast : MonoBehaviour
 {
     private bool isStorageActive = false; //상자를 열수 있나?
     private bool isStoreActive = false;
+    private bool isVillageStoreActive = false;
     private ItemPickUp currentItem; //활성화시 현재 등록된 아이템
 
     [Header("상자 인벤토리")]
     private GameObject storageInventory;
-    [Header("상점 창")]
-    [SerializeField] private GameObject storeWindow;
 
     private InventoryMain inventory;
 
@@ -92,20 +91,18 @@ public class ItemRaycast : MonoBehaviour
         {
             if (inventory.currentUI == UIType.None)
             {
-                storageInventory.SetActive(true);
-                inventory.playerProfile.SetActive(false);
-                playerAttack.uiClicking = true;
-                inventory.currentUI = UIType.Chest;
-                Time.timeScale = 0f;
+                Window(0f, storageInventory, true, false, true, UIType.Chest, isStorageActive, true);
             }
             else if (inventory.currentUI == UIType.Chest)
             {
-                Time.timeScale = 1f;
-                storageInventory.SetActive(false);
-                inventory.playerProfile.SetActive(true);
-                playerAttack.uiClicking = false;
-                inventory.currentUI = UIType.None;
-                isStorageActive = false;
+                //Time.timeScale = 1f;
+                //storageInventory.SetActive(false);
+                //inventory.playerProfile.SetActive(true);
+                //playerAttack.uiClicking = false;
+                //inventory.currentUI = UIType.None;
+                //isStorageActive = false;
+
+                Window(1f, storageInventory, false, true, false, UIType.None, isStorageActive, false);
             }
         }
 
@@ -113,22 +110,36 @@ public class ItemRaycast : MonoBehaviour
         {
             if (inventory.currentUI == UIType.None)
             {
-                storeWindow.SetActive(true);
-                inventory.playerProfile.SetActive(false);
-                playerAttack.uiClicking = true;
-                inventory.currentUI = UIType.Store;
-                Time.timeScale = 0f;
+                Window(0f, UIManager.Instance.storeWindow, true, false, true, UIType.Store, isStoreActive, true);
             }
             else if (inventory.currentUI == UIType.Store)
             {
-                Time.timeScale = 1f;
-                storeWindow.SetActive(false);
-                inventory.playerProfile.SetActive(true);
-                playerAttack.uiClicking = false;
-                inventory.currentUI = UIType.None;
-                isStoreActive = false;
+                Window(1f, UIManager.Instance.storeWindow, false, true, false, UIType.None, isStoreActive, false);
             }
         }
+
+        if (isVillageStoreActive)
+        {
+            if (inventory.currentUI == UIType.None)
+            {
+                Window(0f, UIManager.Instance.villageStoreWindow, true, false, true, UIType.VillageStore, isVillageStoreActive, true);
+            }
+            else if (inventory.currentUI == UIType.VillageStore)
+            {
+                Window(1f, UIManager.Instance.villageStoreWindow, false, true, false, UIType.None, isVillageStoreActive, false);
+            }
+        }
+    }
+
+    private void Window(float timeScale, GameObject obj, bool objSetActive, bool setActive, bool uiClicking,
+        UIType type, bool isObjActive, bool active)
+    {
+        Time.timeScale = timeScale;
+        obj.SetActive(objSetActive);
+        inventory.playerProfile.SetActive(setActive);
+        playerAttack.uiClicking = uiClicking;
+        inventory.currentUI = type;
+        isObjActive = active;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -152,6 +163,11 @@ public class ItemRaycast : MonoBehaviour
         {
             isStoreActive = true;
         }
+
+        if (other.tag == "VillageStore" && !isStoreActive && inventory.currentUI == UIType.None)
+        {
+            isVillageStoreActive = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -164,6 +180,11 @@ public class ItemRaycast : MonoBehaviour
         if (other.tag == "Store")
         {
             isStoreActive = false;
+        }
+
+        if (other.tag == "VillageStore")
+        {
+            isVillageStoreActive = false;
         }
     }
 

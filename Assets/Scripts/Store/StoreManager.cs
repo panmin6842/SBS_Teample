@@ -5,8 +5,25 @@ public class StoreManager : MonoBehaviour
 {
     public StoreData storeData;
     public List<StoreSlot> storeSlots;
+    [SerializeField] private List<StoreSlot> villageStoreSlots;
+    [SerializeField] private Item[] villageStoreItems;
 
     private List<Item> currentPickedItems = new List<Item>(); //현재 상점에 진열된 아이템을 기억하는 리스트
+
+    private void Start()
+    {
+        VillageStoreSlot();
+    }
+
+    private void VillageStoreSlot()
+    {
+        int count = 0;
+        foreach (var slot in villageStoreSlots)
+        {
+            slot.SetUpSlot(villageStoreItems[count], 1);
+            count++;
+        }
+    }
 
     [ContextMenu("Refresh Store")]
     public void ReFreshShop()

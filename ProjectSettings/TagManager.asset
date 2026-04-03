@@ -17,6 +17,7 @@ TagManager:
   - ActiveSkill2Slot
   - ActiveSkill1Slot
   - Store
+  - VillageStore
   layers:
   - Default
   - TransparentFX

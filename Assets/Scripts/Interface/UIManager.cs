@@ -34,6 +34,9 @@ public class UIManager : MonoBehaviour
     public GameObject slotParent;
     [Header("쿨타임")]
     public Slider[] coolTimeSlider;
+    [Header("상점 관련 창들")]
+    public GameObject storeWindow;
+    public GameObject villageStoreWindow;
 
     private void Awake()
     {

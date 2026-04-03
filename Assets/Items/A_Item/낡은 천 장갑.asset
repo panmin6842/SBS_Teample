@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6430823037f83e478bec5124980ed35, type: 3}
+  m_Name: "\uB0A1\uC740 \uCC9C \uC7A5\uAC11"
+  m_EditorClassIdentifier: 
+  IsEquipment: 0
+  IsAccessory: 1
+  itemID: 43
+  itemName: "\uB0A1\uC740 \uCC9C \uC7A5\uAC11"
+  canOverlap: 0
+  isInteractivity: 1
+  isConsumable: 0
+  itemType: 256
+  itemImage: {fileID: 21300000, guid: fa8852460f13bf4488e21303f4c5b0b9, type: 3}
+  price: 0
+  coolTime: 0
+  explanation: "\uCC9C\uC73C\uB85C\uB41C \uB0A1\uC740 \uC7A5\uAC11. \uC18C\uB7C9\uC758
+    \uB2A5\uB825\uCE58\uB97C \uD5A5\uC0C1\uC2DC\uD0A8\uB2E4."
+  buff: 0
+  atkBuff: 5
+  criticalBuff: 3
+  defBuff: 0
+  hpBuff: 5
+  mpBuff: 1
+  skillCoolTimeBuff: 2

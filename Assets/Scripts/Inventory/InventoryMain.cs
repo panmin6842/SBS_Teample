@@ -8,7 +8,8 @@ public enum UIType
     Chest,
     SkillWindow,
     Dialogue,
-    Store
+    Store,
+    VillageStore
 }
 
 /// <summary>

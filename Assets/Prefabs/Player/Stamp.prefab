@@ -206,3 +206,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPrefab: {fileID: 1652478156258771428, guid: 6173bdd4d2f4b8043ad31c472e7e3120, type: 3}
+  bombEffect: {fileID: 5213351144008095142, guid: 27cf33a0780b56a43a33ec7c1f560901, type: 3}
