@@ -107,6 +107,12 @@ public class StampAttackManager : MonoBehaviour
 
     IEnumerator BombDestroy(Collider other)
     {
+        if (!bombStart)
+        {
+            newBomb = Instantiate(bombEffect, transform.position, Quaternion.identity);
+            bombStart = false;
+        }
+        sr.enabled = false;
         yield return new WaitForSeconds(0.2f);
         //Color32 orange = new Color32(255, 160, 0, 255);
         //GetComponent<SpriteRenderer>().color = orange;
@@ -120,12 +126,8 @@ public class StampAttackManager : MonoBehaviour
             IncreasedColliderSize(1.0f);
         }
         //transform.localScale = new Vector3(bombScale, bombScale, bombScale);
-        if (!bombStart)
-        {
-            newBomb = Instantiate(bombEffect, transform.position, Quaternion.identity);
-            bombStart = false;
-        }
-        sr.enabled = false;
+
+
         Debug.Log("스탬프 기본 폭발 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
         yield return new WaitForSeconds(0.5f);
         Destroy(newBomb);

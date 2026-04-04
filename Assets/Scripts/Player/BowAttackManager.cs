@@ -7,6 +7,7 @@ public class BowAttackManager : MonoBehaviour
 
     [SerializeField] private string hitTag;
     [SerializeField] private GameObject bowExplosionObj;
+    [SerializeField] private GameObject hitPrefab;
 
     private PlayerAttack playerAttack;
     private PlayerProfile playerProfile;
@@ -83,15 +84,24 @@ public class BowAttackManager : MonoBehaviour
                 if (throughCount == 1)
                 {
                     Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Instantiate(hitPrefab, hitPoint, Quaternion.identity);
                 }
                 else if (throughCount == 2)
                 {
                     Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Instantiate(hitPrefab, hitPoint, Quaternion.identity);
                     Destroy(gameObject);
                 }
             }
             else
+            {
+                Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                Instantiate(hitPrefab, hitPoint, Quaternion.identity);
                 Destroy(gameObject);
+            }
         }
 
         if (other.CompareTag("Wall"))

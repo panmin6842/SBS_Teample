@@ -18,6 +18,8 @@ TagManager:
   - ActiveSkill1Slot
   - Store
   - VillageStore
+  - EnemyTestAtack
+  - PortalManager
   layers:
   - Default
   - TransparentFX
@@ -26,7 +28,7 @@ TagManager:
   - Water
   - UI
   - MeteoArea
-  - 
+  - Enemy
   - 
   - 
   - 

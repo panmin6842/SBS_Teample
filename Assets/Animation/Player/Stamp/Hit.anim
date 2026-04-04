@@ -22,34 +22,34 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: dac6e5573dec2c84d9aca667c9e2edb3, type: 3}
-    - time: 0.033333335
+    - time: 0.028571429
       value: {fileID: 21300000, guid: 595cbe7125b6d8e4583a0cd5d6e0c468, type: 3}
-    - time: 0.06666667
+    - time: 0.057142857
       value: {fileID: 21300000, guid: fb71dc1d318f94d4982ef9185e6b8987, type: 3}
-    - time: 0.1
+    - time: 0.08571429
       value: {fileID: 21300000, guid: 32adf333c43e5f24d8d62a8bb40c80d9, type: 3}
-    - time: 0.13333334
+    - time: 0.114285715
       value: {fileID: 21300000, guid: cfc457284431b514f870e1738ede294d, type: 3}
-    - time: 0.16666667
+    - time: 0.14285715
       value: {fileID: 21300000, guid: c5fb3a755f6e17d498793d56d52e7ca5, type: 3}
-    - time: 0.2
+    - time: 0.17142858
       value: {fileID: 21300000, guid: b295d447d0279344fac535c76f487b1b, type: 3}
-    - time: 0.23333333
+    - time: 0.2
       value: {fileID: 21300000, guid: 9977b42944586d94a884b264cfda36ab, type: 3}
-    - time: 0.26666668
+    - time: 0.22857143
       value: {fileID: 21300000, guid: a41b8e1f33aa34749ba99fc9a3f16b27, type: 3}
-    - time: 0.3
+    - time: 0.25714287
       value: {fileID: 21300000, guid: 0c258dd45280a3248add8e90e7c671a0, type: 3}
-    - time: 0.33333334
+    - time: 0.2857143
       value: {fileID: 21300000, guid: 9c9b2c58db4fc644db6a4dbb3de848c0, type: 3}
-    - time: 0.36666667
+    - time: 0.31428573
       value: {fileID: 21300000, guid: 4eab5bde56bfc214eab0aac3b24e5aaa, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 30
+  m_SampleRate: 35
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -83,7 +83,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.34285715
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -103,7 +103,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.36666667
+  - time: 0.31428573
     functionName: ObjDestroy
     data: 
     objectReferenceParameter: {fileID: 0}

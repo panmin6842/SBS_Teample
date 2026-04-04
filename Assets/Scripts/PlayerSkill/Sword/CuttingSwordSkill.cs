@@ -13,6 +13,7 @@ public class CuttingSwordSkill : MonoBehaviour
     private float damage;
 
     [SerializeField] private GameObject effect;
+    [SerializeField] private GameObject hitEffect;
     GameObject newEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,6 +54,8 @@ public class CuttingSwordSkill : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Debug.Log("스킬 : 회전베기" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            Instantiate(hitEffect, hitPoint, Quaternion.identity);
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
         }
