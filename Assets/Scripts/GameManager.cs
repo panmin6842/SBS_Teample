@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //어디서든 접근 가능
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public int gold;
     public int playerLevel;
     public int skillPoint;
+    public List<int> canBuyCount = new List<int>();
 
     private void Awake()
     {

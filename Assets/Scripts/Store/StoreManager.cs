@@ -21,6 +21,8 @@ public class StoreManager : MonoBehaviour
         foreach (var slot in villageStoreSlots)
         {
             slot.SetUpSlot(villageStoreItems[count], 1);
+            slot.slotNumber = count;
+            GameManager.instance.canBuyCount.Add(slot.canBuyCount);
             count++;
         }
     }
@@ -52,7 +54,7 @@ public class StoreManager : MonoBehaviour
         {
             Item candidate = RollByChance();
 
-            if (candidate != null && !currentPickedItems.Contains(candidate))
+            if (candidate != null && !currentPickedItems.Contains(candidate)) //¾È°ãÄ¡°Ô ÇÔ
             {
                 return candidate;
             }

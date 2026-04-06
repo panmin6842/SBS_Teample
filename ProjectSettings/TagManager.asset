@@ -20,6 +20,7 @@ TagManager:
   - VillageStore
   - EnemyTestAtack
   - PortalManager
+  - Boss
   layers:
   - Default
   - TransparentFX

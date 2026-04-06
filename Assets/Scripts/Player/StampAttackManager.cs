@@ -88,7 +88,7 @@ public class StampAttackManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //임시
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" || other.tag == "Boss")
         {
             Debug.Log("스탬프 기본 직격 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
             //Instantiate(hitPrefab, transform.position, Quaternion.identity);

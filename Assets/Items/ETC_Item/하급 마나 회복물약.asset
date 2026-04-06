@@ -21,7 +21,7 @@ MonoBehaviour:
   isConsumable: 1
   itemType: 8192
   itemImage: {fileID: 21300000, guid: dd671e70ed53912458298aadc4c075f2, type: 3}
-  price: 1500
+  price: 800
   coolTime: 0
   explanation: 
   buff: 2

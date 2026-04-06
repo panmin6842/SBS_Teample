@@ -66,7 +66,7 @@ public class BowAttackManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             if (playerAttack.bowExplosion)
             {

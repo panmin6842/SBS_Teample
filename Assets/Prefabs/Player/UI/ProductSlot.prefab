@@ -432,14 +432,14 @@ RectTransform:
   m_GameObject: {fileID: 2979782364369936127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.553376, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8521377656182814095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 67, y: -0.40008533}
+  m_AnchoredPosition: {x: 54.6, y: -0.40008533}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6101929401120529849
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 52.63739, y: -21.321758, z: 50.909554, w: 53.98633}
+  m_margin: {x: 52.63739, y: -21.321758, z: 8.6917305, w: 53.98633}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -637,12 +637,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotMask: -1
   itemCount: 0
+  canBuyCount: 0
+  slotNumber: 0
+  thisVillageStore: 0
   itemImage: {fileID: 4765585234277654593}
   explanToolTip: {fileID: 5179975993696890982}
   textCount: {fileID: 516409873314421060}
   explanText: {fileID: 7459516847977032171}
   nameText: {fileID: 3309641795135034668}
   priceText: {fileID: 3343666735606307712}
+  goldText: {fileID: 0}
   buyButton: {fileID: 6737745950639829674}
 --- !u!1 &3720015311171868389
 GameObject:
@@ -1059,14 +1063,14 @@ RectTransform:
   m_GameObject: {fileID: 5506121323467296894}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.55652, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8521377656182814095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 67, y: -11.6}
+  m_AnchoredPosition: {x: 54.9, y: -13.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9176966231606032031
@@ -1124,8 +1128,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.5
-  m_fontSizeBase: 13.5
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1162,7 +1166,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 52.63739, y: -21.321758, z: 50.909554, w: 5.1733427}
+  m_margin: {x: 52.63739, y: -21.321758, z: 9.521069, w: 5.1733427}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

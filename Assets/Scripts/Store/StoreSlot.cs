@@ -22,6 +22,10 @@ public class StoreSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private ItemType slotMask;
 
     public int itemCount; //획득한 아이템 개수
+    public int canBuyCount; //구매 가능 횟수
+    public int slotNumber; //슬롯 번호
+
+    [SerializeField] private bool thisVillageStore; //이 슬롯이 마을 상점 슬롯인지 확인
 
     [Header("아이템 슬롯에 있는 UI 오브젝트")]
     [SerializeField] private Image itemImage;
@@ -139,7 +143,17 @@ public class StoreSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             storageToInventory.BuyProduct(this);
             int newGold = GameManager.instance.gold -= item.Price;
             goldText.text = newGold.ToString();
-            buyButton.interactable = false;
+            if (!thisVillageStore)
+                buyButton.interactable = false;
+            else
+            {
+                canBuyCount--;
+                GameManager.instance.canBuyCount[slotNumber] = canBuyCount;
+                if (canBuyCount <= 0)
+                {
+                    buyButton.interactable = false;
+                }
+            }
         }
     }
 
