@@ -28,6 +28,9 @@ public enum ItemType
     MPPotion_Small = 1 << 13,
     MPPotion_Middle = 1 << 14,
     MPPotion_Big = 1 << 15,
+
+    //°ñµå ¾ÆÀÌÅÛ
+    GoldBox = 1 << 16
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "Add Item/Item")]
@@ -236,6 +239,24 @@ public class Item : ScriptableObject
         get
         {
             return skillCoolTimeBuff;
+        }
+    }
+
+    [Header("·£´ý °ñµå (ÃÖ¼Ò ~ ÃÖ´ë)")]
+    [SerializeField] private int minGold;
+    [SerializeField] private int maxGold;
+    public int MinGold
+    {
+        get
+        {
+            return minGold;
+        }
+    }
+    public int MaxGold
+    {
+        get
+        {
+            return maxGold;
         }
     }
 }

@@ -152,11 +152,25 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void InstallButton()
     {
-        if (item.Type == ItemType.HealPotion_Small || item.Type == ItemType.HealPotion_Middle
-            || item.Type == ItemType.HealPotion_Big)
-            inventory.hpPotionSlot = this;
-        else if (item.Type == ItemType.MPPotion_Small || item.Type == ItemType.MPPotion_Middle
-            || item.Type == ItemType.MPPotion_Big)
-            inventory.mpPotionSlot = this;
+        if (item != null)
+        {
+            if (item.Type == ItemType.HealPotion_Small || item.Type == ItemType.HealPotion_Middle
+                || item.Type == ItemType.HealPotion_Big)
+                inventory.hpPotionSlot = this;
+            else if (item.Type == ItemType.MPPotion_Small || item.Type == ItemType.MPPotion_Middle
+                || item.Type == ItemType.MPPotion_Big)
+                inventory.mpPotionSlot = this;
+            else if (item.Type == ItemType.GoldBox)
+            {
+                int random = Random.Range(item.MinGold, item.MaxGold);
+                GameManager.instance.gold += random;
+                inventory.goldText.text = GameManager.instance.gold.ToString();
+                itemCount--;
+                if (itemCount <= 0)
+                {
+                    ClearSlot();
+                }
+            }
+        }
     }
 }

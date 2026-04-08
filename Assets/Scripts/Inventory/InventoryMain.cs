@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,6 +31,8 @@ public class InventoryMain : InventoryBase
     public GameObject playerProfile;
     public InventorySlot hpPotionSlot;
     public InventorySlot mpPotionSlot;
+
+    public TextMeshProUGUI goldText;
 
     public UIType currentUI = UIType.None;
 
@@ -77,6 +80,7 @@ public class InventoryMain : InventoryBase
         if (inventoryBase != null)
         {
             inventoryBase.SetActive(true);
+            goldText.text = GameManager.instance.gold.ToString();
             playerProfile.SetActive(false);
             IsInventoryActive = true;
             playerAttack.uiClicking = true;

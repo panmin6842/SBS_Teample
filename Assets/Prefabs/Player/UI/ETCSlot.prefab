@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b894863fd997c4a8f4a93b7acdb24c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotMask: 64512
+  slotMask: 130048
   itemCount: 0
   itemImage: {fileID: 902715531301213369}
   explanToolTip: {fileID: 2573810864425269786}

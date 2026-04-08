@@ -2006,7 +2006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1344453484
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2844,6 +2844,7 @@ MonoBehaviour:
   playerProfile: {fileID: 2056261081}
   hpPotionSlot: {fileID: 0}
   mpPotionSlot: {fileID: 0}
+  goldText: {fileID: 4011188036222705549}
   currentUI: 0
 --- !u!114 &1858061603
 MonoBehaviour:
@@ -2942,12 +2943,12 @@ MonoBehaviour:
   - {fileID: 1545112129}
   - {fileID: 1828918502}
   villageStoreItems:
-  - {fileID: 11400000, guid: 3ab6dd28bae4b4c4ea0e7bc98d4b3364, type: 2}
-  - {fileID: 11400000, guid: 76918d98960f1f446bd726453277cb1c, type: 2}
-  - {fileID: 11400000, guid: 8c7d4106266051a41bd1e08d86047f5a, type: 2}
-  - {fileID: 11400000, guid: 23f23f6ce5b79f64d82e3315c7e3f35f, type: 2}
+  - {fileID: 11400000, guid: 7510e20b65e8cd44cb17d222853590f1, type: 2}
   - {fileID: 11400000, guid: 93b79db4e5a39fe41a15a3548a316843, type: 2}
+  - {fileID: 11400000, guid: 947ba690cccd2e347b1d409303203f01, type: 2}
+  - {fileID: 11400000, guid: 052893684716d1e41b86df74b4a81e68, type: 2}
   - {fileID: 11400000, guid: 0492f629446cecd46b533ff846f82a7a, type: 2}
+  - {fileID: 11400000, guid: 437ef9332222cee498eebacde5b0c5b4, type: 2}
 --- !u!114 &1898493399 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4060038788333689766, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -3410,10 +3411,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 75420059339026419, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 633746679759409186, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3446,10 +3443,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 710849742}
-    - target: {fileID: 5750485747784054226, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5991522423066417449, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -3600,6 +3593,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b34c54d633dd3e54a8a8a3a19a207cdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4011188036222705549 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6002526259338830320, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5499195595392115324
