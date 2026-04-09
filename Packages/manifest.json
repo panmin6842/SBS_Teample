@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "com.unity.ai.navigation": "2.0.9",
+    "com.unity.ai.navigation": "2.0.12",
+    "com.unity.behavior": "1.0.15",
     "com.unity.collab-proxy": "2.10.2",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.feature.cinematic": "1.0.0",
