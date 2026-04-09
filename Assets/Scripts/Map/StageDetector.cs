@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StageDetector : MonoBehaviour
 {
     PortalManager portalManager;
+    StageManager stageManager;
 
     private void Awake()
     {
@@ -14,6 +15,7 @@ public class StageDetector : MonoBehaviour
     void Start()
     {
         portalManager = GetComponentInParent<PortalManager>();
+        stageManager = StageManager.instance;
     }
 
     void Update()
@@ -27,6 +29,8 @@ public class StageDetector : MonoBehaviour
             StartCoroutine(StageChangeCoroutine());
             var confinder = portalManager.CinemachineCamera.GetComponent<CinemachineConfiner3D>();
             confinder.BoundingVolume = gameObject.GetComponent<Collider>();
+
+            stageManager.CurStagePos = new Vector2Int((int)(transform.localPosition.x / stageManager.spacing), (int)(transform.localPosition.y / stageManager.spacing));
         }
     }
 

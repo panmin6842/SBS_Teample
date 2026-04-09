@@ -28,9 +28,13 @@ public class PortalSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && DaySystemManager.instance.CurMoveCount > 0)
         {
             StartCoroutine(Teleport());
+        }
+        else if (DaySystemManager.instance.CurMoveCount <= 0)
+        {
+            //»ç¸ÁÆ®¸®°Å
         }
     }
 
@@ -60,6 +64,7 @@ public class PortalSystem : MonoBehaviour
                 break;
         }
 
+        DaySystemManager.instance.CurMoveCount--;
         yield return null;
     }
 }
