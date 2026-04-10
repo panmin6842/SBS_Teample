@@ -427,6 +427,7 @@ public class SkillPlay : MonoBehaviour
     {
         playerProfile.UseMP(1);
         playerProfile.ChangeMoveSpeed(-100f);
+        playerProfile.CameraZoom(3, 5, 45);
 
         yield return new WaitForSeconds(3);
         rotation = playerAttack.AttackPos.transform.eulerAngles.y;

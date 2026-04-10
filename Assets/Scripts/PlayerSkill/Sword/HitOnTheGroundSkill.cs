@@ -32,11 +32,6 @@ public class HitOnTheGroundSkill : MonoBehaviour
             }
         }
         Invoke("CheckAttack", 0.1f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         Invoke("ObjectDestory", 5);
     }
 
@@ -47,7 +42,7 @@ public class HitOnTheGroundSkill : MonoBehaviour
     }
     void CheckAttack()
     {
-
+        playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
         Vector3 finalCenter = (transform.position)
                           + (transform.forward * center.z)
                           + (transform.up * center.y) + (transform.right * center.x);
@@ -62,7 +57,15 @@ public class HitOnTheGroundSkill : MonoBehaviour
             float dist = Vector3.Distance(transform.position, enemy.transform.position);
             if (dist <= 2)
             {
-                Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                if (enemy.CompareTag("Boss"))
+                {
+                    Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                    enemy.gameObject.GetComponent<BossStatus>().GetDamage(damage1);
+                }
+                else if (enemy.CompareTag("Enemy"))
+                {
+                    Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                }
                 if (playerProfile.BloodHeal)
                     playerProfile.BloodHealHp(10, damage1);
             }
@@ -77,12 +80,23 @@ public class HitOnTheGroundSkill : MonoBehaviour
     {
         //시간 차 공격
         yield return new WaitForSeconds(2);
-        Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+        if (enemy.CompareTag("Boss"))
+        {
+            Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+            enemy.gameObject.GetComponent<BossStatus>().GetDamage(damage2);
+        }
+        else if (enemy.CompareTag("Enemy"))
+        {
+            Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+            //넉백
+            enemyRb.linearVelocity = Vector3.zero;
+            Vector3 dist = enemy.transform.position - transform.position;
+            enemyRb.AddForce(dist * 2, ForceMode.Impulse);
+            yield return new WaitForSeconds(0.5f);
+            enemyRb.linearVelocity = Vector3.zero;
+        }
         if (playerProfile.BloodHeal)
             playerProfile.BloodHealHp(10, damage2);
-        //넉백도 들어가야함
-        enemyRb.linearVelocity = Vector3.zero;
-        enemyRb.AddForce(Vector3.forward * 5, ForceMode.Impulse);
     }
 
     private void OnDrawGizmos()

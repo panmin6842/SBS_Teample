@@ -27,6 +27,12 @@ public class ConcentrationOfBattleSkillParent : MonoBehaviour
             playerProfile.UseMP(1);
             playerProfile.ChangeATK(25f);
         }
+        Invoke("CameraShake", 0.1f);
+    }
+
+    private void CameraShake()
+    {
+        playerProfile.ShakeCamera(0.2f, 1.0f, 10.0f);
     }
 
     // Update is called once per frame

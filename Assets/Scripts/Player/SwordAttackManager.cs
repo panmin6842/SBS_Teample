@@ -67,7 +67,16 @@ public class SwordAttackManager : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            Debug.Log(enemy.gameObject.name + "을(를) 공격했습니다!");
+            if (enemy.CompareTag("Boss"))
+            {
+                Debug.Log("검사 기본 공격" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                enemy.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (enemy.CompareTag("Enemy"))
+            {
+                Debug.Log("검사 기본 공격" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
+
             Vector3 hitPoint = enemy.ClosestPoint(finalCenter);
             Instantiate(hitPrefab, hitPoint, Quaternion.identity);
             //적 hp 감소

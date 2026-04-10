@@ -87,10 +87,17 @@ public class StampAttackManager : MonoBehaviour
     private Collider _other;
     private void OnTriggerEnter(Collider other)
     {
-        //임시
         if (other.tag == "Enemy" || other.tag == "Boss")
         {
-            Debug.Log("스탬프 기본 직격 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+            if (other.CompareTag("Boss"))
+            {
+                Debug.Log("스탬프 기본 직격 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                other.gameObject.GetComponent<BossStatus>().GetDamage(damage1);
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("스탬프 기본 직격 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+            }
             //Instantiate(hitPrefab, transform.position, Quaternion.identity);
             bomb = true;
             _other = other;
@@ -127,8 +134,15 @@ public class StampAttackManager : MonoBehaviour
         }
         //transform.localScale = new Vector3(bombScale, bombScale, bombScale);
 
-
-        Debug.Log("스탬프 기본 폭발 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+        if (other.CompareTag("Boss"))
+        {
+            Debug.Log("스탬프 기본 폭발 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+            other.gameObject.GetComponent<BossStatus>().GetDamage(damage2);
+        }
+        else if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("스탬프 기본 폭발 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+        }
         yield return new WaitForSeconds(0.5f);
         Destroy(newBomb);
         Destroy(gameObject);

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,8 @@ public class UIManager : MonoBehaviour
     [Header("상점 관련 창들")]
     public GameObject storeWindow;
     public GameObject villageStoreWindow;
+    [Header("시네머신 카메라")]
+    public CinemachineCamera virtualCamera;
 
     private void Awake()
     {

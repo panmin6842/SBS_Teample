@@ -42,9 +42,18 @@ public class StrongFireSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            Debug.Log("스킬 : 큰거 한방" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
+            if (other.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 큰거 한방" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                other.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 큰거 한방" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
             if (playerProfile.BloodHeal)
             {
                 playerProfile.BloodHealHp(10, damage);

@@ -1,4 +1,6 @@
+using System.Collections;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 public enum PlayerSituation
@@ -35,6 +37,8 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI moveSpeedTestText;
     private TextMeshProUGUI criticalTestText;
 
+    private CinemachineBasicMultiChannelPerlin noiseComponent;
+
     private float lerpSpeed = 5;
 
     public PlayerSituation currentState = PlayerSituation.Idle;
@@ -56,6 +60,11 @@ public class PlayerProfile : PlayerState
         defTestText = UIManager.Instance.defStatusText;
         moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
         criticalTestText = UIManager.Instance.criticalStatusText;
+
+        if (UIManager.Instance.virtualCamera != null)
+        {
+            noiseComponent = UIManager.Instance.virtualCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        }
     }
 
     private void Update()
@@ -77,6 +86,56 @@ public class PlayerProfile : PlayerState
         defTestText.text = maxDEF.ToString();
         moveSpeedTestText.text = moveSpeed.ToString();
         criticalTestText.text = critical.ToString();
+    }
+
+    //카메라 흔들림
+    public void ShakeCamera(float duration, float intensity, float frequency)
+    {
+        if (noiseComponent != null)
+        {
+            StartCoroutine(ShakeRoutine(duration, intensity, frequency));
+        }
+    }
+
+    IEnumerator ShakeRoutine(float duration, float intensity, float frequency)
+    {
+        noiseComponent.AmplitudeGain = intensity;
+        noiseComponent.FrequencyGain = frequency;
+
+        yield return new WaitForSeconds(duration);
+        noiseComponent.AmplitudeGain = 0f;
+        noiseComponent.FrequencyGain = 0f;
+    }
+
+    //카메라 줌 인
+    public void CameraZoom(float duration, float zoomSpeed, float zoomInFOV)
+    {
+        StartCoroutine(ZoomRoutine(duration, zoomSpeed, zoomInFOV));
+    }
+
+    IEnumerator ZoomRoutine(float duration, float zoomSpeed, float zoomInFOV)
+    {
+        float elapsed = 0f;
+        while (elapsed < 0.2f)
+        {
+            UIManager.Instance.virtualCamera.Lens.FieldOfView =
+                Mathf.Lerp(UIManager.Instance.virtualCamera.Lens.FieldOfView, zoomInFOV, Time.deltaTime * zoomSpeed);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        elapsed = 0f;
+        while (elapsed < 0.5f)
+        {
+            UIManager.Instance.virtualCamera.Lens.FieldOfView =
+                Mathf.Lerp(UIManager.Instance.virtualCamera.Lens.FieldOfView, 53f, Time.deltaTime * zoomSpeed);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        UIManager.Instance.virtualCamera.Lens.FieldOfView = 53f;
     }
 
     public bool SkillStart

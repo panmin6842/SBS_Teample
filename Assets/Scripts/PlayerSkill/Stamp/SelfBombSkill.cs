@@ -45,7 +45,15 @@ public class SelfBombSkill : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            Debug.Log("스킬 : 자폭" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            if (enemy.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 자폭" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                enemy.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (enemy.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 자폭" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
 
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);

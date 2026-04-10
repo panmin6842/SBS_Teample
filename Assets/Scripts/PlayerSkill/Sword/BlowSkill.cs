@@ -48,6 +48,7 @@ public class BlowSkill : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(0, playerAttack.AttackPos.transform.localRotation.eulerAngles.y, 0);
                 playerProfile.ChangeMoveSpeed(-100);
+                playerProfile.CameraZoom(2, 5, 45);
                 playerProfile.currentState = PlayerSituation.Attack;
                 Invoke("RushStart", 2);
             }
@@ -73,9 +74,18 @@ public class BlowSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            Debug.Log("스킬 : 회심의 일격" + other.gameObject.name + "을(를) 공격했습니다!");
+            playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
+            if (other.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 회심의 일격" + other.gameObject.name + "을(를) 공격했습니다!");
+                other.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 회심의 일격" + other.gameObject.name + "을(를) 공격했습니다!");
+            }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
             Hit();

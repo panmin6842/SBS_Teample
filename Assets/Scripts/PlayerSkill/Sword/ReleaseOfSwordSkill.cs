@@ -7,7 +7,6 @@ public class ReleaseOfSwordSkill : MonoBehaviour
     [SerializeField] private Vector3 center;
     PlayerProfile playerProfile;
 
-    private float debugDuration = 5f; // 디버그 박스가 유지될 시간
     private float moveSpeed = 10.0f;
 
     private float damage;
@@ -24,7 +23,6 @@ public class ReleaseOfSwordSkill : MonoBehaviour
             else
                 damage = playerProfile.ATK(500f);
         }
-        //InvokeRepeating("CheckAttack", 0.01f, 0.1f);
     }
 
     // Update is called once per frame
@@ -40,9 +38,17 @@ public class ReleaseOfSwordSkill : MonoBehaviour
             playerProfile.SkillStart = false;
             Destroy(gameObject);
         }
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            Debug.Log("스킬 : 검기방출" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            if (other.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 검기방출" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                other.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 검기방출" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
             //적 hp 감소

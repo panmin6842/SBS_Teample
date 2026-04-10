@@ -51,6 +51,7 @@ public class LaserSkill : MonoBehaviour
     IEnumerator LaserStart()
     {
         firstRotation = transform.rotation;
+        playerProfile.CameraZoom(2, 5, 45);
         yield return new WaitForSeconds(2);
         objCollider.enabled = true;
         laser.SetActive(true);
@@ -70,9 +71,18 @@ public class LaserSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            Debug.Log("스킬 : 레이저" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
+            if (other.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 레이저" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                other.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 레이저" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
         }
@@ -92,7 +102,15 @@ public class LaserSkill : MonoBehaviour
             enemyTimers[enemy] += Time.deltaTime;
             if (enemyTimers[enemy] > attackTime)
             {
-                Debug.Log("스킬 : 레이저" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                if (other.CompareTag("Boss"))
+                {
+                    Debug.Log("스킬 : 레이저" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                    other.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+                }
+                else if (other.CompareTag("Enemy"))
+                {
+                    Debug.Log("스킬 : 레이저" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                }
                 if (playerProfile.BloodHeal)
                     playerProfile.BloodHealHp(10, damage);
                 enemyTimers[enemy] = 0;
