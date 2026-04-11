@@ -29,6 +29,10 @@ public class StageManager : MonoBehaviour
     public int StageCount = 7;
 
     public HashSet<Vector2Int> StagePositions = new HashSet<Vector2Int>();
+    public List<Vector2Int> surroundStagePositions = new List<Vector2Int>();
+    public Vector2Int CurStagePos;
+
+    [SerializeField] GameObject Player;
 
     private void Awake()
     {
@@ -38,11 +42,28 @@ public class StageManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(StageCreate());
+        //Instantiate(Player, 시작스테이지 좌표);
     }
 
     void Update()
     {
-        
+        StartCoroutine(SurroundStage());
+    }
+
+    IEnumerator SurroundStage()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            int x = CurStagePos.x + (i % 3 - 1);
+            int z = CurStagePos.y + (i / 3 - 1);
+            Vector2Int pos = new Vector2Int(x, z);
+            if (StagePositions.Contains(pos))
+            {
+                surroundStagePositions.Add(pos);
+            }
+        }
+
+        yield return null;
     }
 
     IEnumerator StageCreate()

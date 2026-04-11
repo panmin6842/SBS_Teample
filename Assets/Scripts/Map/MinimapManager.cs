@@ -1,17 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class MinimapManager : MonoBehaviour
 {
     public static MinimapManager instance;
 
-    [SerializeField] List<GameObject> PingObject = new List<GameObject>();
     [SerializeField] GameObject MapStageImage;
+    [SerializeField] GameObject MiniMapStageImage;
+    [SerializeField] Canvas cv;
 
     public List<Vector2Int> MapStagePositions = new List<Vector2Int>();
+    public Vector2Int curSelectedStage;
 
-    List<GameObject> ActivePingObject = new List<GameObject>();
+    StageManager stageManager;
 
     void Awake()
     {
@@ -20,6 +21,36 @@ public class MinimapManager : MonoBehaviour
 
     void Start()
     {
+        MainmapCreate();
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+        MinimapCreate();
+    }
+
+    void MinimapUpdate()
+    {
+
+    }
+
+    void MainmapCreate()
+    {      
         int StageCount = StageManager.instance.StageCount;
 
         int countHalf = (StageCount % 2 == 1) ? StageCount / 2 + 1 : StageCount / 2;
@@ -42,17 +73,12 @@ public class MinimapManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void MinimapCreate()
     {
-        if (Input.GetKey(KeyCode.Tab))
+        for (int i = 0; i < MapStagePositions.Count; i++)
         {
-            transform.localPosition = new Vector2(0, 0);
-            transform.localScale = new Vector2(4f, 4f);
-        }
-        else
-        {
-            transform.localPosition = new Vector2(800, 400);
-            transform.localScale = new Vector2(1f, 1f);
+            GameObject minimapStageImage = Instantiate(MiniMapStageImage, cv.transform);
+            minimapStageImage.transform.localPosition = new Vector3(MapStagePositions[i].x * 0.5f + 800, MapStagePositions[i].y * 0.5f + 400, 0);
         }
     }
 }
