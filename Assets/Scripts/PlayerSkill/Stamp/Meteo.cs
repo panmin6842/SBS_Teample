@@ -12,15 +12,28 @@ public class Meteo : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(900);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(900));
+            else
+                damage = playerProfile.ATK(900);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            Debug.Log("스킬 : 메테오" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            if (other.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 메테오" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                other.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 메테오" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                //기절상태 추가
+            }
             playerProfile.SkillStart = false;
             Destroy(gameObject);
             if (playerProfile.BloodHeal)
@@ -28,6 +41,7 @@ public class Meteo : MonoBehaviour
         }
         if (other.CompareTag("Place"))
         {
+            playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
             playerProfile.SkillStart = false;
             Destroy(gameObject);
         }

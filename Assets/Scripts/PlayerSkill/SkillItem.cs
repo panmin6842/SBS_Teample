@@ -2,8 +2,8 @@ using UnityEngine;
 public enum SkillItemType
 {
     //½ºÅ³
-    Skill_Active = 1 << 10,
-    Skill_Passive = 1 << 11,
+    Skill_Active = 1 << 16,
+    Skill_Passive = 1 << 17,
 }
 
 [CreateAssetMenu(fileName = "SkillItem", menuName = "Add Item/SkillItem")]

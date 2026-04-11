@@ -13,7 +13,14 @@ TagManager:
   - StampBasicAttack
   - ArrowBasicAttack
   - PassiveSkillSlot
-
+  - Place
+  - ActiveSkill2Slot
+  - ActiveSkill1Slot
+  - Store
+  - VillageStore
+  - EnemyTestAtack
+  - PortalManager
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -21,10 +28,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
+  - MeteoArea
   - Enemy
-  - Wall
-
+  - 
+  - 
   - 
   - 
   - 

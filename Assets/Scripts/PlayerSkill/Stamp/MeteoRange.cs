@@ -11,7 +11,7 @@ public class MeteoRange : MonoBehaviour
     private RaycastHit hit;
     private float rayDistance = 100;
 
-    private bool attack;
+    [SerializeField] private bool attack;
     private bool click;
 
     [SerializeField] private GameObject meteo;
@@ -46,6 +46,7 @@ public class MeteoRange : MonoBehaviour
     {
         if (attack && !click)
         {
+
             if (gameObject.GetComponent<SpriteRenderer>().enabled)
             {
                 newMeteoMark = Instantiate(meteoMark,

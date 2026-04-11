@@ -12,6 +12,8 @@ public class SwordAttackManager : MonoBehaviour
 
     public float debugDuration = 5f; // 디버그 박스가 유지될 시간
 
+    [SerializeField] private GameObject hitPrefab;
+
     private float damage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -24,7 +26,13 @@ public class SwordAttackManager : MonoBehaviour
         playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         playerProfile.SwordAttackCount++;
 
-        damage = playerProfile.BasicATK(100);
+        bool critical = playerProfile.CriticalProbability();
+        if (critical)
+        {
+            damage = playerProfile.CriticalBuff(playerProfile.BasicATK(100));
+        }
+        else
+            damage = playerProfile.BasicATK(100);
 
         StartCoroutine(CheckAttackRoutine());
     }
@@ -59,7 +67,18 @@ public class SwordAttackManager : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            Debug.Log(enemy.gameObject.name + "을(를) 공격했습니다!");
+            if (enemy.CompareTag("Boss"))
+            {
+                Debug.Log("검사 기본 공격" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                enemy.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (enemy.CompareTag("Enemy"))
+            {
+                Debug.Log("검사 기본 공격" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
+
+            Vector3 hitPoint = enemy.ClosestPoint(finalCenter);
+            Instantiate(hitPrefab, hitPoint, Quaternion.identity);
             //적 hp 감소
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);

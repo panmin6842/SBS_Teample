@@ -1,0 +1,46 @@
+using UnityEngine;
+
+public class Attack4Manager : MonoBehaviour
+{
+    private PlayerProfile playerProfile;
+
+    private float stopDist = 15.0f;
+    private float moveSpeed = 5.0f;
+
+    float damage;
+
+    private Vector3 firstPos;
+    private float dist;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
+        firstPos = transform.position;
+
+        if (playerProfile != null)
+        {
+            damage = 5;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        dist = Vector3.Distance(firstPos, transform.position);
+
+        if (dist >= stopDist)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("스킬 : 4" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            Destroy(gameObject);
+        }
+    }
+}

@@ -14,16 +14,14 @@ public class MultipleLaunchesSkill : MonoBehaviour
 
     private Vector3 firstPos;
     private float dist;
+
+    [SerializeField] private GameObject hitPrefab;
     void Start()
     {
         playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         firstPos = transform.position;
 
-        if (playerProfile != null)
-        {
-            damage1 = playerProfile.ATK(100f);
-            damage2 = playerProfile.ATK(70f);
-        }
+        Attack();
     }
 
     // Update is called once per frame
@@ -40,12 +38,21 @@ public class MultipleLaunchesSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             enemyHitCount++;
             if (enemyHitCount == 1)
             {
-                Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                if (other.CompareTag("Boss"))
+                {
+                    Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                    other.gameObject.GetComponent<BossStatus>().GetDamage(damage1);
+                }
+                else if (other.CompareTag("Enemy"))
+                {
+                    Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                }
+                Instantiate(hitPrefab, transform.position, Quaternion.identity);
                 if (playerProfile.BloodHeal)
                 {
                     playerProfile.BloodHealHp(10, damage1);
@@ -53,7 +60,16 @@ public class MultipleLaunchesSkill : MonoBehaviour
             }
             else if (enemyHitCount == 2)
             {
-                Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+                if (other.CompareTag("Boss"))
+                {
+                    Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+                    other.gameObject.GetComponent<BossStatus>().GetDamage(damage2);
+                }
+                else if (other.CompareTag("Enemy"))
+                {
+                    Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+                }
+                Instantiate(hitPrefab, transform.position, Quaternion.identity);
                 if (playerProfile.BloodHeal)
                 {
                     playerProfile.BloodHealHp(10, damage2);
@@ -64,6 +80,24 @@ public class MultipleLaunchesSkill : MonoBehaviour
         if (other.CompareTag("Wall") || other.CompareTag("Storage"))
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Attack()
+    {
+        if (playerProfile != null)
+        {
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.ATK(100f));
+                damage2 = playerProfile.CriticalBuff(playerProfile.ATK(70f));
+            }
+            else
+            {
+                damage1 = playerProfile.ATK(100f);
+                damage2 = playerProfile.ATK(70f);
+            }
         }
     }
 }

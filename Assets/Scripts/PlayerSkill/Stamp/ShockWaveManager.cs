@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ShockWaveManager : MonoBehaviour
@@ -16,7 +17,11 @@ public class ShockWaveManager : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(150);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(150));
+            else
+                damage = playerProfile.ATK(150);
         }
 
         CheckAttack();
@@ -41,7 +46,16 @@ public class ShockWaveManager : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            Debug.Log("스킬 : 충격파" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            if (enemy.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 충격파" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                enemy.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (enemy.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 충격파" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                StartCoroutine(NuckBack(enemy.GetComponent<Rigidbody>(), enemy));
+            }
             //임시 넉백
             Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
 
@@ -50,6 +64,15 @@ public class ShockWaveManager : MonoBehaviour
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
         }
+    }
+
+    IEnumerator NuckBack(Rigidbody enemyRb, Collider enemy)
+    {
+        enemyRb.linearVelocity = Vector3.zero;
+        Vector3 dist = enemy.transform.position - transform.position;
+        enemyRb.AddForce(dist * 4, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.5f);
+        enemyRb.linearVelocity = Vector3.zero;
     }
 
     private void OnDrawGizmos()

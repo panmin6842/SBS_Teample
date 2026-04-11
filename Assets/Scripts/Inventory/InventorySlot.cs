@@ -28,6 +28,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [SerializeField] private GameObject explanToolTip;
     [SerializeField] private TextMeshProUGUI textCount;
     [SerializeField] private TextMeshProUGUI explanText;
+    [SerializeField] private TextMeshProUGUI nameText;
 
     private InventoryMain inventory;
     private StorageToInventory storageToInventory;
@@ -42,6 +43,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             explanToolTip.SetActive(false);
             inventory.slotClick = false;
         }
+
+        SlotCount();
     }
 
     // 아이템 이미지의 투명도 조절
@@ -71,9 +74,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (explanText != null)
         {
             explanText.text = item.Explanation;
+            nameText.text = item.ItemName;
         }
 
-        if (item.Type <= ItemType.Equipment_WEAPON)
+        if (item.IsEquipment || item.IsAccessory)
         {
             textCount.text = "";
         }
@@ -92,6 +96,16 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         textCount.text = itemCount.ToString();
 
         if (itemCount == 0)
+        {
+            ClearSlot();
+        }
+    }
+
+    private void SlotCount()
+    {
+        textCount.text = itemCount.ToString();
+
+        if (itemCount <= 0)
         {
             ClearSlot();
         }
@@ -133,6 +147,30 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (explanToolTip != null)
         {
             explanToolTip.SetActive(false);
+        }
+    }
+
+    public void InstallButton()
+    {
+        if (item != null)
+        {
+            if (item.Type == ItemType.HealPotion_Small || item.Type == ItemType.HealPotion_Middle
+                || item.Type == ItemType.HealPotion_Big)
+                inventory.hpPotionSlot = this;
+            else if (item.Type == ItemType.MPPotion_Small || item.Type == ItemType.MPPotion_Middle
+                || item.Type == ItemType.MPPotion_Big)
+                inventory.mpPotionSlot = this;
+            else if (item.Type == ItemType.GoldBox)
+            {
+                int random = Random.Range(item.MinGold, item.MaxGold);
+                GameManager.instance.gold += random;
+                inventory.goldText.text = GameManager.instance.gold.ToString();
+                itemCount--;
+                if (itemCount <= 0)
+                {
+                    ClearSlot();
+                }
+            }
         }
     }
 }

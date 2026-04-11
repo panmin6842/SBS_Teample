@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1455b89ecba984a991166a65d12614, type: 3}
   m_Name: SwordPassiveSkill2
   m_EditorClassIdentifier: 
-  itemID: 57
-  skillItemType: 2048
-  itemName: Passive2
+  itemID: 107
+  skillItemType: 131072
+  itemName: "\uAD11\uC804\uC0AC"
   itemImage: {fileID: 21300000, guid: 5820e875e132a344d87b64ca39f18fb4, type: 3}
   explanation: 
   number: 2
+  coolTime: 0

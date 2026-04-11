@@ -21,12 +21,13 @@ public class SnipingPostureSkill : MonoBehaviour
             playerAttack.attackStartDelay = 0.3f;
             playerProfile.UseMP(1);
         }
+        Invoke("DestroyObject", 20);
+        Invoke("CameraShake", 0.1f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CameraShake()
     {
-        Invoke("DestroyObject", 20);
+        playerProfile.ShakeCamera(0.2f, 1.0f, 10.0f);
     }
 
     private void DestroyObject()

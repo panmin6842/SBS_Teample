@@ -16,6 +16,13 @@ public class HorsePowerUpSkill : MonoBehaviour
             playerAttack.ChangeAttackDelay(-40f); //우선 기본 수치에서 1초 감소하도록 함
             playerAttack.ChangePower(30);
         }
+
+        Invoke("CameraShake", 0.1f);
+    }
+
+    private void CameraShake()
+    {
+        playerProfile.ShakeCamera(0.2f, 1.0f, 10.0f);
     }
 
     // Update is called once per frame

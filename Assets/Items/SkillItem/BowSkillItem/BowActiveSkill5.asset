@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1455b89ecba984a991166a65d12614, type: 3}
   m_Name: BowActiveSkill5
   m_EditorClassIdentifier: 
-  itemID: 54
-  skillItemType: 1024
-  itemName: Active5
+  itemID: 204
+  skillItemType: 65536
+  itemName: "\uB09C\uC0AC \uBAA8\uB4DC"
   itemImage: {fileID: 21300000, guid: 6b6199c800015564ea4822a6a829ec4e, type: 3}
   explanation: bow
   number: 5

@@ -16,15 +16,14 @@ public class ManaStormSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.ATK(75);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.ATK(75));
+            else
+                damage = playerProfile.ATK(75);
         }
 
         InvokeRepeating("CheckAttack", 0.3f, 0.3f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         Invoke("ObjectDestroy", 3);
     }
 
@@ -36,7 +35,7 @@ public class ManaStormSkill : MonoBehaviour
 
     void CheckAttack()
     {
-
+        playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
         Vector3 finalCenter = (transform.position)
                           + (transform.forward * center.z)
                           + (transform.up * center.y) + (transform.right * center.x);
@@ -47,7 +46,15 @@ public class ManaStormSkill : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            Debug.Log("스킬 : 마력 폭풍" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            if (enemy.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 마력 폭풍" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                enemy.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (enemy.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 마력 폭풍" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
             //끌어당기기
             Vector3 dist = enemy.transform.position - transform.position;
             dist.Normalize();

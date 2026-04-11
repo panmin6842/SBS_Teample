@@ -137,9 +137,10 @@ MonoBehaviour:
   boxSize: {x: 0.5, y: 0.5, z: 2.5}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   center: {x: 0, y: 0, z: 3}
   effect: {fileID: 5222568026173452923, guid: fdb06975ee244004eb3cf459a9b542c6, type: 3}
+  hitEffect: {fileID: 469050128238217650, guid: 83b9e89c57522b34a8dd431fdde2e656, type: 3}
 --- !u!54 &7153061494565359294
 Rigidbody:
   m_ObjectHideFlags: 0

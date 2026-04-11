@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1455b89ecba984a991166a65d12614, type: 3}
   m_Name: StampPassiveSkill3
   m_EditorClassIdentifier: 
-  itemID: 58
-  skillItemType: 2048
-  itemName: Passive3
+  itemID: 308
+  skillItemType: 131072
+  itemName: "\uC804\uC7C1\uBCD1\uAE30"
   itemImage: {fileID: 21300000, guid: ba37f7394cf39c541b037e718cb13577, type: 3}
   explanation: stamp
   number: 3
