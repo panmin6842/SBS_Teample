@@ -36,6 +36,8 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI defTestText;
     private TextMeshProUGUI moveSpeedTestText;
     private TextMeshProUGUI criticalTestText;
+    [Header("Hit ÇÁ¸®Æé")]
+    [SerializeField] private GameObject swordSkillHitPrefab;
 
     private CinemachineBasicMultiChannelPerlin noiseComponent;
 
@@ -86,6 +88,12 @@ public class PlayerProfile : PlayerState
         defTestText.text = maxDEF.ToString();
         moveSpeedTestText.text = moveSpeed.ToString();
         criticalTestText.text = critical.ToString();
+    }
+
+    //Hit ÇÁ¸®Æé ¼ÒÈ¯
+    public void SwordSkillHit(Vector3 hitPoint)
+    {
+        Instantiate(swordSkillHitPrefab, hitPoint, Quaternion.identity);
     }
 
     //Ä«¸Þ¶ó Èçµé¸²
