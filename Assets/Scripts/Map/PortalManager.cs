@@ -37,7 +37,7 @@ public class PortalManager : MonoBehaviour
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
         CinemachineCamera = GameObject.Find("PlayerCamera").GetComponent<CinemachineCamera>();
-        PortalEffectImage = GameObject.FindWithTag("FadeBackground").GetComponent<Image>();
+        PortalEffectImage = GameObject.Find("FadeBackground").GetComponent<Image>();
         stageManager = StageManager.instance;
     }
 
@@ -48,20 +48,9 @@ public class PortalManager : MonoBehaviour
 
     void Update()
     {
-        PortalActiveCheck();
         PortalActivation();
-    }
 
-    void PortalActiveCheck()
-    {
-        if (true) //Portal activation check
-        {
-            isPortalActive = true;
-        }
-        //else
-        //{
-        //    isPortalActive = false;
-        //}
+        isPortalActive = stageManager.activePortal;
     }
 
     void PortalActivation()
@@ -75,9 +64,25 @@ public class PortalManager : MonoBehaviour
         bool west = stageManager.StagePositions.Contains(new Vector2Int(pos.x - 1, pos.y));
         bool east = stageManager.StagePositions.Contains(new Vector2Int(pos.x + 1, pos.y));
 
-        PortalObject[0].SetActive(north && isPortalActive);
-        PortalObject[1].SetActive(south && isPortalActive);
-        PortalObject[2].SetActive(west && isPortalActive);
-        PortalObject[3].SetActive(east && isPortalActive);
+        if (PortalObject[0] != null)
+        {
+            PortalObject[0].SetActive(north && isPortalActive);
+            PortalObject[0].SetActive(isPortalActive);
+        }
+        if (PortalObject[1] != null)
+        {
+            PortalObject[1].SetActive(south && isPortalActive);
+            PortalObject[1].SetActive(isPortalActive);
+        }
+        if (PortalObject[2] != null)
+        {
+            PortalObject[2].SetActive(west && isPortalActive);
+            PortalObject[2].SetActive(isPortalActive);
+        }
+        if (PortalObject[3] != null)
+        {
+            PortalObject[3].SetActive(east && isPortalActive);
+            PortalObject[3].SetActive(isPortalActive);
+        }
     }
 }

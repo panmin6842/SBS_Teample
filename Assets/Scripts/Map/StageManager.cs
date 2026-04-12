@@ -21,6 +21,9 @@ public enum MinimapStageType
 public class StageManager : MonoBehaviour
 {
     public static StageManager instance;
+    MonsterSpawnManager monsterSpawnManager;
+
+    [SerializeField] bool Tutorial;
 
     public List<GameObject> stage = new List<GameObject>();
     public GameObject BossStage;
@@ -34,15 +37,20 @@ public class StageManager : MonoBehaviour
 
     [SerializeField] GameObject Player;
 
+    public bool activePortal;
+
     private void Awake()
     {
+        monsterSpawnManager = GetComponentInChildren<MonsterSpawnManager>();
         instance = this;
     }
 
     void Start()
     {
-        StartCoroutine(StageCreate());
-        //Instantiate(Player, 시작스테이지 좌표);
+        if (!Tutorial)
+        {
+            StartCoroutine(StageCreate());
+        }
     }
 
     void Update()
@@ -76,7 +84,7 @@ public class StageManager : MonoBehaviour
             {
                 if (x >= -1 && x <= 1 && z >= -1 && z <= 1)
                 {
-
+                    Instantiate(BossStage, transform.localPosition, Quaternion.identity);
                 }
                 else
                 {
