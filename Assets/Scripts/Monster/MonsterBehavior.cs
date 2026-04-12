@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterBehavior : MonoBehaviour
@@ -10,6 +11,9 @@ public class MonsterBehavior : MonoBehaviour
     [SerializeField] GameObject SectorAttackEffect;
     [SerializeField] GameObject ThrustAttackAoE;
     [SerializeField] GameObject ThrustAttackEffect;
+
+    float attackTimer = 0f;
+    bool isAttacking;
 
     GameObject Player;
 
@@ -43,8 +47,9 @@ public class MonsterBehavior : MonoBehaviour
         isMoving = true;
         int randomAttack = Random.Range(0, 10);
 
-        if (Vector3.Distance(transform.localPosition, Player.transform.localPosition) <= MonsterData.AttackRange)
+        if (Vector3.Distance(transform.localPosition, Player.transform.localPosition) <= MonsterData.AttackRange && !isAttacking && attackTimer >= MonsterData.AttackDelay)
         {
+            isAttacking = true;
             if (randomAttack >= 0 && randomAttack <= 2)
             {
                 StartCoroutine(ThrustAttack());
@@ -53,11 +58,14 @@ public class MonsterBehavior : MonoBehaviour
             {
                 StartCoroutine(SectorAttack());
             }
-            yield return new WaitForSeconds(MonsterData.AttackDelay);
+
+            yield return new WaitForSeconds(0f);
         }
-        else
+        
+        if (!isAttacking && Vector3.Distance(transform.localPosition, Player.transform.localPosition) > MonsterData.AttackRange)
         {
             MoveToPlayer();
+            attackTimer += Time.deltaTime;
         }
 
         isMoving = false;
@@ -87,6 +95,9 @@ public class MonsterBehavior : MonoBehaviour
         ThrustAttackAoE.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         ThrustAttackAoE.SetActive(false);
+
+        isAttacking = false;
+        attackTimer = 0f;
     }
 
     IEnumerator SectorAttack()
@@ -94,11 +105,14 @@ public class MonsterBehavior : MonoBehaviour
         Sprite sprite = SectorAttackEffect.GetComponent<SpriteRenderer>().sprite;
 
         SectorAttackEffect.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         SectorAttackEffect.SetActive(false);
         SectorAttackAoE.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         SectorAttackAoE.SetActive(false);
+
+        isAttacking = false;
+        attackTimer = 0f;
     }
 
     IEnumerator HitByPlayer()
