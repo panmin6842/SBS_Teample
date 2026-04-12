@@ -39,7 +39,6 @@ public class BarrierSkill : MonoBehaviour
         if (playerAttack.stampPassiveSkill2)
         {
             random = Random.Range(1, 101);
-            Debug.Log("Barrier RandomCount : " + random);
         }
     }
 

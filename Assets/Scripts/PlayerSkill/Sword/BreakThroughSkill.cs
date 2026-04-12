@@ -86,7 +86,8 @@ public class BreakThroughSkill : MonoBehaviour
         }
 
         hitEnemies.Add(enemy);
-        //공격 및 넉백 제작
+        Vector3 hitPoint = enemy.ClosestPoint(transform.position);
+        playerProfile.SwordSkillHit(hitPoint);
         if (enemy.CompareTag("Boss"))
         {
             Debug.Log("스킬 : 일점 돌파" + enemy.gameObject.name + "을(를) 공격했습니다!" + "데미지 : " + damage);

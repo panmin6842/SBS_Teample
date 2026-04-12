@@ -38,6 +38,8 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI criticalTestText;
     [Header("Hit ÇÁ¸®Æé")]
     [SerializeField] private GameObject swordSkillHitPrefab;
+    [SerializeField] private GameObject bowSkillHitPrefab;
+    [SerializeField] private GameObject stampSkillHitPrefab;
 
     private CinemachineBasicMultiChannelPerlin noiseComponent;
 
@@ -94,6 +96,14 @@ public class PlayerProfile : PlayerState
     public void SwordSkillHit(Vector3 hitPoint)
     {
         Instantiate(swordSkillHitPrefab, hitPoint, Quaternion.identity);
+    }
+    public void BowSkillHit(Vector3 hitPoint)
+    {
+        Instantiate(bowSkillHitPrefab, hitPoint, Quaternion.identity);
+    }
+    public void StampSkillHit(Vector3 hitPoint)
+    {
+        Instantiate(bowSkillHitPrefab, hitPoint, Quaternion.identity);
     }
 
     //Ä«¸Þ¶ó Èçµé¸²

@@ -38,6 +38,8 @@ public class MpPowerWaveSkill : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            playerProfile.BowSkillHit(hitPoint);
             if (other.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 마력 파동" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);

@@ -46,6 +46,8 @@ public class ShockWaveManager : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
+            Vector3 hitPoint = enemy.ClosestPoint(transform.position);
+            playerProfile.BowSkillHit(hitPoint);
             if (enemy.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 충격파" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
@@ -56,11 +58,6 @@ public class ShockWaveManager : MonoBehaviour
                 Debug.Log("스킬 : 충격파" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
                 StartCoroutine(NuckBack(enemy.GetComponent<Rigidbody>(), enemy));
             }
-            //임시 넉백
-            Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
-
-            enemyRb.linearVelocity = Vector3.zero;
-            enemyRb.AddForce(Vector3.forward * 3, ForceMode.Impulse);
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
         }

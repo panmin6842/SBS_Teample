@@ -15,7 +15,6 @@ public class MultipleLaunchesSkill : MonoBehaviour
     private Vector3 firstPos;
     private float dist;
 
-    [SerializeField] private GameObject hitPrefab;
     void Start()
     {
         playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
@@ -43,6 +42,8 @@ public class MultipleLaunchesSkill : MonoBehaviour
             enemyHitCount++;
             if (enemyHitCount == 1)
             {
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                playerProfile.BowSkillHit(hitPoint);
                 if (other.CompareTag("Boss"))
                 {
                     Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
@@ -60,6 +61,8 @@ public class MultipleLaunchesSkill : MonoBehaviour
             }
             else if (enemyHitCount == 2)
             {
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                playerProfile.BowSkillHit(hitPoint);
                 if (other.CompareTag("Boss"))
                 {
                     Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
@@ -69,7 +72,6 @@ public class MultipleLaunchesSkill : MonoBehaviour
                 {
                     Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
                 }
-                Instantiate(hitPrefab, transform.position, Quaternion.identity);
                 if (playerProfile.BloodHeal)
                 {
                     playerProfile.BloodHealHp(10, damage2);

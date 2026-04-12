@@ -44,6 +44,8 @@ public class ConcentrationOfBattleSkill : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            playerProfile.SwordSkillHit(hitPoint);
             if (other.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 전투 집중" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);

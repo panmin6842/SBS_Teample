@@ -53,6 +53,7 @@ public class CuttingSwordSkill : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+
             if (other.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 회전베기" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
