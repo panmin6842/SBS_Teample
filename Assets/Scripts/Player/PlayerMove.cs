@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     private PlayerProfile playerProfile;
+    private InventoryMain inventory;
 
     private Vector2 movement;
     private RaycastHit hit;
@@ -20,6 +21,7 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerProfile = GetComponent<PlayerProfile>();
         ani = pSprite.gameObject.GetComponentInChildren<Animator>();
+        inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
     }
 
     // Update is called once per frame
@@ -53,18 +55,21 @@ public class PlayerMove : MonoBehaviour
     {
         movement = context.ReadValue<Vector2>();
 
-        if ((movement.x != 0 || movement.y != 0) && playerProfile.currentState != PlayerSituation.Attack)
+        if (inventory.currentUI == UIType.None)
         {
-            if (movement.x > 0)
-                pSprite.localScale = new Vector3(1f, 1f, 1f);
-            else
-                pSprite.localScale = new Vector3(-1f, 1f, 1f);
+            if ((movement.x != 0 || movement.y != 0) && playerProfile.currentState != PlayerSituation.Attack)
+            {
+                if (movement.x > 0)
+                    pSprite.localScale = new Vector3(1f, 1f, 1f);
+                else
+                    pSprite.localScale = new Vector3(-1f, 1f, 1f);
 
-            ani.SetBool("isWalk", true);
-        }
-        else if ((movement.x == 0 && movement.y == 0) && playerProfile.currentState != PlayerSituation.Attack)
-        {
-            ani.SetBool("isWalk", false);
+                ani.SetBool("isWalk", true);
+            }
+            else if ((movement.x == 0 && movement.y == 0) && playerProfile.currentState != PlayerSituation.Attack)
+            {
+                ani.SetBool("isWalk", false);
+            }
         }
     }
 }

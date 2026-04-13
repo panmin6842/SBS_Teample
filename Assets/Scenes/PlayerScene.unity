@@ -1373,6 +1373,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &666596663 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1301410245231808349, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &707998576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,6 +1500,9 @@ MonoBehaviour:
   playerLevel: 0
   skillPoint: 0
   canBuyCount: 
+  character1Spawn: 0
+  tutorialClear: 0
+  mapState: 0
 --- !u!4 &829952204
 Transform:
   m_ObjectHideFlags: 0
@@ -1542,6 +1556,8 @@ MonoBehaviour:
   storeWindow: {fileID: 22625827}
   villageStoreWindow: {fileID: 956259601}
   virtualCamera: {fileID: 1995814926}
+  profileNameText: {fileID: 1566429175}
+  profileLevelText: {fileID: 666596663}
 --- !u!1 &832394024
 GameObject:
   m_ObjectHideFlags: 0
@@ -2496,6 +2512,17 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1566429175 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4479248224752696649, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1568654123 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2349885250815241653, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -2933,6 +2960,7 @@ MonoBehaviour:
   hpPotionSlot: {fileID: 0}
   mpPotionSlot: {fileID: 0}
   goldText: {fileID: 4011188036222705549}
+  levelRewardWindow: {fileID: 4011188036222705550}
   currentUI: 0
 --- !u!114 &1858061603
 MonoBehaviour:
@@ -3553,6 +3581,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 710849742}
+    - target: {fileID: 3838096996561085216, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1858061601}
     - target: {fileID: 3911332904346253851, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3565,9 +3597,13 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 710849742}
+    - target: {fileID: 5095792464317473178, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1858061601}
     - target: {fileID: 5750485747784054226, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5991522423066417449, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_Name
@@ -3732,6 +3768,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4011188036222705550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2334116662562828603, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5499195595392115324
 PrefabInstance:
   m_ObjectHideFlags: 0

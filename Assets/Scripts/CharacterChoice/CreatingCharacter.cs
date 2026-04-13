@@ -62,6 +62,7 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
             UpdatePlayerPreview(GameManager.instance.profileIndex);
             pos.position = new Vector3(pos.position.x, pos.position.y + 34, pos.position.z);
             pos.localScale = new Vector3(2, 2, 2);
+            GameManager.instance.name = curName;
             nameZone.SetActive(false);
         }
     }
@@ -83,11 +84,14 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void Info()
     {
-        infoTexts[0].text = "Name : " + curName;
+        infoTexts[0].text = "이름 : " + GameManager.instance.name;
+        infoTexts[1].text = "직업 : " + GameManager.instance.job;
+        infoTexts[2].text = "레벨 : " + GameManager.instance.level;
     }
 
     public void GamePlay()
     {
         SceneManager.LoadScene("MainScene");
+        GameManager.instance.character1Spawn = true;
     }
 }

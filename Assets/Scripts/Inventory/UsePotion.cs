@@ -17,7 +17,7 @@ public class UsePotion : MonoBehaviour
 
     private void OnEnable()
     {
-        playerProfile = GameObject.Find("Player").GetComponent<PlayerProfile>();
+        playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
         uiActionMap.Enable();
         uiActionMap.FindAction("HpPotion").performed += OnHpPotion;
         uiActionMap.FindAction("MpPotion").performed += OnMpPotion;

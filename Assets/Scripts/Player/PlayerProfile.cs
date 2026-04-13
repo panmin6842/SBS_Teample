@@ -65,6 +65,9 @@ public class PlayerProfile : PlayerState
         moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
         criticalTestText = UIManager.Instance.criticalStatusText;
 
+        UIManager.Instance.profileNameText.text = GameManager.instance.name.ToString();
+        UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString();
+
         if (UIManager.Instance.virtualCamera != null)
         {
             noiseComponent = UIManager.Instance.virtualCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();

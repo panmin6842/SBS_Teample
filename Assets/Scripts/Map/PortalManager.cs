@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 public enum WallDirection
 {
     North,
@@ -43,7 +42,10 @@ public class PortalManager : MonoBehaviour
 
     void Start()
     {
-        PlayerTransform = PlayerObject.GetComponent<Transform>();
+        if (PlayerObject != null)
+            PlayerTransform = PlayerObject.GetComponent<Transform>();
+        else if (PlayerObject == null)
+            PlayerObject = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()

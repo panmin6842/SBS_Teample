@@ -10,7 +10,8 @@ public enum UIType
     SkillWindow,
     Dialogue,
     Store,
-    VillageStore
+    VillageStore,
+    LevelReward
 }
 
 /// <summary>
@@ -34,6 +35,8 @@ public class InventoryMain : InventoryBase
 
     public TextMeshProUGUI goldText;
 
+    [SerializeField] private GameObject levelRewardWindow;
+
     public UIType currentUI = UIType.None;
 
     new void Awake()
@@ -47,7 +50,8 @@ public class InventoryMain : InventoryBase
     {
         uiActionMap.Enable();
         uiActionMap.FindAction("OpenInventory").performed += OnOpenInventory;
-        player = GameObject.FindWithTag("Player");
+        uiActionMap.FindAction("ESC").performed += OnESC;
+        player = GameObject.FindGameObjectWithTag("Player");
         playerAttack = player.GetComponent<PlayerAttack>();
         itemRaycast = player.GetComponent<ItemRaycast>();
     }
@@ -57,6 +61,7 @@ public class InventoryMain : InventoryBase
         if (uiActionMap != null)
         {
             uiActionMap.FindAction("OpenInventory").performed -= OnOpenInventory;
+            uiActionMap.FindAction("ESC").performed -= OnESC;
             uiActionMap.Disable();
         }
     }
@@ -65,7 +70,7 @@ public class InventoryMain : InventoryBase
     {
         //옵션이 켜저있는 경우 활성화 안 함 나중에 작성
 
-        if (!IsInventoryActive && currentUI == UIType.None)
+        if (!IsInventoryActive && currentUI == UIType.None && GameManager.instance.mapState == MapState.Village)
         {
             OpenInventory();
         }
@@ -73,6 +78,24 @@ public class InventoryMain : InventoryBase
         {
             CloseInventory();
         }
+    }
+
+    private void OnESC(InputAction.CallbackContext value)
+    {
+        if (currentUI == UIType.LevelReward)
+        {
+            levelRewardWindow.SetActive(false);
+        }
+    }
+
+    public void LevelRewardWindowAppear()
+    {
+        levelRewardWindow.SetActive(true);
+    }
+
+    public void LevelRewardDisWindowAppear()
+    {
+        levelRewardWindow.SetActive(false);
     }
 
     private void OpenInventory()

@@ -87,7 +87,7 @@ public class ItemRaycast : MonoBehaviour
 
     private void OnOpenStorage(InputAction.CallbackContext context)
     {
-        if (isStorageActive)
+        if (isStorageActive && GameManager.instance.mapState == MapState.Village)
         {
             if (inventory.currentUI == UIType.None)
             {
@@ -106,7 +106,7 @@ public class ItemRaycast : MonoBehaviour
             }
         }
 
-        if (isStoreActive)
+        if (isStoreActive && GameManager.instance.mapState == MapState.Village)
         {
             if (inventory.currentUI == UIType.None)
             {
@@ -118,7 +118,7 @@ public class ItemRaycast : MonoBehaviour
             }
         }
 
-        if (isVillageStoreActive)
+        if (isVillageStoreActive && GameManager.instance.mapState == MapState.Village)
         {
             if (inventory.currentUI == UIType.None)
             {
