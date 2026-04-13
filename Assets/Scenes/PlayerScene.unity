@@ -3518,7 +3518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6839591569014979432, guid: eac0114bedb819e4da9748d90f4e0377, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3930,10 +3930,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 448567626270011711, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
-      propertyPath: storeWindow
-      value: 
-      objectReference: {fileID: 22625827}
     - target: {fileID: 5053195077053781742, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.2

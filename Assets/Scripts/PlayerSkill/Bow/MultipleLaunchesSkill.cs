@@ -53,7 +53,6 @@ public class MultipleLaunchesSkill : MonoBehaviour
                 {
                     Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
                 }
-                Instantiate(hitPrefab, transform.position, Quaternion.identity);
                 if (playerProfile.BloodHeal)
                 {
                     playerProfile.BloodHealHp(10, damage1);

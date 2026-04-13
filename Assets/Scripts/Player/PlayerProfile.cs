@@ -261,12 +261,19 @@ public class PlayerProfile : PlayerState
         moveSpeed = passiveMoveSpeed;
     }
 
-    //스킬 효과
     public void GetDamage(int damage)
     {
-        curHp -= damage;
+        curHp -= damage * (1 - curDEF);
 
         curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
+    public void PlayerDie()
+    {
+        if (curHp <= 0)
+        {
+            curHp = 0;
+        }
     }
 
     public void SelfHpDamage(float damagePercent)
