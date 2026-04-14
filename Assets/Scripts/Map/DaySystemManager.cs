@@ -26,9 +26,9 @@ public class DaySystemManager : MonoBehaviour
 
     void Update()
     {
-        DungeonTime += Time.deltaTime;
-        DayCountText.text = "Day " + DayCount.ToString();
-        MoveCountText.text = CurMoveCount.ToString() + "/" + MaxMoveCount.ToString();
+        //DungeonTime += Time.deltaTime;
+        //DayCountText.text = "Day " + DayCount.ToString();
+        //MoveCountText.text = CurMoveCount.ToString() + "/" + MaxMoveCount.ToString();
     }
 
     public  void DayChange()
