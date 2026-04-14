@@ -198,6 +198,11 @@ public class PlayerProfile : PlayerState
         get { return level; }
     }
 
+    public int ActCount
+    {
+        get { return curActCount; }
+    }
+
     //max스테이터스 설정
     public void SetMaxHp(float hpPoint, float a_hp, float e_hp)
     {
