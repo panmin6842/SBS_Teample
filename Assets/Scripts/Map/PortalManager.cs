@@ -23,13 +23,13 @@ public class PortalManager : MonoBehaviour
     public Dictionary<WallDirection, GameObject> NearStage = new Dictionary<WallDirection, GameObject>();
 
 
-    StageManager stageManager;
-    [HideInInspector] public GameObject ThisStage;
-    [HideInInspector] public GameObject PlayerObject;
-    [HideInInspector] public GameObject MainCameraObject;
-    [HideInInspector] public Image PortalEffectImage;
-    [HideInInspector] public CinemachineCamera CinemachineCamera;
-    [HideInInspector] public Transform PlayerTransform;
+     StageManager stageManager;
+     [HideInInspector] public GameObject ThisStage;
+     [HideInInspector] public GameObject PlayerObject;
+     [HideInInspector] public GameObject MainCameraObject;
+     [HideInInspector] public Image PortalEffectImage;
+     [HideInInspector] public CinemachineCamera CinemachineCamera;
+     [HideInInspector] public Transform PlayerTransform;
 
     void Awake()
     {
@@ -38,7 +38,7 @@ public class PortalManager : MonoBehaviour
         MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
         CinemachineCamera = GameObject.Find("PlayerCamera").GetComponent<CinemachineCamera>();
         PortalEffectImage = GameObject.Find("FadeBackground").GetComponent<Image>();
-        stageManager = StageManager.instance;
+        stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
     void Start()
@@ -63,6 +63,11 @@ public class PortalManager : MonoBehaviour
         bool south = stageManager.StagePositions.Contains(new Vector2Int(pos.x, pos.y - 1));
         bool west = stageManager.StagePositions.Contains(new Vector2Int(pos.x - 1, pos.y));
         bool east = stageManager.StagePositions.Contains(new Vector2Int(pos.x + 1, pos.y));
+
+        for (int i = 0; i < PortalObject.Count; i++)
+        {
+            Debug.Log("PortalObject[" + i + "]: " + PortalObject[i]);
+        }
 
         if (PortalObject[0] != null)
         {
