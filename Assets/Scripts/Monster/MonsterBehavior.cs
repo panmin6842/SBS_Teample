@@ -65,8 +65,8 @@ public class MonsterBehavior : MonoBehaviour
         if (!isAttacking && Vector3.Distance(transform.localPosition, Player.transform.localPosition) > MonsterData.AttackRange)
         {
             MoveToPlayer();
-            attackTimer += Time.deltaTime;
         }
+        attackTimer += Time.deltaTime;
 
         isMoving = false;
     }
@@ -115,18 +115,12 @@ public class MonsterBehavior : MonoBehaviour
         attackTimer = 0f;
     }
 
-    IEnumerator HitByPlayer()
+    public void TakeDamage(float damage)
     {
-        MonsterData.CurHP -= 10f;
-
-        yield return new WaitForSeconds(0.5f);
+        MonsterData.CurHP -= damage;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("SwordBasicAttack"))
-        {
-            StartCoroutine(HitByPlayer());
-        }
     }
 }
