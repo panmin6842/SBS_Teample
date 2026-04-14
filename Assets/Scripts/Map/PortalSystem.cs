@@ -28,11 +28,11 @@ public class PortalSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && DaySystemManager.instance.CurMoveCount > 0)
+        if (other.CompareTag("Player") && portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount > 0)
         {
             StartCoroutine(Teleport());
         }
-        else if (DaySystemManager.instance.CurMoveCount <= 0)
+        else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
         {
             //»ç¸ÁÆ®¸®°Å
         }
@@ -41,30 +41,30 @@ public class PortalSystem : MonoBehaviour
     IEnumerator Teleport()
     {
         portalManager.PortalEffectImage.gameObject.SetActive(true);
-        portalManager.PlayerTransform.transform.position = portalManager.PlayerTpSpotTransform.position;
+        portalManager.PlayerObject.transform.position = portalManager.PlayerTpSpotTransform.position;
         portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
 
         switch (direction)
         {
             case PortalDirection.Front:
-                portalManager.PlayerTransform.transform.position += new Vector3(0f, 0f, stageManager.spacing);
+                portalManager.PlayerObject.transform.position += new Vector3(0f, 0f, stageManager.spacing);
                 portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, stageManager.spacing);
                 break;
             case PortalDirection.Back:
-                portalManager.PlayerTransform.transform.position += new Vector3(0f, 0f, -stageManager.spacing);
+                portalManager.PlayerObject.transform.position += new Vector3(0f, 0f, -stageManager.spacing);
                 portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, -stageManager.spacing);
                 break;
             case PortalDirection.Left:
-                portalManager.PlayerTransform.transform.position += new Vector3(-stageManager.spacing, 0f, 0f);
+                portalManager.PlayerObject.transform.position += new Vector3(-stageManager.spacing, 0f, 0f);
                 portalManager.MainCameraObject.transform.position += new Vector3(-stageManager.spacing, 0f, 0f);
                 break;
             case PortalDirection.Right:
-                portalManager.PlayerTransform.transform.position += new Vector3(stageManager.spacing, 0f, 0f);
+                portalManager.PlayerObject.transform.position += new Vector3(stageManager.spacing, 0f, 0f);
                 portalManager.MainCameraObject.transform.position += new Vector3(stageManager.spacing, 0f, 0f);
                 break;
         }
 
-        DaySystemManager.instance.CurMoveCount--;
+        portalManager.PlayerObject.GetComponent<PlayerProfile>().UseActCount(1);
         yield return null;
     }
 }

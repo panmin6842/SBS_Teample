@@ -36,7 +36,7 @@ public class PortalManager : MonoBehaviour
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
         CinemachineCamera = GameObject.Find("PlayerCamera").GetComponent<CinemachineCamera>();
-        PortalEffectImage = GameObject.Find("FadeBackground").GetComponent<Image>();
+        PortalEffectImage = GameObject.FindWithTag("FadeBackground").GetComponent<Image>();
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
@@ -65,11 +65,6 @@ public class PortalManager : MonoBehaviour
         bool south = stageManager.StagePositions.Contains(new Vector2Int(pos.x, pos.y - 1));
         bool west = stageManager.StagePositions.Contains(new Vector2Int(pos.x - 1, pos.y));
         bool east = stageManager.StagePositions.Contains(new Vector2Int(pos.x + 1, pos.y));
-
-        for (int i = 0; i < PortalObject.Count; i++)
-        {
-            Debug.Log("PortalObject[" + i + "]: " + PortalObject[i]);
-        }
 
         if (PortalObject[0] != null)
         {
