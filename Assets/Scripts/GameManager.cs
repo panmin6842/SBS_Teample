@@ -1,6 +1,13 @@
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
+
+public enum MapState
+{
+    None,
+    Stage,
+    Village
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //어디서든 접근 가능
@@ -29,7 +36,10 @@ public class GameManager : MonoBehaviour
     public int playerLevel;
     public int skillPoint;
     public List<int> canBuyCount = new List<int>();
+    public bool character1Spawn;
+    public bool tutorialClear;
 
+    public MapState mapState = MapState.Village;
     private void Awake()
     {
         if (instance == null)

@@ -36,6 +36,10 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI defTestText;
     private TextMeshProUGUI moveSpeedTestText;
     private TextMeshProUGUI criticalTestText;
+    [Header("Hit 프리펩")]
+    [SerializeField] private GameObject swordSkillHitPrefab;
+    [SerializeField] private GameObject bowSkillHitPrefab;
+    [SerializeField] private GameObject stampSkillHitPrefab;
 
     private CinemachineBasicMultiChannelPerlin noiseComponent;
 
@@ -60,6 +64,9 @@ public class PlayerProfile : PlayerState
         defTestText = UIManager.Instance.defStatusText;
         moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
         criticalTestText = UIManager.Instance.criticalStatusText;
+
+        UIManager.Instance.profileNameText.text = GameManager.instance.name.ToString();
+        UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString();
 
         if (UIManager.Instance.virtualCamera != null)
         {
@@ -86,6 +93,20 @@ public class PlayerProfile : PlayerState
         defTestText.text = maxDEF.ToString();
         moveSpeedTestText.text = moveSpeed.ToString();
         criticalTestText.text = critical.ToString();
+    }
+
+    //Hit 프리펩 소환
+    public void SwordSkillHit(Vector3 hitPoint)
+    {
+        Instantiate(swordSkillHitPrefab, hitPoint, Quaternion.identity);
+    }
+    public void BowSkillHit(Vector3 hitPoint)
+    {
+        Instantiate(bowSkillHitPrefab, hitPoint, Quaternion.identity);
+    }
+    public void StampSkillHit(Vector3 hitPoint)
+    {
+        Instantiate(bowSkillHitPrefab, hitPoint, Quaternion.identity);
     }
 
     //카메라 흔들림
@@ -243,12 +264,19 @@ public class PlayerProfile : PlayerState
         moveSpeed = passiveMoveSpeed;
     }
 
-    //스킬 효과
     public void GetDamage(int damage)
     {
-        curHp -= damage;
+        curHp -= damage * (1 - curDEF);
 
         curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
+    public void PlayerDie()
+    {
+        if (curHp <= 0)
+        {
+            curHp = 0;
+        }
     }
 
     public void SelfHpDamage(float damagePercent)

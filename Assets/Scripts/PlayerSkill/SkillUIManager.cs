@@ -51,7 +51,7 @@ public class SkillUIManager : MonoBehaviour
 
     private void OnOpenInfoUI(InputAction.CallbackContext context)
     {
-        if (inventory.currentUI == UIType.None)
+        if (inventory.currentUI == UIType.None && GameManager.instance.mapState == MapState.Village)
         {
             if (!playerInfo.activeSelf)
             {

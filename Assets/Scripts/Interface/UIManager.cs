@@ -40,6 +40,9 @@ public class UIManager : MonoBehaviour
     public GameObject villageStoreWindow;
     [Header("시네머신 카메라")]
     public CinemachineCamera virtualCamera;
+    [Header("프로필 관련 오브젝트")]
+    public TextMeshProUGUI profileNameText;
+    public TextMeshProUGUI profileLevelText;
 
     private void Awake()
     {

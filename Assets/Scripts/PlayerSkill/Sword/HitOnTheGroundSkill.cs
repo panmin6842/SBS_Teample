@@ -42,7 +42,7 @@ public class HitOnTheGroundSkill : MonoBehaviour
     }
     void CheckAttack()
     {
-        playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
+        playerProfile.ShakeCamera(0.2f, 5.0f, 15.0f);
         Vector3 finalCenter = (transform.position)
                           + (transform.forward * center.z)
                           + (transform.up * center.y) + (transform.right * center.x);
@@ -57,6 +57,8 @@ public class HitOnTheGroundSkill : MonoBehaviour
             float dist = Vector3.Distance(transform.position, enemy.transform.position);
             if (dist <= 2)
             {
+                Vector3 hitPoint = enemy.ClosestPoint(transform.position);
+                playerProfile.SwordSkillHit(hitPoint);
                 if (enemy.CompareTag("Boss"))
                 {
                     Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
@@ -79,7 +81,9 @@ public class HitOnTheGroundSkill : MonoBehaviour
     IEnumerator TimeAttack(Collider enemy, Rigidbody enemyRb)
     {
         //시간 차 공격
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        Vector3 hitPoint = enemy.ClosestPoint(transform.position);
+        playerProfile.SwordSkillHit(hitPoint);
         if (enemy.CompareTag("Boss"))
         {
             Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);

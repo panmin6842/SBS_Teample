@@ -33,7 +33,7 @@ MonoBehaviour:
   - rid: 2776651831162700098
   - rid: 2776651831162700145
   - rid: 2776651837336715325
-  m_VersionTimestamp: 639111098559493961
+  m_VersionTimestamp: 639114996800934396
   m_CommandBuffer:
     m_Commands: []
   m_RuntimeBlackboardAsset: {fileID: 4399969171089064041}
@@ -122,7 +122,7 @@ MonoBehaviour:
   - rid: 2776651835919040854
   - rid: 2776651835919041016
   - rid: 2776651835919041238
-  m_VersionTimestamp: 639111098560589663
+  m_VersionTimestamp: 639114999334861124
   m_SerializedVersion: 2
   m_DebugInfo: {fileID: -6753934582201725904}
   m_RuntimeGraph: {fileID: 3437752829003182148}
@@ -697,7 +697,7 @@ MonoBehaviour:
     - rid: 2776651831162700184
       type: {class: ObserverAbortNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: -83.40863, y: -82.31406}
+        Position: {x: -82.60862, y: -81.51405}
         ID:
           m_Value0: 7764041561889500670
           m_Value1: 17810416970672340387
@@ -714,7 +714,7 @@ MonoBehaviour:
         m_FieldValues: []
         <ConditionModels>k__BackingField:
         - rid: 2776651831162700190
-        <RequiresAllConditionsTrue>k__BackingField: 0
+        <RequiresAllConditionsTrue>k__BackingField: 1
         <ShouldTruncateNodeUI>k__BackingField: 0
         <ObserverType>k__BackingField: 2
     - rid: 2776651831162700185
@@ -820,7 +820,7 @@ MonoBehaviour:
           m_Value0: 0
           m_Value1: 0
         Name: 
-        m_Value: 1
+        m_Value: 0
     - rid: 2776651831162700240
       type: {class: ActionNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
@@ -1514,7 +1514,7 @@ MonoBehaviour:
     - rid: 2776651835223310802
       type: {class: CompositeNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: 21.09137, y: -170.31406}
+        Position: {x: 20.29137, y: -185.51408}
         ID:
           m_Value0: 15229024552935232364
           m_Value1: 9079294252598977016
@@ -2017,7 +2017,7 @@ MonoBehaviour:
         BlackboardGroupReferences: []
         Root:
           rid: 2776651837336715376
-        m_VersionTimestamp: 639111098560589663
+        m_VersionTimestamp: 639114999334861124
     - rid: 2776651831162700054
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:

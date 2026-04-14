@@ -46,6 +46,8 @@ public class ManaStormSkill : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
+            Vector3 hitPoint = enemy.ClosestPoint(transform.position);
+            playerProfile.BowSkillHit(hitPoint);
             if (enemy.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 마력 폭풍" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);

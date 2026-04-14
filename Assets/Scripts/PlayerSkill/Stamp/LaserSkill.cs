@@ -74,6 +74,8 @@ public class LaserSkill : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            playerProfile.StampSkillHit(hitPoint);
             if (other.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 레이저" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);

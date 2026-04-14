@@ -44,6 +44,8 @@ public class StrongFireSkill : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            playerProfile.BowSkillHit(hitPoint);
             playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
             if (other.CompareTag("Boss"))
             {

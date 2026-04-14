@@ -48,6 +48,8 @@ public class SplitFireSkill : MonoBehaviour
             enemyHitCount++;
             if (enemyHitCount == 1)
             {
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                playerProfile.BowSkillHit(hitPoint);
                 if (other.CompareTag("Boss"))
                 {
                     Debug.Log("스킬 : 분할 사격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
@@ -64,6 +66,8 @@ public class SplitFireSkill : MonoBehaviour
             }
             else if (enemyHitCount == 2)
             {
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                playerProfile.BowSkillHit(hitPoint);
                 if (other.CompareTag("Boss"))
                 {
                     Debug.Log("스킬 : 분할 사격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);

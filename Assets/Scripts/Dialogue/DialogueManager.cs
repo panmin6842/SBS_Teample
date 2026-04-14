@@ -50,17 +50,15 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
-
         typingSpeed = 0.1f;
         quit = false;
-        start = false;
         noFast = false;
     }
 
     public void OnDialogue(DialogueGroup group) //대화 시작
     {
         datas = new Queue<DialogueData>();
+        inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
         inventory.playerAttack.uiClicking = true;
         inventory.playerProfile.SetActive(false);
         Time.timeScale = 0f;
@@ -94,6 +92,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (!isTyping && start) //대사 하나가 끝나면
         {
+
             if (spaceAction.action.WasPressedThisFrame())
             {
                 NextSentence(); //다음 대사 나옴
@@ -132,7 +131,10 @@ public class DialogueManager : MonoBehaviour
             DialogueData data = datas.Dequeue();
 
             curSentence = data.sentence;
-            curName = data.name;
+            if (string.IsNullOrEmpty(data.name))
+                curName = GameManager.instance.name;
+            else
+                curName = data.name;
             Sprite curFaceImage = data.faceImage;
 
             if (curFaceImage != null)
@@ -151,6 +153,7 @@ public class DialogueManager : MonoBehaviour
         else //대사 없음 즉 대사 끝남
         {
             quit = true;
+            start = false;
         }
     }
 

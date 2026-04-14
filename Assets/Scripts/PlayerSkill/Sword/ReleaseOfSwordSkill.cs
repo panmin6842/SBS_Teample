@@ -40,6 +40,8 @@ public class ReleaseOfSwordSkill : MonoBehaviour
         }
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            playerProfile.SwordSkillHit(hitPoint);
             if (other.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 검기방출" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);

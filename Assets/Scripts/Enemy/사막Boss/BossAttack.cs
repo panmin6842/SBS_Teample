@@ -18,6 +18,8 @@ public class BossAttack : MonoBehaviour
     [SerializeField] private GameObject skill5Prefab;
 
     public bool isAttacking = false;
+    private int attack2Count = 0;
+    private float range = 0;
 
     private void Awake()
     {
@@ -42,30 +44,32 @@ public class BossAttack : MonoBehaviour
     public void Attack1()
     {
         StartCoroutine(Attack1Routine());
-        agent.SetVariableValue("coolTime", 3.0f);
+        agent.SetVariableValue("coolTime", 1.5f);
     }
 
     public void Attack2()
     {
-        StartCoroutine(Attack2Routine());
-        agent.SetVariableValue("coolTime", 3.0f);
+        //StartCoroutine(Attack2Routine());
+        attack2Count = 0;
+        agent.SetVariableValue("coolTime", 1.5f);
+        InvokeRepeating("Attack2Create", 0.1f, 0.1f);
     }
 
     public void Attack3()
     {
         StartCoroutine(Attack3Routine());
-        agent.SetVariableValue("coolTime", 5.0f);
+        agent.SetVariableValue("coolTime", 3.0f);
     }
 
     public void Attack4()
     {
         StartCoroutine(Attack4Routine());
-        agent.SetVariableValue("coolTime", 3.0f);
+        agent.SetVariableValue("coolTime", 1.5f);
     }
     public void Attack5()
     {
         StartCoroutine(Attack5Routine());
-        agent.SetVariableValue("coolTime", 5.0f);
+        agent.SetVariableValue("coolTime", 3.0f);
     }
 
     IEnumerator Attack1Routine()
@@ -98,34 +102,44 @@ public class BossAttack : MonoBehaviour
         Instantiate(skill1Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 270, 0));
     }
 
-    IEnumerator Attack2Routine()
-    {
-        isAttacking = true;
-        GameObject[] newattackRange = new GameObject[4];
-        newattackRange[0] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 45, 0));
-        newattackRange[1] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 135, 0));
-        newattackRange[2] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 225, 0));
-        newattackRange[3] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 315, 0));
-        yield return new WaitForSeconds(1f);
-        for (int i = 0; i < newattackRange.Length; i++)
-        {
-            Destroy(newattackRange[i]);
-        }
-        int count = 0;
-        while (count < 3)
-        {
-            Attack2Create(); // 화살 생성
-            count++;
-            yield return new WaitForSeconds(0.2f); // 0.2초 대기
-        }
-        isAttacking = false; //공격종료
-    }
+    //IEnumerator Attack2Routine()
+    //{
+    //    isAttacking = true;
+    //    GameObject[] newattackRange = new GameObject[4];
+    //    newattackRange[0] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 45, 0));
+    //    newattackRange[1] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 135, 0));
+    //    newattackRange[2] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 225, 0));
+    //    newattackRange[3] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 315, 0));
+    //    yield return new WaitForSeconds(1f);
+    //    for (int i = 0; i < newattackRange.Length; i++)
+    //    {
+    //        Destroy(newattackRange[i]);
+    //    }
+    //    int count = 0;
+    //    while (count < 3)
+    //    {
+    //        Attack2Create(); // 화살 생성
+    //        count++;
+    //        yield return new WaitForSeconds(0.2f); // 0.2초 대기
+    //    }
+    //    isAttacking = false; //공격종료
+    //}
     private void Attack2Create()
     {
-        Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 45, 0));
-        Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 135, 0));
-        Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 225, 0));
-        Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 315, 0));
+        isAttacking = true;
+
+        Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + range, 0));
+        attack2Count++;
+        range += 10;
+
+        if(attack2Count >= 40)
+        {
+            isAttacking = false;
+            CancelInvoke();
+        }
+        //Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 135, 0));
+        //Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 225, 0));
+        //Instantiate(skill2Prefab, transform.position, Quaternion.Euler(0, transform.position.y + 315, 0));
     }
     IEnumerator Attack3Routine()
     {
@@ -207,6 +221,15 @@ public class BossAttack : MonoBehaviour
     IEnumerator Attack5Routine()
     {
         isAttacking = true;
+        GameObject[] newattackRange = new GameObject[3];
+        newattackRange[0] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y, 0));
+        newattackRange[1] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 120, 0));
+        newattackRange[2] = Instantiate(attackRange, transform.position, Quaternion.Euler(0, transform.position.y + 240, 0));
+        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < newattackRange.Length; i++)
+        {
+            Destroy(newattackRange[i]);
+        }
         Attack5Create();
         yield return new WaitForSeconds(4f);
         isAttacking = false; //공격종료
