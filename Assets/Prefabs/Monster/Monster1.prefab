@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3280149850872049307}
   - component: {fileID: 2159534316539577048}
   - component: {fileID: 8065748077176734708}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ThrustEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.754717, g: 0, b: 0, a: 0.36078432}
   m_FlipX: 0
@@ -120,7 +120,8 @@ GameObject:
   - component: {fileID: 890170869985822018}
   - component: {fileID: 9219555941782370586}
   - component: {fileID: 7533695821675254975}
-  m_Layer: 0
+  - component: {fileID: 5055134408059108686}
+  m_Layer: 7
   m_Name: ThrustAoE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +186,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.754717, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -218,6 +219,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.0000002, z: 0.20000005}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5055134408059108686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461353008764724481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b66698e2af0324cab65e8fed5fc7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &3563245176421112119
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +243,8 @@ GameObject:
   - component: {fileID: 4172524711567603318}
   - component: {fileID: 7591275896584712392}
   - component: {fileID: 2324457819790841194}
-  m_Layer: 0
+  - component: {fileID: 9139489273793532239}
+  m_Layer: 7
   m_Name: SectorAoE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +309,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.754717, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -327,6 +342,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.0000002, z: 0.20000005}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9139489273793532239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3563245176421112119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b66698e2af0324cab65e8fed5fc7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &3696829531133916730
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +367,7 @@ GameObject:
   - component: {fileID: 3969643461785696652}
   - component: {fileID: 7847854200652210766}
   - component: {fileID: 1831184564737363906}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MonsterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -354,13 +382,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3696829531133916730}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.42261827, y: 0, z: 0, w: 0.9063079}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 727716842397002836}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -50, y: 0, z: 0}
 --- !u!212 &3969643461785696652
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -404,7 +432,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -461,12 +489,12 @@ GameObject:
   - component: {fileID: 727716842397002836}
   - component: {fileID: 4515950706944076359}
   - component: {fileID: 1062322536702520312}
-  - component: {fileID: 2037913385636237297}
   - component: {fileID: 3934076677850434725}
   - component: {fileID: 5369217038127327188}
-  m_Layer: 0
+  - component: {fileID: 7599304579600798143}
+  m_Layer: 7
   m_Name: Monster1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -544,29 +572,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2037913385636237297
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7174707113039170683}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3934076677850434725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +595,8 @@ MonoBehaviour:
   SectorAttackEffect: {fileID: 8140052738628764912}
   ThrustAttackAoE: {fileID: 2461353008764724481}
   ThrustAttackEffect: {fileID: 2094727433475138368}
+  attackTimer: 0
+  isAttacking: 0
 --- !u!54 &5369217038127327188
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -612,11 +619,32 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!65 &7599304579600798143
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174707113039170683}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8140052738628764912
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +656,7 @@ GameObject:
   - component: {fileID: 3713838077445066579}
   - component: {fileID: 3883764921512983446}
   - component: {fileID: 1958787640303178394}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SectorEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -693,7 +721,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.754717, g: 0, b: 0, a: 0.36078432}
   m_FlipX: 0

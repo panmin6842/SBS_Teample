@@ -16,6 +16,6 @@ public class SkeletonMonsterImage : MonoBehaviour
 
     void Update()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.rotation = Quaternion.Euler(50, 0, 0);
     }
 }
