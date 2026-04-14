@@ -50,6 +50,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "HpPotion",
+                    "type": "Button",
+                    "id": "e3337208-d59e-48df-96e7-d77ab410682c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MpPotion",
+                    "type": "Button",
+                    "id": "bbe31f5a-0981-4bf9-80c0-666355d5be06",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -105,6 +123,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "DialogueNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e7d557c-a92e-4eae-ace2-3389b25ea27b",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HpPotion",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6d1c68a-52bb-4b93-b109-93fab154dcbc",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MpPotion",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

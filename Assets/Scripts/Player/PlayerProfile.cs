@@ -1,6 +1,17 @@
+using System.Collections;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
+public enum PlayerSituation
+{
+    Idle,
+    //Move,
+    Attack,
+    Hit,
+    Die
+}
+
 public class PlayerProfile : PlayerState
 {
     [Header("HP관련 오브젝트")]
@@ -24,9 +35,14 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI basicAtkTestText;
     private TextMeshProUGUI defTestText;
     private TextMeshProUGUI moveSpeedTestText;
+    private TextMeshProUGUI criticalTestText;
+
+    private CinemachineBasicMultiChannelPerlin noiseComponent;
 
     private float lerpSpeed = 5;
 
+    public PlayerSituation currentState = PlayerSituation.Idle;
+    public Animator ani;
     private void Start()
     {
         hpBackground = UIManager.Instance.hpBackground;
@@ -43,6 +59,12 @@ public class PlayerProfile : PlayerState
         basicAtkTestText = UIManager.Instance.basicAtkStatusText;
         defTestText = UIManager.Instance.defStatusText;
         moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
+        criticalTestText = UIManager.Instance.criticalStatusText;
+
+        if (UIManager.Instance.virtualCamera != null)
+        {
+            noiseComponent = UIManager.Instance.virtualCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        }
     }
 
     private void Update()
@@ -57,12 +79,63 @@ public class PlayerProfile : PlayerState
 
     private void StateTestText()
     {
-        hpTestText.text = "hp : " + curHp;
-        mpTestText.text = "mp : " + curMp;
-        atkTestText.text = "atk : " + curATK;
-        basicAtkTestText.text = "basicAtk : " + basicATK;
-        defTestText.text = "def : " + curDEF;
-        moveSpeedTestText.text = "moveSpeed : " + moveSpeed;
+        hpTestText.text = maxHp.ToString();
+        mpTestText.text = maxMp.ToString();
+        atkTestText.text = maxATK.ToString();
+        basicAtkTestText.text = maxBasicATK.ToString();
+        defTestText.text = maxDEF.ToString();
+        moveSpeedTestText.text = moveSpeed.ToString();
+        criticalTestText.text = critical.ToString();
+    }
+
+    //카메라 흔들림
+    public void ShakeCamera(float duration, float intensity, float frequency)
+    {
+        if (noiseComponent != null)
+        {
+            StartCoroutine(ShakeRoutine(duration, intensity, frequency));
+        }
+    }
+
+    IEnumerator ShakeRoutine(float duration, float intensity, float frequency)
+    {
+        noiseComponent.AmplitudeGain = intensity;
+        noiseComponent.FrequencyGain = frequency;
+
+        yield return new WaitForSeconds(duration);
+        noiseComponent.AmplitudeGain = 0f;
+        noiseComponent.FrequencyGain = 0f;
+    }
+
+    //카메라 줌 인
+    public void CameraZoom(float duration, float zoomSpeed, float zoomInFOV)
+    {
+        StartCoroutine(ZoomRoutine(duration, zoomSpeed, zoomInFOV));
+    }
+
+    IEnumerator ZoomRoutine(float duration, float zoomSpeed, float zoomInFOV)
+    {
+        float elapsed = 0f;
+        while (elapsed < 0.2f)
+        {
+            UIManager.Instance.virtualCamera.Lens.FieldOfView =
+                Mathf.Lerp(UIManager.Instance.virtualCamera.Lens.FieldOfView, zoomInFOV, Time.deltaTime * zoomSpeed);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        elapsed = 0f;
+        while (elapsed < 0.5f)
+        {
+            UIManager.Instance.virtualCamera.Lens.FieldOfView =
+                Mathf.Lerp(UIManager.Instance.virtualCamera.Lens.FieldOfView, 53f, Time.deltaTime * zoomSpeed);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        UIManager.Instance.virtualCamera.Lens.FieldOfView = 53f;
     }
 
     public bool SkillStart
@@ -105,26 +178,36 @@ public class PlayerProfile : PlayerState
     }
 
     //max스테이터스 설정
-    public void SetMaxHp(float hp, float e_hp)
+    public void SetMaxHp(float hpPoint, float a_hp, float e_hp)
     {
-        maxHp = 10 * hp + e_hp;
+        maxHp = Mathf.Round((hpPoint * 10) * (1 + a_hp) + e_hp);
         curHp = maxHp;
     }
 
-    public void SetMaxATK(float atk, float e_atk)
+    public void SetMaxATK(float atkPoint, float a_atk, float e_atk)
     {
-        maxBasicATK = 2 * atk + e_atk;
-        maxATK = 2 * atk + e_atk;
+        maxBasicATK = (2 * atkPoint) + (e_atk + a_atk);
+        maxATK = 2 * atkPoint + (e_atk + a_atk);
         basicATK = maxBasicATK;
         curATK = maxATK;
     }
 
-    public void SetMaxDEF(float def, float e_def)
+    public void SetMaxDEF(float defPoint, float a_def, float e_def)
     {
-        float totalDef = def + e_def;
-        maxDEF = 0.5f + (totalDef / 100f);
-        maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
+        maxDEF = (0.5f * defPoint) + (e_def + a_def);
+        //maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
         curDEF = maxDEF;
+    }
+
+    public void SetMaxMp(int a_mp)
+    {
+        maxMp = maxMp + a_mp;
+        curMp = maxMp;
+    }
+
+    public void SetCritical(float cpPoint, float a_critical, float e_critical)
+    {
+        critical = 15 + (cpPoint * 0.5f) + (a_critical + e_critical);
     }
 
     public void IncreasedHp(float increasedPercent)
@@ -216,6 +299,17 @@ public class PlayerProfile : PlayerState
         return basicATK * (damagePercent / 100f);
     }
 
+    public float CriticalBuff(float damage)
+    {
+        return damage * 1.5f;
+    }
+
+    public bool CriticalProbability()
+    {
+        int random = Random.Range(1, 101);
+        return (random >= 1 && random <= critical);
+    }
+
     public void ChangeATK(float changePercent)
     {
         curATK = passiveATK * (1f + changePercent / 100f);
@@ -281,6 +375,13 @@ public class PlayerProfile : PlayerState
         defPoint = GameManager.instance.defPoint;
         defPoint += _defPoint;
         return defPoint;
+    }
+
+    public float CriticalPointUp(float _cpPoint)
+    {
+        criticalPoint = GameManager.instance.criticalPoint;
+        criticalPoint += _cpPoint;
+        return criticalPoint;
     }
 
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)

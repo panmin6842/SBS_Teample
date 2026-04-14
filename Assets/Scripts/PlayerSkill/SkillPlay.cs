@@ -21,6 +21,9 @@ public class SkillPlay : MonoBehaviour
     [SerializeField] private float curCoolTimeSkill1;
     [SerializeField] private float curCoolTimeSkill2;
 
+    private float a_coolTimeSkill1;
+    private float a_coolTimeSkill2;
+
     [SerializeField] private bool skill1Start = false;
     [SerializeField] private bool skill2Start = false;
 
@@ -125,6 +128,15 @@ public class SkillPlay : MonoBehaviour
         }
     }
 
+    public void SetSkillCoolTimeBuff(float a_skillCoolTime)
+    {
+        coolTimeSkill1 = a_coolTimeSkill1 * (1 - (a_skillCoolTime / 100));
+        coolTimeSkill2 = a_coolTimeSkill2 * (1 - (a_skillCoolTime / 100));
+
+        curCoolTimeSkill1 = coolTimeSkill1;
+        curCoolTimeSkill2 = coolTimeSkill2;
+    }
+
     private void UpdateSlider(int number, float curCollTime)
     {
         if (coolTimeSlider != null)
@@ -138,13 +150,12 @@ public class SkillPlay : MonoBehaviour
         actSkill1Number = slots[0].choiceNumber;
         actSkill2Number = slots[1].choiceNumber;
         passiveSkillNumber = slots[2].choiceNumber;
-        coolTimeSkill1 = slots[0].coolTime;
-        coolTimeSkill2 = slots[1].coolTime;
+        a_coolTimeSkill1 = slots[0].coolTime;
+        a_coolTimeSkill2 = slots[1].coolTime;
         coolTimeSlider[0].value = 0;
         coolTimeSlider[1].value = 0;
 
-        curCoolTimeSkill1 = coolTimeSkill1;
-        curCoolTimeSkill2 = coolTimeSkill2;
+        SetSkillCoolTimeBuff(GameManager.instance.a_skillCoolTime);
     }
 
     public void OnSkillAttack(InputAction.CallbackContext context)
@@ -208,36 +219,58 @@ public class SkillPlay : MonoBehaviour
             case 1:
                 {
                     Instantiate(sword1, transform.position, sword1.transform.rotation);
+                    SkillAnimation("Attack2");
                 }
                 break;
             case 2:
                 {
                     Instantiate(sword2, transform.position,
                         Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    SkillAnimation("Attack1");
+                    playerAttack.PlayerAttackDirection();
                 }
                 break;
             case 3:
                 {
                     Instantiate(sword3, transform.position, sword3.transform.rotation);
+                    SkillAnimation("Attack2");
                 }
                 break;
             case 4:
                 {
                     Instantiate(sword4, transform.position, Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    SkillAnimation("Attack1");
+                    playerAttack.PlayerAttackDirection();
                 }
                 break;
             case 5:
                 {
                     Instantiate(sword5, transform.position, Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    Invoke("SwordSkill5Animation", 0.45f);
                 }
                 break;
             case 6:
                 {
                     Instantiate(sword6, transform.position, sword6.transform.rotation);
+                    SkillAnimation("Attack2");
                 }
                 break;
         }
 
+    }
+
+    private void SkillAnimation(string animation)
+    {
+        playerProfile.currentState = PlayerSituation.Attack;
+        playerProfile.ani.SetTrigger(animation);
+        playerProfile.ChangeMoveSpeed(-100);
+    }
+
+    private void SwordSkill5Animation()
+    {
+        playerProfile.currentState = PlayerSituation.Attack;
+        playerProfile.ani.SetTrigger("Attack1");
+        playerAttack.PlayerAttackDirection();
     }
 
     float rotation;
@@ -305,6 +338,8 @@ public class SkillPlay : MonoBehaviour
                 {
                     Instantiate(stamp2, transform.position,
                         Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
+                    SkillAnimation("Attack2");
+                    playerAttack.PlayerAttackDirection();
                 }
                 break;
             case 3:
@@ -392,6 +427,7 @@ public class SkillPlay : MonoBehaviour
     {
         playerProfile.UseMP(1);
         playerProfile.ChangeMoveSpeed(-100f);
+        playerProfile.CameraZoom(3, 5, 45);
 
         yield return new WaitForSeconds(3);
         rotation = playerAttack.AttackPos.transform.eulerAngles.y;

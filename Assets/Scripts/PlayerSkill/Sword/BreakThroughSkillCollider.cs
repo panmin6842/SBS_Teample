@@ -14,7 +14,7 @@ public class BreakThroughSkillCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 충돌이 발생하면 부모에게 정보를 넘김
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             parent.OnPartHit(other, Count);
         }

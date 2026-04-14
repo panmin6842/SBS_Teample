@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,10 +30,16 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI basicAtkStatusText;
     public TextMeshProUGUI defStatusText;
     public TextMeshProUGUI moveSpeedStatusText;
+    public TextMeshProUGUI criticalStatusText;
     [Header("프로필 스킬 슬롯 부모")]
     public GameObject slotParent;
     [Header("쿨타임")]
     public Slider[] coolTimeSlider;
+    [Header("상점 관련 창들")]
+    public GameObject storeWindow;
+    public GameObject villageStoreWindow;
+    [Header("시네머신 카메라")]
+    public CinemachineCamera virtualCamera;
 
     private void Awake()
     {

@@ -12,7 +12,11 @@ public class BowExplosionSkill : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = playerProfile.BasicATK(60);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+                damage = playerProfile.CriticalBuff(playerProfile.BasicATK(60));
+            else
+                damage = playerProfile.BasicATK(60);
         }
     }
 
@@ -24,9 +28,17 @@ public class BowExplosionSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            Debug.Log("스킬 : 활 폭발" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            if (other.CompareTag("Boss"))
+            {
+                Debug.Log("스킬 : 활 폭발" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                other.gameObject.GetComponent<BossStatus>().GetDamage(damage);
+            }
+            else if (other.CompareTag("Enemy"))
+            {
+                Debug.Log("스킬 : 활 폭발" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);
         }

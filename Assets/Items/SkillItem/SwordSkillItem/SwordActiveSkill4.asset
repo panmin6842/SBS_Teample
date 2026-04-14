@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1455b89ecba984a991166a65d12614, type: 3}
   m_Name: SwordActiveSkill4
   m_EditorClassIdentifier: 
-  itemID: 53
-  skillItemType: 1024
-  itemName: Active4
+  itemID: 103
+  skillItemType: 65536
+  itemName: "\uD68C\uC2EC\uC758 \uC77C\uACA9"
   itemImage: {fileID: 21300000, guid: 3e8d9e65b76ecdd4b97a0b2df6753ed6, type: 3}
   explanation: 
   number: 4

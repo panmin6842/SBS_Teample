@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 public class ItemRaycast : MonoBehaviour
 {
     private bool isStorageActive = false; //상자를 열수 있나?
+    private bool isStoreActive = false;
+    private bool isVillageStoreActive = false;
     private ItemPickUp currentItem; //활성화시 현재 등록된 아이템
 
     [Header("상자 인벤토리")]
@@ -19,17 +21,45 @@ public class ItemRaycast : MonoBehaviour
 
     private void Awake()
     {
-        inventory = UIManager.Instance.inventory;
-        inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
-        playerAttack = GetComponent<PlayerAttack>();
+
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        inventory.uiActionMap.Enable();
-        inventory.uiActionMap.FindAction("OpenStorage").performed += OnOpenStorage;
+        inventory = UIManager.Instance.inventory;
 
-        storageInventory = UIManager.Instance.storageInventroy;
+        playerAttack = GetComponent<PlayerAttack>();
+        if (inventory == null)
+        {
+            GameObject obj = GameObject.Find("InventorySystem");
+            if (obj != null) inventory = obj.GetComponent<InventoryMain>();
+        }
+
+        if (inventory != null && inventory.uiInputAction != null)
+        {
+            inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
+            inventory.uiActionMap.Enable();
+            inventory.uiActionMap.FindAction("OpenStorage").performed += OnOpenStorage;
+        }
+
+        if (UIManager.Instance != null)
+        {
+            storageInventory = UIManager.Instance.storageInventroy;
+        }
+
+        if (UIManager.Instance == null)
+        {
+            Debug.Log("instance없음");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (inventory != null && inventory.uiActionMap != null)
+        {
+            inventory.uiActionMap.FindAction("OpenStorage").performed -= OnOpenStorage;
+            inventory.uiActionMap.Disable();
+        }
     }
 
     private void ItemGet()
@@ -59,24 +89,57 @@ public class ItemRaycast : MonoBehaviour
     {
         if (isStorageActive)
         {
-            if (!storageInventory.activeSelf)
+            if (inventory.currentUI == UIType.None)
             {
-                storageInventory.SetActive(true);
-                inventory.playerProfile.SetActive(false);
-                playerAttack.uiClicking = true;
-                inventory.currentUI = UIType.Chest;
-                Time.timeScale = 0f;
+                Window(0f, storageInventory, true, false, true, UIType.Chest, isStorageActive, true);
             }
-            else if (storageInventory.activeSelf)
+            else if (inventory.currentUI == UIType.Chest)
             {
-                Time.timeScale = 1f;
-                storageInventory.SetActive(false);
-                inventory.playerProfile.SetActive(true);
-                playerAttack.uiClicking = false;
-                inventory.currentUI = UIType.None;
-                isStorageActive = false;
+                //Time.timeScale = 1f;
+                //storageInventory.SetActive(false);
+                //inventory.playerProfile.SetActive(true);
+                //playerAttack.uiClicking = false;
+                //inventory.currentUI = UIType.None;
+                //isStorageActive = false;
+
+                Window(1f, storageInventory, false, true, false, UIType.None, isStorageActive, false);
             }
         }
+
+        if (isStoreActive)
+        {
+            if (inventory.currentUI == UIType.None)
+            {
+                Window(0f, UIManager.Instance.storeWindow, true, false, true, UIType.Store, isStoreActive, true);
+            }
+            else if (inventory.currentUI == UIType.Store)
+            {
+                Window(1f, UIManager.Instance.storeWindow, false, true, false, UIType.None, isStoreActive, false);
+            }
+        }
+
+        if (isVillageStoreActive)
+        {
+            if (inventory.currentUI == UIType.None)
+            {
+                Window(0f, UIManager.Instance.villageStoreWindow, true, false, true, UIType.VillageStore, isVillageStoreActive, true);
+            }
+            else if (inventory.currentUI == UIType.VillageStore)
+            {
+                Window(1f, UIManager.Instance.villageStoreWindow, false, true, false, UIType.None, isVillageStoreActive, false);
+            }
+        }
+    }
+
+    private void Window(float timeScale, GameObject obj, bool objSetActive, bool setActive, bool uiClicking,
+        UIType type, bool isObjActive, bool active)
+    {
+        Time.timeScale = timeScale;
+        obj.SetActive(objSetActive);
+        inventory.playerProfile.SetActive(setActive);
+        playerAttack.uiClicking = uiClicking;
+        inventory.currentUI = type;
+        isObjActive = active;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -94,6 +157,34 @@ public class ItemRaycast : MonoBehaviour
         if (other.tag == "Storage" && !isStorageActive && inventory.currentUI == UIType.None)
         {
             isStorageActive = true;
+        }
+
+        if (other.tag == "Store" && !isStoreActive && inventory.currentUI == UIType.None)
+        {
+            isStoreActive = true;
+        }
+
+        if (other.tag == "VillageStore" && !isStoreActive && inventory.currentUI == UIType.None)
+        {
+            isVillageStoreActive = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Storage")
+        {
+            isStorageActive = false;
+        }
+
+        if (other.tag == "Store")
+        {
+            isStoreActive = false;
+        }
+
+        if (other.tag == "VillageStore")
+        {
+            isVillageStoreActive = false;
         }
     }
 

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,9 @@ public enum UIType
     Inventory,
     Chest,
     SkillWindow,
-    Dialogue
+    Dialogue,
+    Store,
+    VillageStore
 }
 
 /// <summary>
@@ -26,6 +29,10 @@ public class InventoryMain : InventoryBase
     private ItemRaycast itemRaycast;
 
     public GameObject playerProfile;
+    public InventorySlot hpPotionSlot;
+    public InventorySlot mpPotionSlot;
+
+    public TextMeshProUGUI goldText;
 
     public UIType currentUI = UIType.None;
 
@@ -43,6 +50,15 @@ public class InventoryMain : InventoryBase
         player = GameObject.FindWithTag("Player");
         playerAttack = player.GetComponent<PlayerAttack>();
         itemRaycast = player.GetComponent<ItemRaycast>();
+    }
+
+    private void OnDisable()
+    {
+        if (uiActionMap != null)
+        {
+            uiActionMap.FindAction("OpenInventory").performed -= OnOpenInventory;
+            uiActionMap.Disable();
+        }
     }
 
     private void OnOpenInventory(InputAction.CallbackContext value)
@@ -64,9 +80,11 @@ public class InventoryMain : InventoryBase
         if (inventoryBase != null)
         {
             inventoryBase.SetActive(true);
+            goldText.text = GameManager.instance.gold.ToString();
             playerProfile.SetActive(false);
             IsInventoryActive = true;
             playerAttack.uiClicking = true;
+            Time.timeScale = 0;
             currentUI = UIType.Inventory;
 
             Cursor.visible = true;
@@ -81,6 +99,7 @@ public class InventoryMain : InventoryBase
             playerProfile.SetActive(true);
             IsInventoryActive = false;
             playerAttack.uiClicking = false;
+            Time.timeScale = 1;
             currentUI = UIType.None;
 
             //Cursor.visible = false;

@@ -7,6 +7,7 @@ public class BowAttackManager : MonoBehaviour
 
     [SerializeField] private string hitTag;
     [SerializeField] private GameObject bowExplosionObj;
+    [SerializeField] private GameObject hitPrefab;
 
     private PlayerAttack playerAttack;
     private PlayerProfile playerProfile;
@@ -23,13 +24,30 @@ public class BowAttackManager : MonoBehaviour
 
         if (!playerAttack.bowPassiveSkill3)
         {
-            damage1 = playerProfile.BasicATK(300);
-            damage2 = playerProfile.BasicATK(200);
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(300));
+                damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(200));
+            }
+            else
+            {
+                damage1 = playerProfile.BasicATK(300);
+                damage2 = playerProfile.BasicATK(200);
+            }
         }
         else if (playerAttack.bowPassiveSkill3)
         {
-            damage1 = playerProfile.BasicATK(350);
-            damage2 = playerProfile.BasicATK(230);
+            if (playerProfile.CriticalProbability())
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(350));
+                damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(230));
+            }
+            else
+            {
+                damage1 = playerProfile.BasicATK(350);
+                damage2 = playerProfile.BasicATK(230);
+            }
         }
     }
 
@@ -48,7 +66,7 @@ public class BowAttackManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
             if (playerAttack.bowExplosion)
             {
@@ -65,16 +83,49 @@ public class BowAttackManager : MonoBehaviour
                 throughCount++;
                 if (throughCount == 1)
                 {
-                    Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                    if (other.CompareTag("Boss"))
+                    {
+                        Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                        other.gameObject.GetComponent<BossStatus>().GetDamage(damage1);
+                    }
+                    else if (other.CompareTag("Enemy"))
+                    {
+                        Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                    }
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Instantiate(hitPrefab, hitPoint, Quaternion.identity);
                 }
                 else if (throughCount == 2)
                 {
-                    Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+                    if (other.CompareTag("Boss"))
+                    {
+                        Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+                        other.gameObject.GetComponent<BossStatus>().GetDamage(damage2);
+                    }
+                    else if (other.CompareTag("Enemy"))
+                    {
+                        Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+                    }
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Instantiate(hitPrefab, hitPoint, Quaternion.identity);
                     Destroy(gameObject);
                 }
             }
             else
+            {
+                if (other.CompareTag("Boss"))
+                {
+                    Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                    other.gameObject.GetComponent<BossStatus>().GetDamage(damage1);
+                }
+                else if (other.CompareTag("Enemy"))
+                {
+                    Debug.Log("궁수 기본 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                }
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                Instantiate(hitPrefab, hitPoint, Quaternion.identity);
                 Destroy(gameObject);
+            }
         }
 
         if (other.CompareTag("Wall"))

@@ -16,12 +16,14 @@ public class RandomizedModeSkill : MonoBehaviour
             playerProfile.ChangeBasicATK(-30f);
             playerProfile.UseMP(1);
         }
+
+        Invoke("CameraShake", 0.1f);
+        Invoke("DestroyObject", 20);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CameraShake()
     {
-        Invoke("DestroyObject", 20);
+        playerProfile.ShakeCamera(0.2f, 1.0f, 10.0f);
     }
 
     private void DestroyObject()

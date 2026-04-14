@@ -9,19 +9,23 @@ public class StorageToInventory : MonoBehaviour
     [Header("인벤토리")]
     [SerializeField] private GameObject e_InventorySlotsParent;
     [SerializeField] private GameObject a_InventorySlotsParent;
+    [SerializeField] private GameObject p_InventorySlotsParent;
     private InventorySlot[] e_InventorySlots;
     private InventorySlot[] a_InventorySlots;
+    private InventorySlot[] p_InventorySlots;
 
     [SerializeField] private GameObject equipmentSlotsPartent;
     private EquipmentItemSlot[] equipmentSlots;
 
     [SerializeField] private InventoryMain inventory;
-    PlayerState playerState;
+    private SkillPlay skillPlay;
+    private PlayerProfile playerProfile;
 
     private void Awake()
     {
         e_InventorySlots = e_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
         a_InventorySlots = a_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
+        p_InventorySlots = p_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
         equipmentSlots = equipmentSlotsPartent.GetComponentsInChildren<EquipmentItemSlot>();
     }
 
@@ -33,6 +37,7 @@ public class StorageToInventory : MonoBehaviour
         InventorySlot[] allSlots = inventory.GetAllItems();
         int eCount = 0;
         int aCount = 0;
+        int pCount = 0;
         for (int i = 0; i < allSlots.Length; i++)
         {
             if (allSlots[i].Item != null)
@@ -42,35 +47,19 @@ public class StorageToInventory : MonoBehaviour
                 {
                     for (int j = 0; j < e_InventorySlots.Length; j++)
                     {
-                        if (e_InventorySlots[eCount].Item == null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
-                        {
-                            e_InventorySlots[eCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
-                            allSlots[i].ClearSlot();
-                            eCount++;
-                            break;
-                        }
-                        else if (e_InventorySlots[eCount].Item != null && e_InventorySlots[eCount].IsMask(allSlots[i].Item))
-                        {
-                            if (e_InventorySlots[eCount].Item.ItemID == allSlots[i].Item.ItemID)
-                            {
-                                e_InventorySlots[eCount].UpdateSlotCount(allSlots[i].itemCount);
-                                allSlots[i].ClearSlot();
-                                break;
-                            }
-                        }
 
-                        if (a_InventorySlots[aCount].Item == null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
+                        if (p_InventorySlots[pCount].Item == null && p_InventorySlots[pCount].IsMask(allSlots[i].Item))
                         {
-                            a_InventorySlots[aCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
+                            p_InventorySlots[pCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
                             allSlots[i].ClearSlot();
-                            aCount++;
+                            pCount++;
                             break;
                         }
-                        else if (a_InventorySlots[aCount].Item != null && a_InventorySlots[aCount].IsMask(allSlots[i].Item))
+                        else if (p_InventorySlots[pCount].Item != null && p_InventorySlots[pCount].IsMask(allSlots[i].Item))
                         {
-                            if (a_InventorySlots[aCount].Item.ItemID == allSlots[i].Item.ItemID)
+                            if (p_InventorySlots[pCount].Item.ItemID == allSlots[i].Item.ItemID)
                             {
-                                a_InventorySlots[aCount].UpdateSlotCount(allSlots[i].itemCount);
+                                p_InventorySlots[pCount].UpdateSlotCount(allSlots[i].itemCount);
                                 allSlots[i].ClearSlot();
                                 break;
                             }
@@ -147,6 +136,7 @@ public class StorageToInventory : MonoBehaviour
         }
     }
 
+
     public void ReleaseOfEquipment(EquipmentItemSlot slot)
     {
         int eCount = 0;
@@ -157,6 +147,7 @@ public class StorageToInventory : MonoBehaviour
             {
                 e_InventorySlots[eCount].AddItem(slot.Item, 1);
                 slot.ClearSlot();
+                ReleaseBuff(e_InventorySlots[eCount].Item);
                 eCount++;
                 break;
             }
@@ -164,6 +155,7 @@ public class StorageToInventory : MonoBehaviour
             {
                 a_InventorySlots[aCount].AddItem(slot.Item, 1);
                 slot.ClearSlot();
+                ReleaseBuff(a_InventorySlots[aCount].Item);
                 aCount++;
                 break;
             }
@@ -179,40 +171,98 @@ public class StorageToInventory : MonoBehaviour
         }
     }
 
+    public void BuyProduct(StoreSlot slot)
+    {
+        if (slot.Item != null)
+        {
+            InventorySlot[] allitems = inventory.GetAllItems();
+
+            int count = 0;
+            for (; count < allitems.Length; ++count)
+            {
+                //현재 아이템 칸이 null 이면 주울 수 있음
+                if (allitems[count].Item == null)
+                {
+                    allitems[count].AddItem(slot.Item, 1);
+                    break;
+                }
+
+                //현제 아이템이 null이 아니지만 중첩 가능하면 주울 수 있음
+                if (allitems[count].Item.ItemID == slot.Item.ItemID && allitems[count].Item.CanOverlap)
+                {
+                    allitems[count].UpdateSlotCount(1);
+                    break;
+                }
+            }
+
+            //다 차고 중첩 아니면 못 주움
+            if (count == allitems.Length)
+            {
+                return;
+            }
+
+        }
+    }
+
+    private void ReleaseBuff(Item item)
+    {
+        skillPlay = inventory.player.GetComponent<SkillPlay>();
+        playerProfile = inventory.player.GetComponent<PlayerProfile>();
+
+        if (item.IsEquipment)
+        {
+            GameManager.instance.e_atk -= item.AtkBuff;
+            GameManager.instance.e_critical -= item.CriticalBuff;
+            GameManager.instance.e_def -= item.DefBuff;
+            GameManager.instance.e_hp -= item.HpBuff;
+
+            SetBuff();
+        }
+        if (item.IsAccessory)
+        {
+            GameManager.instance.a_atk -= item.AtkBuff;
+            GameManager.instance.a_hp -= item.HpBuff;
+            GameManager.instance.a_mp -= item.MPBuff;
+            GameManager.instance.a_critical -= item.CriticalBuff;
+            GameManager.instance.a_skillCoolTime = 0;
+
+            SetBuff();
+        }
+    }
+
     private void BuffGet(Item item)
     {
-        playerState = inventory.player.GetComponent<PlayerState>();
-        if (item.Type == ItemType.Equipment_HEAD)
-        {
+        skillPlay = inventory.player.GetComponent<SkillPlay>();
+        playerProfile = inventory.player.GetComponent<PlayerProfile>();
 
-        }
-        else if (item.Type == ItemType.Equipment_TOP)
+        if (item.IsEquipment)
         {
+            GameManager.instance.e_atk = item.AtkBuff;
+            GameManager.instance.e_critical = item.CriticalBuff;
+            GameManager.instance.e_def = item.DefBuff;
+            GameManager.instance.e_hp = item.HpBuff;
 
+            SetBuff();
         }
-        else if (item.Type == ItemType.Equipment_BOTTOMS)
+        if (item.IsAccessory)
         {
+            GameManager.instance.a_atk = item.AtkBuff;
+            GameManager.instance.a_hp = item.HpBuff;
+            GameManager.instance.a_mp = item.MPBuff;
+            GameManager.instance.a_critical = item.CriticalBuff;
+            GameManager.instance.a_skillCoolTime = item.SkillCoolTimeBuff;
 
+            SetBuff();
         }
-        else if (item.Type == ItemType.Equipment_SHOES)
-        {
+    }
 
-        }
-        else if (item.Type == ItemType.Equipment_PENDANT)
-        {
-
-        }
-        else if (item.Type == ItemType.Equipment_Glove)
-        {
-
-        }
-        else if (item.Type == ItemType.Equipment_AMULET)
-        {
-
-        }
-        else if (item.Type == ItemType.Equipment_WEAPON)
-        {
-
-        }
+    private void SetBuff()
+    {
+        playerProfile.SetMaxHp(GameManager.instance.hpPoint, GameManager.instance.a_hp, GameManager.instance.e_hp);
+        playerProfile.SetMaxATK(GameManager.instance.atkPoint, GameManager.instance.a_atk, GameManager.instance.e_atk);
+        playerProfile.SetMaxDEF(GameManager.instance.defPoint, GameManager.instance.a_def, GameManager.instance.e_def);
+        playerProfile.SetCritical(GameManager.instance.criticalPoint, GameManager.instance.a_critical, GameManager.instance.e_critical);
+        playerProfile.SetMaxMp(GameManager.instance.a_mp);
+        skillPlay.SetSkillCoolTimeBuff(GameManager.instance.a_skillCoolTime);
     }
 }
