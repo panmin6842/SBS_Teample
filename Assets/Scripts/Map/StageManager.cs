@@ -23,7 +23,7 @@ public class StageManager : MonoBehaviour
     public static StageManager instance;
     MonsterSpawnManager monsterSpawnManager;
 
-    [SerializeField] bool Tutorial;
+    public bool Tutorial;
 
     public List<GameObject> stage = new List<GameObject>();
     public GameObject BossStage;

@@ -12,8 +12,8 @@ public class MonsterBehavior : MonoBehaviour
     [SerializeField] GameObject ThrustAttackAoE;
     [SerializeField] GameObject ThrustAttackEffect;
 
-    float attackTimer = 0f;
-    bool isAttacking;
+    [SerializeField] float attackTimer = 0f;
+    [SerializeField] bool isAttacking;
 
     GameObject Player;
 
