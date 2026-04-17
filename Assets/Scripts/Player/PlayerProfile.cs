@@ -66,7 +66,7 @@ public class PlayerProfile : PlayerState
         criticalTestText = UIManager.Instance.criticalStatusText;
 
         UIManager.Instance.profileNameText.text = GameManager.instance.name.ToString();
-        UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString();
+        UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString(); 
 
         if (UIManager.Instance.virtualCamera != null)
         {

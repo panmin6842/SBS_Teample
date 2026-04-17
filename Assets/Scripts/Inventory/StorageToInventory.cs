@@ -97,6 +97,15 @@ public class StorageToInventory : MonoBehaviour
                 }
             }
         }
+        GameManager.instance.level += GameManager.instance.curLevel;
+        if(!GameManager.instance.storageTutorial)
+        {
+            if(!DialogueManager.instance.start)
+            {
+                DialogueManager.instance.OnDialogue(UIManager.Instance.inventoryExplainDialogue);
+                GameManager.instance.storageTutorial = true;
+            }
+        }
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -66,6 +67,10 @@ public class PlayerAttack : MonoBehaviour
         playerProfile = GetComponent<PlayerProfile>();
         jobChoiceUI = UIManager.Instance.jobChoiceUI;
         jobChoice = UIManager.Instance.jobChoice;
+
+        UIManager.Instance.swordJobButton.onClick.AddListener(SwordChoice);
+        UIManager.Instance.bowJobButton.onClick.AddListener(BowChoice);
+        UIManager.Instance.stampJobButton.onClick.AddListener(StampChoice);
 
         //처음은 검사
         StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0, swordAnimation);
@@ -214,6 +219,7 @@ public class PlayerAttack : MonoBehaviour
     private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, Job _curJob,
         float setHp, float setATK, float setDEF, int profile, AnimatorController animation)
     {
+        playerProfile = GetComponent<PlayerProfile>();
         originattackDelay = _attackDelay;
         attackDelay = originattackDelay;
         passiveDelay = originattackDelay;
@@ -224,7 +230,7 @@ public class PlayerAttack : MonoBehaviour
         passivePower = originPower;
         attack = _attack;
         curJob = _curJob;
-        GameManager.instance.job = _curJob;
+        GameManager.instance.job = curJob;
 
         playerProfile.SetMaxHp(setHp, 0, 0);
         playerProfile.SetMaxATK(setATK, 0, 0);
@@ -246,25 +252,61 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("swordskill");
 
         StateDecision(1f, 0f, 0f, false, Job.Sword, 10, 3, 0, 0, swordAnimation);
-        jobChoiceUI.SetActive(false);
-
-        jobChoice.enabled = true;
+        JobSelect();
     }
     public void BowChoice()
     {
         Debug.Log("bowskill");
 
         StateDecision(0.5f, 10.0f, 10.0f, false, Job.Bow, 8, 3, -10, 1, bowAnimation);
-        jobChoiceUI.SetActive(false);
-        jobChoice.enabled = true;
+        JobSelect();
     }
     public void StampChoice()
     {
         Debug.Log("stampskill");
 
         StateDecision(2.5f, 10.0f, 5.0f, false, Job.Stamp, 7, 4, 0, 2, stampAnimation);
+        JobSelect();
+        //playerProfile.ChangeMoveSpeed(0);
+    }
+
+    private void JobSelect()
+    {
+        jobChoiceUI = UIManager.Instance.jobChoiceUI;
+        jobChoice = UIManager.Instance.jobChoice;
+        Time.timeScale = 1;
         jobChoiceUI.SetActive(false);
-        playerProfile.ChangeMoveSpeed(0);
         jobChoice.enabled = true;
+        uiClicking = false;
+        transform.position = UIManager.Instance.villagePos.position;
+        UIManager.Instance.inventory.playerProfile.SetActive(true);
+        GameManager.instance.mapState = MapState.Village;
+        UIManager.Instance.virtualCamera.GetComponent<CinemachineConfiner3D>().BoundingVolume
+            = UIManager.Instance.villageCollider;
+        Invoke("StoreExplainDialogue", 0.5f);
+    }
+
+    private void StoreExplainDialogue()
+    {
+        if (!DialogueManager.instance.start)
+        {
+            DialogueManager.instance.OnDialogue(UIManager.Instance.storeExplainDialogue);
+            DialogueManager.instance.OnDialogueComplete += StorageZoom;
+        }
+    }
+
+    private void StorageZoom()
+    {
+        Time.timeScale = 0;
+        UIManager.Instance.storageDirector.Play();
+        StartCoroutine(PlayAndCheck());
+    }
+
+    IEnumerator PlayAndCheck()
+    {
+        yield return new WaitForSecondsRealtime((float)UIManager.Instance.storageDirector.duration);
+        Time.timeScale = 1;
+        DialogueManager.instance.OnDialogueComplete -= StorageZoom;
+        UIManager.Instance.storageDirector.gameObject.SetActive(false);
     }
 }

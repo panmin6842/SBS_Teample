@@ -1479,6 +1479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nickName: 
   level: 0
+  curLevel: 0
   job: 0
   hpPoint: 0
   atkPoint: 0
@@ -1499,9 +1500,12 @@ MonoBehaviour:
   gold: 0
   playerLevel: 0
   skillPoint: 0
+  statusPoint: 0
   canBuyCount: 
   character1Spawn: 0
   tutorialClear: 0
+  storageTutorial: 0
+  inventoryTutorial: 0
   mapState: 0
 --- !u!4 &829952204
 Transform:
@@ -1534,6 +1538,7 @@ MonoBehaviour:
   jobChoice: {fileID: 15804662}
   storageInventroy: {fileID: 1920929937}
   inventory: {fileID: 1858061601}
+  player: {fileID: 0}
   hpBackground: {fileID: 46272699}
   hpMask: {fileID: 1128407979}
   hpText: {fileID: 994224353}
@@ -1558,6 +1563,15 @@ MonoBehaviour:
   virtualCamera: {fileID: 1995814926}
   profileNameText: {fileID: 1566429175}
   profileLevelText: {fileID: 666596663}
+  villagePos: {fileID: 0}
+  villageCollider: {fileID: 0}
+  swordJobButton: {fileID: 0}
+  bowJobButton: {fileID: 0}
+  stampJobButton: {fileID: 0}
+  storeExplainDialogue: {fileID: 0}
+  inventoryExplainDialogue: {fileID: 0}
+  statusExplainDialogue: {fileID: 0}
+  storageDirector: {fileID: 0}
 --- !u!1 &832394024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3601,10 +3615,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1858061601}
-    - target: {fileID: 5750485747784054226, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5991522423066417449, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_Name
       value: Canvas

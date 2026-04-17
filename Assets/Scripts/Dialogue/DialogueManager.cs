@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -38,6 +39,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Image displayFaceImage;
 
     public InputActionReference spaceAction;
+
+    //대화 끝나고 나올 이벤트
+    public Action OnDialogueComplete;
 
     private void OnEnable() => spaceAction.action.Enable();
     private void OnDisable() => spaceAction.action.Disable();
@@ -154,6 +158,8 @@ public class DialogueManager : MonoBehaviour
         {
             quit = true;
             start = false;
+
+            OnDialogueComplete?.Invoke();
         }
     }
 
