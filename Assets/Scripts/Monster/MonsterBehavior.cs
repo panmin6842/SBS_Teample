@@ -52,6 +52,10 @@ public class MonsterBehavior : MonoBehaviour
             StartCoroutine(Move());
         }
 
+        if (Player.GetComponent<PlayerProfile>().PlayerDeadCheck())
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void ObjDestroy()

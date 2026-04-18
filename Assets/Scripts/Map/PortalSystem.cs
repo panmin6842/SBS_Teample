@@ -71,6 +71,10 @@ public class PortalSystem : MonoBehaviour
                 player.transform.position += new Vector3(StageManager.instance.spacing - 9f, 0f, 0f);
                 portalManager.MainCameraObject.transform.position += new Vector3(StageManager.instance.spacing - 9f, 0f, 0f);
                 break;
+            case PortalDirection.Clear:
+                //player.transform.position += new Vector3(StageManager.instance.spacing - 9f, 0f, 0f);
+                //portalManager.MainCameraObject.transform.position += new Vector3(StageManager.instance.spacing - 9f, 0f, 0f);
+                break;
         }
 
         player.GetComponent<PlayerProfile>().UseActCount(1);
