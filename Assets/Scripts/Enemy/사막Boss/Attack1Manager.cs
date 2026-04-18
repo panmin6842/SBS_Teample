@@ -11,11 +11,14 @@ public class Attack1Manager : MonoBehaviour
 
     private Vector3 firstPos;
     private float dist;
+
+    private BossStatus bossStatus;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         firstPos = transform.position;
+        bossStatus = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossStatus>();
 
         if (playerProfile != null)
         {
@@ -29,7 +32,7 @@ public class Attack1Manager : MonoBehaviour
         transform.position += transform.forward * moveSpeed * Time.deltaTime;
         dist = Vector3.Distance(firstPos, transform.position);
 
-        if (dist >= stopDist)
+        if (dist >= stopDist || bossStatus.curHp <= 0)
         {
             Destroy(gameObject);
         }

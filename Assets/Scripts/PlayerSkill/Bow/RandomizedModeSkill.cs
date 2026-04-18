@@ -7,8 +7,8 @@ public class RandomizedModeSkill : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerAttack = GameObject.Find("Player").GetComponent<PlayerAttack>();
-        playerProfile = GameObject.Find("Player").GetComponent<PlayerProfile>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
 
         if (playerAttack != null)
         {

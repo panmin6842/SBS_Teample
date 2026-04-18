@@ -34,7 +34,7 @@ public class ManaStormRange : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         playerAttack = player.GetComponent<PlayerAttack>();
         playerAttack.uiClicking = true;
     }
