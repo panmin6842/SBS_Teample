@@ -3850,6 +3850,85 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &964858927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 964858929}
+  - component: {fileID: 964858928}
+  m_Layer: 0
+  m_Name: GamaManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &964858928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964858927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08a85f33de019646a68a5a5723fa7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nickName: 
+  level: 0
+  curLevel: 0
+  job: 0
+  hpPoint: 0
+  atkPoint: 0
+  defPoint: 0
+  criticalPoint: 0
+  profileIndex: 0
+  e_hp: 0
+  a_hp: 0
+  e_atk: 0
+  a_atk: 0
+  e_def: 0
+  a_def: 0
+  a_mp: 0
+  a_skillCoolTime: 0
+  e_critical: 0
+  a_critical: 0
+  curAnimation: {fileID: 0}
+  gold: 0
+  skillPoint: 0
+  statusPoint: 0
+  canBuyCount: 
+  character1Spawn: 0
+  tutorialClear: 0
+  storageTutorial: 0
+  inventoryTutorial: 0
+  dayTutorial: 0
+  dayCount: 0
+  dayEnd: 0
+  possibleDungeon: 00000000
+  itemGetAll: 0
+  curDungeonNumber: 0
+  mapState: 2
+--- !u!4 &964858929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964858927}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 119.11824, y: -818.06024, z: 871.7253}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &966727852
 PrefabInstance:
   m_ObjectHideFlags: 0
