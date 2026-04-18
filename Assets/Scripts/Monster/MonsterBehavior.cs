@@ -1,10 +1,10 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterBehavior : MonoBehaviour
 {
     MonsterSpawnManager monsterSpawnManager;
+    Rigidbody rb;
     bool isMoving = false;
     [SerializeField] MonsterStatData MonsterData;
     [SerializeField] GameObject SectorAttackAoE;
@@ -15,12 +15,13 @@ public class MonsterBehavior : MonoBehaviour
     [SerializeField] float attackTimer = 0f;
     [SerializeField] bool isAttacking;
 
-    GameObject Player;
+    public GameObject Player;
 
     private void Awake()
     {
         monsterSpawnManager = MonsterSpawnManager.instance;
         MonsterData.CurHP = MonsterData.MaxHP;
+        rb = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -36,10 +37,16 @@ public class MonsterBehavior : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
+
         if (!isMoving)
         {
             StartCoroutine(Move());
         }
+
     }
 
     IEnumerator Move()
@@ -65,9 +72,23 @@ public class MonsterBehavior : MonoBehaviour
         if (!isAttacking && Vector3.Distance(transform.localPosition, Player.transform.localPosition) > MonsterData.AttackRange)
         {
             MoveToPlayer();
-        }
-        attackTimer += Time.deltaTime;
+            GetComponentInChildren<SkeletonMonsterImage>().animstate = AnimState.Walk;
 
+            if (Player.transform.position.x - transform.position.x > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
+        else if (rb.linearVelocity.magnitude <= 0f && !isAttacking)
+        {
+            GetComponentInChildren<SkeletonMonsterImage>().animstate = AnimState.Idle;
+        }
+
+        attackTimer += Time.deltaTime;
         isMoving = false;
     }
 
@@ -89,8 +110,11 @@ public class MonsterBehavior : MonoBehaviour
     {
         Sprite sprite = ThrustAttackEffect.GetComponent<SpriteRenderer>().sprite;
 
+        GetComponentInChildren<SkeletonMonsterImage>().animstate = AnimState.Idle;
         ThrustAttackEffect.SetActive(true);
         yield return new WaitForSeconds(0.5f);
+        GetComponentInChildren<SkeletonMonsterImage>().animstate = AnimState.Attack;
+        yield return new WaitForSeconds(0.3f);
         ThrustAttackEffect.SetActive(false);
         ThrustAttackAoE.SetActive(true);
         yield return new WaitForSeconds(0.5f);
@@ -104,8 +128,11 @@ public class MonsterBehavior : MonoBehaviour
     {
         Sprite sprite = SectorAttackEffect.GetComponent<SpriteRenderer>().sprite;
 
+        GetComponentInChildren<SkeletonMonsterImage>().animstate = AnimState.Idle;
         SectorAttackEffect.SetActive(true);
         yield return new WaitForSeconds(1f);
+        GetComponentInChildren<SkeletonMonsterImage>().animstate = AnimState.Attack;
+        yield return new WaitForSeconds(0.3f);
         SectorAttackEffect.SetActive(false);
         SectorAttackAoE.SetActive(true);
         yield return new WaitForSeconds(0.5f);
