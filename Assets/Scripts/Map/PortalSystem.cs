@@ -47,20 +47,20 @@ public class PortalSystem : MonoBehaviour
         switch (direction)
         {
             case PortalDirection.Front:
-                portalManager.PlayerObject.transform.position += new Vector3(0f, 0f, stageManager.spacing);
-                portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, stageManager.spacing);
+                portalManager.PlayerObject.transform.position += new Vector3(0f, 0f, stageManager.spacing - 9f);
+                portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, stageManager.spacing - 9f);
                 break;
             case PortalDirection.Back:
-                portalManager.PlayerObject.transform.position += new Vector3(0f, 0f, -stageManager.spacing);
-                portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, -stageManager.spacing);
+                portalManager.PlayerObject.transform.position += new Vector3(0f, 0f, -stageManager.spacing + 9f);
+                portalManager.MainCameraObject.transform.position += new Vector3(0f, 0f, -stageManager.spacing + 9f);
                 break;
             case PortalDirection.Left:
-                portalManager.PlayerObject.transform.position += new Vector3(-stageManager.spacing, 0f, 0f);
-                portalManager.MainCameraObject.transform.position += new Vector3(-stageManager.spacing, 0f, 0f);
+                portalManager.PlayerObject.transform.position += new Vector3(-stageManager.spacing + 9f, 0f, 0f);
+                portalManager.MainCameraObject.transform.position += new Vector3(-stageManager.spacing + 9f, 0f, 0f);
                 break;
             case PortalDirection.Right:
-                portalManager.PlayerObject.transform.position += new Vector3(stageManager.spacing, 0f, 0f);
-                portalManager.MainCameraObject.transform.position += new Vector3(stageManager.spacing, 0f, 0f);
+                portalManager.PlayerObject.transform.position += new Vector3(stageManager.spacing - 9f, 0f, 0f);
+                portalManager.MainCameraObject.transform.position += new Vector3(stageManager.spacing - 9f, 0f, 0f);
                 break;
         }
 

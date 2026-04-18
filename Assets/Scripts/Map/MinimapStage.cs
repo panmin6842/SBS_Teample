@@ -8,7 +8,7 @@ public class MinimapStage : MonoBehaviour
 
     public Vector2Int index;
 
-    public MinimapStageType stageType;
+    public StageType stageType;
 
     private void Awake()
     {

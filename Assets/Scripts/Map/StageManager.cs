@@ -10,20 +10,24 @@ enum PortalDirection
     Right
 }
 
-public enum MinimapStageType
+public enum StageType
 {
     Normal,
     Difficult,
     Trap,
-    Treasure
+    SealedStone,
+    Treasure,
+    Boss,
+    None
 }
 
 public class StageManager : MonoBehaviour
 {
     public static StageManager instance;
-    MonsterSpawnManager monsterSpawnManager;
+    public MonsterSpawnManager monsterSpawnManager;
 
     public bool Tutorial;
+
 
     public List<GameObject> stage = new List<GameObject>();
     public GameObject BossStage;
@@ -33,7 +37,9 @@ public class StageManager : MonoBehaviour
 
     public HashSet<Vector2Int> StagePositions = new HashSet<Vector2Int>();
     public List<Vector2Int> surroundStagePositions = new List<Vector2Int>();
-    public Vector2Int CurStagePos;
+    public Vector2Int curStagePos;
+    public StageType curStageType;
+    public int curStageMonsterCount;
 
     [SerializeField] GameObject Player;
 
@@ -62,8 +68,8 @@ public class StageManager : MonoBehaviour
     {
         for (int i = 0; i < 9; i++)
         {
-            int x = CurStagePos.x + (i % 3 - 1);
-            int z = CurStagePos.y + (i / 3 - 1);
+            int x = curStagePos.x + (i % 3 - 1);
+            int z = curStagePos.y + (i / 3 - 1);
             Vector2Int pos = new Vector2Int(x, z);
             if (StagePositions.Contains(pos))
             {
