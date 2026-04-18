@@ -51,7 +51,7 @@ public class StorageToInventory : MonoBehaviour
                         {
                             int random = Random.Range(allSlots[i].Item.MinGold, allSlots[i].Item.MaxGold);
                             GameManager.instance.gold += random;
-                            inventory.goldText.text = GameManager.instance.gold.ToString();
+                            inventory.goldText.text = "Gold : " + GameManager.instance.gold.ToString();
                             allSlots[i].itemCount--;
                             if (allSlots[i].itemCount <= 0)
                             {
@@ -82,7 +82,6 @@ public class StorageToInventory : MonoBehaviour
                             }
                         }
                     }
-                    
                 }
                 else if (!allSlots[i].Item.CanOverlap)
                 {
@@ -116,7 +115,9 @@ public class StorageToInventory : MonoBehaviour
             }
         }
         GameManager.instance.level += GameManager.instance.curLevel;
+        UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString();
         
+
     }
 
     /// <summary>

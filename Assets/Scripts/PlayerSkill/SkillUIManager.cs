@@ -39,12 +39,14 @@ public class SkillUIManager : MonoBehaviour
 
     public void SkillPointUse()
     {
-        skillPointCount--;
+        GameManager.instance.skillPoint--;
+        skillPointCount = GameManager.instance.skillPoint;
         skillPointText.text = "SkillPoint : " + skillPointCount;
     }
 
     public int SkillPointCount()
     {
+        skillPointCount = GameManager.instance.skillPoint;
         return skillPointCount;
     }
 
@@ -87,6 +89,7 @@ public class SkillUIManager : MonoBehaviour
             if (checkSkillSlot.IsMask(skillSlot.SkillItem))
             {
                 checkSkillSlot.AddItem(skillSlot.SkillItem);
+                DayManager.instance.dayEndButton.interactable = true;
             }
             else
             {

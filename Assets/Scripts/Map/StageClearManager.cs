@@ -19,6 +19,9 @@ public class StageClearManager : MonoBehaviour
             GameManager.instance.skillPoint++;
             GameManager.instance.statusPoint++;
             GameManager.instance.curLevel++;
+
+            DayManager.instance.sunLight.transform.rotation
+                = Quaternion.Euler(DayManager.instance.nightSunRotation);
         }
     }
 }

@@ -56,8 +56,10 @@ public class UIManager : MonoBehaviour
     public DialogueGroup storeExplainDialogue;
     public DialogueGroup inventoryExplainDialogue;
     public DialogueGroup statusExplainDialogue;
+    public DialogueGroup endExplainDialogue;
     [Header("연출 타임라인")]
     public PlayableDirector storageDirector;
+    public PlayableDirector portalDirector;
 
     private void Awake()
     {
