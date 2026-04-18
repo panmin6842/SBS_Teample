@@ -31,7 +31,11 @@ public class StageDetector : MonoBehaviour
             var confinder = portalManager.CinemachineCamera.GetComponent<CinemachineConfiner3D>();
             confinder.BoundingVolume = gameObject.GetComponent<Collider>();
 
-            stageManager.CurStagePos = new Vector2Int((int)(transform.localPosition.x / stageManager.spacing), (int)(transform.localPosition.y / stageManager.spacing));
+            stageManager.curStagePos = new Vector2Int((int)(transform.position.x / stageManager.spacing), (int)(transform.position.z / stageManager.spacing));
+            stageManager.curStageType = portalManager.stageType;
+            stageManager.monsterSpawnManager.isMonsterSpawn = true;
+            stageManager.activePortal = false;
+            stageManager.curStageMonsterCount = portalManager.MonsterCount;
         }
     }
 

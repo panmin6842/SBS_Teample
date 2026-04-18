@@ -12,6 +12,8 @@ public enum WallDirection
 
 public class PortalManager : MonoBehaviour
 {
+    public int MonsterCount;
+    [Space(10f)]
     public bool isPortalActive;
     [Space(10f)]
     public List<GameObject> PortalObject = new List<GameObject>();
@@ -19,6 +21,7 @@ public class PortalManager : MonoBehaviour
     public Transform PlayerTpSpotTransform;
     public Transform MainCameraTpSpotTransform;
     [Space(10f)]
+    public StageType stageType;
     public Dictionary<WallDirection, GameObject> NearStage = new Dictionary<WallDirection, GameObject>();
 
 

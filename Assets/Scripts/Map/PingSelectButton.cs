@@ -6,7 +6,7 @@ public class PingSelectButton : MonoBehaviour
 {
     MinimapManager minimapManager;
 
-    [SerializeField] MinimapStageType ButtonImageType;
+    [SerializeField] StageType ButtonImageType;
     [SerializeField] List<Image> ButtonImages = new List<Image>();
 
     GameObject curSeletion;
@@ -24,13 +24,13 @@ public class PingSelectButton : MonoBehaviour
     {
         switch (ButtonImageType)
         {
-            case MinimapStageType.Normal:
+            case StageType.Normal:
                 break;
-            case MinimapStageType.Difficult:
+            case StageType.Difficult:
                 break;
-            case MinimapStageType.Trap:
+            case StageType.Trap:
                 break;
-            case MinimapStageType.Treasure:
+            case StageType.Treasure:
                 break;
         }
 

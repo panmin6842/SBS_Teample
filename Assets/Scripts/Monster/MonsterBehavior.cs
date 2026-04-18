@@ -96,6 +96,7 @@ public class MonsterBehavior : MonoBehaviour
     {
         Vector3 direction = Player.transform.position - transform.position;
         direction.y = 0f;
+        float randomMoveSpeed = Random.Range(MonsterData.MoveSpeed * 0.8f, MonsterData.MoveSpeed * 1.2f);
 
         if (direction != Vector3.zero)
         {
@@ -103,7 +104,7 @@ public class MonsterBehavior : MonoBehaviour
             transform.rotation = rot;
         }
 
-        transform.Translate(Vector3.forward * Time.deltaTime * MonsterData.MoveSpeed);
+        transform.Translate(Vector3.forward * Time.deltaTime * randomMoveSpeed);
     }
 
     IEnumerator ThrustAttack()
