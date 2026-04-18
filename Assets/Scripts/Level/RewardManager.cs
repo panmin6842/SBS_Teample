@@ -61,7 +61,7 @@ public class RewardManager : MonoBehaviour
     //보상을 받을 수 있는지 확인하는 함수
     public bool CanReceiveReward(int level)
     {
-        int playerLevel = GameManager.instance.playerLevel;
+        int playerLevel = GameManager.instance.level;
 
         return playerLevel >= level && !receivedLevels.Contains(level);
     }

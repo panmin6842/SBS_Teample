@@ -26,12 +26,14 @@ public class DungeonEntryManager : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (GameManager.instance.possibleDungeon[dungeonNumber - 1])
+        if (GameManager.instance.possibleDungeon[dungeonNumber - 1] && GameManager.instance.dayEnd)
         {
             Time.timeScale = 1f;
             Instantiate(map, mapSpawnPos.position, Quaternion.identity);
             GameManager.instance.curDungeonNumber = dungeonNumber;
             ui.SetActive(false);
+            GameManager.instance.dayEnd = false;
+            GameManager.instance.itemGetAll = false;
             Invoke("PlayerMove", 0.5f);
         }
     }

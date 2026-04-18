@@ -23,6 +23,7 @@ TagManager:
   - Boss
   - ClearPortal
   - DungeonEntry
+  - Map
   layers:
   - Default
   - TransparentFX

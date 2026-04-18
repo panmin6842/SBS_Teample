@@ -36,6 +36,9 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI defTestText;
     private TextMeshProUGUI moveSpeedTestText;
     private TextMeshProUGUI criticalTestText;
+    private TextMeshProUGUI nameText;
+    private TextMeshProUGUI levelText;
+    private TextMeshProUGUI jobText;
     [Header("Hit ÇÁ¸®Æé")]
     [SerializeField] private GameObject swordSkillHitPrefab;
     [SerializeField] private GameObject bowSkillHitPrefab;
@@ -64,6 +67,9 @@ public class PlayerProfile : PlayerState
         defTestText = UIManager.Instance.defStatusText;
         moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
         criticalTestText = UIManager.Instance.criticalStatusText;
+        nameText = UIManager.Instance.nameText;
+        levelText = UIManager.Instance.levelText;
+        jobText = UIManager.Instance.jobText;
 
         UIManager.Instance.profileNameText.text = GameManager.instance.name.ToString();
         UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString(); 
@@ -81,10 +87,10 @@ public class PlayerProfile : PlayerState
 
         UpdateActCountBar();
 
-        StateTestText();
+        //StateTestText();
     }
 
-    private void StateTestText()
+    public void StateTestText()
     {
         hpTestText.text = maxHp.ToString();
         mpTestText.text = maxMp.ToString();
@@ -93,6 +99,9 @@ public class PlayerProfile : PlayerState
         defTestText.text = maxDEF.ToString();
         moveSpeedTestText.text = moveSpeed.ToString();
         criticalTestText.text = critical.ToString();
+        nameText.text = GameManager.instance.name;
+        levelText.text = GameManager.instance.level.ToString();
+        jobText.text = GameManager.instance.job.ToString();
     }
 
     public void AnimationReset()

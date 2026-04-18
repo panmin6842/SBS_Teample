@@ -18,6 +18,7 @@ public class MonsterAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log(damage);
             other.GetComponent<PlayerProfile>().GetDamage(damage);
         }
     }
