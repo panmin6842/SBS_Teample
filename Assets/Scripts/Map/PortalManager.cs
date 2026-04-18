@@ -40,7 +40,7 @@ public class PortalManager : MonoBehaviour
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
         CinemachineCamera = GameObject.Find("PlayerCamera").GetComponent<CinemachineCamera>();
-        PortalEffectImage = GameObject.FindWithTag("FadeBackground").GetComponent<Image>();
+        
         stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
@@ -50,6 +50,12 @@ public class PortalManager : MonoBehaviour
             PlayerTransform = PlayerObject.GetComponent<Transform>();
         else if (PlayerObject == null)
             PlayerObject = GameObject.FindGameObjectWithTag("Player");
+
+        PortalEffectImage = UIManager.Instance.fade.GetComponent<Image>();
+        if(MainCameraObject == null)
+        {
+            MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        }
     }
 
     void Update()

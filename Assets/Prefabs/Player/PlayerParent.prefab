@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7133356876189250769}
   - component: {fileID: 9004656422406603952}
   - component: {fileID: 3337929996929043960}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5429040187789939197}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1371917018998881616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerImagePivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 286855209952272089}
   - component: {fileID: 6123579153821113704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 7655924410801576270}
   - component: {fileID: 5343555876010511114}
   - component: {fileID: 3296323806307052892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerParent
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -764,7 +764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8978969190427154288}
   - component: {fileID: 4689537249941507456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +851,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 812866362142789521, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
       propertyPath: m_Name
@@ -859,7 +859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1321526000458241107, guid: 79df1c3f33dd35048bf92e568ea9e1da, type: 3}
       propertyPath: m_IsActive

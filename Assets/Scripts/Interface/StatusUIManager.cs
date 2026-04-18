@@ -58,6 +58,7 @@ public class StatusUIManager : MonoBehaviour
         }
         upStateCheckCount = 0;
         GameManager.instance.statusPoint--;
+        statusPointText.text = "SP : " + GameManager.instance.statusPoint.ToString();
         AttentionWindow.SetActive(false);
     }
 

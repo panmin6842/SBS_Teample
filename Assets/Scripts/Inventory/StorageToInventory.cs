@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// 창고에 있는 아이템을 인벤토리로 이동
@@ -47,7 +48,8 @@ public class StorageToInventory : MonoBehaviour
                 {
                     if (allSlots[i].Item.Type == ItemType.Gold)
                     {
-                        for (int g = 0; g <= allSlots[i].itemCount; g++)
+                        int itemCount = allSlots[i].itemCount;
+                        for (int g = 0; g <= itemCount; g++)
                         {
                             int random = Random.Range(allSlots[i].Item.MinGold, allSlots[i].Item.MaxGold);
                             GameManager.instance.gold += random;
@@ -112,12 +114,12 @@ public class StorageToInventory : MonoBehaviour
                         }
                     }
                 }
+                GameManager.instance.level++;
+                UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString();
+                GameManager.instance.itemGetAll = true;
             }
         }
-        GameManager.instance.level += GameManager.instance.curLevel;
-        UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString();
         
-
     }
 
     /// <summary>

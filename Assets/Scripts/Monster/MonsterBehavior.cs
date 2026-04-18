@@ -16,6 +16,7 @@ public class MonsterBehavior : MonoBehaviour
     [SerializeField] bool isAttacking;
 
     public GameObject Player;
+    private bool itemSpawn;
 
     private void Awake()
     {
@@ -33,8 +34,12 @@ public class MonsterBehavior : MonoBehaviour
     {
         if (MonsterData.CurHP <= 0)
         {
-            monsterSpawnManager.MonsterDead();
-            Destroy(gameObject);
+            if (!itemSpawn)
+            {
+                monsterSpawnManager.MonsterDead(this.gameObject);
+                itemSpawn = true;
+            }
+            Invoke("ObjDestroy", 0.5f);
         }
 
         if (Player == null)
@@ -47,6 +52,11 @@ public class MonsterBehavior : MonoBehaviour
             StartCoroutine(Move());
         }
 
+    }
+
+    private void ObjDestroy()
+    {
+        Destroy(gameObject);
     }
 
     IEnumerator Move()
@@ -76,11 +86,13 @@ public class MonsterBehavior : MonoBehaviour
 
             if (Player.transform.position.x - transform.position.x > 0)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(1f, 1f, 1f);
+                //transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             else
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+                //transform.rotation = Quaternion.Euler(0, 180, 0);
             }
         }
         else if (rb.linearVelocity.magnitude <= 0f && !isAttacking)

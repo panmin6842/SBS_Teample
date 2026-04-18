@@ -22,6 +22,8 @@ TagManager:
   - PortalManager
   - Boss
   - ClearPortal
+  - DungeonEntry
+  - Map
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - UI
   - MeteoArea
   - Enemy
-  - 
+  - Player
   - 
   - 
   - 

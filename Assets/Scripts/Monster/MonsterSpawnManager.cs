@@ -24,6 +24,8 @@ public class MonsterSpawnManager : MonoBehaviour
 
     public bool isMonsterSpawn;
 
+    [SerializeField] private GameObject[] dropItems;
+
     private void Awake()
     {
         instance = this;
@@ -83,8 +85,8 @@ public class MonsterSpawnManager : MonoBehaviour
         }
     }
 
-    public void MonsterDead()
+    public void MonsterDead(GameObject enemy)
     {
-
+        Instantiate(dropItems[0], enemy.transform.position, Quaternion.identity);
     }
 }

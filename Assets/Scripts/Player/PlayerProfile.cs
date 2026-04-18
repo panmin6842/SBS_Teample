@@ -36,6 +36,9 @@ public class PlayerProfile : PlayerState
     private TextMeshProUGUI defTestText;
     private TextMeshProUGUI moveSpeedTestText;
     private TextMeshProUGUI criticalTestText;
+    private TextMeshProUGUI nameText;
+    private TextMeshProUGUI levelText;
+    private TextMeshProUGUI jobText;
     [Header("Hit «¡∏Æ∆È")]
     [SerializeField] private GameObject swordSkillHitPrefab;
     [SerializeField] private GameObject bowSkillHitPrefab;
@@ -64,6 +67,9 @@ public class PlayerProfile : PlayerState
         defTestText = UIManager.Instance.defStatusText;
         moveSpeedTestText = UIManager.Instance.moveSpeedStatusText;
         criticalTestText = UIManager.Instance.criticalStatusText;
+        nameText = UIManager.Instance.nameText;
+        levelText = UIManager.Instance.levelText;
+        jobText = UIManager.Instance.jobText;
 
         UIManager.Instance.profileNameText.text = GameManager.instance.name.ToString();
         UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString(); 
@@ -81,10 +87,10 @@ public class PlayerProfile : PlayerState
 
         UpdateActCountBar();
 
-        StateTestText();
+        //StateTestText();
     }
 
-    private void StateTestText()
+    public void StateTestText()
     {
         hpTestText.text = maxHp.ToString();
         mpTestText.text = maxMp.ToString();
@@ -93,6 +99,16 @@ public class PlayerProfile : PlayerState
         defTestText.text = maxDEF.ToString();
         moveSpeedTestText.text = moveSpeed.ToString();
         criticalTestText.text = critical.ToString();
+        nameText.text = GameManager.instance.name;
+        levelText.text = GameManager.instance.level.ToString();
+        jobText.text = GameManager.instance.job.ToString();
+    }
+
+    public void AnimationReset()
+    {
+        ani.SetBool("isWalk", false);
+        ani.ResetTrigger("Attack1");
+        ani.ResetTrigger("Attack2");
     }
 
     //Hit «¡∏Æ∆È º“»Ø
@@ -280,8 +296,32 @@ public class PlayerProfile : PlayerState
     {
         if (curHp <= 0)
         {
-            curHp = 0;
+            StartCoroutine(Die());
         }
+    }
+
+    IEnumerator Die()
+    {
+        playerDie = true;
+        curHp = 0;
+        yield return new WaitForSeconds(1);
+        if (playerDie)
+        {
+            curActCount -= 5;
+            int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.1f);
+            GameManager.instance.gold -= GoldDown;
+            Vector3 spawnPos = GameObject.FindGameObjectWithTag("DungeonEntry").GetComponent<Transform>().position;
+            transform.position = spawnPos;
+            curHp = maxHp;
+            playerDie = false;
+        }
+    }
+
+    public void ActCountDie()
+    {
+        int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.3f);
+        GameManager.instance.gold -= GoldDown;
+        transform.position = UIManager.Instance.villagePos.position;
     }
 
     public void SelfHpDamage(float damagePercent)
@@ -382,6 +422,16 @@ public class PlayerProfile : PlayerState
         curActCount -= actCount;
 
         curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+
+        if(curActCount <= 0)
+        {
+            ActCountDie();
+        }
+    }
+
+    public void ActCountReset()
+    {
+        curActCount = maxActCount;
     }
 
     public void LevelUp(int levelCount)

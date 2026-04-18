@@ -33,6 +33,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI defStatusText;
     public TextMeshProUGUI moveSpeedStatusText;
     public TextMeshProUGUI criticalStatusText;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI jobText;
     [Header("프로필 스킬 슬롯 부모")]
     public GameObject slotParent;
     [Header("쿨타임")]
@@ -60,6 +63,8 @@ public class UIManager : MonoBehaviour
     [Header("연출 타임라인")]
     public PlayableDirector storageDirector;
     public PlayableDirector portalDirector;
+    [Header("페이트 이미지")]
+    public GameObject fade;
 
     private void Awake()
     {
