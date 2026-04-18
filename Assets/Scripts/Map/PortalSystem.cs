@@ -49,14 +49,6 @@ public class PortalSystem : MonoBehaviour
     {
         Image img = UIManager.Instance.fade.GetComponent<Image>();
         img.gameObject.SetActive(true);
-        if(StageManager.instance == null)
-        {
-            Debug.LogError("StageManager없음");
-        }
-        if(portalManager == null)
-        {
-            Debug.LogError("potalManager없음");
-        }
         player.transform.position = portalManager.PlayerTpSpotTransform.position;
         portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
 

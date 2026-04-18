@@ -8,7 +8,7 @@ public class BowExplosionSkill : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerProfile = GameObject.Find("Player").GetComponent<PlayerProfile>();
+        playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
 
         if (playerProfile != null)
         {
@@ -38,6 +38,10 @@ public class BowExplosionSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("스킬 : 활 폭발" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+                if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
             }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);

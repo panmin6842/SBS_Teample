@@ -23,7 +23,7 @@ public class LaserSkill : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         playerAttack = player.GetComponent<PlayerAttack>();
         playerProfile = player.GetComponent<PlayerProfile>();
         objCollider = GetComponent<BoxCollider>();
@@ -84,6 +84,10 @@ public class LaserSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("스킬 : 레이저" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+                if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
             }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);

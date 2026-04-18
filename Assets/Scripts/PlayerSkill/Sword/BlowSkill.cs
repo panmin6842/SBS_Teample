@@ -87,6 +87,10 @@ public class BlowSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("스킬 : 회심의 일격" + other.gameObject.name + "을(를) 공격했습니다!");
+                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+                if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
             }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);

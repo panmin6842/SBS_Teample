@@ -75,7 +75,10 @@ public class SwordAttackManager : MonoBehaviour
             else if (enemy.CompareTag("Enemy"))
             {
                 Debug.Log("검사 기본 공격" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
-                enemy.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+                if (enemy.gameObject.GetComponent<MonsterBehavior>() != null)
+                    enemy.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+                if (enemy.gameObject.GetComponent<SealStoneManager>() != null)
+                    enemy.gameObject.GetComponent<SealStoneManager>().Damage(damage);
             }
 
             Vector3 hitPoint = enemy.ClosestPoint(finalCenter);
