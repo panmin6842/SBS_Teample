@@ -1,7 +1,6 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class StageDetector : MonoBehaviour
 {
@@ -16,6 +15,8 @@ public class StageDetector : MonoBehaviour
     {
         portalManager = GetComponentInParent<PortalManager>();
         stageManager = StageManager.instance;
+
+        StartCoroutine(StageChangeCoroutine());
     }
 
     void Update()
@@ -39,12 +40,14 @@ public class StageDetector : MonoBehaviour
         portalManager.PortalEffectImage.gameObject.SetActive(true);
         //yield return new WaitForSeconds(0.5f);
         Color c = Color.black;
-        for (float i = 1; i > 0; i -= Time.deltaTime)
+        //Time.timeScale = 0;
+        for (float i = 1; i > 0; i -= Time.unscaledDeltaTime)
         {
             c.a = i;
             portalManager.PortalEffectImage.color = c;
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
+        //Time.timeScale = 1;
         portalManager.PortalEffectImage.gameObject.SetActive(false);
     }
 }
