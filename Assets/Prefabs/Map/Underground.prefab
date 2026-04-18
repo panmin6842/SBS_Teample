@@ -544,6 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalManager: {fileID: 0}
   direction: 3
 --- !u!1 &5144979569810962450
 GameObject:
@@ -559,7 +560,7 @@ GameObject:
   - component: {fileID: 7324769314122632302}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Place
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -776,6 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalManager: {fileID: 0}
   direction: 2
 --- !u!1 &6813720926476073496
 GameObject:
@@ -1182,6 +1184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalManager: {fileID: 0}
   direction: 1
 --- !u!1 &7578044407623005106
 GameObject:
@@ -1588,6 +1591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ddb313228c78c042aaf66780d4041be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalManager: {fileID: 0}
   direction: 0
 --- !u!1 &8076056445954916831
 GameObject:
@@ -1747,7 +1751,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cae063ddb5321468dbc2283c53b95a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MonsterCount: 0
+  stageType: 0
+  SpawnPrefabs: []
+  isCleared: 0
   isPortalActive: 0
   PortalObject:
   - {fileID: 8032132873244000005}
@@ -1756,7 +1762,6 @@ MonoBehaviour:
   - {fileID: 4417808012535134601}
   PlayerTpSpotTransform: {fileID: 6981340529627803001}
   MainCameraTpSpotTransform: {fileID: 909130398814576352}
-  stageType: 0
   ThisStage: {fileID: 0}
   PlayerObject: {fileID: 0}
   MainCameraObject: {fileID: 0}
