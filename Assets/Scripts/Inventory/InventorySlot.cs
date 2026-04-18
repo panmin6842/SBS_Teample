@@ -164,7 +164,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             {
                 int random = Random.Range(item.MinGold, item.MaxGold);
                 GameManager.instance.gold += random;
-                inventory.goldText.text = GameManager.instance.gold.ToString();
+                inventory.goldText.text = "Gold : " + GameManager.instance.gold.ToString();
                 itemCount--;
                 if (itemCount <= 0)
                 {

@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     public bool tutorialClear;
     public bool storageTutorial;
     public bool inventoryTutorial;
+    public bool dayTutorial;
+    public int dayCount;
+    public bool dayEnd; //일차 종료 확인
 
     public MapState mapState = MapState.Village;
     private void Awake()

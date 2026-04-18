@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,7 +26,7 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
     private InventoryMain inventory;
     private SkillUIManager skillUIManager;
 
-    private bool clearSuccess = false;
+    [SerializeField] private bool clearSuccess = false;
 
     public bool install = false; //ÀåÂø µÆ´ÂÁö È®ÀÎ
 
@@ -47,18 +48,19 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         skillUIManager = GameObject.Find("InventorySystem").GetComponent<SkillUIManager>();
         if (skillItem != null)
         {
-            if (skillItem.Type == SkillItemType.Skill_Active)
-            {
-                testText.text = "ActiveSkill";
-            }
-            else if (skillItem.Type == SkillItemType.Skill_Passive)
-            {
-                testText.text = "PassiveSkill";
-            }
+            //if (skillItem.Type == SkillItemType.Skill_Active)
+            //{
+            //    testText.text = "ActiveSkill";
+            //}
+            //else if (skillItem.Type == SkillItemType.Skill_Passive)
+            //{
+            //    testText.text = "PassiveSkill";
+            //}
 
             slotImage.sprite = skillItem.Image;
             explainText.text = skillItem.Explanation;
             skillName.text = skillItem.ItemName;
+            testText.text = skillItem.ItemName;
             explanToolTip.SetActive(false);
             inventory.slotClick = false;
             SetColor(1);
@@ -111,6 +113,7 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
         {
             skillUIManager.SkillPointUse();
             clearButton.gameObject.SetActive(false);
+            
             clearSuccess = true;
         }
     }
