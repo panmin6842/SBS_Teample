@@ -13,7 +13,7 @@ public class SkillUIManager : MonoBehaviour
     public int slotClickSlot = 0;
 
     [SerializeField] private TextMeshProUGUI skillPointText;
-    private int skillPointCount = 9;
+    private int skillPointCount = 0;
 
 
     [SerializeField] private GameObject playerInfo;
@@ -29,7 +29,6 @@ public class SkillUIManager : MonoBehaviour
         inventory = GetComponent<InventoryMain>();
 
         inventory.uiActionMap = inventory.uiInputAction.FindActionMap("Option");
-        skillPlay = inventory.player.GetComponent<SkillPlay>();
     }
 
     private void OnEnable()
@@ -51,26 +50,29 @@ public class SkillUIManager : MonoBehaviour
 
     private void OnOpenInfoUI(InputAction.CallbackContext context)
     {
-        if (inventory.currentUI == UIType.None && GameManager.instance.mapState == MapState.Village)
+        if (GameManager.instance.storageTutorial)
         {
-            if (!playerInfo.activeSelf)
+            if (inventory.currentUI == UIType.None && GameManager.instance.mapState == MapState.Village)
             {
-                playerInfo.SetActive(true);
-                inventory.playerProfile.SetActive(false);
-                inventory.playerAttack.uiClicking = true;
-                skillPointText.text = "SkillPoint : " + skillPointCount;
-                inventory.currentUI = UIType.SkillWindow;
-                Time.timeScale = 0f;
+                if (!playerInfo.activeSelf)
+                {
+                    playerInfo.SetActive(true);
+                    inventory.playerProfile.SetActive(false);
+                    inventory.playerAttack.uiClicking = true;
+                    skillPointText.text = "SkillPoint : " + skillPointCount;
+                    inventory.currentUI = UIType.SkillWindow;
+                    Time.timeScale = 0f;
+                }
             }
-        }
-        else if (inventory.currentUI == UIType.SkillWindow && playerInfo.activeSelf)
-        {
-            Time.timeScale = 1f;
-            playerInfo.SetActive(false);
-            inventory.playerProfile.SetActive(true);
-            inventory.playerAttack.uiClicking = false;
-            slotClickSlot = 0;
-            inventory.currentUI = UIType.None;
+            else if (inventory.currentUI == UIType.SkillWindow && playerInfo.activeSelf)
+            {
+                Time.timeScale = 1f;
+                playerInfo.SetActive(false);
+                inventory.playerProfile.SetActive(true);
+                inventory.playerAttack.uiClicking = false;
+                slotClickSlot = 0;
+                inventory.currentUI = UIType.None;
+            }
         }
     }
 

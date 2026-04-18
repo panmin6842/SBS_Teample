@@ -23,6 +23,12 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.mapState = MapState.Stage;
+        Invoke("StartDialogue", 1);
+    }
+
+    private void StartDialogue()
+    {
         if (!DialogueManager.instance.start)
         {
             DialogueManager.instance.OnDialogue(introStory);

@@ -15,11 +15,12 @@ public class StatusUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI atkPointText;
     [SerializeField] private TextMeshProUGUI defPointText;
     [SerializeField] private TextMeshProUGUI criticalPointText;
+    [SerializeField] private TextMeshProUGUI statusPointText;
     [SerializeField] private GameObject AttentionWindow;
     private int upStateCheckCount; //1 = hp 2 = atk 3 = def 4 = critical
     private void OnEnable()
     {
-        playerProfile = GameObject.Find("Player").GetComponent<PlayerProfile>();
+        playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
 
         nickName.text = GameManager.instance.nickName;
         levelText.text = GameManager.instance.level.ToString();
@@ -28,6 +29,7 @@ public class StatusUIManager : MonoBehaviour
         hpPointText.text = GameManager.instance.hpPoint.ToString();
         atkPointText.text = GameManager.instance.atkPoint.ToString();
         defPointText.text = GameManager.instance.defPoint.ToString();
+        statusPointText.text = "SP : " + GameManager.instance.statusPoint.ToString();
     }
 
     public void AttentionWindowDisAppear()
@@ -55,28 +57,41 @@ public class StatusUIManager : MonoBehaviour
             CriticalPointUp();
         }
         upStateCheckCount = 0;
+        GameManager.instance.statusPoint--;
         AttentionWindow.SetActive(false);
     }
 
     public void HpPointCheck()
     {
-        upStateCheckCount = 1;
-        AttentionWindow.SetActive(true);
+        if (GameManager.instance.statusPoint > 0)
+        {
+            upStateCheckCount = 1;
+            AttentionWindow.SetActive(true);
+        }
     }
     public void ATKPointCheck()
     {
-        upStateCheckCount = 2;
-        AttentionWindow.SetActive(true);
+        if (GameManager.instance.statusPoint > 0)
+        {
+            upStateCheckCount = 2;
+            AttentionWindow.SetActive(true);
+        }
     }
     public void DEFPointCheck()
     {
-        upStateCheckCount = 3;
-        AttentionWindow.SetActive(true);
+        if (GameManager.instance.statusPoint > 0)
+        {
+            upStateCheckCount = 3;
+            AttentionWindow.SetActive(true);
+        }
     }
     public void CriticalPointCheck()
     {
-        upStateCheckCount = 4;
-        AttentionWindow.SetActive(true);
+        if (GameManager.instance.statusPoint > 0)
+        {
+            upStateCheckCount = 4;
+            AttentionWindow.SetActive(true);
+        }
     }
 
     private void HpPointUp()

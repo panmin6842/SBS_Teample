@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossAttack : MonoBehaviour
 {
@@ -17,10 +18,13 @@ public class BossAttack : MonoBehaviour
     [SerializeField] private GameObject skill4Prefab;
     [SerializeField] private GameObject skill5Prefab;
 
+    [SerializeField] private Slider hpSlider;
+
     public bool isAttacking = false;
     private int attack2Count = 0;
     private float range = 0;
 
+    private BossStatus bossStatus;
     private void Awake()
     {
         agent = GetComponent<BehaviorGraphAgent>();
@@ -29,6 +33,7 @@ public class BossAttack : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        bossStatus = GetComponent<BossStatus>();
     }
 
     // Update is called once per frame
@@ -39,8 +44,18 @@ public class BossAttack : MonoBehaviour
         dist = Vector3.Distance(transform.position, player.transform.position);
 
         agent.SetVariableValue("isTargetAppear", dist <= distRange);
+
+        UpdateActCountBar();
     }
 
+    private void UpdateActCountBar()
+    {
+        //acText.text = string.Format("{0} / {1}", curActCount, maxActCount);
+
+        float _curActCount = (float)bossStatus.curHp / (float)bossStatus.maxHp;
+
+        hpSlider.value = Mathf.Lerp(hpSlider.value, _curActCount, Time.deltaTime * 5);
+    }
     public void Attack1()
     {
         StartCoroutine(Attack1Routine());
