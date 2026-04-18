@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public int playerLevel;
     public int skillPoint;
     public int statusPoint;
+    [Header("etcData")]
     public List<int> canBuyCount = new List<int>();
     public bool character1Spawn;
     public bool tutorialClear;
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
     public bool dayTutorial;
     public int dayCount;
     public bool dayEnd; //일차 종료 확인
+    public bool[] possibleDungeon;
+    public int curDungeonNumber;
 
     public MapState mapState = MapState.Village;
     private void Awake()

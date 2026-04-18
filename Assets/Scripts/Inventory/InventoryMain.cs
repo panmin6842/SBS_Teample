@@ -11,7 +11,8 @@ public enum UIType
     Dialogue,
     Store,
     VillageStore,
-    LevelReward
+    LevelReward,
+    DungeonEntry
 }
 
 /// <summary>

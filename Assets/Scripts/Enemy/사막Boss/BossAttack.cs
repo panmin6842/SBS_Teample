@@ -19,10 +19,13 @@ public class BossAttack : MonoBehaviour
     [SerializeField] private GameObject skill5Prefab;
 
     [SerializeField] private Slider hpSlider;
+    [SerializeField] private GameObject[] dropItems;
 
     public bool isAttacking = false;
     private int attack2Count = 0;
     private float range = 0;
+
+    private bool spawn;
 
     private BossStatus bossStatus;
     private void Awake()
@@ -46,6 +49,29 @@ public class BossAttack : MonoBehaviour
         agent.SetVariableValue("isTargetAppear", dist <= distRange);
 
         UpdateActCountBar();
+        Die();
+    }
+
+    private void Die()
+    {
+        if(bossStatus.curHp <= 0)
+        {
+            if (!spawn)
+            {
+                for (int i = 0; i < dropItems.Length; i++)
+                {
+                    Instantiate(dropItems[i], transform.position, Quaternion.identity);
+                }
+                spawn = true;
+            }
+
+            Invoke("ObjDestroy", 0.5f);
+        }
+    }
+
+    private void ObjDestroy()
+    {
+        Destroy(gameObject);
     }
 
     private void UpdateActCountBar()

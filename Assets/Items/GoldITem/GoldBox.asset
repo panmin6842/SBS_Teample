@@ -20,7 +20,7 @@ MonoBehaviour:
   isInteractivity: 0
   isConsumable: 0
   itemType: 65536
-  itemImage: {fileID: 21300000, guid: 738ffac71a7be3f49851e0cef86dd21b, type: 3}
+  itemImage: {fileID: 21300000, guid: 78a357f502b4c85458c8571c1707fa30, type: 3}
   price: 400
   coolTime: 0
   explanation: 

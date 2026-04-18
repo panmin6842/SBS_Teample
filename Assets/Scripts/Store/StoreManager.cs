@@ -15,7 +15,7 @@ public class StoreManager : MonoBehaviour
         VillageStoreSlot();
     }
 
-    public void VillageStoreSlot()
+    private void VillageStoreSlot()
     {
         int count = 0;
         foreach (var slot in villageStoreSlots)
@@ -23,6 +23,19 @@ public class StoreManager : MonoBehaviour
             slot.SetUpSlot(villageStoreItems[count], 1);
             slot.slotNumber = count;
             GameManager.instance.canBuyCount.Add(slot.canBuyCount);
+            count++;
+        }
+    }
+
+    public void VillageStoreReset()
+    {
+        GameManager.instance.canBuyCount.Clear();
+        int count = 0;
+        foreach (var slot in villageStoreSlots)
+        {
+            slot.SetUpSlot(villageStoreItems[count], 1);
+            slot.slotNumber = count;
+            GameManager.instance.canBuyCount.Add(slot.maxCanBuyCount);
             count++;
         }
     }

@@ -34,4 +34,5 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected bool bloodHeal = false;
     [SerializeField] protected bool barrier = false;
     [SerializeField] protected bool stampPassiveSKill3 = false;
+    protected bool playerDie = false;
 }

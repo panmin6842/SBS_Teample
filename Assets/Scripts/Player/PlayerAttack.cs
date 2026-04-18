@@ -91,7 +91,7 @@ public class PlayerAttack : MonoBehaviour
                 attackTime = 0;
             }
         }
-
+        playerProfile.PlayerDie();
     }
 
     public void ChangeAttackDelay(float changePercent)
@@ -304,9 +304,10 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator PlayAndCheck()
     {
+        Time.timeScale = 0;
         yield return new WaitForSecondsRealtime((float)UIManager.Instance.storageDirector.duration);
-        Time.timeScale = 1;
         DialogueManager.instance.OnDialogueComplete -= StorageZoom;
         UIManager.Instance.storageDirector.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }
