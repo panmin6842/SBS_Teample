@@ -30,7 +30,8 @@ public enum ItemType
     MPPotion_Big = 1 << 15,
 
     //°ñµå ¾ÆÀÌÅÛ
-    GoldBox = 1 << 16
+    GoldBox = 1 << 16,
+    Gold = 1 << 17
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "Add Item/Item")]

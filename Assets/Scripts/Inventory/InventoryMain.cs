@@ -80,6 +80,15 @@ public class InventoryMain : InventoryBase
             else if (IsInventoryActive && currentUI == UIType.Inventory)
             {
                 CloseInventory();
+
+                if (!GameManager.instance.inventoryTutorial)
+                {
+                    if (!DialogueManager.instance.start)
+                    {
+                        DialogueManager.instance.OnDialogue(UIManager.Instance.statusExplainDialogue);
+                        GameManager.instance.inventoryTutorial = true;
+                    }
+                }
             }
         }
     }

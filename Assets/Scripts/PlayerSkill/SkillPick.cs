@@ -40,7 +40,7 @@ public class SkillPick : MonoBehaviour, IPointerClickHandler, IPointerEnterHandl
             return skillItem;
         }
     }
-
+    
     private void OnEnable()
     {
         inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();

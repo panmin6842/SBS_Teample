@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 
 public class ItemRaycast : MonoBehaviour
 {
-    private bool isStorageActive = false; //상자를 열수 있나?
-    private bool isStoreActive = false;
-    private bool isVillageStoreActive = false;
+    [SerializeField] private bool isStorageActive = false; //상자를 열수 있나?
+    [SerializeField] private bool isStoreActive = false;
+    [SerializeField] private bool isVillageStoreActive = false;
     private ItemPickUp currentItem; //활성화시 현재 등록된 아이템
 
     [Header("상자 인벤토리")]
@@ -92,17 +92,20 @@ public class ItemRaycast : MonoBehaviour
             if (inventory.currentUI == UIType.None)
             {
                 Window(0f, storageInventory, true, false, true, UIType.Chest, isStorageActive, true);
+
             }
             else if (inventory.currentUI == UIType.Chest)
             {
-                //Time.timeScale = 1f;
-                //storageInventory.SetActive(false);
-                //inventory.playerProfile.SetActive(true);
-                //playerAttack.uiClicking = false;
-                //inventory.currentUI = UIType.None;
-                //isStorageActive = false;
 
                 Window(1f, storageInventory, false, true, false, UIType.None, isStorageActive, false);
+                if (!GameManager.instance.storageTutorial)
+                {
+                    if (!DialogueManager.instance.start)
+                    {
+                        DialogueManager.instance.OnDialogue(UIManager.Instance.inventoryExplainDialogue);
+                        GameManager.instance.storageTutorial = true;
+                    }
+                }
             }
         }
 

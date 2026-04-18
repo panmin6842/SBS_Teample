@@ -771,6 +771,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &363926445 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 861170901083065961, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &406379827 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6682884619278675387, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -918,6 +929,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5271348228686166935, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
   m_PrefabInstance: {fileID: 4011188036222705545}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &433088370 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4011938670582722893, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &462761808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2780175412092687312, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 4011188036222705545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &483876510 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6790411985501361345, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -1565,9 +1598,9 @@ MonoBehaviour:
   profileLevelText: {fileID: 666596663}
   villagePos: {fileID: 0}
   villageCollider: {fileID: 0}
-  swordJobButton: {fileID: 0}
-  bowJobButton: {fileID: 0}
-  stampJobButton: {fileID: 0}
+  swordJobButton: {fileID: 462761808}
+  bowJobButton: {fileID: 433088370}
+  stampJobButton: {fileID: 363926445}
   storeExplainDialogue: {fileID: 0}
   inventoryExplainDialogue: {fileID: 0}
   statusExplainDialogue: {fileID: 0}
@@ -2325,7 +2358,7 @@ PrefabInstance:
     - target: {fileID: 2644834114249008535, guid: b050a41fd5c2ce245b73e70756c87adb, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 23f23f6ce5b79f64d82e3315c7e3f35f, type: 2}
+      objectReference: {fileID: 11400000, guid: 947ba690cccd2e347b1d409303203f01, type: 2}
     - target: {fileID: 2814528312505387481, guid: b050a41fd5c2ce245b73e70756c87adb, type: 3}
       propertyPath: m_Name
       value: ItemTest2 (1)
@@ -3352,7 +3385,7 @@ PrefabInstance:
     - target: {fileID: 6278244916802754773, guid: 14430cb1797213b4594f062eda79afc5, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 8c7d4106266051a41bd1e08d86047f5a, type: 2}
+      objectReference: {fileID: 11400000, guid: dee52350a30e07b43bc6adfb5a9ee82a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3553,6 +3586,10 @@ PrefabInstance:
     - target: {fileID: 6576418812760940053, guid: eac0114bedb819e4da9748d90f4e0377, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689115033821570434, guid: eac0114bedb819e4da9748d90f4e0377, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6839591569014979432, guid: eac0114bedb819e4da9748d90f4e0377, type: 3}
       propertyPath: m_Name
@@ -3794,7 +3831,7 @@ PrefabInstance:
     - target: {fileID: 2644834114249008535, guid: b050a41fd5c2ce245b73e70756c87adb, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 76918d98960f1f446bd726453277cb1c, type: 2}
+      objectReference: {fileID: 11400000, guid: 3fffc202cb860c14cbf872fdf01a5c51, type: 2}
     - target: {fileID: 2814528312505387481, guid: b050a41fd5c2ce245b73e70756c87adb, type: 3}
       propertyPath: m_Name
       value: ItemTest2
@@ -3956,7 +3993,7 @@ PrefabInstance:
     - target: {fileID: 6278244916802754773, guid: 14430cb1797213b4594f062eda79afc5, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 3ab6dd28bae4b4c4ea0e7bc98d4b3364, type: 2}
+      objectReference: {fileID: 11400000, guid: dee52350a30e07b43bc6adfb5a9ee82a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
