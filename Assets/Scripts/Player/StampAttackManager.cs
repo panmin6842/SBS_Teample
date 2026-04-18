@@ -97,6 +97,10 @@ public class StampAttackManager : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("스탬프 기본 직격 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage1);
+                if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage1);
             }
             //Instantiate(hitPrefab, transform.position, Quaternion.identity);
             bomb = true;
@@ -142,6 +146,10 @@ public class StampAttackManager : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             Debug.Log("스탬프 기본 폭발 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+            if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage2);
+            if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                other.gameObject.GetComponent<SealStoneManager>().Damage(damage2);
         }
         yield return new WaitForSeconds(0.5f);
         Destroy(newBomb);

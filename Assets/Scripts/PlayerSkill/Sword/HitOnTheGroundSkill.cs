@@ -67,6 +67,10 @@ public class HitOnTheGroundSkill : MonoBehaviour
                 else if (enemy.CompareTag("Enemy"))
                 {
                     Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
+                    if (enemy.gameObject.GetComponent<MonsterBehavior>() != null)
+                        enemy.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage1);
+                    if (enemy.gameObject.GetComponent<SealStoneManager>() != null)
+                        enemy.gameObject.GetComponent<SealStoneManager>().Damage(damage1);
                 }
                 if (playerProfile.BloodHeal)
                     playerProfile.BloodHealHp(10, damage1);
@@ -92,6 +96,10 @@ public class HitOnTheGroundSkill : MonoBehaviour
         else if (enemy.CompareTag("Enemy"))
         {
             Debug.Log("스킬 : 지면강타" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
+            if (enemy.gameObject.GetComponent<MonsterBehavior>() != null)
+                enemy.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage2);
+            if (enemy.gameObject.GetComponent<SealStoneManager>() != null)
+                enemy.gameObject.GetComponent<SealStoneManager>().Damage(damage2);
             //넉백
             enemyRb.linearVelocity = Vector3.zero;
             Vector3 dist = enemy.transform.position - transform.position;

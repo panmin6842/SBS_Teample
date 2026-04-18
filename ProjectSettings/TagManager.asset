@@ -24,6 +24,8 @@ TagManager:
   - ClearPortal
   - DungeonEntry
   - Map
+  - EnemyAttack
+  - SealStone
   layers:
   - Default
   - TransparentFX

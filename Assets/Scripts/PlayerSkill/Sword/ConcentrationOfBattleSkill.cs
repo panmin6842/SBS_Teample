@@ -54,6 +54,10 @@ public class ConcentrationOfBattleSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("스킬 : 전투 집중" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+                if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
             }
             if (playerProfile.BloodHeal)
                 playerProfile.BloodHealHp(10, damage);

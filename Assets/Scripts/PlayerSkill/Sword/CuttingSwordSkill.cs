@@ -62,6 +62,10 @@ public class CuttingSwordSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("스킬 : 회전베기" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+                if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
             }
             Vector3 hitPoint = other.ClosestPoint(transform.position);
             Instantiate(hitEffect, hitPoint, Quaternion.identity);

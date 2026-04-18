@@ -106,7 +106,7 @@ public class BarrierSkill : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //공격당하는걸 임시로 적에 닿았을경우로 함
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("EnemyAttack"))
         {
             barrierHp -= 5;
         }
