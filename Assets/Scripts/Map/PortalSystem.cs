@@ -43,6 +43,7 @@ public class PortalSystem : MonoBehaviour
         portalManager.PortalEffectImage.gameObject.SetActive(true);
         portalManager.PlayerObject.transform.position = portalManager.PlayerTpSpotTransform.position;
         portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
+        portalManager.isCleared = true;
 
         switch (direction)
         {

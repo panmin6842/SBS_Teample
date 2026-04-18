@@ -37,9 +37,11 @@ public class StageManager : MonoBehaviour
 
     public HashSet<Vector2Int> StagePositions = new HashSet<Vector2Int>();
     public List<Vector2Int> surroundStagePositions = new List<Vector2Int>();
+    [Space(10f)]
     public Vector2Int curStagePos;
     public StageType curStageType;
-    public int curStageMonsterCount;
+    public bool curStageCleared;
+    public List<GameObject> curStageSpawnPrefabs = new List<GameObject>();
 
     [SerializeField] GameObject Player;
 

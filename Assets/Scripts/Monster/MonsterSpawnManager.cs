@@ -18,7 +18,6 @@ public class MonsterSpawnManager : MonoBehaviour
 {
     public static MonsterSpawnManager instance;
 
-    [SerializeField] List<GameObject> MonsterPrefabs;
     public List<GameObject> CurrentAliveMonsters;
 
     StageManager stageManager;
@@ -37,32 +36,43 @@ public class MonsterSpawnManager : MonoBehaviour
 
     void Update()
     {
-        if (stageManager.curStageType == StageType.Normal)
+        if (!stageManager.curStageCleared)
         {
-            if (isMonsterSpawn)
+            if (stageManager.curStageType == StageType.Normal)
             {
-                isMonsterSpawn = false;
-                for (int i = 0; i < stageManager.curStageMonsterCount; i++)
+                if (isMonsterSpawn)
                 {
-                    Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
-                    GameObject monster = Instantiate(MonsterPrefabs[0], spawnPos, Quaternion.identity);
-                    CurrentAliveMonsters.Add(monster);
-                }
-            }
-
-            if (CurrentAliveMonsters.Count > 0)
-            {
-                for (int i = 0; i < CurrentAliveMonsters.Count; i++)
-                {
-                    if (CurrentAliveMonsters[i] == null)
+                    isMonsterSpawn = false;
+                    for (int i = 0; i < stageManager.curStageSpawnPrefabs.Count; i++)
                     {
-                        CurrentAliveMonsters.RemoveAt(i);
+                        Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
+                        GameObject monster = Instantiate(stageManager.curStageSpawnPrefabs[i], spawnPos, Quaternion.identity);
+                        CurrentAliveMonsters.Add(monster);
                     }
-                }
+                } //몬스터 스폰 로직
 
-                stageManager.activePortal = false;
+                if (CurrentAliveMonsters.Count > 0)
+                {
+                    for (int i = 0; i < CurrentAliveMonsters.Count; i++)
+                    {
+                        if (CurrentAliveMonsters[i] == null)
+                        {
+                            CurrentAliveMonsters.RemoveAt(i);
+                        }
+                    }
+
+                    stageManager.activePortal = false;
+                } //몬스터 생존 여부 확인
+                else if (CurrentAliveMonsters.Count == 0)
+                {
+                    stageManager.activePortal = true;
+                }
             }
-            else if (CurrentAliveMonsters.Count == 0)
+            else if (stageManager.curStageType == StageType.None)
+            {
+                stageManager.curStageCleared = true;
+            }
+            else
             {
                 stageManager.activePortal = true;
             }
