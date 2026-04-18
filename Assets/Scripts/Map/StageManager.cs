@@ -7,7 +7,8 @@ enum PortalDirection
     Front,
     Back,
     Left,
-    Right
+    Right,
+    Clear
 }
 
 public enum StageType
@@ -43,7 +44,7 @@ public class StageManager : MonoBehaviour
     public bool curStageCleared;
     public List<GameObject> curStageSpawnPrefabs = new List<GameObject>();
 
-    [SerializeField] GameObject Player;
+    public GameObject Player;
 
     public bool activePortal;
 

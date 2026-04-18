@@ -12,6 +12,11 @@ public class MinimapFollow : MonoBehaviour
 
     void Update()
     {
+        if (player != null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+
         transform.position = new Vector3(player.position.x, transform.position.y, player.position.z);
     }
 }

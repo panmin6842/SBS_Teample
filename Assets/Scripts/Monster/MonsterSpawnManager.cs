@@ -20,7 +20,7 @@ public class MonsterSpawnManager : MonoBehaviour
 
     public List<GameObject> CurrentAliveMonsters;
 
-    StageManager stageManager;
+    public StageManager stageManager;
 
     public bool isMonsterSpawn;
 

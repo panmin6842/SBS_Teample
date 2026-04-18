@@ -317,6 +317,18 @@ public class PlayerProfile : PlayerState
         }
     }
 
+    public bool PlayerDeadCheck()
+    {
+        if (curHp <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void ActCountDie()
     {
         int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.3f);
