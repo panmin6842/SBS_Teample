@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SealStoneManager : MonoBehaviour
 {
-    [SerializeField] private float hp = 100;
+    [SerializeField] private float hp;
     private void Update()
     {
         if(hp <= 0)
