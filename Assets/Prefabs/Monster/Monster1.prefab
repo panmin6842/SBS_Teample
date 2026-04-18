@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2094727433475138368}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: -1, z: 2}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 2461353008764724481}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: -1, z: 2}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -260,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 3563245176421112119}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 1.3}
+  m_LocalPosition: {x: 0, y: -1, z: 1.3}
   m_LocalScale: {x: 3, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -382,13 +382,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3696829531133916730}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 727716842397002836}
-  m_LocalEulerAnglesHint: {x: -50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3969643461785696652
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32bb59fde5747d2419fe2bce1c5cbd61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -456,6 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2d7b560799d654686f1945bf4ebb1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animstate: 0
 --- !u!95 &1831184564737363906
 Animator:
   serializedVersion: 7
@@ -491,7 +492,7 @@ GameObject:
   - component: {fileID: 1062322536702520312}
   - component: {fileID: 3934076677850434725}
   - component: {fileID: 5369217038127327188}
-  - component: {fileID: 7599304579600798143}
+  - component: {fileID: 5843813737772484036}
   m_Layer: 7
   m_Name: Monster1
   m_TagString: Enemy
@@ -597,6 +598,7 @@ MonoBehaviour:
   ThrustAttackEffect: {fileID: 2094727433475138368}
   attackTimer: 0
   isAttacking: 0
+  Player: {fileID: 0}
 --- !u!54 &5369217038127327188
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -624,8 +626,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &7599304579600798143
-BoxCollider:
+--- !u!136 &5843813737772484036
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -642,9 +644,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.64042497
+  m_Height: 3.4214363
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.2889731, z: 0}
 --- !u!1 &8140052738628764912
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +676,7 @@ Transform:
   m_GameObject: {fileID: 8140052738628764912}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 1.3}
+  m_LocalPosition: {x: 0, y: -1, z: 1.3}
   m_LocalScale: {x: 3, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -17,10 +17,13 @@ public struct MonsterStatData
 public class MonsterSpawnManager : MonoBehaviour
 {
     public static MonsterSpawnManager instance;
+
     [SerializeField] List<GameObject> MonsterPrefabs;
     public List<GameObject> CurrentAliveMonsters;
 
     StageManager stageManager;
+
+    public bool isMonsterSpawn;
 
     private void Awake()
     {
@@ -30,26 +33,41 @@ public class MonsterSpawnManager : MonoBehaviour
 
     void Start()
     {
-        GameObject monster = Instantiate(MonsterPrefabs[0], new Vector3(0, 2, 0), Quaternion.identity);
-        CurrentAliveMonsters.Add(monster);
     }
 
     void Update()
     {
-
-        if (CurrentAliveMonsters.Count > 0)
+        if (stageManager.curStageType == StageType.Normal)
         {
-            for (int i = 0; i < CurrentAliveMonsters.Count; i++)
+            if (isMonsterSpawn)
             {
-                if (CurrentAliveMonsters[i] == null)
+                isMonsterSpawn = false;
+                for (int i = 0; i < stageManager.curStageMonsterCount; i++)
                 {
-                    CurrentAliveMonsters.RemoveAt(i);
+                    Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
+                    GameObject monster = Instantiate(MonsterPrefabs[0], spawnPos, Quaternion.identity);
+                    CurrentAliveMonsters.Add(monster);
                 }
             }
 
-            stageManager.activePortal = false;
+            if (CurrentAliveMonsters.Count > 0)
+            {
+                for (int i = 0; i < CurrentAliveMonsters.Count; i++)
+                {
+                    if (CurrentAliveMonsters[i] == null)
+                    {
+                        CurrentAliveMonsters.RemoveAt(i);
+                    }
+                }
+
+                stageManager.activePortal = false;
+            }
+            else if (CurrentAliveMonsters.Count == 0)
+            {
+                stageManager.activePortal = true;
+            }
         }
-        else if (CurrentAliveMonsters.Count == 0)
+        else
         {
             stageManager.activePortal = true;
         }
