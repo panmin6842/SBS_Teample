@@ -23,6 +23,7 @@ public class StoreSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public int itemCount; //획득한 아이템 개수
     public int canBuyCount; //구매 가능 횟수
+    [SerializeField] private int maxCanBuyCount; //구매 가능 횟수
     public int slotNumber; //슬롯 번호
 
     [SerializeField] private bool thisVillageStore; //이 슬롯이 마을 상점 슬롯인지 확인

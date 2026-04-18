@@ -12,6 +12,7 @@ public class DayManager : MonoBehaviour
     public Vector3 nightSunRotation;
 
     private StorageToInventory storageToInventory;
+    private StoreManager storeManager;
 
     public static DayManager instance;
 
@@ -23,6 +24,7 @@ public class DayManager : MonoBehaviour
     private void Start()
     {
         storageToInventory = GameObject.Find("InventorySystem").GetComponent<StorageToInventory>();
+        storeManager = GameObject.Find("InventorySystem").GetComponent<StoreManager>();
         dayEndButton.interactable = false;
         daySunRotation = new Vector3(50, -30, 0);
         nightSunRotation = new Vector3(-49, -195, -11);
@@ -35,6 +37,7 @@ public class DayManager : MonoBehaviour
         GameManager.instance.dayCount++;
         dayText.text = GameManager.instance.dayCount.ToString();
         GameManager.instance.dayEnd = true;
+        storeManager.VillageStoreSlot();
 
         if (!GameManager.instance.dayTutorial)
         {
@@ -45,11 +48,6 @@ public class DayManager : MonoBehaviour
                 GameManager.instance.dayTutorial = true;
             }
         }
-    }
-
-    private void VillageStoreReset()
-    {
-
     }
 
     private void PortalZoom()

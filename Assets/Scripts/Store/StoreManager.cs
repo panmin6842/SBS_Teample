@@ -15,7 +15,7 @@ public class StoreManager : MonoBehaviour
         VillageStoreSlot();
     }
 
-    private void VillageStoreSlot()
+    public void VillageStoreSlot()
     {
         int count = 0;
         foreach (var slot in villageStoreSlots)
