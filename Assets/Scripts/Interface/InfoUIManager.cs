@@ -22,8 +22,10 @@ public class InfoUIManager : MonoBehaviour
 
     public void PlayerUIClick()
     {
+        PlayerProfile playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
         skillUI.SetActive(false);
         statusUI.SetActive(false);
         playerUI.SetActive(true);
+        playerProfile.StateTestText();
     }
 }

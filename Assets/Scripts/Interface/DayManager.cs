@@ -42,7 +42,7 @@ public class DayManager : MonoBehaviour
 
     public void DayEnd()
     {
-        if (UIManager.Instance.inventory.currentUI == UIType.None)
+        if (UIManager.Instance.inventory.currentUI == UIType.None && GameManager.instance.itemGetAll)
         {
             dayEndButton.interactable = false;
             sunLight.transform.rotation = Quaternion.Euler(daySunRotation);
@@ -52,6 +52,7 @@ public class DayManager : MonoBehaviour
             GameManager.instance.dayEnd = true;
             storeManager.VillageStoreReset();
             playerProfile.ActCountReset();
+            StoreManager.Instance.ReFreshShop();
 
             if (!GameManager.instance.dayTutorial)
             {

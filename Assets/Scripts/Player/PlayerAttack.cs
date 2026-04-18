@@ -1,6 +1,5 @@
 using System.Collections;
 using Unity.Cinemachine;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,9 +22,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Sprite[] profileImages;
     [SerializeField] private SpriteRenderer playerSpriteRenderer;
     [Header("직업 별 애니메이션 컨드롤러")]
-    [SerializeField] private AnimatorController swordAnimation;
-    [SerializeField] private AnimatorController stampAnimation;
-    [SerializeField] private AnimatorController bowAnimation;
+    [SerializeField] private RuntimeAnimatorController swordAnimation;
+    [SerializeField] private RuntimeAnimatorController stampAnimation;
+    [SerializeField] private RuntimeAnimatorController bowAnimation;
 
     float rotateSpeed = 100f;
     float maxRotateSpeed = 100f;
@@ -217,7 +216,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     private void StateDecision(float _attackDelay, float _shotDistance, float _power, bool _attack, Job _curJob,
-        float setHp, float setATK, float setDEF, int profile, AnimatorController animation)
+        float setHp, float setATK, float setDEF, int profile, RuntimeAnimatorController animation)
     {
         playerProfile = GetComponent<PlayerProfile>();
         originattackDelay = _attackDelay;

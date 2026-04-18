@@ -51,6 +51,10 @@ public class PortalManager : MonoBehaviour
             PlayerObject = GameObject.FindGameObjectWithTag("Player");
 
         PortalEffectImage = UIManager.Instance.fade.GetComponent<Image>();
+        if(MainCameraObject == null)
+        {
+            MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+        }
     }
 
     void Update()

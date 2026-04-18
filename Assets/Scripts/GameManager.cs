@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public enum MapState
@@ -32,9 +31,8 @@ public class GameManager : MonoBehaviour
     public float a_skillCoolTime;
     public float e_critical;
     public float a_critical;
-    public AnimatorController curAnimation;
+    public RuntimeAnimatorController curAnimation;
     public int gold;
-    public int playerLevel;
     public int skillPoint;
     public int statusPoint;
     [Header("etcData")]
@@ -47,6 +45,7 @@ public class GameManager : MonoBehaviour
     public int dayCount;
     public bool dayEnd; //일차 종료 확인
     public bool[] possibleDungeon;
+    public bool itemGetAll;
     public int curDungeonNumber;
 
     public MapState mapState = MapState.Village;
