@@ -16,7 +16,7 @@ public class JobChoice : MonoBehaviour
     private void OnEnable()
     {
         slots = skillSlotParent.GetComponentsInChildren<SkillPick>();
-        playerAttack = GameObject.Find("Player").GetComponent<PlayerAttack>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
 
         JobChoiceCheck();
     }

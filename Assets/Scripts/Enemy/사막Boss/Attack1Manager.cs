@@ -7,7 +7,7 @@ public class Attack1Manager : MonoBehaviour
     private float stopDist = 15.0f;
     private float moveSpeed = 5.0f;
 
-    float damage;
+    int damage;
 
     private Vector3 firstPos;
     private float dist;
@@ -19,7 +19,7 @@ public class Attack1Manager : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = 5;
+            
         }
     }
 
@@ -39,7 +39,9 @@ public class Attack1Manager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            damage = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossStatus>().atk;
             Debug.Log("스킬 : 1" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            playerProfile.GetDamage(damage);
             Destroy(gameObject);
         }
     }

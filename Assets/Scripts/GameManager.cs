@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [Header("PlayerData")]
     public string nickName;
     public int level;
+    public int curLevel;
     public Job job;
     public int hpPoint;
     public int atkPoint;
@@ -35,9 +36,15 @@ public class GameManager : MonoBehaviour
     public int gold;
     public int playerLevel;
     public int skillPoint;
+    public int statusPoint;
     public List<int> canBuyCount = new List<int>();
     public bool character1Spawn;
     public bool tutorialClear;
+    public bool storageTutorial;
+    public bool inventoryTutorial;
+    public bool dayTutorial;
+    public int dayCount;
+    public bool dayEnd; //일차 종료 확인
 
     public MapState mapState = MapState.Village;
     private void Awake()

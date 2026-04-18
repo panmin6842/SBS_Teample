@@ -21,6 +21,7 @@ TagManager:
   - EnemyTestAtack
   - PortalManager
   - Boss
+  - ClearPortal
   layers:
   - Default
   - TransparentFX

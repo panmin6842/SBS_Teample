@@ -2,13 +2,20 @@ using UnityEngine;
 
 public class BossStatus : MonoBehaviour
 {
-    [SerializeField] private float hp;
-    [SerializeField] private float atk;
-    [SerializeField] private float def;
+    public float maxHp;
+    public float curHp;
+    public int atk;
+    public float def;
+    public float critical;
+
+    private void Awake()
+    {
+        
+    }
 
     public void GetDamage(float pDamage)
     {
-        float damage = pDamage; //방어력 포함된 데미지 넣기
-        hp -= damage;
+        float damage = pDamage * (1 - def);
+        curHp -= damage;
     }
 }

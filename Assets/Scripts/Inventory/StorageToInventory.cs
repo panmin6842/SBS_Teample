@@ -45,23 +45,40 @@ public class StorageToInventory : MonoBehaviour
                 //중첩 가능하면
                 if (allSlots[i].Item.CanOverlap)
                 {
-                    for (int j = 0; j < e_InventorySlots.Length; j++)
+                    if (allSlots[i].Item.Type == ItemType.Gold)
                     {
-
-                        if (p_InventorySlots[pCount].Item == null && p_InventorySlots[pCount].IsMask(allSlots[i].Item))
+                        for (int g = 0; g <= allSlots[i].itemCount; g++)
                         {
-                            p_InventorySlots[pCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
-                            allSlots[i].ClearSlot();
-                            pCount++;
-                            break;
-                        }
-                        else if (p_InventorySlots[pCount].Item != null && p_InventorySlots[pCount].IsMask(allSlots[i].Item))
-                        {
-                            if (p_InventorySlots[pCount].Item.ItemID == allSlots[i].Item.ItemID)
+                            int random = Random.Range(allSlots[i].Item.MinGold, allSlots[i].Item.MaxGold);
+                            GameManager.instance.gold += random;
+                            inventory.goldText.text = "Gold : " + GameManager.instance.gold.ToString();
+                            allSlots[i].itemCount--;
+                            if (allSlots[i].itemCount <= 0)
                             {
-                                p_InventorySlots[pCount].UpdateSlotCount(allSlots[i].itemCount);
                                 allSlots[i].ClearSlot();
                                 break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < e_InventorySlots.Length; j++)
+                        {
+                            if (p_InventorySlots[pCount].Item == null && p_InventorySlots[pCount].IsMask(allSlots[i].Item))
+                            {
+                                p_InventorySlots[pCount].AddItem(allSlots[i].Item, allSlots[i].itemCount);
+                                allSlots[i].ClearSlot();
+                                pCount++;
+                                break;
+                            }
+                            else if (p_InventorySlots[pCount].Item != null && p_InventorySlots[pCount].IsMask(allSlots[i].Item))
+                            {
+                                if (p_InventorySlots[pCount].Item.ItemID == allSlots[i].Item.ItemID)
+                                {
+                                    p_InventorySlots[pCount].UpdateSlotCount(allSlots[i].itemCount);
+                                    allSlots[i].ClearSlot();
+                                    break;
+                                }
                             }
                         }
                     }
@@ -97,6 +114,10 @@ public class StorageToInventory : MonoBehaviour
                 }
             }
         }
+        GameManager.instance.level += GameManager.instance.curLevel;
+        UIManager.Instance.profileLevelText.text = "LV." + GameManager.instance.level.ToString();
+        
+
     }
 
     /// <summary>

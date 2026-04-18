@@ -560,6 +560,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c20442f81e6a947915c9532dfa05ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStorageActive: 0
+  isStoreActive: 0
+  isVillageStoreActive: 0
 --- !u!114 &6011735589120359625
 MonoBehaviour:
   m_ObjectHideFlags: 0

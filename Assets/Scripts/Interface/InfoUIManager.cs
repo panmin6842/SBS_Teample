@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class InfoUIManager : MonoBehaviour
@@ -5,7 +6,6 @@ public class InfoUIManager : MonoBehaviour
     [SerializeField] private GameObject skillUI;
     [SerializeField] private GameObject statusUI;
     [SerializeField] private GameObject playerUI;
-
     public void SkillUIClick()
     {
         skillUI.SetActive(true);

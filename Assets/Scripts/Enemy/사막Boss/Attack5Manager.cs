@@ -6,7 +6,7 @@ public class Attack5Manager : MonoBehaviour
 
     private float rotateSpeed = 80f;
 
-    private float damage;
+    private int damage;
 
     private float timer;
 
@@ -17,7 +17,7 @@ public class Attack5Manager : MonoBehaviour
 
         if (playerProfile != null)
         {
-            damage = 5;
+            
         }
     }
 
@@ -41,6 +41,8 @@ public class Attack5Manager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("스킬 : 5" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
+            damage = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossStatus>().atk;
+            playerProfile.GetDamage(damage);
         }
     }
 }

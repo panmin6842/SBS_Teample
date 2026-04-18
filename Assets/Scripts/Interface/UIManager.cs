@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
     public JobChoice jobChoice;
     public GameObject storageInventroy;
     public InventoryMain inventory;
+    public GameObject player;
 
     [Header("HP관련 오브젝트")]
     public Image hpBackground;
@@ -43,6 +45,21 @@ public class UIManager : MonoBehaviour
     [Header("프로필 관련 오브젝트")]
     public TextMeshProUGUI profileNameText;
     public TextMeshProUGUI profileLevelText;
+    [Header("마을장소 위치")]
+    public Transform villagePos;
+    public BoxCollider villageCollider;
+    [Header("직업 선택 버튼")]
+    public Button swordJobButton;
+    public Button bowJobButton;
+    public Button stampJobButton;
+    [Header("대사")]
+    public DialogueGroup storeExplainDialogue;
+    public DialogueGroup inventoryExplainDialogue;
+    public DialogueGroup statusExplainDialogue;
+    public DialogueGroup endExplainDialogue;
+    [Header("연출 타임라인")]
+    public PlayableDirector storageDirector;
+    public PlayableDirector portalDirector;
 
     private void Awake()
     {

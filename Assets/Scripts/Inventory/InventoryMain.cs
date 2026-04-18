@@ -51,9 +51,7 @@ public class InventoryMain : InventoryBase
         uiActionMap.Enable();
         uiActionMap.FindAction("OpenInventory").performed += OnOpenInventory;
         uiActionMap.FindAction("ESC").performed += OnESC;
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerAttack = player.GetComponent<PlayerAttack>();
-        itemRaycast = player.GetComponent<ItemRaycast>();
+        
     }
 
     private void OnDisable()
@@ -65,18 +63,33 @@ public class InventoryMain : InventoryBase
             uiActionMap.Disable();
         }
     }
-
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerAttack = player.GetComponent<PlayerAttack>();
+        itemRaycast = player.GetComponent<ItemRaycast>();
+    }
     private void OnOpenInventory(InputAction.CallbackContext value)
     {
-        //옵션이 켜저있는 경우 활성화 안 함 나중에 작성
+        if (GameManager.instance.storageTutorial)
+        {
+            if (!IsInventoryActive && currentUI == UIType.None && GameManager.instance.mapState == MapState.Village)
+            {
+                OpenInventory();
+            }
+            else if (IsInventoryActive && currentUI == UIType.Inventory)
+            {
+                CloseInventory();
 
-        if (!IsInventoryActive && currentUI == UIType.None && GameManager.instance.mapState == MapState.Village)
-        {
-            OpenInventory();
-        }
-        else if (IsInventoryActive && currentUI == UIType.Inventory)
-        {
-            CloseInventory();
+                if (!GameManager.instance.inventoryTutorial)
+                {
+                    if (!DialogueManager.instance.start)
+                    {
+                        DialogueManager.instance.OnDialogue(UIManager.Instance.statusExplainDialogue);
+                        GameManager.instance.inventoryTutorial = true;
+                    }
+                }
+            }
         }
     }
 
