@@ -34,6 +34,7 @@ public class DungeonEntryManager : MonoBehaviour, IPointerClickHandler
             ui.SetActive(false);
             GameManager.instance.dayEnd = false;
             GameManager.instance.itemGetAll = false;
+            GameManager.instance.mapState = MapState.Stage;
             Invoke("PlayerMove", 0.5f);
         }
     }

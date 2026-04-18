@@ -109,7 +109,7 @@ public class ItemRaycast : MonoBehaviour
             }
         }
 
-        if (isStoreActive && GameManager.instance.mapState == MapState.Village)
+        if (isStoreActive && GameManager.instance.mapState == MapState.Stage)
         {
             if (inventory.currentUI == UIType.None)
             {

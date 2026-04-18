@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class StoreManager : MonoBehaviour
@@ -7,6 +8,9 @@ public class StoreManager : MonoBehaviour
     public List<StoreSlot> storeSlots;
     [SerializeField] private List<StoreSlot> villageStoreSlots;
     [SerializeField] private Item[] villageStoreItems;
+
+    [SerializeField] private TextMeshProUGUI storeGoldText;
+    [SerializeField] private TextMeshProUGUI villagestoreGoldText;
 
     private List<Item> currentPickedItems = new List<Item>(); //현재 상점에 진열된 아이템을 기억하는 리스트
 
@@ -20,6 +24,12 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         VillageStoreSlot();
+    }
+
+    private void Update()
+    {
+        storeGoldText.text = GameManager.instance.gold.ToString();
+        villagestoreGoldText.text = GameManager.instance.gold.ToString();
     }
 
     private void VillageStoreSlot()

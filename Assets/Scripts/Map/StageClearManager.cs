@@ -21,19 +21,21 @@ public class StageClearManager : MonoBehaviour
                 GameManager.instance.curLevel++;
                 GameObject tMap = GameObject.FindGameObjectWithTag("Map");
                 Destroy(tMap);
+                DayManager.instance.sunLight.transform.rotation
+                = Quaternion.Euler(DayManager.instance.nightSunRotation);
+                DayManager.instance.curDay = Day.night;
                 return;
             }
             GameManager.instance.possibleDungeon[GameManager.instance.curDungeonNumber] = true;
             GameManager.instance.statusPoint++;
             GameManager.instance.curLevel++;
 
-            transform.position = UIManager.Instance.villagePos.position;
+            GameObject.FindGameObjectWithTag("Player").transform.position = UIManager.Instance.villagePos.position;
             GameManager.instance.mapState = MapState.Village;
             UIManager.Instance.virtualCamera.GetComponent<CinemachineConfiner3D>().BoundingVolume
                 = UIManager.Instance.villageCollider;
             DayManager.instance.sunLight.transform.rotation
                 = Quaternion.Euler(DayManager.instance.nightSunRotation);
-
             DayManager.instance.curDay = Day.night;
             GameObject map = GameObject.FindGameObjectWithTag("Map");
             Destroy(map);

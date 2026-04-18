@@ -333,7 +333,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &5964507557939571731
 MonoBehaviour:
@@ -632,6 +632,7 @@ GameObject:
   - component: {fileID: 3258517776704672522}
   - component: {fileID: 8145898964079825492}
   - component: {fileID: 2001706109708956200}
+  - component: {fileID: 8851167843980734486}
   m_Layer: 5
   m_Name: Explanation
   m_TagString: Untagged
@@ -757,6 +758,29 @@ MonoBehaviour:
   m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!223 &8851167843980734486
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556963949504863228}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 5
+  m_TargetDisplay: 0
 --- !u!1 &5649404819829523265
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,6 +880,7 @@ MonoBehaviour:
   explanToolTip: {fileID: 1848539747300498692}
   explainText: {fileID: 2001706109708956200}
   skillName: {fileID: 2173639218725570730}
+  clearSuccess: 0
   install: 0
 --- !u!1 &6594044434278757253
 GameObject:
@@ -1165,7 +1190,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!1 &8976154554941666725
 GameObject:
@@ -1178,6 +1203,7 @@ GameObject:
   - component: {fileID: 3310579980429086008}
   - component: {fileID: 4915194249293460062}
   - component: {fileID: 2173639218725570730}
+  - component: {fileID: 6683794070309391010}
   m_Layer: 5
   m_Name: ExplanationName
   m_TagString: Untagged
@@ -1303,3 +1329,26 @@ MonoBehaviour:
   m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!223 &6683794070309391010
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8976154554941666725}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 5
+  m_TargetDisplay: 0
