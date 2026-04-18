@@ -44,13 +44,7 @@ public class MonsterSpawnManager : MonoBehaviour
             {
                 if (isMonsterSpawn)
                 {
-                    isMonsterSpawn = false;
-                    for (int i = 0; i < stageManager.curStageSpawnPrefabs.Count; i++)
-                    {
-                        Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
-                        GameObject monster = Instantiate(stageManager.curStageSpawnPrefabs[i], spawnPos, Quaternion.identity);
-                        CurrentAliveMonsters.Add(monster);
-                    }
+                    SpawnGrid();
                 } //몬스터 스폰 로직
 
                 if (CurrentAliveMonsters.Count > 0)
@@ -82,6 +76,38 @@ public class MonsterSpawnManager : MonoBehaviour
         else
         {
             stageManager.activePortal = true;
+        }
+    }
+
+    void SpawnGrid()
+    {
+        int gridSize = Mathf.CeilToInt(Mathf.Sqrt(stageManager.curStageSpawnPrefabs.Count));
+        float spacing = 2f;
+
+        int count = 0;
+
+        isMonsterSpawn = false;
+
+        for (int i = 0; i < stageManager.curStageSpawnPrefabs.Count; i++)
+        {
+            for (int x = 0; x < gridSize; x++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
+                    if (count >= stageManager.curStageSpawnPrefabs.Count) return;
+
+                    Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
+                    GameObject monster = Instantiate(stageManager.curStageSpawnPrefabs[i], spawnPos, Quaternion.identity);
+                    Debug.Log("몬스터 스폰: " + monster.name);
+                    CurrentAliveMonsters.Add(monster);
+
+                    Vector3 pos = new Vector3(x * spacing, 0, z * spacing);
+                    monster.transform.position += pos;
+                    Debug.Log("몬스터 위치: " + monster.transform.position);
+
+                    count++;
+                }
+            }
         }
     }
 
