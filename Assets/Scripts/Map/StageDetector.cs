@@ -35,7 +35,8 @@ public class StageDetector : MonoBehaviour
             stageManager.curStageType = portalManager.stageType;
             stageManager.monsterSpawnManager.isMonsterSpawn = true;
             stageManager.activePortal = false;
-            stageManager.curStageMonsterCount = portalManager.MonsterCount;
+            stageManager.curStageCleared = portalManager.isCleared;
+            stageManager.curStageSpawnPrefabs = portalManager.SpawnPrefabs;
         }
     }
 

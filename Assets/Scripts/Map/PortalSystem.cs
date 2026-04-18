@@ -18,10 +18,10 @@ public class PortalSystem : MonoBehaviour
 
     void Update()
     {
-        //if (portalManager == null)
-        //{
-        //    portalManager = GetComponentInParent<PortalManager>();
-        //}
+        if (portalManager == null)
+        {
+            portalManager = GetComponentInParent<PortalManager>();
+        }
 
         if (stageManager == null && StageManager.instance != null)
         {
@@ -59,6 +59,7 @@ public class PortalSystem : MonoBehaviour
         }
         player.transform.position = portalManager.PlayerTpSpotTransform.position;
         portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
+        portalManager.isCleared = true;
 
         switch (direction)
         {

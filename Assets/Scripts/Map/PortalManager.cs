@@ -12,7 +12,9 @@ public enum WallDirection
 
 public class PortalManager : MonoBehaviour
 {
-    public int MonsterCount;
+    public StageType stageType;
+    public List<GameObject> SpawnPrefabs = new List<GameObject>();
+    public bool isCleared;
     [Space(10f)]
     public bool isPortalActive;
     [Space(10f)]
@@ -21,7 +23,6 @@ public class PortalManager : MonoBehaviour
     public Transform PlayerTpSpotTransform;
     public Transform MainCameraTpSpotTransform;
     [Space(10f)]
-    public StageType stageType;
     public Dictionary<WallDirection, GameObject> NearStage = new Dictionary<WallDirection, GameObject>();
 
 
