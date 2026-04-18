@@ -27,6 +27,19 @@ public class StoreManager : MonoBehaviour
         }
     }
 
+    public void VillageStoreReset()
+    {
+        GameManager.instance.canBuyCount.Clear();
+        int count = 0;
+        foreach (var slot in villageStoreSlots)
+        {
+            slot.SetUpSlot(villageStoreItems[count], 1);
+            slot.slotNumber = count;
+            GameManager.instance.canBuyCount.Add(slot.maxCanBuyCount);
+            count++;
+        }
+    }
+
     [ContextMenu("Refresh Store")]
     public void ReFreshShop()
     {

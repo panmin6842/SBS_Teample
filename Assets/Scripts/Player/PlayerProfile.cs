@@ -95,6 +95,13 @@ public class PlayerProfile : PlayerState
         criticalTestText.text = critical.ToString();
     }
 
+    public void AnimationReset()
+    {
+        ani.SetBool("isWalk", false);
+        ani.ResetTrigger("Attack1");
+        ani.ResetTrigger("Attack2");
+    }
+
     //Hit «¡∏Æ∆È º“»Ø
     public void SwordSkillHit(Vector3 hitPoint)
     {
@@ -280,8 +287,32 @@ public class PlayerProfile : PlayerState
     {
         if (curHp <= 0)
         {
-            curHp = 0;
+            StartCoroutine(Die());
         }
+    }
+
+    IEnumerator Die()
+    {
+        playerDie = true;
+        curHp = 0;
+        yield return new WaitForSeconds(1);
+        if (playerDie)
+        {
+            curActCount -= 5;
+            int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.1f);
+            GameManager.instance.gold -= GoldDown;
+            Vector3 spawnPos = GameObject.FindGameObjectWithTag("DungeonEntry").GetComponent<Transform>().position;
+            transform.position = spawnPos;
+            curHp = maxHp;
+            playerDie = false;
+        }
+    }
+
+    public void ActCountDie()
+    {
+        int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.3f);
+        GameManager.instance.gold -= GoldDown;
+        transform.position = UIManager.Instance.villagePos.position;
     }
 
     public void SelfHpDamage(float damagePercent)
@@ -382,6 +413,16 @@ public class PlayerProfile : PlayerState
         curActCount -= actCount;
 
         curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+
+        if(curActCount <= 0)
+        {
+            ActCountDie();
+        }
+    }
+
+    public void ActCountReset()
+    {
+        curActCount = maxActCount;
     }
 
     public void LevelUp(int levelCount)

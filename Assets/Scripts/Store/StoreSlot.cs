@@ -23,6 +23,7 @@ public class StoreSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public int itemCount; //획득한 아이템 개수
     public int canBuyCount; //구매 가능 횟수
+    public int maxCanBuyCount; //구매 가능 횟수
     public int slotNumber; //슬롯 번호
 
     [SerializeField] private bool thisVillageStore; //이 슬롯이 마을 상점 슬롯인지 확인
@@ -57,6 +58,7 @@ public class StoreSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void SetUpSlot(Item r_item, int count)
     {
         AddItem(r_item, count);
+        canBuyCount = maxCanBuyCount;
         buyButton.interactable = true;
     }
 
@@ -138,7 +140,7 @@ public class StoreSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void BuyClick()
     {
-        if (item != null)
+        if (item != null && GameManager.instance.gold >= item.Price)
         {
             storageToInventory.BuyProduct(this);
             int newGold = GameManager.instance.gold -= item.Price;

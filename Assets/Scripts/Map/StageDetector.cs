@@ -41,6 +41,7 @@ public class StageDetector : MonoBehaviour
 
     IEnumerator StageChangeCoroutine()
     {
+        yield return new WaitForSecondsRealtime(0.5f);
         portalManager.PortalEffectImage.gameObject.SetActive(true);
         //yield return new WaitForSeconds(0.5f);
         Color c = Color.black;

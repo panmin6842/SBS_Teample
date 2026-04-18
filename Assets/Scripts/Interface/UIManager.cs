@@ -60,6 +60,8 @@ public class UIManager : MonoBehaviour
     [Header("연출 타임라인")]
     public PlayableDirector storageDirector;
     public PlayableDirector portalDirector;
+    [Header("페이트 이미지")]
+    public GameObject fade;
 
     private void Awake()
     {

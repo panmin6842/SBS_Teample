@@ -464,6 +464,8 @@ MonoBehaviour:
   skill4Prefab: {fileID: 7113899340785324189, guid: 9482b78e288f4a644b03589a13e8edf9, type: 3}
   skill5Prefab: {fileID: 1590492149396855641, guid: 1da5fcf8689b5474e86df848d979fb4d, type: 3}
   hpSlider: {fileID: 5203286363285940298}
+  dropItems:
+  - {fileID: 4084295170943574036, guid: 2f495f3dc862af8459e4a8e16a40985b, type: 3}
   isAttacking: 0
 --- !u!114 &2099591892451867528
 MonoBehaviour:
