@@ -310,8 +310,25 @@ public class PlayerProfile : PlayerState
             curActCount -= 5;
             int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.1f);
             GameManager.instance.gold -= GoldDown;
-            Vector3 spawnPos = GameObject.FindGameObjectWithTag("DungeonEntry").GetComponent<Transform>().position;
-            transform.position = spawnPos;
+            //가장 가까운 대기 장소 찾기
+            GameObject[] spawnObj = GameObject.FindGameObjectsWithTag("DungeonEntry");
+            GameObject nearestEntry = null;
+            float minDistance = Mathf.Infinity;
+            Vector3 currentPos = transform.position;
+            foreach(GameObject entry in spawnObj)
+            {
+                float distance = Vector3.Distance(entry.transform.position, currentPos);
+                if(distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestEntry = entry;
+                }
+            }
+            if(nearestEntry != null)
+            {
+                transform.position = nearestEntry.transform.position;
+            }
+            
             curHp = maxHp;
             playerDie = false;
         }
@@ -334,6 +351,9 @@ public class PlayerProfile : PlayerState
         int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.3f);
         GameManager.instance.gold -= GoldDown;
         transform.position = UIManager.Instance.villagePos.position;
+        GameManager.instance.mapState = MapState.Village;
+        UIManager.Instance.virtualCamera.GetComponent<CinemachineConfiner3D>().BoundingVolume
+            = UIManager.Instance.villageCollider;
     }
 
     public void SelfHpDamage(float damagePercent)
