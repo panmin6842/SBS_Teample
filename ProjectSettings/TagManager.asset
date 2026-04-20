@@ -26,6 +26,7 @@ TagManager:
   - Map
   - EnemyAttack
   - SealStone
+  - PlayerCamera
   layers:
   - Default
   - TransparentFX
@@ -36,7 +37,7 @@ TagManager:
   - MeteoArea
   - Enemy
   - Player
-  - 
+  - Wall
   - 
   - 
   - 

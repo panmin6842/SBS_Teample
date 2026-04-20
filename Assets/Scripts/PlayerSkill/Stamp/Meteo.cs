@@ -24,6 +24,7 @@ public class Meteo : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
             if (other.CompareTag("Boss"))
             {
                 Debug.Log("스킬 : 메테오" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);

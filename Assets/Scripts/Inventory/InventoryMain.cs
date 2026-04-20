@@ -117,7 +117,7 @@ public class InventoryMain : InventoryBase
         if (inventoryBase != null)
         {
             inventoryBase.SetActive(true);
-            goldText.text = GameManager.instance.gold.ToString();
+            goldText.text = "Gold : " + GameManager.instance.gold.ToString();
             playerProfile.SetActive(false);
             IsInventoryActive = true;
             playerAttack.uiClicking = true;
