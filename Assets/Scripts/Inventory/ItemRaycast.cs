@@ -149,9 +149,12 @@ public class ItemRaycast : MonoBehaviour
     {
         if (other.tag == "Item")
         {
-            currentItem = other.gameObject.transform.GetComponent<ItemPickUp>();
+            currentItem = other.gameObject.GetComponentInParent<ItemPickUp>();
 
-            ItemGet();
+            if (currentItem.canPickUp)
+            {
+                ItemGet();
+            }
         }
     }
 
