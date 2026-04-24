@@ -2,16 +2,39 @@ using UnityEngine;
 
 public class SealStoneManager : MonoBehaviour
 {
-    [SerializeField] private float hp;
+    [SerializeField] private float curHp;
+    [SerializeField] private float maxHp;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [SerializeField] private Sprite[] sprites;
+
+    private BoxCollider boxCollider;
+
+    private void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
     private void Update()
     {
-        if(hp <= 0)
+        if(curHp <= 0)
         {
-            Destroy(gameObject);
+            spriteRenderer.sprite = sprites[2];
+            this.enabled = false;
+            boxCollider.enabled = false;
+            //Destroy(gameObject);
+        }
+
+        if(curHp <= maxHp * 0.8f && curHp >= maxHp * 0.4f)
+        {
+            spriteRenderer.sprite = sprites[0];
+        }
+        else if(curHp <= maxHp * 0.4f && curHp > 0)
+        {
+            spriteRenderer.sprite = sprites[1];
         }
     }
     public void Damage(float damage)
     {
-        hp -= damage;
+        curHp -= damage;
     }
 }
