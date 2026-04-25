@@ -12,7 +12,7 @@ public class PlayerCameraManager : MonoBehaviour
     public float smoothSpeed = 3f;   // 올라가고 내려오는 속도
 
     [Header("Detection Settings")]
-    public float detectionRadius = 2f; // 벽 감지 범위
+    public float detectionRadius = 4f; // 벽 감지 범위
 
     private CinemachineFollow follow;
 

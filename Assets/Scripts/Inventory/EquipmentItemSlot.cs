@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -28,6 +29,9 @@ public class EquipmentItemSlot : MonoBehaviour, IPointerClickHandler
 
     [Header("아이템 슬롯에 있는 UI 오브젝트")]
     [SerializeField] private Image itemImage;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI toolTipNameText;
+    [SerializeField] private TextMeshProUGUI toolTipExplainText;
     private void SetColor(float _alpha)
     {
         Color color = itemImage.color;
@@ -50,6 +54,12 @@ public class EquipmentItemSlot : MonoBehaviour, IPointerClickHandler
     {
         item = nItem;
         itemImage.sprite = item.Image;
+        if(nameText != null)
+        {
+            nameText.text = item.name;
+            toolTipNameText.text = item.name;
+            toolTipExplainText.text = item.Explanation;
+        }
 
         SetColor(1);
     }
@@ -59,14 +69,24 @@ public class EquipmentItemSlot : MonoBehaviour, IPointerClickHandler
     {
         item = null;
         itemImage.sprite = null;
+        if (nameText != null)
+        {
+            nameText.text = null;
+            toolTipNameText.text = null;
+            toolTipExplainText.text = null;
+        }
         SetColor(0);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (item != null)
+        if (item != null && item.Type != ItemType.ArtiFact && eventData.clickCount == 2)
         {
             storageToInventory.ReleaseOfEquipment(this);
+        }
+        else if (item != null && item.Type == ItemType.ArtiFact && eventData.clickCount == 2)
+        {
+            storageToInventory.ReleaseOfArtFact(this);
         }
     }
 }

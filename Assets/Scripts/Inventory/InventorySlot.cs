@@ -128,9 +128,13 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (item != null)
+        if (item != null && item.Type != ItemType.ArtiFact && eventData.clickCount == 2)
         {
             storageToInventory.Install(this);
+        }
+        else if (item != null && item.Type == ItemType.ArtiFact && eventData.clickCount == 2)
+        {
+            storageToInventory.ArtiFactInstall(this);
         }
     }
 

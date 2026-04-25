@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -11,12 +12,17 @@ public class StorageToInventory : MonoBehaviour
     [SerializeField] private GameObject e_InventorySlotsParent;
     [SerializeField] private GameObject a_InventorySlotsParent;
     [SerializeField] private GameObject p_InventorySlotsParent;
+    [SerializeField] private GameObject artFactInventorySlotsParent;
     private InventorySlot[] e_InventorySlots;
     private InventorySlot[] a_InventorySlots;
     private InventorySlot[] p_InventorySlots;
+    private InventorySlot[] artFactInventorySlots;
 
-    [SerializeField] private GameObject equipmentSlotsPartent;
+    [SerializeField] private GameObject equipmentSlotsParent;
     private EquipmentItemSlot[] equipmentSlots;
+
+    [SerializeField] private GameObject artiFactSlotsParent;
+    private EquipmentItemSlot[] artiFactSlots;
 
     [SerializeField] private InventoryMain inventory;
     private SkillPlay skillPlay;
@@ -27,7 +33,10 @@ public class StorageToInventory : MonoBehaviour
         e_InventorySlots = e_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
         a_InventorySlots = a_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
         p_InventorySlots = p_InventorySlotsParent.GetComponentsInChildren<InventorySlot>();
-        equipmentSlots = equipmentSlotsPartent.GetComponentsInChildren<EquipmentItemSlot>();
+        artFactInventorySlots = artFactInventorySlotsParent.GetComponentsInChildren<InventorySlot>();
+
+        equipmentSlots = equipmentSlotsParent.GetComponentsInChildren<EquipmentItemSlot>();
+        artiFactSlots = artiFactSlotsParent.GetComponentsInChildren<EquipmentItemSlot>();
     }
 
     /// <summary>
@@ -39,6 +48,7 @@ public class StorageToInventory : MonoBehaviour
         int eCount = 0;
         int aCount = 0;
         int pCount = 0;
+        int artCount = 0;
         for (int i = 0; i < allSlots.Length; i++)
         {
             if (allSlots[i].Item != null)
@@ -103,6 +113,13 @@ public class StorageToInventory : MonoBehaviour
                             aCount++;
                             break;
                         }
+                        else if (artFactInventorySlots[aCount].Item == null && artFactInventorySlots[aCount].IsMask(allSlots[i].Item))
+                        {
+                            artFactInventorySlots[aCount].AddItem(allSlots[i].Item, 1);
+                            allSlots[i].ClearSlot();
+                            artCount++;
+                            break;
+                        }
 
                         if (e_InventorySlots[eCount].Item != null)
                         {
@@ -111,6 +128,10 @@ public class StorageToInventory : MonoBehaviour
                         if (a_InventorySlots[aCount].Item != null)
                         {
                             aCount++;
+                        }
+                        if (a_InventorySlots[aCount].Item != null)
+                        {
+                            artCount++;
                         }
                     }
                 }
@@ -156,6 +177,57 @@ public class StorageToInventory : MonoBehaviour
                         return;
                     }
                 }
+            }
+        }
+    }
+
+    public void ArtiFactInstall(InventorySlot inventorySlot)
+    {
+        Item newItem = null;
+        for (int i = 0; i < artiFactSlots.Length; i++)
+        {
+            if (inventorySlot.Item != null)
+            {
+                if (artiFactSlots[i].Item != null) //장비 교체
+                {
+                    if (artiFactSlots[i].IsMask(inventorySlot.Item))
+                    {
+                        newItem = artiFactSlots[i].Item;
+                        artiFactSlots[i].AddItem(inventorySlot.Item);
+                        inventorySlot.ClearSlot();
+                        inventorySlot.AddItem(newItem);
+                        return;
+                    }
+                }
+                else if (artiFactSlots[i].Item == null) //그대로 장비 착용
+                {
+                    if (artiFactSlots[i].IsMask(inventorySlot.Item))
+                    {
+                        artiFactSlots[i].AddItem(inventorySlot.Item);
+                        inventorySlot.ClearSlot();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public void ReleaseOfArtFact(EquipmentItemSlot slot)
+    {
+        int Count = 0;
+        for (int i = 0; i < artFactInventorySlots.Length; i++)
+        {
+            if (artFactInventorySlots[Count].Item == null && artFactInventorySlots[Count].IsMask(slot.Item))
+            {
+                artFactInventorySlots[Count].AddItem(slot.Item, 1);
+                slot.ClearSlot();
+                Count++;
+                break;
+            }
+
+            if (artFactInventorySlots[Count].Item != null)
+            {
+                Count++;
             }
         }
     }

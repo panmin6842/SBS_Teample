@@ -31,7 +31,10 @@ public enum ItemType
 
     //골드 아이템
     GoldBox = 1 << 16,
-    Gold = 1 << 17
+    Gold = 1 << 17,
+
+    //유물
+    ArtiFact = 1 << 18
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "Add Item/Item")]
