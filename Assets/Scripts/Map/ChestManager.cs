@@ -50,6 +50,9 @@ public class ChestManager : MonoBehaviour
                     Vector3 jumpDir = new Vector3(randomCircle.x * spread, 1.5f, randomCircle.y * spread).normalized;
                     rb.AddForce(jumpDir * 5f, ForceMode.Impulse);
                 }
+
+                //쉴터 대용 임시
+                GameManager.instance.OnShelterEnter?.Invoke();
             }
             itemSpawn = true;
         }

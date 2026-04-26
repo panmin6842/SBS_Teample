@@ -183,27 +183,16 @@ public class StorageToInventory : MonoBehaviour
 
     public void ArtiFactInstall(InventorySlot inventorySlot)
     {
-        Item newItem = null;
         for (int i = 0; i < artiFactSlots.Length; i++)
         {
             if (inventorySlot.Item != null)
             {
-                if (artiFactSlots[i].Item != null) //장비 교체
-                {
-                    if (artiFactSlots[i].IsMask(inventorySlot.Item))
-                    {
-                        newItem = artiFactSlots[i].Item;
-                        artiFactSlots[i].AddItem(inventorySlot.Item);
-                        inventorySlot.ClearSlot();
-                        inventorySlot.AddItem(newItem);
-                        return;
-                    }
-                }
-                else if (artiFactSlots[i].Item == null) //그대로 장비 착용
+                if (artiFactSlots[i].Item == null) //그대로 장비 착용
                 {
                     if (artiFactSlots[i].IsMask(inventorySlot.Item))
                     {
                         artiFactSlots[i].AddItem(inventorySlot.Item);
+                        ArtiFactManager.instance.EquipArtifact(inventorySlot.Item.ItemID);
                         inventorySlot.ClearSlot();
                         return;
                     }
@@ -219,10 +208,21 @@ public class StorageToInventory : MonoBehaviour
         {
             if (artFactInventorySlots[Count].Item == null && artFactInventorySlots[Count].IsMask(slot.Item))
             {
-                artFactInventorySlots[Count].AddItem(slot.Item, 1);
-                slot.ClearSlot();
-                Count++;
-                break;
+                if (GameManager.instance.installImpossibleStart)
+                {
+                    if(slot.Item.ItemID == 707)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    artFactInventorySlots[Count].AddItem(slot.Item, 1);
+                    ArtiFactManager.instance.UnequipArtifact(slot.Item.ItemID);
+                    slot.ClearSlot();
+                    Count++;
+                    break;
+                }
             }
 
             if (artFactInventorySlots[Count].Item != null)

@@ -214,8 +214,8 @@ Transform:
   m_GameObject: {fileID: 5739294386339140961}
   serializedVersion: 2
   m_LocalRotation: {x: 0.48872766, y: 0.5110239, z: -0.51102376, w: 0.48872763}
-  m_LocalPosition: {x: 0.19999993, y: -7.8, z: -4.1}
-  m_LocalScale: {x: 7.7925167, y: 13.486356, z: 10.780865}
+  m_LocalPosition: {x: 0.2, y: -7.8, z: -4.6}
+  m_LocalScale: {x: 7.7925167, y: 23, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5053195077053781742}
@@ -601,8 +601,8 @@ MonoBehaviour:
   curDEF: 1
   maxDEF: 1
   passiveDEF: 1
-  maxActCount: 10
-  curActCount: 10
+  maxActCount: 0
+  curActCount: 0
   skillPoint: 0
   level: 0
   critical: 15

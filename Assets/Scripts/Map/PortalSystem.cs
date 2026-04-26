@@ -34,10 +34,11 @@ public class PortalSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            if (other.GetComponent<PlayerProfile>().ActCount > 0)
-            {
-                StartCoroutine(Teleport());
-            }
+            player.GetComponent<PlayerProfile>().UseActCount(1);
+            //if (other.GetComponent<PlayerProfile>().ActCount > 0)
+            //{
+            //    StartCoroutine(Teleport());
+            //}
         }
         else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
         {

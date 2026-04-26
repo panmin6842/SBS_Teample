@@ -32,6 +32,8 @@ public class EquipmentItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI toolTipNameText;
     [SerializeField] private TextMeshProUGUI toolTipExplainText;
+
+    public bool installImpossible = false;
     private void SetColor(float _alpha)
     {
         Color color = itemImage.color;
@@ -84,7 +86,7 @@ public class EquipmentItemSlot : MonoBehaviour, IPointerClickHandler
         {
             storageToInventory.ReleaseOfEquipment(this);
         }
-        else if (item != null && item.Type == ItemType.ArtiFact && eventData.clickCount == 2)
+        else if (item != null && item.Type == ItemType.ArtiFact && eventData.clickCount == 2 && !installImpossible)
         {
             storageToInventory.ReleaseOfArtFact(this);
         }

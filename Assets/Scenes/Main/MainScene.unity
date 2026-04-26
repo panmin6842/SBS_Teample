@@ -1936,7 +1936,7 @@ Transform:
   m_GameObject: {fileID: 520562723}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35491192, y: -0.000000039980215, z: 0.00000001573741, w: 0.93489975}
-  m_LocalPosition: {x: -0.2287606, y: 11.45, z: -12.261121}
+  m_LocalPosition: {x: -0.2287606, y: 11.45, z: -11.789907}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2490,8 +2490,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760423773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35491192, y: -0.000000039980215, z: 0.00000001573741, w: 0.93489975}
-  m_LocalPosition: {x: 14.201627, y: 65.354385, z: 310.8785}
+  m_LocalRotation: {x: 0.2282722, y: 0.00000000915975, z: -0.0000000021476194, w: 0.97359735}
+  m_LocalPosition: {x: 20.820387, y: 59.98439, z: -92.48938}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2850,7 +2850,7 @@ Transform:
   m_GameObject: {fileID: 835732886}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35491192, y: -0.000000039980215, z: 0.00000001573741, w: 0.93489975}
-  m_LocalPosition: {x: 14.201627, y: 65.354385, z: 310.8785}
+  m_LocalPosition: {x: 14.201627, y: 65.354385, z: 311.3497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3573,6 +3573,8 @@ MonoBehaviour:
   gold: 0
   skillPoint: 0
   statusPoint: 0
+  maxActCount: 0
+  curActCount: 0
   canBuyCount: 
   character1Spawn: 0
   tutorialClear: 0
@@ -3580,10 +3582,12 @@ MonoBehaviour:
   inventoryTutorial: 0
   dayTutorial: 0
   dayCount: 0
+  artifactInstallImpossibleDay: 0
   dayEnd: 0
   possibleDungeon: 00000000
   itemGetAll: 0
   curDungeonNumber: 0
+  installImpossibleStart: 0
   mapState: 2
 --- !u!4 &964858929
 Transform:
@@ -5746,7 +5750,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1176665549 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 7145597244586743854, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2382150150602129020, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
   m_PrefabInstance: {fileID: 1176665544}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1176665550 stripped
@@ -5764,6 +5768,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4491771632756805882, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
   m_PrefabInstance: {fileID: 1176665544}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176665553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2773639795025236895, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 1176665544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176665554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1884385904453966564, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 1176665544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176665555 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7145597244586743854, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 1176665544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176665556 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4637671054288192418, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 1176665544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1176665557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 327802857125834070, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+  m_PrefabInstance: {fileID: 1176665544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1208749650
 GameObject:
   m_ObjectHideFlags: 0
@@ -5779,6 +5808,7 @@ GameObject:
   - component: {fileID: 1208749651}
   - component: {fileID: 1208749656}
   - component: {fileID: 1208749657}
+  - component: {fileID: 1208749658}
   m_Layer: 0
   m_Name: InventorySystem
   m_TagString: Untagged
@@ -5820,6 +5850,9 @@ MonoBehaviour:
   equipmentInventory: {fileID: 1088591349}
   accessoryInventory: {fileID: 1088591348}
   etcInventory: {fileID: 1088591347}
+  artFactInventory: {fileID: 1176665556}
+  equipmentBase: {fileID: 1176665554}
+  artiFactBase: {fileID: 1176665549}
 --- !u!114 &1208749653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5835,7 +5868,9 @@ MonoBehaviour:
   e_InventorySlotsParent: {fileID: 1176665552}
   a_InventorySlotsParent: {fileID: 1176665551}
   p_InventorySlotsParent: {fileID: 1176665550}
-  equipmentSlotsPartent: {fileID: 1176665549}
+  artFactInventorySlotsParent: {fileID: 1176665557}
+  equipmentSlotsParent: {fileID: 1176665555}
+  artiFactSlotsParent: {fileID: 1176665553}
   inventory: {fileID: 1208749654}
 --- !u!114 &1208749654
 MonoBehaviour:
@@ -5936,6 +5971,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 437ef9332222cee498eebacde5b0c5b4, type: 2}
   storeGoldText: {fileID: 294547247}
   villagestoreGoldText: {fileID: 1224397057}
+--- !u!114 &1208749658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208749650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e594567eb90d3ba4eba7d7e4854cfc85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1213746732 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5349202258706162213, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -6206,6 +6253,14 @@ PrefabInstance:
     - target: {fileID: 5144979569810962450, guid: e616edc21ac447144baad3ba5f60526e, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598600871830522601, guid: e616edc21ac447144baad3ba5f60526e, type: 3}
+      propertyPath: m_Size.z
+      value: 3.310092
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598600871830522601, guid: e616edc21ac447144baad3ba5f60526e, type: 3}
+      propertyPath: m_Center.z
+      value: 1.155046
       objectReference: {fileID: 0}
     - target: {fileID: 6814660579665246470, guid: e616edc21ac447144baad3ba5f60526e, type: 3}
       propertyPath: m_Layer
@@ -7297,8 +7352,6 @@ MonoBehaviour:
   curDEF: 0
   maxDEF: 0
   passiveDEF: 0
-  maxActCount: 0
-  curActCount: 0
   skillPoint: 0
   level: 0
   critical: 15
@@ -9546,6 +9599,8 @@ MonoBehaviour:
   gold: 0
   skillPoint: 0
   statusPoint: 0
+  maxActCount: 0
+  curActCount: 0
   canBuyCount: 
   character1Spawn: 0
   tutorialClear: 0
@@ -9553,10 +9608,12 @@ MonoBehaviour:
   inventoryTutorial: 0
   dayTutorial: 0
   dayCount: 0
+  artifactInstallImpossibleDay: 0
   dayEnd: 0
   possibleDungeon: 
   itemGetAll: 0
   curDungeonNumber: 0
+  installImpossibleStart: 0
   mapState: 2
 --- !u!1 &2092428982
 GameObject:

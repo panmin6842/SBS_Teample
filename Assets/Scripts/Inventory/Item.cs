@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 [System.Flags]
@@ -125,6 +126,17 @@ public class Item : ScriptableObject
         get
         {
             return itemType;
+        }
+    }
+
+    [Header("아이템 티어")]
+    [SerializeField] private int tier;
+
+    public int Tier
+    {
+        get
+        {
+            return tier;
         }
     }
 
@@ -261,6 +273,17 @@ public class Item : ScriptableObject
         get
         {
             return maxGold;
+        }
+    }
+
+    [Header("행동력")]
+    [SerializeField] private int actCount;
+
+    public int ActCount
+    {
+        get
+        {
+            return actCount;
         }
     }
 }

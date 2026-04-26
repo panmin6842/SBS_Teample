@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
     public int gold;
     public int skillPoint;
     public int statusPoint;
+    public int maxActCount;
+    public int curActCount;
     [Header("etcData")]
     public List<int> canBuyCount = new List<int>();
     public bool character1Spawn;
@@ -43,10 +46,18 @@ public class GameManager : MonoBehaviour
     public bool inventoryTutorial;
     public bool dayTutorial;
     public int dayCount;
+    public int artifactInstallImpossibleDay;
     public bool dayEnd; //일차 종료 확인
     public bool[] possibleDungeon;
     public bool itemGetAll;
     public int curDungeonNumber;
+    public bool installImpossibleStart;
+
+    [Header("유물 Action")]
+    public Action OnShelterEnter;
+    public Action OnRandomPortalEnter;
+    public Action OnPortalEnter;
+    public Action OnActCountDeath;
 
     public MapState mapState = MapState.Village;
     private void Awake()
@@ -65,6 +76,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         profileIndex = 0;
+        
     }
 
     // Update is called once per frame
