@@ -62,6 +62,7 @@ public class DayManager : MonoBehaviour
             GameManager.instance.dayEnd = true;
             storeManager.VillageStoreReset();
             playerProfile.ActCountReset();
+            GameManager.instance.OnDayChange?.Invoke();
             StoreManager.Instance.ReFreshShop();
 
             if (!GameManager.instance.dayTutorial)

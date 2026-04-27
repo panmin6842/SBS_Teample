@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsEquipment: 0
   IsAccessory: 0
-  itemID: 707
-  itemName: "\uC720\uBB3C"
+  itemID: 710
+  itemName: "\uC27C\uD130 \uBD09\uC778\uC758 \uC720\uBB3C"
   canOverlap: 0
   isInteractivity: 1
   isConsumable: 0

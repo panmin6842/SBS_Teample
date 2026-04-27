@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsEquipment: 0
   IsAccessory: 0
-  itemID: 700
-  itemName: "\uC720\uBB3C"
+  itemID: 709
+  itemName: "\uADC0\uD55C \uBD09\uC778\uC758 \uC720\uBB3C"
   canOverlap: 0
   isInteractivity: 1
   isConsumable: 0
   itemType: 262144
+  tier: 0
   itemImage: {fileID: 21300000, guid: cf8b902bdfe108046aa7e2a74af2a882, type: 3}
   price: 0
   coolTime: 0
@@ -33,3 +34,4 @@ MonoBehaviour:
   skillCoolTimeBuff: 0
   minGold: 0
   maxGold: 0
+  actCount: 0

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class ArtiFactManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class ArtiFactManager : MonoBehaviour
 
     private List<int> equippedArtifactIDs = new List<int>();
     private float recoveryMultiplier = 1.0f;
+
+    private bool artifactImpassible = false;
+    private int setCount = 0;
     private void Awake()
     {
         instance = this;
@@ -34,7 +38,12 @@ public class ArtiFactManager : MonoBehaviour
         switch(id)
         {
             case 700:
-                ApplyLanternStaminaBonus(isEquip, 5);
+                {
+                    if (!artifactImpassible)
+                    {
+                        ApplyLanternStaminaBonus(isEquip, 5);
+                    }
+                }
                 break;
             case 701:
                 {
@@ -75,6 +84,34 @@ public class ArtiFactManager : MonoBehaviour
                 {
                     if (isEquip) GameManager.instance.OnActCountDeath += EmergencyEscapeOnDeath;
                     else GameManager.instance.OnActCountDeath -= EmergencyEscapeOnDeath;
+                }
+                break;
+            case 708:
+                {
+                    LoanStaminaOnMove(isEquip);
+                    if (isEquip) GameManager.instance.OnActCountDeath += LoanStaminaUse;
+                    else GameManager.instance.OnActCountDeath -= LoanStaminaUse;
+                }
+                break;
+            case 709:
+                {
+                    SealReturnPortal(isEquip);
+                }
+                break;
+            case 710:
+                {
+                    SealShelterRest(isEquip);
+                }
+                break;
+            case 711:
+                {
+                    if (isEquip) GameManager.instance.OnPortalEnter += RegenerateHpOnMove;
+                    else GameManager.instance.OnPortalEnter -= RegenerateHpOnMove;
+                }
+                break;
+            case 712:
+                {
+                    ApplyGreedBuffAndDebuff(isEquip);
                 }
                 break;
         }
@@ -144,5 +181,105 @@ public class ArtiFactManager : MonoBehaviour
         PlayerProfile playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         playerProfile.EmergencyEscape = true;
         GameManager.instance.installImpossibleStart = true;
+    }
+
+    private void LoanStaminaOnMove(bool isEquip)
+    {
+        PlayerProfile playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
+        if (isEquip)
+        {
+            playerProfile.actCountMin = -5;
+        }
+        else
+        {
+            playerProfile.actCountMin = 0;
+        }
+    }
+
+    private void LoanStaminaUse()
+    {
+        PlayerProfile playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
+        playerProfile.LoanActCount();
+    }
+
+    private void SealReturnPortal(bool isEquip)
+    {
+        //귀한 포탈 사용 불가 넣어야함
+
+        if(isEquip)
+        {
+            setCount++;
+
+            if (setCount >= 2)
+            {
+                GameManager.instance.maxActCount += 6;
+            }
+            else if(setCount < 2)
+            {
+                GameManager.instance.maxActCount += 3;
+            }
+        }
+        else
+        {
+            if (setCount >= 2)
+            {
+                GameManager.instance.maxActCount -= 6;
+            }
+            else if (setCount < 2)
+            {
+                GameManager.instance.maxActCount -= 3;
+            }
+            setCount--;
+        }
+    }
+    private void SealShelterRest(bool isEquip)
+    {
+        //쉼터 행동력 회복 사용 불가 넣어야함
+
+        if (isEquip)
+        {
+            artifactImpassible = true;
+            setCount++;
+            if(setCount >= 2)
+            {
+                GameManager.instance.maxActCount += 5;
+            }
+            else if(setCount < 2)
+            {
+                GameManager.instance.maxActCount += 2;
+            }
+        }
+        else
+        {
+            artifactImpassible = false;
+            if (setCount >= 2)
+            {
+                GameManager.instance.maxActCount -= 5;
+            }
+            else if (setCount < 2)
+            {
+                GameManager.instance.maxActCount -= 2;
+            }
+            setCount--;
+        }
+    }
+    private void RegenerateHpOnMove()
+    {
+        PlayerProfile playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
+        playerProfile.HPBuff(0.15f);
+    }
+    private void ApplyGreedBuffAndDebuff(bool isEquip)
+    {
+        PlayerProfile playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
+        if (isEquip)
+        {
+            playerProfile.ArtifactDEFDebuff(-10);
+            GameManager.instance.goldMultiplier += 0.2f;
+        }
+        else
+        {
+            playerProfile.ArtifactDEFDebuff(+10);
+            GameManager.instance.goldMultiplier -= 0.2f;
+        }
     }
 }

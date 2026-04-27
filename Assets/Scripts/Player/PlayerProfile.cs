@@ -52,6 +52,8 @@ public class PlayerProfile : PlayerState
     public PlayerSituation currentState = PlayerSituation.Idle;
     public Animator ani;
 
+    public int actCountMin = 0;
+
     private void Start()
     {
         GameManager.instance.maxActCount = 10;
@@ -256,6 +258,11 @@ public class PlayerProfile : PlayerState
         maxDEF = (0.5f * defPoint) + (e_def + a_def);
         //maxDEF = Mathf.Clamp(maxDEF, 0f, 0.95f);
         curDEF = maxDEF;
+    }
+
+    public void ArtifactDEFDebuff(float debuff)
+    {
+        curDEF += debuff;
     }
 
     public void SetMaxMp(int a_mp)
@@ -486,12 +493,23 @@ public class PlayerProfile : PlayerState
     {
         curActCount -= actCount;
 
-        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+        curActCount = Mathf.Clamp(curActCount, actCountMin, maxActCount);
 
-        if(curActCount <= 0)
+        if(curActCount <= actCountMin)
         {
             ActCountDie();
         }
+
+        if(curActCount < 0)
+        {
+            loanActCount++;
+        }
+    }
+
+    public void LoanActCount()
+    {
+        curActCount -= (loanActCount * 2);
+        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
     }
 
     public void BuffActCount(int actCount)

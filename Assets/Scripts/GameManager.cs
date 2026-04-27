@@ -52,12 +52,14 @@ public class GameManager : MonoBehaviour
     public bool itemGetAll;
     public int curDungeonNumber;
     public bool installImpossibleStart;
+    public float goldMultiplier;
 
     [Header("À¯¹° Action")]
     public Action OnShelterEnter;
     public Action OnRandomPortalEnter;
     public Action OnPortalEnter;
     public Action OnActCountDeath;
+    public Action OnDayChange;
 
     public MapState mapState = MapState.Village;
     private void Awake()
@@ -76,7 +78,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         profileIndex = 0;
-        
+        goldMultiplier = 1;
     }
 
     // Update is called once per frame

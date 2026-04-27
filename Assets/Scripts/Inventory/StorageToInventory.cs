@@ -62,7 +62,8 @@ public class StorageToInventory : MonoBehaviour
                         for (int g = 0; g <= itemCount; g++)
                         {
                             int random = Random.Range(allSlots[i].Item.MinGold, allSlots[i].Item.MaxGold);
-                            GameManager.instance.gold += random;
+                            int bounusGold = Mathf.RoundToInt(random * GameManager.instance.goldMultiplier);
+                            GameManager.instance.gold += bounusGold;
                             inventory.goldText.text = "Gold : " + GameManager.instance.gold.ToString();
                             allSlots[i].itemCount--;
                             if (allSlots[i].itemCount <= 0)
@@ -113,9 +114,9 @@ public class StorageToInventory : MonoBehaviour
                             aCount++;
                             break;
                         }
-                        else if (artFactInventorySlots[aCount].Item == null && artFactInventorySlots[aCount].IsMask(allSlots[i].Item))
+                        else if (artFactInventorySlots[artCount].Item == null && artFactInventorySlots[artCount].IsMask(allSlots[i].Item))
                         {
-                            artFactInventorySlots[aCount].AddItem(allSlots[i].Item, 1);
+                            artFactInventorySlots[artCount].AddItem(allSlots[i].Item, 1);
                             allSlots[i].ClearSlot();
                             artCount++;
                             break;
@@ -129,7 +130,7 @@ public class StorageToInventory : MonoBehaviour
                         {
                             aCount++;
                         }
-                        if (a_InventorySlots[aCount].Item != null)
+                        if (artFactInventorySlots[artCount].Item != null)
                         {
                             artCount++;
                         }

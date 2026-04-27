@@ -37,4 +37,5 @@ public class PlayerState : MonoBehaviour
     protected bool playerDie = false;
     protected bool notUseActCount = false;
     protected bool emergencyEscape = false;
+    protected int loanActCount = 0;
 }
