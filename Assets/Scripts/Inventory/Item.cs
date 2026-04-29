@@ -275,15 +275,4 @@ public class Item : ScriptableObject
             return maxGold;
         }
     }
-
-    [Header("Çàµ¿·Â")]
-    [SerializeField] private int actCount;
-
-    public int ActCount
-    {
-        get
-        {
-            return actCount;
-        }
-    }
 }

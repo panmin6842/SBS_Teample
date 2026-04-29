@@ -267,7 +267,7 @@ public class PlayerProfile : PlayerState
 
     public void SetMaxMp(int a_mp)
     {
-        maxMp = maxMp + a_mp;
+        maxMp += a_mp;
         curMp = maxMp;
     }
 

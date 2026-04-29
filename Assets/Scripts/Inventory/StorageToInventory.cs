@@ -164,7 +164,7 @@ public class StorageToInventory : MonoBehaviour
                         equipmentSlots[i].AddItem(inventorySlot.Item);
                         inventorySlot.ClearSlot();
                         inventorySlot.AddItem(newItem);
-                        BuffGet(equipmentSlots[i].Item);
+                        BuffGet(equipmentSlots[i]);
                         return;
                     }
                 }
@@ -174,7 +174,7 @@ public class StorageToInventory : MonoBehaviour
                     {
                         equipmentSlots[i].AddItem(inventorySlot.Item);
                         inventorySlot.ClearSlot();
-                        BuffGet(equipmentSlots[i].Item);
+                        BuffGet(equipmentSlots[i]);
                         return;
                     }
                 }
@@ -243,16 +243,18 @@ public class StorageToInventory : MonoBehaviour
             if (e_InventorySlots[eCount].Item == null && e_InventorySlots[eCount].IsMask(slot.Item))
             {
                 e_InventorySlots[eCount].AddItem(slot.Item, 1);
+                ReleaseBuff(slot.Item, slot);
                 slot.ClearSlot();
-                ReleaseBuff(e_InventorySlots[eCount].Item);
+                
                 eCount++;
                 break;
             }
             else if (a_InventorySlots[aCount].Item == null && a_InventorySlots[aCount].IsMask(slot.Item))
             {
                 a_InventorySlots[aCount].AddItem(slot.Item, 1);
+                ReleaseBuff(slot.Item, slot);
                 slot.ClearSlot();
-                ReleaseBuff(a_InventorySlots[aCount].Item);
+                
                 aCount++;
                 break;
             }
@@ -301,7 +303,7 @@ public class StorageToInventory : MonoBehaviour
         }
     }
 
-    private void ReleaseBuff(Item item)
+    private void ReleaseBuff(Item item, EquipmentItemSlot slot)
     {
         skillPlay = inventory.player.GetComponent<SkillPlay>();
         playerProfile = inventory.player.GetComponent<PlayerProfile>();
@@ -317,37 +319,95 @@ public class StorageToInventory : MonoBehaviour
         }
         if (item.IsAccessory)
         {
-            GameManager.instance.a_atk -= item.AtkBuff;
-            GameManager.instance.a_hp -= item.HpBuff;
-            GameManager.instance.a_mp -= item.MPBuff;
-            GameManager.instance.a_critical -= item.CriticalBuff;
-            GameManager.instance.a_skillCoolTime = 0;
+            if (slot.onAtkBuff)
+            {
+                GameManager.instance.a_atk -= item.AtkBuff;
+                slot.onAtkBuff = false;
+            }
+            if (slot.onHpBuff)
+            {
+                GameManager.instance.a_hp -= item.HpBuff;
+                slot.onHpBuff = false;
+            }
+            if (slot.onMPBuff)
+            {
+                playerProfile.SetMaxMp(-GameManager.instance.a_mp);
+                GameManager.instance.a_mp -= item.MPBuff;
+                slot.onMPBuff = false;
+            }
+            if (slot.onCriticalBuff)
+            {
+                GameManager.instance.a_critical -= item.CriticalBuff;
+                slot.onCriticalBuff = false;
+            }
+            if (slot.onSkillCoolTimeBuff)
+            {
+                GameManager.instance.a_skillCoolTime = 0;
+                slot.onSkillCoolTimeBuff = false;
+            }
 
             SetBuff();
         }
     }
 
-    private void BuffGet(Item item)
+    private void BuffGet(EquipmentItemSlot slot)
     {
         skillPlay = inventory.player.GetComponent<SkillPlay>();
         playerProfile = inventory.player.GetComponent<PlayerProfile>();
 
-        if (item.IsEquipment)
+        if (slot.Item.IsEquipment)
         {
-            GameManager.instance.e_atk = item.AtkBuff;
-            GameManager.instance.e_critical = item.CriticalBuff;
-            GameManager.instance.e_def = item.DefBuff;
-            GameManager.instance.e_hp = item.HpBuff;
+            GameManager.instance.e_atk = slot.Item.AtkBuff;
+            GameManager.instance.e_critical = slot.Item.CriticalBuff;
+            GameManager.instance.e_def = slot.Item.DefBuff;
+            GameManager.instance.e_hp = slot.Item.HpBuff;
 
             SetBuff();
         }
-        if (item.IsAccessory)
+        if (slot.Item.IsAccessory)
         {
-            GameManager.instance.a_atk = item.AtkBuff;
-            GameManager.instance.a_hp = item.HpBuff;
-            GameManager.instance.a_mp = item.MPBuff;
-            GameManager.instance.a_critical = item.CriticalBuff;
-            GameManager.instance.a_skillCoolTime = item.SkillCoolTimeBuff;
+            int random1 = 0;
+            int random2 = 0;
+            if (slot.Item.Tier == 1)
+            {
+                random1 = Random.Range(1, 6);
+            }
+            else if(slot.Item.Tier == 2)
+            {
+                random1 = Random.Range(1, 6);
+                do
+                {
+                    random2 = Random.Range(1, 6);
+                } while (random1 == random2);
+                
+            }
+            Debug.Log($"random1 : {random1} random2 : {random2}");
+            if (random1 == 1 || random2 == 1)
+            {
+                GameManager.instance.a_atk = slot.Item.AtkBuff;
+                slot.onAtkBuff = true;
+            }
+            if (random1 == 2 || random2 == 2)
+            {
+                GameManager.instance.a_hp = slot.Item.HpBuff;
+                slot.onHpBuff = true;
+            }
+            if (random1 == 3 || random2 == 3)
+            {
+                GameManager.instance.a_mp = slot.Item.MPBuff;
+                playerProfile.SetMaxMp(GameManager.instance.a_mp);
+                slot.onMPBuff = true;
+            }
+            if (random1 == 4 || random2 == 4)
+            {
+                GameManager.instance.a_critical = slot.Item.CriticalBuff;
+                slot.onCriticalBuff = true;
+            }
+            if (random1 == 5 || random2 == 5)
+            {
+                GameManager.instance.a_skillCoolTime = slot.Item.SkillCoolTimeBuff;
+                slot.onSkillCoolTimeBuff = true;
+            }
 
             SetBuff();
         }
@@ -359,7 +419,6 @@ public class StorageToInventory : MonoBehaviour
         playerProfile.SetMaxATK(GameManager.instance.atkPoint, GameManager.instance.a_atk, GameManager.instance.e_atk);
         playerProfile.SetMaxDEF(GameManager.instance.defPoint, GameManager.instance.a_def, GameManager.instance.e_def);
         playerProfile.SetCritical(GameManager.instance.criticalPoint, GameManager.instance.a_critical, GameManager.instance.e_critical);
-        playerProfile.SetMaxMp(GameManager.instance.a_mp);
         skillPlay.SetSkillCoolTimeBuff(GameManager.instance.a_skillCoolTime);
     }
 }

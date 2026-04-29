@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 942824585682243357}
   - component: {fileID: 2410601995500759530}
   m_Layer: 10
-  m_Name: "\uACAC\uC2B5 \uD0D0\uD5D8\uAC00\uC758 \uBC18\uC9C0"
+  m_Name: "\uD0D0\uD5D8\uAC00\uC758 \uBC18\uC9C0"
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPickUp: 0
-  item: {fileID: 11400000, guid: c827fbce7c1752644a6a130a8e28ce3c, type: 2}
+  item: {fileID: 11400000, guid: 8136647c520c33e4c966ce49e63dd4cd, type: 2}
   indicatorHeight: 0.2
 --- !u!135 &2410601995500759530
 SphereCollider:

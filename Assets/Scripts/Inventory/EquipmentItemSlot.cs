@@ -33,6 +33,13 @@ public class EquipmentItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private TextMeshProUGUI toolTipNameText;
     [SerializeField] private TextMeshProUGUI toolTipExplainText;
 
+    [Header("어떤 버프를 받았는지 확인")]
+    public bool onAtkBuff = false;
+    public bool onHpBuff = false;
+    public bool onMPBuff = false;
+    public bool onCriticalBuff = false;
+    public bool onSkillCoolTimeBuff = false;
+
     public bool installImpossible = false;
     private void SetColor(float _alpha)
     {
