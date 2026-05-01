@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -8,10 +10,40 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float attackRange = 10.0f;
     [SerializeField] protected float detectionRange = 20.0f;
 
+    public const float CLOSED_BOUNDARY = 5.0f;
+    public const float FAR_BOUNDARY = 12.0f;
+
+    protected Transform player;
+    protected NavMeshAgent agent;
+    private Coroutine distanceCheckCoroutine;
+
+    protected virtual void Start()
+    {
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = speed;
+        // 무한 루프 방지를 위해 코루틴으로 실행
+        distanceCheckCoroutine = StartCoroutine(CheckDistanceToPlayerRoutine());
+    }
+
+    protected virtual void OnDestroy()
+    {
+        // 객체 파괴 시 코루틴 정지하여 메모리 누수 방지
+        if (distanceCheckCoroutine != null)
+        {
+            StopCoroutine(distanceCheckCoroutine);
+        }
+    }
+
     protected virtual Vector3 DetectPlayer()
     {
         Debug.Log("Enemy detects the player!");
-        return Vector3.zero;
+        return player != null ? player.position : Vector3.zero;
     }
 
     protected virtual void PrepareForAttack()
@@ -41,30 +73,48 @@ public class EnemyBase : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    protected virtual async void CheckDistanceToPlayer()
+    protected virtual IEnumerator CheckDistanceToPlayerRoutine()
     {
+        // 0.1초마다 체크하여 CPU 부하를 줄임
+        WaitForSeconds wait = new WaitForSeconds(0.1f);
+
         while (true)
         {
-            Vector3 playerPosition = DetectPlayer();
+            if (player == null)
+            {
+                yield return wait;
+                continue;
+            }
+
+            Vector3 playerPosition = player.position;
             float distanceToPlayer = Vector3.Distance(transform.position, playerPosition);
 
-            if (distanceToPlayer <= attackRange)
+            if (distanceToPlayer <= CLOSED_BOUNDARY)
             {
-                PrepareForAttack();
-                Attack();
+                Debug.Log("적과 플레이어간의 거리가 5m 이하입니다.");
+                Move(this.transform.position - playerPosition);
             }
-            else if (distanceToPlayer <= detectionRange)
+            else if (distanceToPlayer >= FAR_BOUNDARY)
             {
-                Debug.Log("Enemy is chasing the player!");
-                // Implement chasing logic here
+                Debug.Log("적과 플레이어간의 거리가 12m 이상입니다. 적이 플레이어를 추적합니다.");
+                Move(playerPosition - this.transform.position);
             }
             else
             {
                 Debug.Log("Enemy is idle.");
-                // Implement idle behavior here
             }
 
-            await System.Threading.Tasks.Task.Delay(1000); // Check every second
+            yield return wait;
+        }
+    }
+
+    protected virtual void Move(Vector3 direction)
+    {
+        if (agent != null && agent.isOnNavMesh)
+        {
+            Debug.Log("Enemy moves!");
+            // direction을 기반으로 NavMeshAgent를 이동시킵니다.
+            agent.Move(direction.normalized * agent.speed * Time.deltaTime);
         }
     }
 }
