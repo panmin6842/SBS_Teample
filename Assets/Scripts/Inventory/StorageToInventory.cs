@@ -381,7 +381,6 @@ public class StorageToInventory : MonoBehaviour
                 } while (random1 == random2);
                 
             }
-            Debug.Log($"random1 : {random1} random2 : {random2}");
             if (random1 == 1 || random2 == 1)
             {
                 GameManager.instance.a_atk = slot.Item.AtkBuff;

@@ -311,9 +311,25 @@ public class PlayerProfile : PlayerState
 
     public void GetDamage(int damage)
     {
-        curHp -= damage * (1 - curDEF);
+        if (!noDamage)
+        {
+            curHp -= damage * (1 - curDEF);
+            noDamage = true;
+        }
+
+        if(noDamage)
+        {
+            StartCoroutine(NoDamageReMove());
+        }
 
         curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
+    IEnumerator NoDamageReMove()
+    {
+        Debug.Log("¹«Àû Áß");
+        yield return new WaitForSeconds(0.4f);
+        noDamage = false;
     }
 
     public void PlayerDie()

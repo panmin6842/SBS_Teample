@@ -102,6 +102,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2639c4379b6e84041be46904392dea4a, type: 3}
   - {fileID: 21300000, guid: d0d1e2874917c65419f78a7796807b34, type: 3}
   - {fileID: 21300000, guid: d9e5b74db6e79d44a8b69c1d52b241ae, type: 3}
+  chestData: {fileID: 0}
+  itemObjects: []
+  fakeSealStone: 0
 --- !u!1 &3101867036104232325
 GameObject:
   m_ObjectHideFlags: 0

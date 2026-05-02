@@ -2490,8 +2490,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760423773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2282722, y: 0.00000000915975, z: -0.0000000021476194, w: 0.97359735}
-  m_LocalPosition: {x: 20.820387, y: 59.98439, z: -92.48938}
+  m_LocalRotation: {x: 0.35491192, y: -0.000000039980215, z: 0.00000001573741, w: 0.93489975}
+  m_LocalPosition: {x: 14.201627, y: 65.354385, z: 311.3497}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3588,6 +3588,7 @@ MonoBehaviour:
   itemGetAll: 0
   curDungeonNumber: 0
   installImpossibleStart: 0
+  goldMultiplier: 0
   mapState: 2
 --- !u!4 &964858929
 Transform:
@@ -7352,6 +7353,7 @@ MonoBehaviour:
   curDEF: 0
   maxDEF: 0
   passiveDEF: 0
+  curActCount: 0
   skillPoint: 0
   level: 0
   critical: 15
@@ -7360,6 +7362,7 @@ MonoBehaviour:
   bloodHeal: 0
   barrier: 0
   stampPassiveSKill3: 0
+  noDamage: 0
   enemyHpText: {fileID: 0}
   item: {fileID: 1093299300}
   potal: {fileID: 2092617033}
@@ -9614,6 +9617,7 @@ MonoBehaviour:
   itemGetAll: 0
   curDungeonNumber: 0
   installImpossibleStart: 0
+  goldMultiplier: 0
   mapState: 2
 --- !u!1 &2092428982
 GameObject:

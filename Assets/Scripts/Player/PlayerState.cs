@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerState : MonoBehaviour
@@ -38,4 +39,6 @@ public class PlayerState : MonoBehaviour
     protected bool notUseActCount = false;
     protected bool emergencyEscape = false;
     protected int loanActCount = 0;
+
+    [SerializeField] protected bool noDamage = false;
 }
