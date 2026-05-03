@@ -7,4 +7,9 @@ public class TitleManager : MonoBehaviour
     {
         SceneManager.LoadScene("CharacterChoiceScene");
     }
+
+    public void OptionAppear()
+    {
+
+    }
 }
