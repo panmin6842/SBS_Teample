@@ -1,3 +1,4 @@
+using Unity.AppUI.UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,9 @@ public class ESCDontDestroyObject : MonoBehaviour
 
     [SerializeField] private GameObject operate;
     [SerializeField] private GameObject escWindow;
+    [SerializeField] private GameObject exitWindow;
+    [SerializeField] private GameObject operateButton;
+    [SerializeField] private GameObject exitButton;
     private void Awake()
     {
         if (instance == null)
@@ -53,6 +57,9 @@ public class ESCDontDestroyObject : MonoBehaviour
         {
             escWindow.SetActive(false);
             operate.SetActive(false);
+            exitWindow.SetActive(false);
+            operateButton.SetActive(true);
+            exitButton.SetActive(true);
         }
     }
 
@@ -63,5 +70,23 @@ public class ESCDontDestroyObject : MonoBehaviour
     public void OperateDisAppear()
     {
         operate.SetActive(false);
+    }
+
+    public void ExitAppear()
+    {
+        exitWindow.SetActive(true);
+        operateButton?.SetActive(false);
+        exitButton.SetActive(false);
+    }
+    public void ExitDisAppear()
+    {
+        exitWindow.SetActive(false);
+        operateButton.SetActive(true);
+        exitButton.SetActive(true);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
