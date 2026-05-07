@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerState : MonoBehaviour
@@ -18,7 +19,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected float curDEF;
     [SerializeField] protected float maxDEF;
     [SerializeField] protected float passiveDEF;
-    [SerializeField] protected int maxActCount;
+    protected int maxActCount;
     [SerializeField] protected int curActCount;
     [SerializeField] protected int skillPoint = 0;
     [SerializeField] protected int level = 0;
@@ -35,4 +36,9 @@ public class PlayerState : MonoBehaviour
     [SerializeField] protected bool barrier = false;
     [SerializeField] protected bool stampPassiveSKill3 = false;
     protected bool playerDie = false;
+    protected bool notUseActCount = false;
+    protected bool emergencyEscape = false;
+    protected int loanActCount = 0;
+
+    [SerializeField] protected bool noDamage = false;
 }

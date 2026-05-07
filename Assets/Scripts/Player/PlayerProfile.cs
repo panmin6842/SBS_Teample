@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
@@ -50,8 +51,15 @@ public class PlayerProfile : PlayerState
 
     public PlayerSituation currentState = PlayerSituation.Idle;
     public Animator ani;
+
+    public int actCountMin = 0;
+
     private void Start()
     {
+        GameManager.instance.maxActCount = 10;
+        maxActCount = GameManager.instance.maxActCount;
+        curActCount = maxActCount;
+
         hpBackground = UIManager.Instance.hpBackground;
         hpMask = UIManager.Instance.hpMask;
         hpText = UIManager.Instance.hpText;
@@ -219,6 +227,17 @@ public class PlayerProfile : PlayerState
         get { return curActCount; }
     }
 
+    public bool NotUseActCount
+    {
+        set { notUseActCount = value; }
+        get { return notUseActCount; }
+    }
+
+    public bool EmergencyEscape
+    {
+        set { emergencyEscape = value; }
+    }
+
     //max스테이터스 설정
     public void SetMaxHp(float hpPoint, float a_hp, float e_hp)
     {
@@ -241,9 +260,14 @@ public class PlayerProfile : PlayerState
         curDEF = maxDEF;
     }
 
+    public void ArtifactDEFDebuff(float debuff)
+    {
+        curDEF += debuff;
+    }
+
     public void SetMaxMp(int a_mp)
     {
-        maxMp = maxMp + a_mp;
+        maxMp += a_mp;
         curMp = maxMp;
     }
 
@@ -287,9 +311,25 @@ public class PlayerProfile : PlayerState
 
     public void GetDamage(int damage)
     {
-        curHp -= damage * (1 - curDEF);
+        if (!noDamage)
+        {
+            curHp -= damage * (1 - curDEF);
+            noDamage = true;
+        }
+
+        if(noDamage)
+        {
+            StartCoroutine(NoDamageReMove());
+        }
 
         curHp = Mathf.Clamp(curHp, 0, maxHp);
+    }
+
+    IEnumerator NoDamageReMove()
+    {
+        Debug.Log("무적 중");
+        yield return new WaitForSeconds(0.4f);
+        noDamage = false;
     }
 
     public void PlayerDie()
@@ -310,11 +350,35 @@ public class PlayerProfile : PlayerState
             curActCount -= 5;
             int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.1f);
             GameManager.instance.gold -= GoldDown;
-            Vector3 spawnPos = GameObject.FindGameObjectWithTag("DungeonEntry").GetComponent<Transform>().position;
-            transform.position = spawnPos;
+            //가장 가까운 대기 장소 찾기
+            DieMove();
+
             curHp = maxHp;
             playerDie = false;
         }
+    }
+
+    private void DieMove()
+    {
+        GameObject[] spawnObj = GameObject.FindGameObjectsWithTag("DungeonEntry");
+        GameObject nearestEntry = null;
+        float minDistance = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+        foreach (GameObject entry in spawnObj)
+        {
+            float distance = Vector3.Distance(entry.transform.position, currentPos);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestEntry = entry;
+            }
+        }
+        if (nearestEntry != null)
+        {
+            transform.position = nearestEntry.transform.position;
+        }
+
+        curHp = maxHp;
     }
 
     public bool PlayerDeadCheck()
@@ -331,9 +395,21 @@ public class PlayerProfile : PlayerState
 
     public void ActCountDie()
     {
-        int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.3f);
-        GameManager.instance.gold -= GoldDown;
-        transform.position = UIManager.Instance.villagePos.position;
+        GameManager.instance.OnActCountDeath?.Invoke();
+        if (!emergencyEscape)
+        {
+            int GoldDown = Mathf.RoundToInt(GameManager.instance.gold * 0.3f);
+            GameManager.instance.gold -= GoldDown;
+            transform.position = UIManager.Instance.villagePos.position;
+            GameManager.instance.mapState = MapState.Village;
+            UIManager.Instance.virtualCamera.GetComponent<CinemachineConfiner3D>().BoundingVolume
+                = UIManager.Instance.villageCollider;
+        }
+        else if(emergencyEscape)
+        {
+            DieMove();
+            emergencyEscape = false;
+        }
     }
 
     public void SelfHpDamage(float damagePercent)
@@ -391,7 +467,7 @@ public class PlayerProfile : PlayerState
 
     public bool CriticalProbability()
     {
-        int random = Random.Range(1, 101);
+        int random = UnityEngine.Random.Range(1, 101);
         return (random >= 1 && random <= critical);
     }
 
@@ -433,12 +509,37 @@ public class PlayerProfile : PlayerState
     {
         curActCount -= actCount;
 
-        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+        curActCount = Mathf.Clamp(curActCount, actCountMin, maxActCount);
 
-        if(curActCount <= 0)
+        if(curActCount <= actCountMin)
         {
             ActCountDie();
         }
+
+        if(curActCount < 0)
+        {
+            loanActCount++;
+        }
+    }
+
+    public void LoanActCount()
+    {
+        curActCount -= (loanActCount * 2);
+        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+    }
+
+    public void BuffActCount(int actCount)
+    {
+        curActCount += actCount;
+        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+    }
+
+    public void ActCountPlus(int actCount, float recoveryMultiplier)
+    {
+        int finialRecover = Mathf.RoundToInt(actCount * recoveryMultiplier);
+        curActCount += finialRecover;
+
+        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
     }
 
     public void ActCountReset()
@@ -502,6 +603,7 @@ public class PlayerProfile : PlayerState
 
     private void UpdateActCountBar()
     {
+        maxActCount = GameManager.instance.maxActCount;
         acText.text = string.Format("{0} / {1}", curActCount, maxActCount);
 
         float _curActCount = (float)curActCount / (float)maxActCount;

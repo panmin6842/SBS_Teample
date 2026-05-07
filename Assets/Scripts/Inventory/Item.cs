@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 [System.Flags]
@@ -31,7 +32,10 @@ public enum ItemType
 
     //골드 아이템
     GoldBox = 1 << 16,
-    Gold = 1 << 17
+    Gold = 1 << 17,
+
+    //유물
+    ArtiFact = 1 << 18
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "Add Item/Item")]
@@ -122,6 +126,17 @@ public class Item : ScriptableObject
         get
         {
             return itemType;
+        }
+    }
+
+    [Header("아이템 티어")]
+    [SerializeField] private int tier;
+
+    public int Tier
+    {
+        get
+        {
+            return tier;
         }
     }
 

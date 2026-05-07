@@ -56,11 +56,12 @@ public class BossAttack : MonoBehaviour
     {
         if(bossStatus.curHp <= 0)
         {
+            GameObject map = GameObject.FindGameObjectWithTag("Map");
             if (!spawn)
             {
                 for (int i = 0; i < dropItems.Length; i++)
                 {
-                    Instantiate(dropItems[i], transform.position, Quaternion.identity);
+                    Instantiate(dropItems[i], transform.position, Quaternion.identity, map.transform);
                 }
                 spawn = true;
             }

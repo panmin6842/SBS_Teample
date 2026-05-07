@@ -6,6 +6,16 @@ using UnityEngine;
 
 public class ItemPickUp : MonoBehaviour
 {
+    public bool canPickUp = false;
+    private void Start()
+    {
+        Invoke("EnablePickUp", 1);
+    }
+
+    private void EnablePickUp()
+    {
+        canPickUp = true;
+    }
     [Header("해당 오브젝트에 할당되는 아이템")]
     [SerializeField] private Item item;
     /// <summary>

@@ -20,6 +20,7 @@ MonoBehaviour:
   isInteractivity: 1
   isConsumable: 0
   itemType: 256
+  tier: 2
   itemImage: {fileID: 21300000, guid: fa8852460f13bf4488e21303f4c5b0b9, type: 3}
   price: 0
   coolTime: 0
@@ -32,3 +33,6 @@ MonoBehaviour:
   hpBuff: 5
   mpBuff: 1
   skillCoolTimeBuff: 2
+  minGold: 0
+  maxGold: 0
+  actCount: 0

@@ -109,7 +109,7 @@ public class ItemRaycast : MonoBehaviour
             }
         }
 
-        if (isStoreActive && GameManager.instance.mapState == MapState.Village)
+        if (isStoreActive && GameManager.instance.mapState == MapState.Stage)
         {
             if (inventory.currentUI == UIType.None)
             {
@@ -149,9 +149,12 @@ public class ItemRaycast : MonoBehaviour
     {
         if (other.tag == "Item")
         {
-            currentItem = other.gameObject.transform.GetComponent<ItemPickUp>();
+            currentItem = other.gameObject.GetComponentInParent<ItemPickUp>();
 
-            ItemGet();
+            if (currentItem.canPickUp)
+            {
+                ItemGet();
+            }
         }
     }
 
