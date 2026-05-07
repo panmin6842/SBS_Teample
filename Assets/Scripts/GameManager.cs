@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public int curDungeonNumber;
     public bool installImpossibleStart;
     public float goldMultiplier;
+    public int buffStoneGetStatusNumber;
 
     [Header("À¯¹° Action")]
     public Action OnShelterEnter;
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
     {
         profileIndex = 0;
         goldMultiplier = 1;
+        buffStoneGetStatusNumber = 0;
     }
 
     // Update is called once per frame

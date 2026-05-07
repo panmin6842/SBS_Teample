@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 public enum PlayerSituation
@@ -503,6 +505,51 @@ public class PlayerProfile : PlayerState
         curHp = Mathf.Clamp(curHp, 0, maxHp);
 
         Debug.Log($"µ¥¹ÌÁö: {damage} | °è»êµÈ ÈíÇ÷: {bloodValue} | ½ÇÁ¦ ÈíÇ÷(Á¦ÇÑÀû¿ë): {finalHealAmount}");
+    }
+
+    public void GetBuffStone()
+    {
+        int random = UnityEngine.Random.Range(1, 4);
+        GameManager.instance.buffStoneGetStatusNumber = random;
+        if(random == 1)
+        {
+            originATK = curATK;
+            basicOriginATK = basicATK;
+            curATK += (maxATK * 0.1f);
+            basicATK += (basicOriginATK * 0.1f);
+        }
+        else if(random == 2)
+        {
+            originDEF = curDEF;
+            curDEF += (maxDEF + 10f);
+        }
+        else if(random == 3)
+        {
+            originHp = maxHp;
+            maxHp += (originHp * 0.1f);
+        }
+    }
+
+    public void BuffStoneRelease()
+    {
+        if (GameManager.instance.buffStoneGetStatusNumber != 0)
+        {
+            if (GameManager.instance.buffStoneGetStatusNumber == 1)
+            {
+                curATK = originATK;
+                basicATK = basicOriginATK;
+            }
+            else if (GameManager.instance.buffStoneGetStatusNumber == 2)
+            {
+                curDEF = originDEF;
+            }
+            else if (GameManager.instance.buffStoneGetStatusNumber == 3)
+            {
+                maxHp = originHp;
+            }
+        }
+
+        GameManager.instance.buffStoneGetStatusNumber = 0;
     }
 
     public void UseActCount(int actCount)

@@ -28,6 +28,7 @@ TagManager:
   - SealStone
   - PlayerCamera
   - Chest
+  - FKey
   layers:
   - Default
   - TransparentFX

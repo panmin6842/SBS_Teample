@@ -26,6 +26,7 @@ public class StageClearManager : MonoBehaviour
                 DayManager.instance.curDay = Day.night;
                 return;
             }
+            other.gameObject.GetComponent<PlayerProfile>().BuffStoneRelease();
             GameManager.instance.possibleDungeon[GameManager.instance.curDungeonNumber] = true;
             GameManager.instance.statusPoint++;
             GameManager.instance.curLevel++;

@@ -86,7 +86,16 @@ public class StoreSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         item = nItem;
         itemCount = count;
         itemImage.sprite = item.Image;
-        priceText.text = item.Price.ToString();
+        if (item.Type == ItemType.GoldBox)
+        {
+            priceText.text = item.Price.ToString();
+        }
+        else
+        {
+            int randomPrice = Random.Range(item.MinGold, item.MaxGold + 1);
+            priceText.text = randomPrice.ToString();
+        }
+
         if (explanText != null)
         {
             explanText.text = item.Explanation;
