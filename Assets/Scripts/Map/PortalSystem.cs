@@ -32,34 +32,36 @@ public class PortalSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && (direction != PortalDirection.Random && direction != PortalDirection.Clear))
+        if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            player.GetComponent<PlayerProfile>().UseActCount(1);
-            if (other.GetComponent<PlayerProfile>().ActCount > 0)
+            if (direction != PortalDirection.Random && direction != PortalDirection.Clear)
             {
-                StartCoroutine(Teleport());
+                if (other.GetComponent<PlayerProfile>().ActCount > 0)
+                {
+                    StartCoroutine(Teleport());
+                }
             }
-        }
-        else if (direction == PortalDirection.Random)
-        {
-            int randomIndex = Random.Range(0, stageManager.StagePositions.Count);
-            Vector2 randomPos = stageManager.StagePositions.ElementAt(randomIndex);
+            else if (direction == PortalDirection.Random)
+            {
+                int randomIndex = Random.Range(0, stageManager.StagePositions.Count);
+                Vector2 randomPos = stageManager.StagePositions.ElementAt(randomIndex);
 
-            player.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
-            portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
-            //·£´ýÆ÷Å»
-        }
-        else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
-        {
-            //»ç¸ÁÆ®¸®°Å
+                player.transform.position = new Vector3(randomPos.x * stageManager.spacing - 9f, 1.9f, randomPos.y * stageManager.spacing);
+                //portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
+                //·£´ýÆ÷Å»
+            }
+            else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
+            {
+                //»ç¸ÁÆ®¸®°Å
+            }
         }
     }
 
     IEnumerator Teleport()
     {
-        Image img = UIManager.Instance.fade.GetComponent<Image>();
-        img.gameObject.SetActive(true);
+        //Image img = UIManager.Instance.fade.GetComponent<Image>();
+        //img.gameObject.SetActive(true);
         player.transform.position = portalManager.PlayerTpSpotTransform.position;
         portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
         portalManager.isCleared = true;
