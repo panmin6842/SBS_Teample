@@ -48,10 +48,21 @@ public class DayManager : MonoBehaviour
             sunLight.transform.rotation = Quaternion.Euler(daySunRotation);
             curDay = Day.day;
             GameManager.instance.dayCount++;
+            if(GameManager.instance.installImpossibleStart)
+            {
+                GameManager.instance.artifactInstallImpossibleDay++;
+
+                if(GameManager.instance.artifactInstallImpossibleDay >= 3)
+                {
+                    GameManager.instance.artifactInstallImpossibleDay = 0;
+                    GameManager.instance.installImpossibleStart = false;
+                }
+            }
             dayText.text = GameManager.instance.dayCount.ToString();
             GameManager.instance.dayEnd = true;
             storeManager.VillageStoreReset();
             playerProfile.ActCountReset();
+            GameManager.instance.OnDayChange?.Invoke();
             StoreManager.Instance.ReFreshShop();
 
             if (!GameManager.instance.dayTutorial)

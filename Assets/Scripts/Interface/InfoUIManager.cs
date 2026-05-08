@@ -6,6 +6,11 @@ public class InfoUIManager : MonoBehaviour
     [SerializeField] private GameObject skillUI;
     [SerializeField] private GameObject statusUI;
     [SerializeField] private GameObject playerUI;
+    private void OnEnable()
+    {
+        PlayerProfile playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
+        playerProfile.StateTestText();
+    }
     public void SkillUIClick()
     {
         skillUI.SetActive(true);

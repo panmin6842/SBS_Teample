@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -14,8 +15,14 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Sprite[] playerImage;
     [SerializeField] private GameObject playZone;
     [SerializeField] private TextMeshProUGUI[] infoTexts;
+    [SerializeField] private Sprite[] swordIdleSprites;
+    private float frameRate = 0.05f; // 프레임 속도
+
+    private int currentFrame = 0;
+    private float timer = 0f;
 
     private bool characterClick = false;
+    private bool create = false;
     private string curName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +35,19 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     void Update()
     {
         //게임오브젝트에서 직업 뭐 선택했는지 가져와서 해야함.
+
+        //이미지 움직임
+        if (create)
+        {
+            timer += Time.deltaTime;
+            if (timer >= frameRate)
+            {
+                // 프레임 교체
+                currentFrame = (currentFrame + 1) % swordIdleSprites.Length;
+                playerDisplayImage.sprite = swordIdleSprites[currentFrame];
+                timer = 0f;
+            }
+        }
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -61,8 +81,9 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
         {
             UpdatePlayerPreview(GameManager.instance.profileIndex);
             pos.position = new Vector3(pos.position.x, pos.position.y + 34, pos.position.z);
-            pos.localScale = new Vector3(2, 2, 2);
+            pos.localScale = new Vector3(3, 4, 4);
             GameManager.instance.name = curName;
+            create = true;
             nameZone.SetActive(false);
         }
     }
@@ -93,5 +114,10 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     {
         SceneManager.LoadScene("MainScene");
         GameManager.instance.character1Spawn = true;
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene("TitleScene");
     }
 }

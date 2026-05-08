@@ -120,6 +120,7 @@ public class MonsterSpawnManager : MonoBehaviour
 
     public void MonsterDead(GameObject enemy)
     {
-        Instantiate(dropItems[0], enemy.transform.position, Quaternion.identity);
+        GameObject map = GameObject.FindGameObjectWithTag("Map");
+        Instantiate(dropItems[0], enemy.transform.position, Quaternion.identity, map.transform);
     }
 }
