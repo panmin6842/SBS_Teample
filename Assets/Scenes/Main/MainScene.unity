@@ -3589,7 +3589,8 @@ MonoBehaviour:
   curDungeonNumber: 0
   installImpossibleStart: 0
   goldMultiplier: 0
-  mapState: 2
+  buffStoneGetStatusNumber: 0
+  mapState: 1
 --- !u!4 &964858929
 Transform:
   m_ObjectHideFlags: 0
@@ -9618,6 +9619,7 @@ MonoBehaviour:
   curDungeonNumber: 0
   installImpossibleStart: 0
   goldMultiplier: 0
+  buffStoneGetStatusNumber: 0
   mapState: 2
 --- !u!1 &2092428982
 GameObject:

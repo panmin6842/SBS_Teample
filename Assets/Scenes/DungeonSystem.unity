@@ -851,11 +851,11 @@ Rigidbody:
     serializedVersion: 2
     m_Bits: 0
   m_ImplicitCom: 1
-  m_ImplicitTensor: 0
+  m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &1739329287
 GameObject:
@@ -1191,14 +1191,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784d08b0841951d45a98785d2257f2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterSpawnManager: {fileID: 0}
+  Tutorial: 0
   stage:
   - {fileID: 2619334703123621966, guid: e616edc21ac447144baad3ba5f60526e, type: 3}
   BossStage: {fileID: 0}
   spacing: 40
   StageCount: 7
   surroundStagePositions: []
-  CurStagePos: {x: 0, y: 0}
+  curStagePos: {x: 0, y: 0}
+  curStageType: 0
+  curStageCleared: 0
+  curStageSpawnPrefabs: []
   Player: {fileID: 0}
+  activePortal: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
