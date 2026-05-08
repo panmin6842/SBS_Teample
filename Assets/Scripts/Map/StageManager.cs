@@ -8,7 +8,8 @@ enum PortalDirection
     Back,
     Left,
     Right,
-    Clear
+    Clear,
+    Random
 }
 
 public enum StageType
@@ -19,6 +20,7 @@ public enum StageType
     SealedStone,
     Treasure,
     Boss,
+    Bonfire,
     None
 }
 
@@ -51,6 +53,7 @@ public class StageManager : MonoBehaviour
     private void Awake()
     {
         monsterSpawnManager = GetComponentInChildren<MonsterSpawnManager>();
+        Player = GameObject.FindGameObjectWithTag("Player");
         instance = this;
     }
 
