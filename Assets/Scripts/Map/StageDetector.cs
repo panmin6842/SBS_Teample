@@ -16,7 +16,7 @@ public class StageDetector : MonoBehaviour
         portalManager = GetComponentInParent<PortalManager>();
         stageManager = StageManager.instance;
 
-        StartCoroutine(StageChangeCoroutine());
+        //StartCoroutine(StageChangeCoroutine());
     }
 
     void Update()
@@ -27,7 +27,7 @@ public class StageDetector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(StageChangeCoroutine());
+            //StartCoroutine(StageChangeCoroutine());
             var confinder = portalManager.CinemachineCamera.GetComponent<CinemachineConfiner3D>();
             confinder.BoundingVolume = gameObject.GetComponent<Collider>();
 
