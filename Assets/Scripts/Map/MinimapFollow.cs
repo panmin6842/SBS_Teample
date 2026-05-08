@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MinimapFollow : MonoBehaviour
 {
-    [SerializeField]
-    private Transform player;
+    Transform player;
 
     void Start()
     {
