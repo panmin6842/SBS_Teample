@@ -775,7 +775,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3549119, y: 1.4479788e-29, z: -5.4968986e-30, w: 0.93489975}
+  m_LocalRotation: {x: 0.35491186, y: 0.000000103817584, z: -0.00000003941181, w: 0.9348998}
   m_LocalPosition: {x: -4.2, y: 12.02, z: -12.538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3271,7 +3271,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1957024718}
+  m_Father: {fileID: 1943343290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1669672850
 MonoBehaviour:
@@ -3810,6 +3810,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0f5b5661816da4cbdb682152f4c601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1943343288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943343290}
+  - component: {fileID: 1943343289}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1943343289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943343288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784d08b0841951d45a98785d2257f2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterSpawnManager: {fileID: 0}
+  Tutorial: 0
+  stage:
+  - {fileID: 2619334703123621966, guid: e616edc21ac447144baad3ba5f60526e, type: 3}
+  BossStage: {fileID: 2619334703123621966, guid: dfbf6f4a30574c24ea5345b27d3913f9, type: 3}
+  spacing: 40
+  StageCount: 7
+  surroundStagePositions: []
+  curStagePos: {x: 0, y: 0}
+  curStageType: 0
+  curStageCleared: 0
+  curStageSpawnPrefabs: []
+  Player: {fileID: 0}
+  activePortal: 0
+--- !u!4 &1943343290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943343288}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1669672849}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1946438800 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6504243143882178489, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -3991,7 +4050,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995814925}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3549119, y: 1.4755449e-29, z: -6.2230362e-30, w: 0.9348998}
+  m_LocalRotation: {x: 0.35491183, y: 0.000000103817584, z: -0.00000003941181, w: 0.9348998}
   m_LocalPosition: {x: -4.2, y: 12.02, z: -12.538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5863,3 +5922,4 @@ SceneRoots:
   - {fileID: 494960429}
   - {fileID: 1085540271}
   - {fileID: 7261957691372979998}
+  - {fileID: 1943343290}
