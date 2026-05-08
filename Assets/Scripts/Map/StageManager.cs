@@ -53,6 +53,7 @@ public class StageManager : MonoBehaviour
     private void Awake()
     {
         monsterSpawnManager = GetComponentInChildren<MonsterSpawnManager>();
+        Player = GameObject.FindGameObjectWithTag("Player");
         instance = this;
     }
 

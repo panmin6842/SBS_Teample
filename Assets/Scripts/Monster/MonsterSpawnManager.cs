@@ -69,6 +69,8 @@ public class MonsterSpawnManager : MonoBehaviour
                 stageManager.curStageCleared = true;
                 GameObject BonfireObject = Instantiate(stageManager.curStageSpawnPrefabs[0]);
                 BonfireObject.transform.position = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 0f, stageManager.curStagePos.y * stageManager.spacing);
+
+                Debug.Log("플레이어 회복");
                 //쉽터
             }
             else if (stageManager.curStageType == StageType.None)

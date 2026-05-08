@@ -36,10 +36,10 @@ public class PortalSystem : MonoBehaviour
         {
             player = other.gameObject;
             player.GetComponent<PlayerProfile>().UseActCount(1);
-            //if (other.GetComponent<PlayerProfile>().ActCount > 0)
-            //{
-            //    StartCoroutine(Teleport());
-            //}
+            if (other.GetComponent<PlayerProfile>().ActCount > 0)
+            {
+                StartCoroutine(Teleport());
+            }
         }
         else if (direction == PortalDirection.Random)
         {
