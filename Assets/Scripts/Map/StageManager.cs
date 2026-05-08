@@ -8,7 +8,8 @@ enum PortalDirection
     Back,
     Left,
     Right,
-    Clear
+    Clear,
+    Random
 }
 
 public enum StageType
@@ -19,6 +20,7 @@ public enum StageType
     SealedStone,
     Treasure,
     Boss,
+    Bonfire,
     None
 }
 

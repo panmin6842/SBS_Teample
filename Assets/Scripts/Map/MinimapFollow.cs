@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MinimapFollow : MonoBehaviour
 {
-    [SerializeField]
-    private Transform player;
+    Transform player;
 
     void Start()
     {
@@ -12,7 +11,7 @@ public class MinimapFollow : MonoBehaviour
 
     void Update()
     {
-        if (player != null)
+        if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }

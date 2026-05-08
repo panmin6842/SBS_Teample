@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,13 +32,22 @@ public class PortalSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && (direction != PortalDirection.Random && direction != PortalDirection.Clear))
         {
             player = other.gameObject;
             if (other.GetComponent<PlayerProfile>().ActCount > 0)
             {
                 StartCoroutine(Teleport());
             }
+        }
+        else if (direction == PortalDirection.Random)
+        {
+            int randomIndex = Random.Range(0, stageManager.StagePositions.Count);
+            Vector2 randomPos = stageManager.StagePositions.ElementAt(randomIndex);
+
+            player.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
+            portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
+            //·£´ýÆ÷Å»
         }
         else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
         {

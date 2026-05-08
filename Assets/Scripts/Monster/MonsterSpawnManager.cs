@@ -64,6 +64,13 @@ public class MonsterSpawnManager : MonoBehaviour
                     stageManager.activePortal = true;
                 }
             }
+            else if (stageManager.curStageType == StageType.Bonfire)
+            {
+                stageManager.curStageCleared = true;
+                GameObject BonfireObject = Instantiate(stageManager.curStageSpawnPrefabs[0]);
+                BonfireObject.transform.position = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 0f, stageManager.curStagePos.y * stageManager.spacing);
+                //Ω±≈Õ
+            }
             else if (stageManager.curStageType == StageType.None)
             {
                 stageManager.curStageCleared = true;
