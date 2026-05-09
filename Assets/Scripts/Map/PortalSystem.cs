@@ -10,7 +10,7 @@ public class PortalSystem : MonoBehaviour
 
     GameObject player;
 
-    //0:¾Õ, 1:µÚ, 2:¿Þ, 3:¿À
+    //0:ï¿½ï¿½, 1:ï¿½ï¿½, 2:ï¿½ï¿½, 3:ï¿½ï¿½
     [SerializeField] PortalDirection direction;
 
     void Start()
@@ -51,11 +51,11 @@ public class PortalSystem : MonoBehaviour
 
                 player.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
                 portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
-                //·£´ýÆ÷Å»
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å»
             }
             else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
             {
-                //»ç¸ÁÆ®¸®°Å
+                //ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
             }
         }
         
@@ -63,8 +63,8 @@ public class PortalSystem : MonoBehaviour
 
     IEnumerator Teleport()
     {
-        Image img = UIManager.Instance.fade.GetComponent<Image>();
-        img.gameObject.SetActive(true);
+        //Image img = UIManager.Instance.fade.GetComponent<Image>();
+        //img.gameObject.SetActive(true);
         player.transform.position = portalManager.PlayerTpSpotTransform.position;
         portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
         portalManager.isCleared = true;

@@ -16,7 +16,7 @@ public class StageDetector : MonoBehaviour
         portalManager = GetComponentInParent<PortalManager>();
         stageManager = StageManager.instance;
 
-        StartCoroutine(StageChangeCoroutine());
+        //StartCoroutine(StageChangeCoroutine());
     }
 
     void Update()
