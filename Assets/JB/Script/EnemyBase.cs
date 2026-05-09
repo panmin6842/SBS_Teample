@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,7 +17,6 @@ public class EnemyBase : MonoBehaviour
 
     protected Transform player;
     protected NavMeshAgent agent;
-    private Coroutine distanceCheckCoroutine;
     private Coroutine attackCoroutine;
 
     protected virtual void Start()
@@ -26,25 +27,25 @@ public class EnemyBase : MonoBehaviour
             player = playerObj.transform;
         }
 
+        // 변수 초기화
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
-        // 무한 루프 방지를 위해 코루틴으로 실행
-        distanceCheckCoroutine = StartCoroutine(CheckDistanceToPlayerRoutine());
-        attackCoroutine = null; // 공격 코루틴은 필요할 때 시작
+
+        CheckDistance(this.GetCancellationTokenOnDestroy()).Forget(); // 거리 체크 코루틴 시작
     }
 
-    protected virtual void OnDestroy()
-    {
-        // 객체 파괴 시 코루틴 정지하여 메모리 누수 방지
-        if (distanceCheckCoroutine != null)
-        {
-            StopCoroutine(distanceCheckCoroutine);
-        }
-        if (attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-        }
-    }
+    // protected virtual void OnDestroy()
+    // {
+    //     // 객체 파괴 시 코루틴 정지하여 메모리 누수 방지
+    //     if (distanceCheckCoroutine != null)
+    //     {
+    //         StopCoroutine(distanceCheckCoroutine);
+    //     }
+    //     if (attackCoroutine != null)
+    //     {
+    //         StopCoroutine(attackCoroutine);
+    //     }
+    // }
 
     protected virtual Vector3 DetectPlayer()
     {
@@ -79,16 +80,14 @@ public class EnemyBase : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    protected virtual IEnumerator CheckDistanceToPlayerRoutine()
+    protected virtual async UniTask CheckDistance(CancellationToken Token)
     {
-        // 0.1초마다 체크하여 CPU 부하를 줄임
-        WaitForSeconds wait = new WaitForSeconds(0.1f);
-
+        await UniTask.Yield(PlayerLoopTiming.Update, Token); // 첫 프레임 대기
         while (true)
         {
             if (player == null)
             {
-                yield return wait;
+                await UniTask.Delay(1000); // 1초 대기 후 다시 체크
                 continue;
             }
 
@@ -100,31 +99,33 @@ public class EnemyBase : MonoBehaviour
                 Debug.Log("적과 플레이어간의 거리가 5m 이하입니다.");
                 Move(this.transform.position - playerPosition);
             }
+
             else if (distanceToPlayer >= FAR_BOUNDARY)
             {
                 Debug.Log("적과 플레이어간의 거리가 20m 이상입니다. 적이 플레이어를 추적합니다.");
                 Move(playerPosition - this.transform.position);
             }
+
             else
             {
                 Debug.Log("Enemy is Attack.");
                 if (attackCoroutine == null)
                 {
-                    attackCoroutine = StartCoroutine(AttackRoutine());
+                    AttackRoutine().Forget();
                 }
             }
 
-            yield return wait;
+            await UniTask.Delay(1000); // 1초 대기 후 다시 체크
         }
     }
 
-    protected virtual IEnumerator AttackRoutine()
+    protected virtual async UniTask AttackRoutine()
     {
         while (true)
         {
             if (player == null)
             {
-                yield return null;
+                await UniTask.Yield();
                 continue;
             }
 
@@ -135,12 +136,12 @@ public class EnemyBase : MonoBehaviour
             {
                 Attack();
                 // 공격 후 1초 대기
-                yield return new WaitForSeconds(1.0f);
+                await UniTask.Delay(1000);
             }
             else
             {
                 // 공격 범위를 벗어나면 코루틴 종료
-                yield break;
+                await UniTask.Yield();
             }
         }
     }
