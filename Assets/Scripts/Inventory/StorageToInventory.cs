@@ -184,51 +184,58 @@ public class StorageToInventory : MonoBehaviour
 
     public void ArtiFactInstall(InventorySlot inventorySlot)
     {
-        for (int i = 0; i < artiFactSlots.Length; i++)
+        if (DayManager.instance.curDay != Day.night)
         {
-            if (inventorySlot.Item != null)
+            for (int i = 0; i < artiFactSlots.Length; i++)
             {
-                if (artiFactSlots[i].Item == null) //그대로 장비 착용
+                if (inventorySlot.Item != null)
                 {
-                    if (artiFactSlots[i].IsMask(inventorySlot.Item))
+                    if (artiFactSlots[i].Item == null) //그대로 장비 착용
                     {
-                        artiFactSlots[i].AddItem(inventorySlot.Item);
-                        ArtiFactManager.instance.EquipArtifact(inventorySlot.Item.ItemID);
-                        inventorySlot.ClearSlot();
-                        return;
+                        if (artiFactSlots[i].IsMask(inventorySlot.Item))
+                        {
+                            artiFactSlots[i].AddItem(inventorySlot.Item);
+                            ArtiFactManager.instance.EquipArtifact(inventorySlot.Item.ItemID);
+                            inventorySlot.ClearSlot();
+                            return;
+                        }
                     }
                 }
             }
+
         }
     }
 
     public void ReleaseOfArtFact(EquipmentItemSlot slot)
     {
-        int Count = 0;
-        for (int i = 0; i < artFactInventorySlots.Length; i++)
+        if (DayManager.instance.curDay != Day.night)
         {
-            if (artFactInventorySlots[Count].Item == null && artFactInventorySlots[Count].IsMask(slot.Item))
+            int Count = 0;
+            for (int i = 0; i < artFactInventorySlots.Length; i++)
             {
-                if (GameManager.instance.installImpossibleStart)
+                if (artFactInventorySlots[Count].Item == null && artFactInventorySlots[Count].IsMask(slot.Item))
                 {
-                    if(slot.Item.ItemID == 707)
+                    if (GameManager.instance.installImpossibleStart)
                     {
+                        if (slot.Item.ItemID == 707)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        artFactInventorySlots[Count].AddItem(slot.Item, 1);
+                        ArtiFactManager.instance.UnequipArtifact(slot.Item.ItemID);
+                        slot.ClearSlot();
+                        Count++;
                         break;
                     }
                 }
-                else
-                {
-                    artFactInventorySlots[Count].AddItem(slot.Item, 1);
-                    ArtiFactManager.instance.UnequipArtifact(slot.Item.ItemID);
-                    slot.ClearSlot();
-                    Count++;
-                    break;
-                }
-            }
 
-            if (artFactInventorySlots[Count].Item != null)
-            {
-                Count++;
+                if (artFactInventorySlots[Count].Item != null)
+                {
+                    Count++;
+                }
             }
         }
     }

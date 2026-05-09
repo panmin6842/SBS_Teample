@@ -9,12 +9,18 @@ public class StageDetector : MonoBehaviour
 
     private void Awake()
     {
+        portalManager = GetComponentInParent<PortalManager>();
+        stageManager = StageManager.instance;
+        if (stageManager == null)
+        {
+            Debug.Log("awake : stageManager 없음");
+        }
     }
 
     void Start()
     {
-        portalManager = GetComponentInParent<PortalManager>();
-        stageManager = StageManager.instance;
+        
+        
 
         //StartCoroutine(StageChangeCoroutine());
     }
@@ -28,7 +34,16 @@ public class StageDetector : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //StartCoroutine(StageChangeCoroutine());
+            if (portalManager == null)
+            {
+                Debug.Log("potalManager 없음");
+            }
+            if(portalManager.CinemachineCamera == null)
+            {
+                Debug.Log("potalManager.CinemachineCamera 없음");
+            }
             var confinder = portalManager.CinemachineCamera.GetComponent<CinemachineConfiner3D>();
+            
             confinder.BoundingVolume = gameObject.GetComponent<Collider>();
 
             stageManager.curStagePos = new Vector2Int((int)(transform.position.x / stageManager.spacing), (int)(transform.position.z / stageManager.spacing));

@@ -527,6 +527,8 @@ public class PlayerProfile : PlayerState
         {
             originHp = maxHp;
             maxHp += (originHp * 0.1f);
+            curHp += (originHp * 0.1f);
+            curHp = Mathf.Clamp(curHp, 0, maxHp);
         }
     }
 
@@ -546,6 +548,7 @@ public class PlayerProfile : PlayerState
             else if (GameManager.instance.buffStoneGetStatusNumber == 3)
             {
                 maxHp = originHp;
+                curHp -= (originHp * 0.1f);
             }
         }
 
@@ -572,13 +575,13 @@ public class PlayerProfile : PlayerState
     public void LoanActCount()
     {
         curActCount -= (loanActCount * 2);
-        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+        //curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
     }
 
     public void BuffActCount(int actCount)
     {
         curActCount += actCount;
-        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+        //curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
     }
 
     public void ActCountPlus(int actCount, float recoveryMultiplier)
@@ -586,7 +589,7 @@ public class PlayerProfile : PlayerState
         int finialRecover = Mathf.RoundToInt(actCount * recoveryMultiplier);
         curActCount += finialRecover;
 
-        curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
+        //curActCount = Mathf.Clamp(curActCount, 0, maxActCount);
     }
 
     public void ActCountReset()

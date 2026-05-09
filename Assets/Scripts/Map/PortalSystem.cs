@@ -38,7 +38,7 @@ public class PortalSystem : MonoBehaviour
             
             if(direction != PortalDirection.Random && direction != PortalDirection.Clear)
             {
-                player.GetComponent<PlayerProfile>().UseActCount(1);
+                //player.GetComponent<PlayerProfile>().UseActCount(1);
                 if (other.GetComponent<PlayerProfile>().ActCount > 0)
                 {
                     StartCoroutine(Teleport());
@@ -51,9 +51,12 @@ public class PortalSystem : MonoBehaviour
 
                 player.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
                 portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
+
+                GameManager.instance.OnRandomPortalEnter?.Invoke();
                 //������Ż
             }
-            else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
+            else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 
+                portalManager.PlayerObject.GetComponent<PlayerProfile>().actCountMin)
             {
                 //���Ʈ����
             }
@@ -94,6 +97,7 @@ public class PortalSystem : MonoBehaviour
         }
 
         player.GetComponent<PlayerProfile>().UseActCount(1);
+        GameManager.instance.OnPortalEnter?.Invoke();
         yield return null;
     }
 }

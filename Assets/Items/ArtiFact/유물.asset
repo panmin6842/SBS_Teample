@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsEquipment: 0
   IsAccessory: 0
-  itemID: 709
+  itemID: 710
   itemName: "\uADC0\uD55C \uBD09\uC778\uC758 \uC720\uBB3C"
   canOverlap: 0
   isInteractivity: 1
@@ -34,4 +34,3 @@ MonoBehaviour:
   skillCoolTimeBuff: 0
   minGold: 0
   maxGold: 0
-  actCount: 0

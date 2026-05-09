@@ -35,7 +35,10 @@ public class DayManager : MonoBehaviour
         storageToInventory = GameObject.Find("InventorySystem").GetComponent<StorageToInventory>();
         storeManager = GameObject.Find("InventorySystem").GetComponent<StoreManager>();
         playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
-        dayEndButton.interactable = false;
+        if (dayEndButton != null)
+        {
+            dayEndButton.interactable = false;
+        }
         daySunRotation = new Vector3(50, -30, 0);
         nightSunRotation = new Vector3(-49, -195, -11);
     }
