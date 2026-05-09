@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -11,13 +12,13 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float speed = 10.0f;
     [SerializeField] protected float attackRange = 10.0f;
     [SerializeField] protected float detectionRange = 20.0f;
+    [SerializeField] protected float distanceToPlayer;
 
-    public const float CLOSED_BOUNDARY = 5.0f;
+    public const float NEAR_BOUNDARY = 5.0f;
     public const float FAR_BOUNDARY = 20.0f;
 
     protected Transform player;
     protected NavMeshAgent agent;
-    private Coroutine attackCoroutine;
 
     protected virtual void Start()
     {
@@ -32,20 +33,22 @@ public class EnemyBase : MonoBehaviour
         agent.speed = speed;
 
         CheckDistance(this.GetCancellationTokenOnDestroy()).Forget(); // 거리 체크 코루틴 시작
+        AttackRoutine(this.GetCancellationTokenOnDestroy()).Forget();
     }
 
-    // protected virtual void OnDestroy()
-    // {
-    //     // 객체 파괴 시 코루틴 정지하여 메모리 누수 방지
-    //     if (distanceCheckCoroutine != null)
-    //     {
-    //         StopCoroutine(distanceCheckCoroutine);
-    //     }
-    //     if (attackCoroutine != null)
-    //     {
-    //         StopCoroutine(attackCoroutine);
-    //     }
-    // }
+    protected virtual void LoopLogic()
+    {
+        if (distanceToPlayer <= NEAR_BOUNDARY)
+        {
+            Debug.Log("적과 플레이어간의 거리가 5m 이하입니다.");
+            Move(this.transform.position - player.position);
+        }
+        else if (distanceToPlayer >= FAR_BOUNDARY)
+        {
+            Debug.Log("적과 플레이어간의 거리가 20m 이상입니다. 적이 플레이어를 추적합니다.");
+            Move(player.position - this.transform.position);
+        }
+    }
 
     protected virtual Vector3 DetectPlayer()
     {
@@ -82,57 +85,23 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual async UniTask CheckDistance(CancellationToken Token)
     {
-        await UniTask.Yield(PlayerLoopTiming.Update, Token); // 첫 프레임 대기
-        while (true)
+        while (!Token.IsCancellationRequested)
         {
+            await UniTask.Yield(PlayerLoopTiming.Update, Token); // 첫 프레임 대기
             if (player == null)
             {
                 await UniTask.Delay(1000); // 1초 대기 후 다시 체크
-                continue;
             }
-
-            Vector3 playerPosition = player.position;
-            float distanceToPlayer = Vector3.Distance(transform.position, playerPosition);
-
-            if (distanceToPlayer <= CLOSED_BOUNDARY)
-            {
-                Debug.Log("적과 플레이어간의 거리가 5m 이하입니다.");
-                Move(this.transform.position - playerPosition);
-            }
-
-            else if (distanceToPlayer >= FAR_BOUNDARY)
-            {
-                Debug.Log("적과 플레이어간의 거리가 20m 이상입니다. 적이 플레이어를 추적합니다.");
-                Move(playerPosition - this.transform.position);
-            }
-
-            else
-            {
-                Debug.Log("Enemy is Attack.");
-                if (attackCoroutine == null)
-                {
-                    AttackRoutine().Forget();
-                }
-            }
-
-            await UniTask.Delay(1000); // 1초 대기 후 다시 체크
+            distanceToPlayer = (transform.position - player.position).sqrMagnitude;
         }
     }
 
-    protected virtual async UniTask AttackRoutine()
+    protected virtual async UniTask AttackRoutine(CancellationToken Token = default)
     {
-        while (true)
+        while (!Token.IsCancellationRequested)
         {
-            if (player == null)
-            {
-                await UniTask.Yield();
-                continue;
-            }
-
-            Vector3 playerPosition = player.position;
-            float distanceToPlayer = Vector3.Distance(transform.position, playerPosition);
-
-            if (distanceToPlayer <= attackRange)
+            await UniTask.Yield(PlayerLoopTiming.Update, Token); // 첫 프레임 대기
+            if (distanceToPlayer <= attackRange) // 공격 범위 내에 있고 너무 가까이 있지 않을 때
             {
                 Attack();
                 // 공격 후 1초 대기
@@ -152,7 +121,7 @@ public class EnemyBase : MonoBehaviour
         {
             Debug.Log("Enemy moves!");
             // direction을 기반으로 NavMeshAgent를 이동시킵니다.
-            while(direction.magnitude == 15.0f)
+            if (direction.magnitude > 15.0f || direction.magnitude < 5.0f)
             {
                 Debug.Log("Enemy is moving to the player.");
                 agent.Move(direction.normalized * agent.speed * Time.deltaTime);
