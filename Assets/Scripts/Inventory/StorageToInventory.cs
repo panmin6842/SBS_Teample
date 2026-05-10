@@ -73,6 +73,11 @@ public class StorageToInventory : MonoBehaviour
                             }
                         }
                     }
+                    else if(allSlots[i].Item.Type == ItemType.ArtiFactSlot)
+                    {
+                        artiFactSlots[2].installImpossible = false;
+                        allSlots[i].ClearSlot();
+                    }
                     else
                     {
                         for (int j = 0; j < e_InventorySlots.Length; j++)
@@ -184,58 +189,55 @@ public class StorageToInventory : MonoBehaviour
 
     public void ArtiFactInstall(InventorySlot inventorySlot)
     {
-        if (DayManager.instance.curDay != Day.night)
+        for (int i = 0; i < artiFactSlots.Length; i++)
         {
-            for (int i = 0; i < artiFactSlots.Length; i++)
+            if (inventorySlot.Item != null)
             {
-                if (inventorySlot.Item != null)
+                if (artiFactSlots[i].Item == null && !artiFactSlots[i].installImpossible) //그대로 장비 착용
                 {
-                    if (artiFactSlots[i].Item == null) //그대로 장비 착용
+                    if (artiFactSlots[i].IsMask(inventorySlot.Item))
                     {
-                        if (artiFactSlots[i].IsMask(inventorySlot.Item))
-                        {
-                            artiFactSlots[i].AddItem(inventorySlot.Item);
-                            ArtiFactManager.instance.EquipArtifact(inventorySlot.Item.ItemID);
-                            inventorySlot.ClearSlot();
-                            return;
-                        }
+                        artiFactSlots[i].AddItem(inventorySlot.Item);
+                        ArtiFactManager.instance.EquipArtifact(inventorySlot.Item.ItemID);
+                        inventorySlot.ClearSlot();
+                        return;
                     }
                 }
+                else if(artiFactSlots[i].installImpossible)
+                {
+                    return;
+                }
             }
-
         }
     }
 
     public void ReleaseOfArtFact(EquipmentItemSlot slot)
     {
-        if (DayManager.instance.curDay != Day.night)
+        int Count = 0;
+        for (int i = 0; i < artFactInventorySlots.Length; i++)
         {
-            int Count = 0;
-            for (int i = 0; i < artFactInventorySlots.Length; i++)
+            if (artFactInventorySlots[Count].Item == null && artFactInventorySlots[Count].IsMask(slot.Item))
             {
-                if (artFactInventorySlots[Count].Item == null && artFactInventorySlots[Count].IsMask(slot.Item))
+                if (GameManager.instance.installImpossibleStart)
                 {
-                    if (GameManager.instance.installImpossibleStart)
+                    if (slot.Item.ItemID == 707)
                     {
-                        if (slot.Item.ItemID == 707)
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        artFactInventorySlots[Count].AddItem(slot.Item, 1);
-                        ArtiFactManager.instance.UnequipArtifact(slot.Item.ItemID);
-                        slot.ClearSlot();
-                        Count++;
                         break;
                     }
                 }
-
-                if (artFactInventorySlots[Count].Item != null)
+                else
                 {
+                    artFactInventorySlots[Count].AddItem(slot.Item, 1);
+                    ArtiFactManager.instance.UnequipArtifact(slot.Item.ItemID);
+                    slot.ClearSlot();
                     Count++;
+                    break;
                 }
+            }
+
+            if (artFactInventorySlots[Count].Item != null)
+            {
+                Count++;
             }
         }
     }

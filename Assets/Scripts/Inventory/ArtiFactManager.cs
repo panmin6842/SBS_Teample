@@ -163,11 +163,11 @@ public class ArtiFactManager : MonoBehaviour
         PlayerProfile playerProfile = GameObject.FindWithTag("Player").GetComponent<PlayerProfile>();
         int random = Random.Range(0, 100);
         Debug.Log(random);
-        if (random >= 0 && random < 75)
+        if (random >= 0 && random < 70)
         {
             
         }
-        else if(random >= 75 && random < 95)
+        else if(random >= 70 && random < 90)
         {
             playerProfile.NotUseActCount = false;
             playerProfile.UseActCount(1);
