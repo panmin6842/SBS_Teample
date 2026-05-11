@@ -29,6 +29,7 @@ TagManager:
   - PlayerCamera
   - Chest
   - FKey
+  - StorageCollider
   layers:
   - Default
   - TransparentFX

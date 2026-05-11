@@ -27,13 +27,19 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xOffset = movement.x * playerProfile.moveSpeed * Time.deltaTime;
-        float yOffset = movement.y * playerProfile.moveSpeed * Time.deltaTime;
+        //float xOffset = movement.x * playerProfile.moveSpeed * Time.deltaTime;
+        //float yOffset = movement.y * playerProfile.moveSpeed * Time.deltaTime;
 
-        if (!HitWall())
-        {
-            transform.localPosition += new Vector3(xOffset, 0f, yOffset);
-        }
+        //if (!HitWall())
+        //{
+        //    transform.localPosition += new Vector3(xOffset, 0f, yOffset);
+        //}
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 moveVelocity = new Vector3(movement.x, 0f, movement.y) * playerProfile.moveSpeed;
+        rb.linearVelocity = moveVelocity;
     }
 
     public bool HitWall()
