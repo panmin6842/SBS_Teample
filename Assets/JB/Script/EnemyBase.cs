@@ -5,15 +5,26 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyState
+{
+    Idle,
+    Approaching,
+    Attacking,
+    Retreating
+}
+
 public class EnemyBase : MonoBehaviour
 {
     [Header("적 스탯")]
+    [SerializeField] protected EnemyState state = EnemyState.Idle;
     [SerializeField] protected float health = 100;
     [SerializeField] protected float speed = 10.0f;
     [SerializeField] protected float attackRange = 10.0f;
     [SerializeField] protected float detectionRange = 20.0f;
-    [SerializeField] protected float distanceToPlayer;
     [SerializeField] protected float attackCoolDown = 1.0f;
+
+    [Header("플레이어와의 거리")]
+    [SerializeField] protected float distanceToPlayer;
 
     public const float NEAR_BOUNDARY = 5.0f;
     public const float NEAR_BOUNDARY_SQUARED = NEAR_BOUNDARY * NEAR_BOUNDARY;
@@ -40,58 +51,82 @@ public class EnemyBase : MonoBehaviour
         var token = this.GetCancellationTokenOnDestroy();
         
         // 모든 루틴에 토큰을 전달하여 파괴 시 즉시 종료되도록 함
-        CheckDistance(token).Forget();
-        AttackRoutine(token).Forget();
-        MovementRoutine(token).Forget();
+        MainLoop(token).Forget();
     }
 
-    protected virtual async UniTask MovementRoutine(CancellationToken token)
+    protected virtual async UniTask MainLoop(CancellationToken token)
     {
-        try 
+        while(!token.IsCancellationRequested)
         {
-            while (!token.IsCancellationRequested)
+            await CheckDistance(token);
+            await ChangeState(token);
+
+            switch (state)
             {
-                // 적 자체가 파괴되었는지 체크
-                if (this == null || agent == null) return;
-
-                #region 거리가 20m 이상일 때 플레이어에게 접근
-
-                if (distanceToPlayer >= FAR_BOUNDARY_SQUARED)
-                {
-                    while (distanceToPlayer > APPROACH_DISTANCE_SQUARED && !token.IsCancellationRequested)
-                    {
-                        if (player != null && agent != null && agent.isOnNavMesh)
-                        {
-                            agent.SetDestination(player.position);
-                        }
-                        await UniTask.Yield(PlayerLoopTiming.Update, token);
-                    }
-                    if (agent != null && agent.isOnNavMesh) agent.ResetPath();
-                }
-
-                #endregion
-                #region 거리가 5m 이하일 때 후퇴
-
-                    else if (distanceToPlayer <= NEAR_BOUNDARY_SQUARED)
-                    {
-                        while (distanceToPlayer < NEAR_BOUNDARY_SQUARED && !token.IsCancellationRequested)
-                        {
-                            if (player != null && agent != null && agent.isOnNavMesh)
-                            {
-                                Vector3 awayDir = (transform.position - player.position).normalized;
-                                agent.SetDestination(transform.position + awayDir * this.speed);
-                            }
-                            await UniTask.Yield(PlayerLoopTiming.Update, token);
-                        }
-                        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
-                    }
-
-                #endregion
-
-                await UniTask.Yield(PlayerLoopTiming.Update, token);
+                case EnemyState.Idle:
+                    break;
+                case EnemyState.Approaching:
+                    await MoveToPlayer(token);
+                    break;
+                case EnemyState.Attacking:
+                    await Attack();
+                    break;
+                case EnemyState.Retreating:
+                    await RetreatingFromPlayer(token);
+                    break;
+                default:
+                    break;
             }
         }
-        catch (OperationCanceledException) { /* 파괴 시 발생하는 정상적인 예외 */ }
+    }
+
+    protected virtual async UniTask ChangeState(CancellationToken token)
+    {
+        // 적 자체가 파괴되었는지 체크
+        if (this == null || agent == null) return;
+
+        if (distanceToPlayer >= FAR_BOUNDARY_SQUARED)
+        {
+            this.state = EnemyState.Approaching;
+        }
+        else if (distanceToPlayer <= NEAR_BOUNDARY_SQUARED)
+        {
+            this.state = EnemyState.Retreating;
+        }
+        if (distanceToPlayer <= attackRange * attackRange)
+        {
+            this.state = EnemyState.Attacking;
+            // 대기 시간에도 토큰을 전달해야 파괴 시 즉시 멈춤
+            await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
+        }
+        await UniTask.Yield(PlayerLoopTiming.Update, token);
+    }
+
+    private async UniTask RetreatingFromPlayer(CancellationToken token)
+    {
+        while (distanceToPlayer < NEAR_BOUNDARY_SQUARED && !token.IsCancellationRequested)
+        {
+            if (player != null && agent != null && agent.isOnNavMesh)
+            {
+                Vector3 awayDir = (transform.position - player.position).normalized;
+                agent.SetDestination(transform.position + awayDir * this.speed);
+            }
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+        }
+        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
+    }
+
+    private async UniTask MoveToPlayer(CancellationToken token)
+    {
+        while (distanceToPlayer > APPROACH_DISTANCE_SQUARED && !token.IsCancellationRequested)
+        {
+            if (player != null && agent != null && agent.isOnNavMesh)
+            {
+                agent.SetDestination(player.position);
+            }
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+        }
+        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
     }
 
     public virtual void TakeDamage(float damage)
@@ -107,46 +142,20 @@ public class EnemyBase : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    #region 거리 계산 및 공격 가능여부 체크
     protected virtual async UniTask CheckDistance(CancellationToken token)
     {
-        try 
+        try
         {
-            while (!token.IsCancellationRequested)
+            if (player != null && this != null)
             {
-                if (player != null && this != null)
-                {
-                    distanceToPlayer = (transform.position - player.position).sqrMagnitude;
-                }
-                else if (player == null)
-                {
-                    // 플레이어가 없으면 attackCoolDown 초 대기 (토큰 포함)
-                    await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
-                    continue;
-                }
-                await UniTask.Yield(PlayerLoopTiming.Update, token);
+                distanceToPlayer = (transform.position - player.position).sqrMagnitude;
             }
-        }
-        catch (OperationCanceledException) { }
-    }
-
-    protected virtual async UniTask AttackRoutine(CancellationToken token)
-    {
-        try 
-        {
-            while (!token.IsCancellationRequested)
+            else if (player == null)
             {
-                await UniTask.Yield(PlayerLoopTiming.Update, token);
-                if (this == null) return;
-
-                if (distanceToPlayer <= attackRange * attackRange && player != null)
-                {
-
-                    Attack().Forget();
-                    // 대기 시간에도 토큰을 전달해야 파괴 시 즉시 멈춤
-                    await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
-                }
+                // 플레이어가 없으면 attackCoolDown 초 대기 (토큰 포함)
+                await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
             }
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
         }
         catch (OperationCanceledException) { }
     }
@@ -157,7 +166,8 @@ public class EnemyBase : MonoBehaviour
         Debug.Log("<color=red>" + gameObject.name + " Prepares to Attack!</color>");
         await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: CancellationToken.None); // 공격 애니메이션(시전) 시간
         Debug.Log("<color=red>" + gameObject.name + " Attacks!</color>");
+
+        this.state = EnemyState.Idle;
         agent.isStopped = false;
-    } 
-    #endregion
+    }
 }
