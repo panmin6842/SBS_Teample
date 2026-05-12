@@ -24,18 +24,6 @@ public class PlayerMove : MonoBehaviour
         inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //float xOffset = movement.x * playerProfile.moveSpeed * Time.deltaTime;
-        //float yOffset = movement.y * playerProfile.moveSpeed * Time.deltaTime;
-
-        //if (!HitWall())
-        //{
-        //    transform.localPosition += new Vector3(xOffset, 0f, yOffset);
-        //}
-    }
-
     private void FixedUpdate()
     {
         Vector3 moveVelocity = new Vector3(movement.x, 0f, movement.y) * playerProfile.moveSpeed;
