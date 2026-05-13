@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbfd13451843bc54a82efb9fb3a3346b, type: 3}
-  m_Name: "\uD29C\uD1A0\uB9AC\uC5BCStoreData"
+  m_Name: "\uBC40\uD30C\uC774\uC5B4\uC131StoreData"
   m_EditorClassIdentifier: 
   itemPools:
   - gradeName: Gold
@@ -19,39 +19,39 @@ MonoBehaviour:
     dropChance: 10
   - gradeName: Weapon
     items:
-    - {fileID: 11400000, guid: 23f23f6ce5b79f64d82e3315c7e3f35f, type: 2}
-    - {fileID: 11400000, guid: de5b1ea007f6b3b4fa51296ddc48de82, type: 2}
-    - {fileID: 11400000, guid: 34fe90666b10e934697ec1a45de45f14, type: 2}
+    - {fileID: 11400000, guid: f7c80fc8190fb6b4eb0e9c832510d657, type: 2}
+    - {fileID: 11400000, guid: 733f427500b806643a5804144d14aef5, type: 2}
+    - {fileID: 11400000, guid: a600c474a9f98a44891592613edab292, type: 2}
     dropChance: 10
   - gradeName: Head
     items:
-    - {fileID: 11400000, guid: 9d79ba84a869dd243980aabee5a2a665, type: 2}
+    - {fileID: 11400000, guid: a75f139b124085347a0a2b80c068e3a6, type: 2}
     dropChance: 15
   - gradeName: Armor
     items:
-    - {fileID: 11400000, guid: 50e441aa731e1c04ca3c3f0bd376fcae, type: 2}
+    - {fileID: 11400000, guid: d2b78f0bd1711d441a9a7f01f735e75d, type: 2}
     dropChance: 15
   - gradeName: Bottoms
     items:
-    - {fileID: 11400000, guid: 0d0f930c9c808d94db92aed914ac7ed2, type: 2}
+    - {fileID: 11400000, guid: 3af15ae556c0d5e46a223d342db72e8b, type: 2}
     dropChance: 15
   - gradeName: Pendent
     items:
-    - {fileID: 11400000, guid: 3ab6dd28bae4b4c4ea0e7bc98d4b3364, type: 2}
+    - {fileID: 11400000, guid: 08073148fcd4fa04381d864f675482dd, type: 2}
     dropChance: 5
   - gradeName: Ring
     items:
-    - {fileID: 11400000, guid: c827fbce7c1752644a6a130a8e28ce3c, type: 2}
+    - {fileID: 11400000, guid: 4730b6b44588fc64497ad98ebff011c8, type: 2}
     dropChance: 5
   - gradeName: Amulet
     items:
-    - {fileID: 11400000, guid: 1f5effa3e063d9a41b6bc7e70c63ae06, type: 2}
+    - {fileID: 11400000, guid: 4f46f36c8f67fab43a25fd4ca536c57a, type: 2}
     dropChance: 5
   - gradeName: Glove
     items:
-    - {fileID: 11400000, guid: 709e855d3fe48ef4588ac0c33e968ad7, type: 2}
+    - {fileID: 11400000, guid: ab197cba482b6d24ba8dd509ee2d51c9, type: 2}
     dropChance: 5
   - gradeName: Shoes
     items:
-    - {fileID: 11400000, guid: a11b2cb889b308845873bd3379bd491b, type: 2}
+    - {fileID: 11400000, guid: 2db01b5edf5dfcd4782fedce719416f0, type: 2}
     dropChance: 15
