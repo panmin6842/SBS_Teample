@@ -263,10 +263,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94fcf161556f7ba44b9f0701a1c1ba35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyInfo: {fileID: 11400000, guid: a35094e58d86c134298efe21a06d9ae0, type: 2}
+  state: 0
   health: 100
   speed: 1
   attackRange: 10
   detectionRange: 20
+  attackCoolDown: 1
+  distanceToPlayer: 0
 --- !u!1 &297458261
 GameObject:
   m_ObjectHideFlags: 0

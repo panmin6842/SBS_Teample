@@ -11,5 +11,10 @@ namespace Enemy
         [field: SerializeField] public int MaxHp { get;private set; }
         [field: SerializeField] public int DefensePower { get;private set; }
         [field: SerializeField] public int AttackPower { get;private set; }
+
+        [field: SerializeField] public float MoveSpeed { get;private set; }
+        [field: SerializeField] public float AttackCoolTime { get;private set; }
+        [field: SerializeField] public float AttackRange { get;private set; }
+        [field: SerializeField] public float DetectionRange { get;private set; }
     }
 }

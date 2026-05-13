@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,11 +15,29 @@ public enum EnemyState
     Retreating
 }
 
+public abstract class StateBase : MonoBehaviour
+{
+    protected EnemyState enemyState;
+
+    public abstract UniTask Enter(CancellationToken token);
+    public abstract UniTask Tick(CancellationToken token);
+    public abstract UniTask Exit(CancellationToken token);
+}
+
+
 public class EnemyBase : MonoBehaviour
 {
+    [Header("적 정보")]
+    [SerializeField] protected EnemyInfoSO enemyInfo;
+
+    [Header("적 행동")]
+    [SerializeField] protected StateBase[] stateBases;
+    
+    Dictionary<EnemyState, StateBase> stateDict = new Dictionary<EnemyState, StateBase>();
+
     [Header("적 스탯")]
     [SerializeField] protected EnemyState state = EnemyState.Idle;
-    [SerializeField] protected float health = 100;
+    [SerializeField] protected float health = 100.0f;
     [SerializeField] protected float speed = 10.0f;
     [SerializeField] protected float attackRange = 10.0f;
     [SerializeField] protected float detectionRange = 20.0f;
@@ -36,13 +56,15 @@ public class EnemyBase : MonoBehaviour
     protected Transform player;
     protected NavMeshAgent agent;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         GameObject playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null)
         {
             player = playerObj.transform;
         }
+        
+        SetupEnemyInfo();
 
         agent = GetComponent<NavMeshAgent>();
         if (agent != null) agent.speed = speed;
@@ -52,6 +74,18 @@ public class EnemyBase : MonoBehaviour
         
         // 모든 루틴에 토큰을 전달하여 파괴 시 즉시 종료되도록 함
         MainLoop(token).Forget();
+    }
+
+    protected virtual void SetupEnemyInfo()
+    {
+        if (enemyInfo != null)
+        {
+            this.health = enemyInfo.MaxHp;
+            this.speed = enemyInfo.MoveSpeed;
+            this.attackRange = enemyInfo.AttackRange;
+            this.detectionRange = enemyInfo.DetectionRange;
+            this.attackCoolDown = enemyInfo.AttackCoolTime;
+        }
     }
 
     protected virtual async UniTask MainLoop(CancellationToken token)
