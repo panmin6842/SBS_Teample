@@ -25,6 +25,7 @@ public class StageClearManager : MonoBehaviour
                 DayManager.instance.sunLight.transform.rotation
                 = Quaternion.Euler(DayManager.instance.nightSunRotation);
                 DayManager.instance.curDay = Day.night;
+                DayManager.instance.NightIconAppear();
                 return;
             }
             other.gameObject.GetComponent<PlayerProfile>().BuffStoneRelease();
@@ -39,6 +40,7 @@ public class StageClearManager : MonoBehaviour
             DayManager.instance.sunLight.transform.rotation
                 = Quaternion.Euler(DayManager.instance.nightSunRotation);
             DayManager.instance.curDay = Day.night;
+            DayManager.instance.NightIconAppear();
             GameObject map = GameObject.FindGameObjectWithTag("Map");
             Destroy(map);
         }

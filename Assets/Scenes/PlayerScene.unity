@@ -1871,6 +1871,8 @@ MonoBehaviour:
   daySunRotation: {x: 0, y: 0, z: 0}
   nightSunRotation: {x: 0, y: 0, z: 0}
   curDay: 0
+  dayIcon: {fileID: 0}
+  nightIcon: {fileID: 0}
 --- !u!4 &727316076
 Transform:
   m_ObjectHideFlags: 0
