@@ -99,7 +99,30 @@ public class StageManager : MonoBehaviour
             {
                 if (x >= -1 && x <= 1 && z >= -1 && z <= 1)
                 {
-                    Instantiate(stage[0], transform.localPosition, Quaternion.identity);
+                    if (x == 0 && z == 0)
+                    {
+                        Vector3 spawnPos = new Vector3
+                        (
+                            x * spacing,
+                            0f,
+                            z * spacing
+                        );
+
+                        Instantiate(BossStage, transform.localPosition, Quaternion.identity, transform);
+                        StagePositions.Add(new Vector2Int(x, z));
+                    }
+                }
+                else if (x == -countHalf && z == -countHalf)
+                {
+                    Vector3 spawnPos = new Vector3
+                    (
+                        x * spacing,
+                        0f,
+                        z * spacing
+                    );
+
+                    Instantiate(stage[0], spawnPos, Quaternion.identity, transform);
+                    StagePositions.Add(new Vector2Int(x, z));
                 }
                 else
                 {
@@ -110,7 +133,7 @@ public class StageManager : MonoBehaviour
                         z * spacing
                     );
                     StagePositions.Add(new Vector2Int(x, z));
-                    Instantiate(stage[Random.Range(0, stage.Count)], spawnPos, Quaternion.identity);
+                    Instantiate(stage[Random.Range(0, stage.Count)], spawnPos, Quaternion.identity, transform);
                 }
 
             }
