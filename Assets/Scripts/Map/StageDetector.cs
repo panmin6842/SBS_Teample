@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class StageDetector : MonoBehaviour
 {
-    PortalManager portalManager;
-    StageManager stageManager;
+    [SerializeField] PortalManager portalManager;
+    [SerializeField] StageManager stageManager;
 
     private void Awake()
     {
+        stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
     void Start()
     {
         portalManager = GetComponentInParent<PortalManager>();
-        stageManager = StageManager.instance;
 
         //StartCoroutine(StageChangeCoroutine());
     }
@@ -27,6 +27,7 @@ public class StageDetector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log(stageManager);
             //StartCoroutine(StageChangeCoroutine());
             var confinder = portalManager.CinemachineCamera.GetComponent<CinemachineConfiner3D>();
             confinder.BoundingVolume = gameObject.GetComponent<Collider>();
@@ -37,6 +38,17 @@ public class StageDetector : MonoBehaviour
             stageManager.activePortal = false;
             stageManager.curStageCleared = portalManager.isCleared;
             stageManager.curStageSpawnPrefabs = portalManager.SpawnPrefabs;
+            stageManager.surroundStagePositions.Clear();
+            for (int i = 0; i < 9; i++)
+            {
+                int x = stageManager.curStagePos.x + (i % 3 - 1);
+                int z = stageManager.curStagePos.y + (i / 3 - 1);
+                Vector2Int pos = new Vector2Int(x, z);
+                if (stageManager.StagePositions.Contains(pos))
+                {
+                    stageManager.surroundStagePositions.Add(pos);
+                }
+            }
         }
     }
 

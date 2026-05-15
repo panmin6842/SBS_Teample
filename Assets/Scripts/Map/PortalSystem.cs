@@ -47,9 +47,13 @@ public class PortalSystem : MonoBehaviour
                 int randomIndex = Random.Range(0, stageManager.StagePositions.Count);
                 Vector2 randomPos = stageManager.StagePositions.ElementAt(randomIndex);
 
-                player.transform.position = new Vector3(randomPos.x * stageManager.spacing - 9f, 1.9f, randomPos.y * stageManager.spacing);
+                player.transform.position = new Vector3(randomPos.x * stageManager.spacing, 1.9f, randomPos.y * stageManager.spacing - 9f);
                 //portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
                 //·£´ýÆ÷Å»
+            }
+            else if (direction == PortalDirection.Return)
+            {
+                //±ÍÈ¯Æ÷Å»
             }
             else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
             {
