@@ -7,21 +7,11 @@ using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EnemyState
+public interface IStateBase
 {
-    Idle,
-    Approaching,
-    Attacking,
-    Retreating
-}
-
-public abstract class StateBase : MonoBehaviour
-{
-    protected EnemyState enemyState;
-
-    public abstract UniTask Enter(CancellationToken token);
-    public abstract UniTask Tick(CancellationToken token);
-    public abstract UniTask Exit(CancellationToken token);
+    public UniTask Enter(CancellationToken token);
+    public UniTask Tick(CancellationToken token);
+    public UniTask Exit(CancellationToken token);
 }
 
 
@@ -29,14 +19,14 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("적 정보")]
     [SerializeField] protected EnemyInfoSO enemyInfo;
+    [SerializeField] protected IStateBase currentState;
 
     [Header("적 행동")]
-    [SerializeField] protected StateBase[] stateBases;
-    
-    Dictionary<EnemyState, StateBase> stateDict = new Dictionary<EnemyState, StateBase>();
+    public ApproachState approachState;
+    public RetreatingState retreatState;
+    public AttackState attackState;
 
     [Header("적 스탯")]
-    [SerializeField] protected EnemyState state = EnemyState.Idle;
     [SerializeField] protected float health = 100.0f;
     [SerializeField] protected float speed = 10.0f;
     [SerializeField] protected float attackRange = 10.0f;
@@ -44,18 +34,11 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float attackCoolDown = 1.0f;
 
     [Header("플레이어와의 거리")]
-    [SerializeField] protected float distanceToPlayer;
+    [SerializeField] public float distanceToPlayer { get; private set; }
+    public Transform player { get; private set; }
+    public NavMeshAgent agent { get; private set; }
 
-    public const float NEAR_BOUNDARY = 5.0f;
-    public const float NEAR_BOUNDARY_SQUARED = NEAR_BOUNDARY * NEAR_BOUNDARY;
-    public const float FAR_BOUNDARY = 20.0f;
-    public const float FAR_BOUNDARY_SQUARED = FAR_BOUNDARY * FAR_BOUNDARY;
-    public const float APPROACH_DISTANCE = 15.0f;
-    public const float APPROACH_DISTANCE_SQUARED = APPROACH_DISTANCE * APPROACH_DISTANCE;
-
-    protected Transform player;
-    protected NavMeshAgent agent;
-
+    private CancellationToken token;
     protected virtual void Awake()
     {
         GameObject playerObj = GameObject.FindWithTag("Player");
@@ -64,16 +47,27 @@ public class EnemyBase : MonoBehaviour
             player = playerObj.transform;
         }
         
-        SetupEnemyInfo();
-
+        token = this.GetCancellationTokenOnDestroy();
         agent = GetComponent<NavMeshAgent>();
         if (agent != null) agent.speed = speed;
 
-        // CancellationToken 생성
-        var token = this.GetCancellationTokenOnDestroy();
-        
-        // 모든 루틴에 토큰을 전달하여 파괴 시 즉시 종료되도록 함
+        SetupEnemyInfo();
         MainLoop(token).Forget();
+        approachState = new ApproachState(this);
+        retreatState = new RetreatingState(this);
+        attackState = new AttackState(this);
+    }
+
+    void Start()
+    {
+        TransitionToState(approachState, token);
+    }
+
+    protected virtual void TransitionToState(IStateBase newState, CancellationToken token)
+    {
+        currentState?.Exit(token).Forget();
+        currentState = newState;
+        currentState.Enter(token).Forget();
     }
 
     protected virtual void SetupEnemyInfo()
@@ -93,24 +87,8 @@ public class EnemyBase : MonoBehaviour
         while(!token.IsCancellationRequested)
         {
             await CheckDistance(token);
+            currentState?.Tick(token).Forget();
             await ChangeState(token);
-
-            switch (state)
-            {
-                case EnemyState.Idle:
-                    break;
-                case EnemyState.Approaching:
-                    await MoveToPlayer(token);
-                    break;
-                case EnemyState.Attacking:
-                    await Attack();
-                    break;
-                case EnemyState.Retreating:
-                    await RetreatingFromPlayer(token);
-                    break;
-                default:
-                    break;
-            }
         }
     }
 
@@ -119,48 +97,21 @@ public class EnemyBase : MonoBehaviour
         // 적 자체가 파괴되었는지 체크
         if (this == null || agent == null) return;
 
-        if (distanceToPlayer >= FAR_BOUNDARY_SQUARED)
+        if (distanceToPlayer >= EnemyConstant.FAR_BOUNDARY_SQUARED)
         {
-            this.state = EnemyState.Approaching;
+            TransitionToState(approachState, token);
         }
-        else if (distanceToPlayer <= NEAR_BOUNDARY_SQUARED)
+        else if (distanceToPlayer <= EnemyConstant.NEAR_BOUNDARY_SQUARED)
         {
-            this.state = EnemyState.Retreating;
+            TransitionToState(retreatState, token);
         }
         if (distanceToPlayer <= attackRange * attackRange)
         {
-            this.state = EnemyState.Attacking;
+            TransitionToState(attackState, token);
             // 대기 시간에도 토큰을 전달해야 파괴 시 즉시 멈춤
             await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
         }
         await UniTask.Yield(PlayerLoopTiming.Update, token);
-    }
-
-    private async UniTask RetreatingFromPlayer(CancellationToken token)
-    {
-        while (distanceToPlayer < NEAR_BOUNDARY_SQUARED && !token.IsCancellationRequested)
-        {
-            if (player != null && agent != null && agent.isOnNavMesh)
-            {
-                Vector3 awayDir = (transform.position - player.position).normalized;
-                agent.SetDestination(transform.position + awayDir * this.speed);
-            }
-            await UniTask.Yield(PlayerLoopTiming.Update, token);
-        }
-        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
-    }
-
-    private async UniTask MoveToPlayer(CancellationToken token)
-    {
-        while (distanceToPlayer > APPROACH_DISTANCE_SQUARED && !token.IsCancellationRequested)
-        {
-            if (player != null && agent != null && agent.isOnNavMesh)
-            {
-                agent.SetDestination(player.position);
-            }
-            await UniTask.Yield(PlayerLoopTiming.Update, token);
-        }
-        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
     }
 
     public virtual void TakeDamage(float damage)
@@ -192,16 +143,5 @@ public class EnemyBase : MonoBehaviour
             await UniTask.Yield(PlayerLoopTiming.Update, token);
         }
         catch (OperationCanceledException) { }
-    }
-
-    protected virtual async UniTask Attack()
-    {
-        agent.isStopped = true;
-        Debug.Log("<color=red>" + gameObject.name + " Prepares to Attack!</color>");
-        await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: CancellationToken.None); // 공격 애니메이션(시전) 시간
-        Debug.Log("<color=red>" + gameObject.name + " Attacks!</color>");
-
-        this.state = EnemyState.Idle;
-        agent.isStopped = false;
     }
 }
