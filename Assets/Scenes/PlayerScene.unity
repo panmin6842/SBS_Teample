@@ -1311,6 +1311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691d3ba8f419d7e4caec6af9fe578eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalManager: {fileID: 0}
+  stageManager: {fileID: 0}
 --- !u!65 &510482533
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1944,7 +1946,7 @@ MonoBehaviour:
   a_critical: 0
   curAnimation: {fileID: 0}
   gold: 10000
-  skillPoint: 0
+  skillPoint: 5
   statusPoint: 0
   maxActCount: 0
   curActCount: 0
@@ -4702,6 +4704,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1858061601}
+    - target: {fileID: 5750485747784054226, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5867903555799650005, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

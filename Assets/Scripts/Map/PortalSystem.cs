@@ -35,10 +35,9 @@ public class PortalSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
-            
-            if(direction != PortalDirection.Random && direction != PortalDirection.Clear)
+
+            if (direction != PortalDirection.Random && direction != PortalDirection.Clear)
             {
-                //player.GetComponent<PlayerProfile>().UseActCount(1);
                 if (other.GetComponent<PlayerProfile>().ActCount > 0)
                 {
                     StartCoroutine(Teleport());
@@ -49,13 +48,16 @@ public class PortalSystem : MonoBehaviour
                 int randomIndex = Random.Range(0, stageManager.StagePositions.Count);
                 Vector2 randomPos = stageManager.StagePositions.ElementAt(randomIndex);
 
-                player.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
-                portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
+                player.transform.position = new Vector3(randomPos.x * stageManager.spacing, 1.9f, randomPos.y * stageManager.spacing - 9f);
 
                 GameManager.instance.OnRandomPortalEnter?.Invoke();
                 //������Ż
             }
-            else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 
+            else if (direction == PortalDirection.Return)
+            {
+
+            }
+            else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <=
                 portalManager.PlayerObject.GetComponent<PlayerProfile>().actCountMin)
             {
                 //���Ʈ����
