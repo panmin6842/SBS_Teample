@@ -19,9 +19,9 @@ public class EnemyBase : MonoBehaviour
 {
     [Header("적 정보")]
     [SerializeField] protected EnemyInfoSO enemyInfo;
-    [SerializeField] protected IStateBase currentState;
 
-    [Header("적 행동")]
+    // 상태 관리
+    protected IStateBase currentState;
     public ApproachState approachState;
     public RetreatingState retreatState;
     public AttackState attackState;
