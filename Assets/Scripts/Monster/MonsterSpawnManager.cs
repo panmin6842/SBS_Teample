@@ -67,28 +67,51 @@ public class MonsterSpawnManager : MonoBehaviour
             else if (stageManager.curStageType == StageType.Bonfire)
             {
                 stageManager.curStageCleared = true;
-                //GameObject BonfireObject = Instantiate();
-                //BonfireObject.transform.position = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 0f, stageManager.curStagePos.y * stageManager.spacing);
+                stageManager.activePortal = true;
+
+                if (isMonsterSpawn)
+                {
+                    Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
+                    Instantiate(stageManager.curStageSpawnPrefabs[0], spawnPos, Quaternion.identity, stageManager.transform);
+
+                    isMonsterSpawn = false;
+                }
 
                 Debug.Log("플레이어 회복");
                 //쉽터
             }
             else if (stageManager.curStageType == StageType.Trap)
             {
+                stageManager.curStageCleared = true;
                 stageManager.activePortal = true;
 
                 if (isMonsterSpawn)
                 {
                     Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 0f, stageManager.curStagePos.y * stageManager.spacing);
-                    Instantiate(stageManager.curStageSpawnPrefabs[Random.Range(0, stageManager.curStageSpawnPrefabs.Count)], spawnPos, Quaternion.identity);
+                    Instantiate(stageManager.curStageSpawnPrefabs[Random.Range(0, stageManager.curStageSpawnPrefabs.Count)], spawnPos, Quaternion.identity, stageManager.transform);
 
                     isMonsterSpawn = false;
                 }
             }
             else if (stageManager.curStageType == StageType.RandomPortal)
             {
+                stageManager.curStageCleared = true;
+
                 Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
                 //Instantiate(stageManager.randomPortalPrefab, spawnPos, Quaternion.identity);
+            }
+            else if (stageManager.curStageType == StageType.Treasure)
+            {
+                stageManager.curStageCleared = true;
+                stageManager.activePortal = true;
+
+                if (isMonsterSpawn)
+                {
+                    Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
+                    Instantiate(stageManager.curStageSpawnPrefabs[Random.Range(0, stageManager.curStageSpawnPrefabs.Count)], spawnPos, Quaternion.identity, stageManager.transform);
+
+                    isMonsterSpawn = false;
+                }
             }
             else if (stageManager.curStageType == StageType.None)
             {
