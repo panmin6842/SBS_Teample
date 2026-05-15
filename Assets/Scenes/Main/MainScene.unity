@@ -2505,7 +2505,7 @@ Transform:
   m_GameObject: {fileID: 760423773}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2282722, y: 0.00000000915975, z: -0.0000000021476194, w: 0.97359735}
-  m_LocalPosition: {x: 20.820387, y: 59.98439, z: -92.48938}
+  m_LocalPosition: {x: 7.6703873, y: 59.08439, z: -92.24039}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9673,6 +9673,8 @@ MonoBehaviour:
   Tutorial: 0
   stage:
   - {fileID: 2619334703123621966, guid: e616edc21ac447144baad3ba5f60526e, type: 3}
+  - {fileID: 2619334703123621966, guid: 353ea65809b425841a05bdfb1f94b72f, type: 3}
+  - {fileID: 2619334703123621966, guid: 1f1178efe564fe74c9c264d5649f9803, type: 3}
   BossStage: {fileID: 2619334703123621966, guid: dfbf6f4a30574c24ea5345b27d3913f9, type: 3}
   spacing: 40
   StageCount: 7

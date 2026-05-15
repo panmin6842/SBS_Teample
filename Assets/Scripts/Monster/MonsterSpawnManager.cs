@@ -73,6 +73,23 @@ public class MonsterSpawnManager : MonoBehaviour
                 Debug.Log("플레이어 회복");
                 //쉽터
             }
+            else if (stageManager.curStageType == StageType.Trap)
+            {
+                stageManager.activePortal = true;
+
+                if (isMonsterSpawn)
+                {
+                    Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 0f, stageManager.curStagePos.y * stageManager.spacing);
+                    Instantiate(stageManager.curStageSpawnPrefabs[Random.Range(0, stageManager.curStageSpawnPrefabs.Count)], spawnPos, Quaternion.identity);
+
+                    isMonsterSpawn = false;
+                }
+            }
+            else if (stageManager.curStageType == StageType.RandomPortal)
+            {
+                Vector3 spawnPos = new Vector3(stageManager.curStagePos.x * stageManager.spacing, 2f, stageManager.curStagePos.y * stageManager.spacing);
+                //Instantiate(stageManager.randomPortalPrefab, spawnPos, Quaternion.identity);
+            }
             else if (stageManager.curStageType == StageType.None)
             {
                 stageManager.curStageCleared = true;
