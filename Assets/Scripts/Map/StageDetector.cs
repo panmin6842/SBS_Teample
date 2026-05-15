@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StageDetector : MonoBehaviour
 {
-    PortalManager portalManager;
-    StageManager stageManager;
+    [SerializeField] PortalManager portalManager;
+    [SerializeField] StageManager stageManager;
 
     private void Awake()
     {
@@ -13,7 +13,7 @@ public class StageDetector : MonoBehaviour
         stageManager = StageManager.instance;
         if (stageManager == null)
         {
-            Debug.Log("awake : stageManager ¾øÀ½");
+            Debug.Log("awake : stageManager ï¿½ï¿½ï¿½ï¿½");
         }
     }
 
@@ -33,14 +33,15 @@ public class StageDetector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log(stageManager);
             //StartCoroutine(StageChangeCoroutine());
             if (portalManager == null)
             {
-                Debug.Log("potalManager ¾øÀ½");
+                Debug.Log("potalManager ï¿½ï¿½ï¿½ï¿½");
             }
             if(portalManager.CinemachineCamera == null)
             {
-                Debug.Log("potalManager.CinemachineCamera ¾øÀ½");
+                Debug.Log("potalManager.CinemachineCamera ï¿½ï¿½ï¿½ï¿½");
             }
             var confinder = portalManager.CinemachineCamera.GetComponent<CinemachineConfiner3D>();
             
@@ -52,6 +53,17 @@ public class StageDetector : MonoBehaviour
             stageManager.activePortal = false;
             stageManager.curStageCleared = portalManager.isCleared;
             stageManager.curStageSpawnPrefabs = portalManager.SpawnPrefabs;
+            stageManager.surroundStagePositions.Clear();
+            for (int i = 0; i < 9; i++)
+            {
+                int x = stageManager.curStagePos.x + (i % 3 - 1);
+                int z = stageManager.curStagePos.y + (i / 3 - 1);
+                Vector2Int pos = new Vector2Int(x, z);
+                if (stageManager.StagePositions.Contains(pos))
+                {
+                    stageManager.surroundStagePositions.Add(pos);
+                }
+            }
         }
     }
 

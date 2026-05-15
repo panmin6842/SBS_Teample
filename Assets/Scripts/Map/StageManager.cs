@@ -9,7 +9,8 @@ enum PortalDirection
     Left,
     Right,
     Clear,
-    Random
+    Random,
+    Return
 }
 
 public enum StageType
@@ -21,6 +22,8 @@ public enum StageType
     Treasure,
     Boss,
     Bonfire,
+    RandomPortal,
+    BackPortal,
     None
 }
 
@@ -67,7 +70,7 @@ public class StageManager : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(SurroundStage());
+        //StartCoroutine(SurroundStage());
     }
 
     IEnumerator SurroundStage()
@@ -96,7 +99,7 @@ public class StageManager : MonoBehaviour
             {
                 if (x >= -1 && x <= 1 && z >= -1 && z <= 1)
                 {
-                    Instantiate(BossStage, transform.localPosition, Quaternion.identity);
+                    Instantiate(stage[0], transform.localPosition, Quaternion.identity);
                 }
                 else
                 {
@@ -107,7 +110,7 @@ public class StageManager : MonoBehaviour
                         z * spacing
                     );
                     StagePositions.Add(new Vector2Int(x, z));
-                    Instantiate(stage[0], spawnPos, Quaternion.identity);
+                    Instantiate(stage[Random.Range(0, stage.Count)], spawnPos, Quaternion.identity);
                 }
 
             }

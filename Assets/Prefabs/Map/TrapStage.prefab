@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6004410561968186714
 Transform:
   m_ObjectHideFlags: 0
@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691d3ba8f419d7e4caec6af9fe578eef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalManager: {fileID: 3809560422600107664}
+  stageManager: {fileID: 0}
 --- !u!1 &2613477811451857407
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7560381821120080026}
   m_Layer: 0
-  m_Name: Underground
+  m_Name: TrapStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1751,8 +1753,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cae063ddb5321468dbc2283c53b95a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageType: 0
-  SpawnPrefabs: []
+  stageType: 2
+  SpawnPrefabs:
+  - {fileID: 5600819314455865584, guid: fb22e7c94c51fd5479bf20122d6768d1, type: 3}
+  - {fileID: 6569963108587773685, guid: 022bfdd2d79d2424da8a5453def7e9bd, type: 3}
   isCleared: 0
   isPortalActive: 0
   PortalObject:
