@@ -10,7 +10,7 @@ public class PortalSystem : MonoBehaviour
 
     GameObject player;
 
-    //0:¾Õ, 1:µÚ, 2:¿Þ, 3:¿À
+    //0:ï¿½ï¿½, 1:ï¿½ï¿½, 2:ï¿½ï¿½, 3:ï¿½ï¿½
     [SerializeField] PortalDirection direction;
 
     void Start()
@@ -35,6 +35,7 @@ public class PortalSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
+
             if (direction != PortalDirection.Random && direction != PortalDirection.Clear)
             {
                 if (other.GetComponent<PlayerProfile>().ActCount > 0)
@@ -48,18 +49,21 @@ public class PortalSystem : MonoBehaviour
                 Vector2 randomPos = stageManager.StagePositions.ElementAt(randomIndex);
 
                 player.transform.position = new Vector3(randomPos.x * stageManager.spacing, 1.9f, randomPos.y * stageManager.spacing - 9f);
-                //portalManager.MainCameraObject.transform.position = new Vector3(randomPos.x - 9f, 0f, randomPos.y);
-                //·£´ýÆ÷Å»
+
+                GameManager.instance.OnRandomPortalEnter?.Invoke();
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å»
             }
             else if (direction == PortalDirection.Return)
             {
-                //±ÍÈ¯Æ÷Å»
+
             }
-            else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <= 0)
+            else if (portalManager.PlayerObject.GetComponent<PlayerProfile>().ActCount <=
+                portalManager.PlayerObject.GetComponent<PlayerProfile>().actCountMin)
             {
-                //»ç¸ÁÆ®¸®°Å
+                //ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½
             }
         }
+        
     }
 
     IEnumerator Teleport()
@@ -95,6 +99,7 @@ public class PortalSystem : MonoBehaviour
         }
 
         player.GetComponent<PlayerProfile>().UseActCount(1);
+        GameManager.instance.OnPortalEnter?.Invoke();
         yield return null;
     }
 }
