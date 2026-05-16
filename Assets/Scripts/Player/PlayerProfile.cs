@@ -262,6 +262,11 @@ public class PlayerProfile : PlayerState
         curDEF = maxDEF;
     }
 
+    public void SetPassiveATK(float atk)
+    {
+        passiveATK = atk * 2;
+    }
+
     public void ArtifactDEFDebuff(float debuff)
     {
         curDEF += debuff;
@@ -301,7 +306,8 @@ public class PlayerProfile : PlayerState
     }
     public void PassiveDEF(float increasedPercent)
     {
-        passiveDEF = maxDEF * (1f + (increasedPercent / 100f));
+        //passiveDEF = maxDEF * (1f + (increasedPercent / 100f));
+        passiveDEF = maxDEF + (increasedPercent / 100f);
         curDEF = passiveDEF;
     }
 

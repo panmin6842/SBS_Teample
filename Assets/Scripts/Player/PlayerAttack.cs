@@ -235,6 +235,8 @@ public class PlayerAttack : MonoBehaviour
         playerProfile.SetMaxATK(setATK, 0, 0);
         playerProfile.SetMaxDEF(setDEF, 0, 0);
 
+        playerProfile.SetPassiveATK(setATK);
+
         GameManager.instance.hpPoint = (int)setHp;
         GameManager.instance.atkPoint = (int)setATK;
         GameManager.instance.defPoint = (int)setDEF;
