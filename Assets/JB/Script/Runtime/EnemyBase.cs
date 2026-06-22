@@ -22,6 +22,7 @@ public class EnemyBase : MonoBehaviour
 
     // 상태 관리
     protected IStateBase currentState;
+    public IAttackBehavior attackBehavior;
     public ApproachState approachState;
     public RetreatingState retreatState;
     public AttackState attackState;
@@ -29,7 +30,7 @@ public class EnemyBase : MonoBehaviour
     [Header("적 스탯")]
     [SerializeField] protected float health = 100.0f;
     [SerializeField] protected float speed = 10.0f;
-    [SerializeField] protected float attackRange = 10.0f;
+    [SerializeField] protected float attackRange = 15.0f;
     [SerializeField] protected float detectionRange = 20.0f;
     [SerializeField] protected float attackCoolDown = 1.0f;
 
@@ -62,7 +63,8 @@ public class EnemyBase : MonoBehaviour
     {
         TransitionToState(approachState, token);
     }
-
+    
+    // 상태 전환 시 실행
     protected virtual void TransitionToState(IStateBase newState, CancellationToken token)
     {
         currentState?.Exit(token).Forget();
@@ -92,24 +94,25 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    // 상태 전환 로직
     protected virtual async UniTask ChangeState(CancellationToken token)
     {
         // 적 자체가 파괴되었는지 체크
         if (this == null || agent == null) return;
 
-        if (distanceToPlayer >= EnemyConstant.FAR_BOUNDARY_SQUARED)
-        {
-            TransitionToState(approachState, token);
-        }
-        else if (distanceToPlayer <= EnemyConstant.NEAR_BOUNDARY_SQUARED)
-        {
-            TransitionToState(retreatState, token);
-        }
         if (distanceToPlayer <= attackRange * attackRange)
         {
             TransitionToState(attackState, token);
             // 대기 시간에도 토큰을 전달해야 파괴 시 즉시 멈춤
             await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
+        }
+        else if (distanceToPlayer <= EnemyConstant.NEAR_BOUNDARY_SQUARED)
+        {
+            TransitionToState(retreatState, token);
+        }
+        else if (distanceToPlayer >= EnemyConstant.FAR_BOUNDARY_SQUARED)
+        {
+            TransitionToState(approachState, token);
         }
         await UniTask.Yield(PlayerLoopTiming.Update, token);
     }

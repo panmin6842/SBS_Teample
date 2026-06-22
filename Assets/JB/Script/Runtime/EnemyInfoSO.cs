@@ -2,10 +2,19 @@ using UnityEngine;
 
 namespace Enemy
 {
+    public enum EnemyType
+    {
+        Projectile,
+        Mage,
+        Turret,
+        Spawner
+    }
+
     [CreateAssetMenu(fileName = "EnemyInfo", menuName = "JJW/Enemy/EnemyInfo", order = 0)]
     public class EnemyInfoSO : ScriptableObject
     {
         [field: SerializeField] public string Name { get; set; }
+        [field: SerializeField] public EnemyType Type { get; set; }
         [field: SerializeField] public string Desc { get; set; }
         
         [field: SerializeField] public int MaxHp { get; set; }

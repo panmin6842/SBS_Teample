@@ -25,6 +25,7 @@ public class ApproachState : IStateBase
     public UniTask Tick(CancellationToken token)
     {
         Debug.Log("ApproachState Tick");
+        MoveToPlayer(token).Forget();
         return UniTask.CompletedTask;
     }
 
