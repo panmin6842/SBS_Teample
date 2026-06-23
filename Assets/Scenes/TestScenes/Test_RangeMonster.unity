@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyInfo: {fileID: 11400000, guid: bc6d49dcd44e53f4980e135c121b3c3d, type: 2}
+  projectilePrefab: {fileID: 8487292401651206242, guid: bf19f72f77ff97d4ebaf10049d0eda9b, type: 3}
   health: 100
   speed: 1
   attackRange: 10

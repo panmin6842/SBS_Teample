@@ -8,12 +8,14 @@ using UnityEngine.Rendering.Universal;
 public class AttackState : IStateBase
 {
     private EnemyBase enemy;
+    private IAttackBehavior attackBehavior;
     private NavMeshAgent agent;
     private GameObject enemyObject;
 
     public AttackState(EnemyBase enemy)
     {
         this.enemy = enemy;
+        this.attackBehavior = enemy.attackBehavior;
     }
     public UniTask Enter(CancellationToken token)
     {
@@ -26,7 +28,8 @@ public class AttackState : IStateBase
     public UniTask Tick(CancellationToken token)
     {
         Debug.Log("공격 상태에서 행동 중");
-        Attack().Forget();
+        // Attack().Forget();
+        attackBehavior.Attack();
         return UniTask.CompletedTask;
     }
 
@@ -35,7 +38,7 @@ public class AttackState : IStateBase
         Debug.Log("공격 상태에서 나감");
         return UniTask.CompletedTask;
     }
-    protected virtual async UniTask Attack()
+    protected virtual async UniTask AttackAnim()
     {
         agent.isStopped = true;
         float timeSpent = 0f;

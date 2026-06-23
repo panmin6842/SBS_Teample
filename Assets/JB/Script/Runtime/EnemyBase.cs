@@ -26,6 +26,7 @@ public class EnemyBase : MonoBehaviour
     public ApproachState approachState;
     public RetreatingState retreatState;
     public AttackState attackState;
+    public GameObject projectilePrefab;
 
     [Header("적 스탯")]
     [SerializeField] protected float health = 100.0f;
@@ -54,6 +55,8 @@ public class EnemyBase : MonoBehaviour
 
         SetupEnemyInfo();
         MainLoop(token).Forget();
+        
+        attackBehavior = new ProjectileTypePattern(projectilePrefab, this);
         approachState = new ApproachState(this);
         retreatState = new RetreatingState(this);
         attackState = new AttackState(this);
@@ -100,7 +103,7 @@ public class EnemyBase : MonoBehaviour
         // 적 자체가 파괴되었는지 체크
         if (this == null || agent == null) return;
 
-        if (distanceToPlayer <= attackRange * attackRange)
+        if (distanceToPlayer <= attackRange * attackRange && currentState != attackState)
         {
             TransitionToState(attackState, token);
             // 대기 시간에도 토큰을 전달해야 파괴 시 즉시 멈춤
