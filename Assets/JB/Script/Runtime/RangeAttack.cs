@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ProjectileTypePattern : IAttackBehavior
 {
-    private GameObject projectilePrefab;
+    private GameObject[] projectilePrefab;
     private EnemyBase enemy;
 
-    public ProjectileTypePattern(GameObject projectilePrefab, EnemyBase enemy)
+    public ProjectileTypePattern(GameObject[] projectilePrefab, EnemyBase enemy)
     {
         this.projectilePrefab = projectilePrefab;
         this.enemy = enemy;
@@ -16,12 +16,13 @@ public class ProjectileTypePattern : IAttackBehavior
     public void SingleProjectile()
     {
         Debug.Log("Single Projectile Attack!");
-        GameObject.Instantiate(projectilePrefab, enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
     }
     
     public void SpreadProjectile()
     {
         Debug.Log("Spread Projectile Attack!");
+        GameObject.Instantiate(projectilePrefab[1], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
     }
 
     
@@ -30,7 +31,7 @@ public class ProjectileTypePattern : IAttackBehavior
         Debug.Log("Sniping Projectile Attack!");
         for (int i = 0; i < 3; i++)
         {
-            GameObject.Instantiate(projectilePrefab, enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+            GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }
     }

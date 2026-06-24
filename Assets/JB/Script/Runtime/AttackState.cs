@@ -17,26 +17,26 @@ public class AttackState : IStateBase
         this.enemy = enemy;
         this.attackBehavior = enemy.attackBehavior;
     }
-    public UniTask Enter(CancellationToken token)
+    public async UniTask Enter(CancellationToken token)
     {
         Debug.Log("공격 상태로 진입");
         this.agent = enemy.agent;
         this.enemyObject = enemy.gameObject;
-        return UniTask.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
-    public UniTask Tick(CancellationToken token)
+    public async UniTask Tick(CancellationToken token)
     {
         Debug.Log("공격 상태에서 행동 중");
-        // Attack().Forget();
+        await AttackAnim();
         attackBehavior.Attack();
-        return UniTask.CompletedTask;
+        await UniTask.CompletedTask;
     }
 
-    public UniTask Exit(CancellationToken token)
+    public async UniTask Exit(CancellationToken token)
     {
         Debug.Log("공격 상태에서 나감");
-        return UniTask.CompletedTask;
+        await UniTask.CompletedTask;
     }
     protected virtual async UniTask AttackAnim()
     {

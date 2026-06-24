@@ -26,7 +26,7 @@ public class EnemyBase : MonoBehaviour
     public ApproachState approachState;
     public RetreatingState retreatState;
     public AttackState attackState;
-    public GameObject projectilePrefab;
+    public GameObject[] projectilePrefab;
 
     [Header("적 스탯")]
     [SerializeField] protected float health = 100.0f;
@@ -93,6 +93,8 @@ public class EnemyBase : MonoBehaviour
         {
             await CheckDistance(token);
             currentState?.Tick(token).Forget();
+            if(currentState == attackState)
+                await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
             await ChangeState(token);
         }
     }
@@ -106,8 +108,6 @@ public class EnemyBase : MonoBehaviour
         if (distanceToPlayer <= attackRange * attackRange && currentState != attackState)
         {
             TransitionToState(attackState, token);
-            // 대기 시간에도 토큰을 전달해야 파괴 시 즉시 멈춤
-            await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
         }
         else if (distanceToPlayer <= EnemyConstant.NEAR_BOUNDARY_SQUARED)
         {
