@@ -134,6 +134,11 @@ public class DungeonMapService : MonoBehaviour
     /// </summary>
     public void EnsureLoaded(int dungeonId)
     {
+        if (Current != null && Current.DungeonId == dungeonId)
+        {
+            return;
+        }
+
         // 1. 만약 보관함에 이 던전 ID의 데이터가 없다면 새로 만들어서 넣어줍니다.
         if (!_dungeonCache.TryGetValue(dungeonId, out var data))
         {
@@ -145,6 +150,7 @@ public class DungeonMapService : MonoBehaviour
 
         Current = data;
         ActiveData = data;
+        LoadedDungeonId = dungeonId;
 
         // 이후 이벤트를 쏩니다.
         OnMapLoaded?.Invoke(ActiveData);
