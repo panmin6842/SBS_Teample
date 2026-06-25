@@ -17,6 +17,7 @@ public class AttackState : IStateBase
         this.enemy = enemy;
         this.attackBehavior = enemy.attackBehavior;
     }
+    public bool IsCompleted => true;
     public async UniTask Enter(CancellationToken token)
     {
         Debug.Log("공격 상태로 진입");

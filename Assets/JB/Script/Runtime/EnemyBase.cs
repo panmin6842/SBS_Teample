@@ -12,6 +12,7 @@ public interface IStateBase
     public UniTask Enter(CancellationToken token);
     public UniTask Tick(CancellationToken token);
     public UniTask Exit(CancellationToken token);
+    public bool IsCompleted => true;
 }
 
 
@@ -105,12 +106,20 @@ public class EnemyBase : MonoBehaviour
         // 적 자체가 파괴되었는지 체크
         if (this == null || agent == null) return;
 
+        // 현재 상태가 아직 완료(IsCompleted)되지 않았다면 다른 상태로 전환하지 않음 (주도권 보장)
+        if (currentState != null && !currentState.IsCompleted)
+        {
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+            return;
+        }
+
         if (distanceToPlayer <= attackRange * attackRange && currentState != attackState)
         {
             TransitionToState(attackState, token);
         }
-        else if (distanceToPlayer <= EnemyConstant.NEAR_BOUNDARY_SQUARED)
+        else if (distanceToPlayer <= EnemyConstant.NEAR_BOUNDARY_SQUARED && currentState != retreatState)
         {
+            Debug.Log("<color=green>Retreating State!</color>");
             TransitionToState(retreatState, token);
         }
         else if (distanceToPlayer >= EnemyConstant.FAR_BOUNDARY_SQUARED)

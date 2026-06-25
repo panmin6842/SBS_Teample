@@ -9,6 +9,9 @@ public class ApproachState : IStateBase
     private NavMeshAgent agent;
     private GameObject enemyObject;
 
+    public bool IsCompleted { get; private set; } = false;
+    private bool isRunning { get; set; } = false;
+
     public ApproachState(EnemyBase enemy)
     {
         this.enemy = enemy;
@@ -19,32 +22,47 @@ public class ApproachState : IStateBase
         Debug.Log("ApproachState Enter");
         this.agent = enemy.agent;
         this.enemyObject = enemy.gameObject;
+        IsCompleted = false;
+        isRunning = false;
         return UniTask.CompletedTask;
     }
 
     public UniTask Tick(CancellationToken token)
     {
         Debug.Log("ApproachState Tick");
-        MoveToPlayer(token).Forget();
+        if (!isRunning && !IsCompleted)
+        {
+            MoveToPlayer(token).Forget();
+        }
         return UniTask.CompletedTask;
     }
 
     public UniTask Exit(CancellationToken token)
     {
         Debug.Log("ApproachState Exit");
+        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
+        IsCompleted = false;
+        isRunning = false;
         return UniTask.CompletedTask;
     }
 
     private async UniTask MoveToPlayer(CancellationToken token)
     {
-        while (enemy.distanceToPlayer > EnemyConstant.APPROACH_DISTANCE_SQUARED && !token.IsCancellationRequested)
+        isRunning = true;
+        try
         {
-            if (enemy.player != null && enemy.agent != null && enemy.agent.isOnNavMesh)
+            while (enemy.distanceToPlayer > EnemyConstant.APPROACH_DISTANCE_SQUARED && !token.IsCancellationRequested)
             {
-                enemy.agent.SetDestination(enemy.player.position);
+                if (enemy.player != null && agent != null && agent.isOnNavMesh)
+                {
+                    agent.SetDestination(enemy.player.position);
+                }
             }
-            await UniTask.Yield(PlayerLoopTiming.Update, token);
         }
-        if (enemy.agent != null && enemy.agent.isOnNavMesh) enemy.agent.ResetPath();
+        finally
+        {
+            IsCompleted = true;
+            isRunning = false;
+        }
     }
 }
