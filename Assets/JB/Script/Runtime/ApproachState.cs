@@ -11,6 +11,7 @@ public class ApproachState : IStateBase
 
     public bool IsCompleted { get; private set; } = false;
     private bool isRunning { get; set; } = false;
+    private CancellationTokenSource cts;
 
     public ApproachState(EnemyBase enemy)
     {
@@ -24,6 +25,7 @@ public class ApproachState : IStateBase
         this.enemyObject = enemy.gameObject;
         IsCompleted = false;
         isRunning = false;
+        cts = CancellationTokenSource.CreateLinkedTokenSource(token);
         return UniTask.CompletedTask;
     }
 
@@ -32,7 +34,7 @@ public class ApproachState : IStateBase
         Debug.Log("ApproachState Tick");
         if (!isRunning && !IsCompleted)
         {
-            MoveToPlayer(token).Forget();
+            MoveToPlayer(cts.Token).Forget();
         }
         return UniTask.CompletedTask;
     }
@@ -40,6 +42,12 @@ public class ApproachState : IStateBase
     public UniTask Exit(CancellationToken token)
     {
         Debug.Log("ApproachState Exit");
+        if (cts != null)
+        {
+            cts.Cancel();
+            cts.Dispose();
+            cts = null;
+        }
         if (agent != null && agent.isOnNavMesh) agent.ResetPath();
         IsCompleted = false;
         isRunning = false;
@@ -57,11 +65,19 @@ public class ApproachState : IStateBase
                 {
                     agent.SetDestination(enemy.player.position);
                 }
+                await UniTask.Yield(PlayerLoopTiming.Update, token);
             }
+            if (!token.IsCancellationRequested)
+            {
+                IsCompleted = true;
+            }
+        }
+        catch (System.OperationCanceledException)
+        {
+            // Do nothing on cancellation
         }
         finally
         {
-            IsCompleted = true;
             isRunning = false;
         }
     }

@@ -9,6 +9,7 @@ public class RetreatingState : IStateBase
     private NavMeshAgent agent;
     public bool IsCompleted { get; private set; }
     private bool isRunning { get; set; }
+    private CancellationTokenSource cts;
 
     public RetreatingState(EnemyBase enemy)
     {
@@ -21,6 +22,7 @@ public class RetreatingState : IStateBase
         this.agent = enemy.agent;
         IsCompleted = false;
         isRunning = false;
+        cts = CancellationTokenSource.CreateLinkedTokenSource(token);
         return UniTask.CompletedTask;
     }
 
@@ -28,13 +30,19 @@ public class RetreatingState : IStateBase
     {
         Debug.Log("RetreatingState Tick");
         if(!isRunning && !IsCompleted)
-            RetreatingFromPlayer(token).Forget();
+            RetreatingFromPlayer(cts.Token).Forget();
         return UniTask.CompletedTask;
     }
 
     public UniTask Exit(CancellationToken token)
     {
         Debug.Log("RetreatingState Exit");
+        if (cts != null)
+        {
+            cts.Cancel();
+            cts.Dispose();
+            cts = null;
+        }
         if (agent != null && agent.isOnNavMesh) agent.ResetPath();
         IsCompleted = false;
         isRunning = false;
@@ -56,11 +64,17 @@ public class RetreatingState : IStateBase
                 // 목적지에 온전히 도착할 때까지 비동기로 대기 (주도권 홀딩)                                   
                 await WaitForArrival(token);
             }
+            if (!token.IsCancellationRequested)
+            {
+                IsCompleted = true;
+            }
+        }
+        catch (System.OperationCanceledException)
+        {
+            // Do nothing on cancellation
         }
         finally
         {
-            // 도달 완료 또는 취소 시 완료 처리                                                                
-            IsCompleted = true;
             isRunning = false;
         }
     }

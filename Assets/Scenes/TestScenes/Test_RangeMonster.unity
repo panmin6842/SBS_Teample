@@ -261,18 +261,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 50191389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94fcf161556f7ba44b9f0701a1c1ba35, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d1febc68a868c046978f65a3c885b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyInfo: {fileID: 11400000, guid: bc6d49dcd44e53f4980e135c121b3c3d, type: 2}
   projectilePrefab:
   - {fileID: 8487292401651206242, guid: bf19f72f77ff97d4ebaf10049d0eda9b, type: 3}
   - {fileID: 3952196861481445570, guid: 10cfb2ec1209bcd46899578a77443a71, type: 3}
-  health: 100
-  speed: 1
-  attackRange: 10
-  detectionRange: 20
-  attackCoolDown: 1
+  health: 0
+  speed: 0
+  attackRange: 0
+  detectionRange: 0
+  attackCoolDown: 0
 --- !u!1 &297458261
 GameObject:
   m_ObjectHideFlags: 0
