@@ -30,11 +30,11 @@ public class EnemyBase : MonoBehaviour
     public GameObject[] projectilePrefab;
 
     [Header("적 스탯")]
-    [SerializeField] protected float health = 100.0f;
-    [SerializeField] protected float speed = 10.0f;
-    [SerializeField] protected float attackRange = 15.0f;
-    [SerializeField] protected float detectionRange = 20.0f;
-    [SerializeField] protected float attackCoolDown = 1.0f;
+    [SerializeField] protected float health = 0f;
+    [SerializeField] protected float speed = 0f;
+    [SerializeField] protected float attackRange = 0f;
+    [SerializeField] protected float detectionRange = 0f;
+    [SerializeField] protected float attackCoolDown = 0f;
 
     [Header("플레이어와의 거리")]
     [SerializeField] public float distanceToPlayer { get; private set; }
@@ -56,11 +56,6 @@ public class EnemyBase : MonoBehaviour
 
         SetupEnemyInfo();
         MainLoop(token).Forget();
-        
-        attackBehavior = new ProjectileTypePattern(projectilePrefab, this);
-        approachState = new ApproachState(this);
-        retreatState = new RetreatingState(this);
-        attackState = new AttackState(this);
     }
 
     void Start()
