@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -24,9 +24,9 @@ public class EnemyBase : MonoBehaviour
     // 상태 관리
     protected IStateBase currentState;
     public IAttackBehavior attackBehavior;
-    public ApproachState approachState;
-    public RetreatingState retreatState;
-    public AttackState attackState;
+    public IStateBase approachState;
+    public IStateBase retreatState;
+    public IStateBase attackState;
     public GameObject[] projectilePrefab;
 
     [Header("적 스탯")]
