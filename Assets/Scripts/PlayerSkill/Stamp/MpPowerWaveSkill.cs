@@ -48,12 +48,7 @@ public class MpPowerWaveSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("스킬 : 마력 파동" + other.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
-                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
-                if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
-                if (other.gameObject.GetComponent<SealedStone>() != null)
-                    other.gameObject.GetComponent<SealedStone>().TakeDamage(damage);
+                playerProfile.EnemyAttack(other, damage);
                 StartCoroutine(NuckBack(other.GetComponent<Rigidbody>(), other));
                 //기절도 있으야함
             }
