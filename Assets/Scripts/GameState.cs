@@ -8,7 +8,6 @@ public class GameState : MonoBehaviour
 
     [SerializeField] private CinemachineCamera playerCamera;
 
-    [Header("ùù?ùùùùùù")]
     [SerializeField] private DialogueGroup introStory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -28,7 +27,7 @@ public class GameState : MonoBehaviour
         if (playerCamera != null)
         {
             playerCamera.Follow = newPlayer.transform;
-            playerCamera.LookAt = newPlayer.transform;
+            //playerCamera.LookAt = newPlayer.transform;
         }
         else
         {
@@ -71,11 +70,5 @@ public class GameState : MonoBehaviour
         {
             DialogueManager.instance.OnDialogue(introStory);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

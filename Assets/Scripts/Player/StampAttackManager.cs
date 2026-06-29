@@ -94,12 +94,7 @@ public class StampAttackManager : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("������ �⺻ ���� ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage1 = " + damage1);
-                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage1);
-                if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage1);
-                if (other.gameObject.GetComponent<SealedStone>() != null)
-                    other.gameObject.GetComponent<SealedStone>().TakeDamage(damage1);
+                playerProfile.EnemyAttack(other, damage1);
             }
             //Instantiate(hitPrefab, transform.position, Quaternion.identity);
             bomb = true;
@@ -137,12 +132,7 @@ public class StampAttackManager : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             Debug.Log("������ �⺻ ���� ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage2 = " + damage2);
-            if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage2);
-            if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                other.gameObject.GetComponent<SealStoneManager>().Damage(damage2);
-            if (other.gameObject.GetComponent<SealedStone>() != null)
-                other.gameObject.GetComponent<SealedStone>().TakeDamage(damage2);
+            playerProfile.EnemyAttack(other, damage2);
         }
         yield return new WaitForSeconds(0.5f);
         Destroy(newBomb);

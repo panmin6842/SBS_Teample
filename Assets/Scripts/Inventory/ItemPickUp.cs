@@ -1,8 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Item ｋ 怨듦 由ы⑹ 而댄щ몃 異媛怨 몄ㅽ곗 댄 
-/// </summary>
 
 public class ItemPickUp : MonoBehaviour
 {
@@ -18,10 +15,6 @@ public class ItemPickUp : MonoBehaviour
     }
     [Header("해당 오브젝트에 할당되는 아이템")]
     [SerializeField] private Item item;
-    /// <summary>
-    /// 몄 媛ν 媛泥닿 媛吏怨  댄
-    /// /// </summary>
-    /// <value></value>
     public Item Item
     {
         get

@@ -92,12 +92,7 @@ public class BowAttackManager : MonoBehaviour
                     else if (other.CompareTag("Enemy"))
                     {
                         Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage1 = " + damage1);
-                        if(other.gameObject.GetComponent<MonsterBehavior>() != null)
-                            other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage1);
-                        if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                            other.gameObject.GetComponent<SealStoneManager>().Damage(damage1);
-                        if (other.gameObject.GetComponent<SealedStone>() != null)
-                            other.gameObject.GetComponent<SealedStone>().TakeDamage(damage1);
+                        playerProfile.EnemyAttack(other, damage1);
 
                     }
                     if (playerProfile.BloodHeal)
@@ -115,10 +110,7 @@ public class BowAttackManager : MonoBehaviour
                     else if (other.CompareTag("Enemy"))
                     {
                         Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage2 = " + damage2);
-                        if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                            other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage2);
-                        if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                            other.gameObject.GetComponent<SealStoneManager>().Damage(damage2);
+                        playerProfile.EnemyAttack(other, damage2);
                     }
                     if (playerProfile.BloodHeal)
                         playerProfile.BloodHealHp(10, damage2);
