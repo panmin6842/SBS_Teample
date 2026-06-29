@@ -61,7 +61,7 @@ public class EnemyTest : PlayerState
     {
         if (other.tag == "SwordBasicAttack" || other.tag == "StampBasicAttack" || other.tag == "ArrowBasicAttack")
         {
-            enemyHp -= atk;
+            enemyHp -= curATK;
         }
     }
 }

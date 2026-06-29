@@ -41,6 +41,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SkillAttack",
+                    "type": "Button",
+                    "id": "a2d8fd4f-a37d-4257-993d-7b88645100e1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dialogue",
+                    "type": "Button",
+                    "id": "3caf4b4e-4a61-45c3-8d6e-175e79477cd2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -113,7 +131,7 @@
                 {
                     "name": "",
                     "id": "a75e8858-daa8-46ec-8b14-bb21e28720f7",
-                    "path": "<Keyboard>/1",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -124,7 +142,7 @@
                 {
                     "name": "",
                     "id": "8ca37b10-49ce-46f3-bac4-440e4c447cb1",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -135,7 +153,7 @@
                 {
                     "name": "",
                     "id": "f23d9870-766a-4652-a84e-cb59de8b128c",
-                    "path": "<Keyboard>/3",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -151,6 +169,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "TestKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c71dd23-000c-4de2-aafb-d6e86522d933",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "532c163c-b8f3-41c2-a9eb-02f43c4f34f8",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9da9a18-c866-426f-a1ff-047e2ed5b180",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,27 +1,65 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BowAttackManager : MonoBehaviour
 {
-    float power = 7.0f;
+    private Vector3 startPos;
+    private float distance;
 
-    Vector3 startPos;
-    float distance;
+    [SerializeField] private string hitTag;
+    [SerializeField] private GameObject bowExplosionObj;
+    [SerializeField] private GameObject hitPrefab;
 
-    [SerializeField] string hitTag;
+    private PlayerAttack playerAttack;
+    private PlayerProfile playerProfile;
+
+    private float damage1;
+    private float damage2;
+    private int throughCount = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        playerProfile = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerProfile>();
         startPos = transform.position;
+
+        if (!playerAttack.bowPassiveSkill3)
+        {
+            bool critical = playerProfile.CriticalProbability();
+            if (critical)
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(90));
+                damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(190));
+            }
+            else
+            {
+                damage1 = playerProfile.BasicATK(90);
+                damage2 = playerProfile.BasicATK(60); 
+            }
+        }
+        else if (playerAttack.bowPassiveSkill3)
+        {
+            if (playerProfile.CriticalProbability())
+            {
+                damage1 = playerProfile.CriticalBuff(playerProfile.BasicATK(350));
+                damage2 = playerProfile.CriticalBuff(playerProfile.BasicATK(230));
+            }
+            else
+            {
+                damage1 = playerProfile.BasicATK(350);
+                damage2 = playerProfile.BasicATK(230);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.up * power * Time.deltaTime;
+        transform.position += transform.up * playerAttack.power * Time.deltaTime;
 
         distance = Vector3.Distance(startPos, transform.position);
 
-        if (distance > 10)
+        if (distance > playerAttack.shotDistance)
         {
             Destroy(gameObject);
         }
@@ -29,7 +67,92 @@ public class BowAttackManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(hitTag))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
+        {
+            if (playerAttack.bowExplosion)
+            {
+                int number = Random.Range(1, 101);
+                Debug.Log("BowExplosionRandomNumber : " + number);
+                if (number > 0 && number <= 30)
+                {
+                    Instantiate(bowExplosionObj, transform.position, bowExplosionObj.transform.rotation);
+                }
+            }
+
+            if (playerAttack.through)
+            {
+                throughCount++;
+                if (throughCount == 1)
+                {
+                    if (other.CompareTag("Boss"))
+                    {
+                        Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage1 = " + damage1);
+                        other.gameObject.GetComponent<BossStatus>().GetDamage(damage1);
+                    }
+                    else if (other.CompareTag("Enemy"))
+                    {
+                        Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage1 = " + damage1);
+                        if(other.gameObject.GetComponent<MonsterBehavior>() != null)
+                            other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage1);
+                        if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                            other.gameObject.GetComponent<SealStoneManager>().Damage(damage1);
+                        if (other.gameObject.GetComponent<SealedStone>() != null)
+                            other.gameObject.GetComponent<SealedStone>().TakeDamage(damage1);
+
+                    }
+                    if (playerProfile.BloodHeal)
+                        playerProfile.BloodHealHp(10, damage1);
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Instantiate(hitPrefab, hitPoint, Quaternion.identity);
+                }
+                else if (throughCount == 2)
+                {
+                    if (other.CompareTag("Boss"))
+                    {
+                        Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage2 = " + damage2);
+                        other.gameObject.GetComponent<BossStatus>().GetDamage(damage2);
+                    }
+                    else if (other.CompareTag("Enemy"))
+                    {
+                        Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage2 = " + damage2);
+                        if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                            other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage2);
+                        if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                            other.gameObject.GetComponent<SealStoneManager>().Damage(damage2);
+                    }
+                    if (playerProfile.BloodHeal)
+                        playerProfile.BloodHealHp(10, damage2);
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Instantiate(hitPrefab, hitPoint, Quaternion.identity);
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                if (other.CompareTag("Boss"))
+                {
+                    Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage1 = " + damage1);
+                    other.gameObject.GetComponent<BossStatus>().GetDamage(damage1);
+                }
+                else if (other.CompareTag("Enemy"))
+                {
+                    Debug.Log("�ü� �⺻ ����" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage1 = " + damage1);
+                    if (other.gameObject.GetComponent<MonsterBehavior>() != null)
+                        other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage1);
+                    if (other.gameObject.GetComponent<SealStoneManager>() != null)
+                        other.gameObject.GetComponent<SealStoneManager>().Damage(damage1);
+                    if (other.gameObject.GetComponent<SealedStone>() != null)
+                        other.gameObject.GetComponent<SealedStone>().TakeDamage(damage1);
+                }
+                if (playerProfile.BloodHeal)
+                    playerProfile.BloodHealHp(10, damage1);
+                Vector3 hitPoint = other.ClosestPoint(transform.position);
+                Instantiate(hitPrefab, hitPoint, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        }
+
+        if (other.CompareTag("Wall"))
         {
             Destroy(gameObject);
         }

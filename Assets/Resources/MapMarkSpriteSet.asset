@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8f2d8eb8ede2b4cb174a2cf032707a, type: 3}
+  m_Name: MapMarkSpriteSet
+  m_EditorClassIdentifier: 
+  trap: {fileID: -82974740, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}
+  treasure: {fileID: -1973397984, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}
+  sealedStone: {fileID: 223741991, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}
+  shop: {fileID: 1055494751, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}
+  bonfire: {fileID: 439110171, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}
+  buffStatue: {fileID: -1297800095, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}
+  backPortal: {fileID: -550840534, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}
+  randomPortal: {fileID: 795094110, guid: 4744e1b12fae61d4dbbef30d47017c55, type: 3}

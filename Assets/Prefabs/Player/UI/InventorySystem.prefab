@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4326149818590134697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7089375948046308512}
+  - component: {fileID: 7355555885831477433}
+  - component: {fileID: 2467677485510076906}
+  - component: {fileID: 1091343388056644426}
+  - component: {fileID: 2945914125909049413}
+  m_Layer: 0
+  m_Name: InventorySystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7089375948046308512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326149818590134697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.6155095, y: 0.77453977, z: 9.488828}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7355555885831477433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326149818590134697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b6a3f21185aec4daea53d7c6ca68fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryBase: {fileID: 0}
+  inventorySlotsParent: {fileID: 0}
+  uiInputAction: {fileID: -944628639613478452, guid: e384c5bb4117dfe4cb1d6b8987004de4, type: 3}
+  uiActionMap:
+    m_Name: Ui
+    m_Id: 0efb6593-3053-43ed-a44f-9cd40ff709e0
+    m_Asset: {fileID: 0}
+    m_Actions: []
+    m_Bindings: []
+  slotClick: 0
+  player: {fileID: 0}
+  playerAttack: {fileID: 0}
+  playerProfile: {fileID: 0}
+  currentUI: 0
+--- !u!114 &2467677485510076906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326149818590134697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddba00ed7af46654fa4d3b75aba913cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  e_InventorySlotsParent: {fileID: 0}
+  a_InventorySlotsParent: {fileID: 0}
+  equipmentSlotsPartent: {fileID: 0}
+  inventory: {fileID: 7355555885831477433}
+--- !u!114 &1091343388056644426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326149818590134697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa02c3619ed4ad34fa9faa50f6c81c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentInventory: {fileID: 0}
+  accessoryInventory: {fileID: 0}
+--- !u!114 &2945914125909049413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326149818590134697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d991ecc447e46b4abf4668997fe8404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkSkillSlot: {fileID: 0}
+  slotClickSlot: 0
+  skillPointText: {fileID: 0}
+  playerInfo: {fileID: 0}
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}

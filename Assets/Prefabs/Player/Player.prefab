@@ -178,7 +178,7 @@ SpriteRenderer:
   m_Size: {x: 16.732735, y: 23.03}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5363925446861160388
@@ -254,6 +254,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 876b91e4-c14e-4bdf-8879-6b8923bbf58d
     m_ActionName: 'Player/SkillChange[/Keyboard/1,/Keyboard/2,/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf837b24-9672-4bd8-81c7-a0dd827a055d
+    m_ActionName: 'Player/TestKey[/Keyboard/y]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a2d8fd4f-a37d-4257-993d-7b88645100e1
+    m_ActionName: 'Player/SkillAttack[/Keyboard/1,/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3caf4b4e-4a61-45c3-8d6e-175e79477cd2
+    m_ActionName: 'Player/Dialogue[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -271,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db375149bee7a74a871efc080fcc417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pSprite: {fileID: 0}
 --- !u!114 &6751273807734324207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +300,25 @@ MonoBehaviour:
   swordAttackObj: {fileID: 6084993611769339035, guid: fd5423290cc9bbd4690359a1784dc7db, type: 3}
   bowAttackObj: {fileID: 4047336886330174727, guid: 7d753be6d7c68be4c880dbf67283b23f, type: 3}
   stampAttackObj: {fileID: 7257923731058189080, guid: f33bf049778e33349b1b2613b1f413d4, type: 3}
-  skillCount: 1
+  profileImages: []
+  playerSpriteRenderer: {fileID: 0}
+  swordAnimation: {fileID: 0}
+  stampAnimation: {fileID: 0}
+  bowAnimation: {fileID: 0}
+  attackDelay: 1
+  attackStartDelay: 0
+  uiClicking: 0
+  shotDistance: 0
+  power: 0
+  scalePercent: 0
+  through: 0
+  bowExplosion: 0
+  bowPassiveSkill3: 0
+  stampSkill6: 0
+  stampPassiveSkill1: 0
+  stampPassiveSkill2: 0
+  pSprite: {fileID: 0}
+  curJob: 0
 --- !u!54 &689531621105289874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -350,12 +381,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41867a38075e8444eab4c3fab16c8b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
-  atk: 50
-  def: 1
-  actCount: 2
-  hpText: {fileID: 0}
-  actCountText: {fileID: 0}
+  moveSpeed: 5.5
+  maxHp: 0
+  curHp: 0
+  maxMp: 20
+  curMp: 20
+  curATK: 0
+  maxATK: 0
+  passiveATK: 0
+  basicATK: 0
+  maxBasicATK: 0
+  curDEF: 0
+  maxDEF: 0
+  passiveDEF: 0
+  maxActCount: 0
+  curActCount: 0
+  skillPoint: 0
+  level: 0
+  critical: 15
+  swordBasicAttackCount: 0
+  skillStart: 0
+  bloodHeal: 0
+  barrier: 0
+  stampPassiveSKill3: 0
 --- !u!1 &8468066079552233896
 GameObject:
   m_ObjectHideFlags: 0

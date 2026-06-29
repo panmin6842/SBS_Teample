@@ -12,19 +12,40 @@ TagManager:
   - SwordBasicAttack
   - StampBasicAttack
   - ArrowBasicAttack
-  - EnemyTestAttack
+  - PassiveSkillSlot
+  - Place
+  - ActiveSkill2Slot
+  - ActiveSkill1Slot
+  - Store
+  - VillageStore
+  - EnemyTestAtack
+  - PortalManager
+  - Boss
+  - ClearPortal
+  - DungeonEntry
+  - Map
+  - EnemyAttack
+  - SealStone
+  - PlayerCamera
+  - Chest
+  - FKey
+  - MapBoard
+  - StorageCollider
+  - BossRoom
+  - BossRoomPos
+  - NoneStage
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - MinimapArea
   - Water
   - UI
+  - MeteoArea
+  - Enemy
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Item
   - 
   - 
   - 

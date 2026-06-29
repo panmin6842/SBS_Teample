@@ -1,73 +1,149 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PortalSystem : MonoBehaviour
 {
-    PortalManager portalManager;
+    [SerializeField] PortalManager portalManager;
+    [SerializeField] StageManager stageManager;
 
-    int directionX;
-    int directionZ;
+    GameObject player;
 
-    public int Direction; //0:¾Õ, 1:µÚ, 2:¿Þ, 3:¿À
+    [SerializeField] private PortalDirection direction;
+
+    public bool toBoss;
+    float distance = 12f;
+
+    void Awake()
+    {
+        stageManager = StageManager.instance;
+
+        if (portalManager == null)
+            portalManager = GetComponentInParent<PortalManager>();
+
+        if (stageManager == null)
+            stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+    }
 
     void Start()
     {
+        stageManager = StageManager.instance;
+        if (stageManager == null)
+            stageManager = GameObject.FindWithTag("Map").GetComponent<StageManager>();
+        if (toBoss)
+        {
+            direction = PortalDirection.toBoss;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (toBoss)
+        {
+            direction = PortalDirection.toBoss;
+        }
     }
 
     void Update()
     {
-        if (portalManager == null && PortalManager.instance != null)
-        {
-            portalManager = PortalManager.instance;
-        }
+        if (portalManager == null)
+            portalManager = GetComponentInParent<PortalManager>();
+
+        //if (toBoss)
+        //{
+        //    direction = PortalDirection.toBoss;
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (portalManager == null)
+            portalManager = GetComponentInParent<PortalManager>();
+        if (stageManager == null)
+            stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+
+        player = other.gameObject;
+        if (other.GetComponent<PlayerProfile>().ActCount > 0)
         {
-            portalManager.PortalEffectImage.gameObject.SetActive(true);
-            DirectionCheck();
-            portalManager.PlayerTransform.transform.localPosition =
-                new Vector3
-                (
-                    portalManager.PlayerTpSpotTransform.localPosition.x + directionX, 
-                    portalManager.PlayerTpSpotTransform.localPosition.y, 
-                    portalManager.PlayerTpSpotTransform.localPosition.z + directionZ
-                );
-            portalManager.MainCameraTransform.transform.localPosition =
-                new Vector3
-                (
-                    portalManager.MainCameraTpSpotTransform.localPosition.x + directionX, 
-                    portalManager.MainCameraTpSpotTransform.localPosition.y, 
-                    portalManager.MainCameraTpSpotTransform.localPosition.z + directionZ
-                );
+            StartCoroutine(Teleport());
         }
     }
 
-    void DirectionCheck()
+    IEnumerator Teleport()
     {
-        if (Direction == 0) //¾Õ
+        Image img = UIManager.Instance.fade.GetComponent<Image>();
+        img.gameObject.SetActive(true);
+        player.transform.position = portalManager.PlayerTpSpotTransform.position;
+        portalManager.MainCameraObject.transform.position = portalManager.MainCameraTpSpotTransform.position;
+        portalManager.isCleared = true;
+        if(!GameManager.instance.tutorialClear)
+            TutorialExplainManager.instance.Back();
+
+        switch (direction)
         {
-            directionX = 0;
-            directionZ = 20;
+            case PortalDirection.Front:
+                player.transform.position += new Vector3(0f, 0f, stageManager.spacing - distance);
+                player.GetComponent<PlayerProfile>().UseActCount(1);
+                break;
+            case PortalDirection.Back:
+                player.transform.position += new Vector3(0f, 0f, -stageManager.spacing + distance);
+                player.GetComponent<PlayerProfile>().UseActCount(1);
+                break;
+            case PortalDirection.Left:
+                player.transform.position += new Vector3(-stageManager.spacing + distance, 0f, 0f);
+                player.GetComponent<PlayerProfile>().UseActCount(1);
+                break;
+            case PortalDirection.Right:
+                player.transform.position += new Vector3(stageManager.spacing - distance, 0f, 0f);
+                player.GetComponent<PlayerProfile>().UseActCount(1);
+                break;
+            case PortalDirection.toBoss:
+                var bossRoom = GameObject.FindWithTag("BossRoom");
+                if (bossRoom != null)
+                {
+                    //player.transform.position = bossRoom.transform.position + new Vector3(0f, 1.9f, -distance);
+                    Transform bossRoomPos = GameObject.FindWithTag("BossRoomPos").GetComponent<Transform>();
+                    player.transform.position = bossRoomPos.position;
+                    player.GetComponent<PlayerProfile>().UseActCount(1);
+                }
+                break;
+            case PortalDirection.Random:
+                int randomIndex;
+                Vector2 randomPos;
+                do
+                {
+                    randomIndex = Random.Range(0, stageManager.StagePositions.Count);
+                    randomPos = stageManager.StagePositions.ElementAt(randomIndex);
+                } while (randomPos.x == 0 && randomPos.y == 0);
+
+                var randomGrid = new Vector2Int(Mathf.RoundToInt(randomPos.x), Mathf.RoundToInt(randomPos.y));
+                var randomWorld = stageManager.GridToWorld(randomGrid, 1.9f);
+                randomWorld.z -= distance;
+                player.transform.position = randomWorld;
+                break;
+            case PortalDirection.Clear:
+                if (stageManager.Tutorial)
+                    yield return stageManager.AdvanceTutorialFloorRoutine();
+                else
+                    stageManager.curFloorCleared = true;
+                break;
+            case PortalDirection.Return:
+                int half = stageManager.StageCount / 2;
+                var returnWorld = stageManager.GridToWorld(new Vector2Int(-half, -half), 1.9f);
+                player.transform.position = returnWorld;
+                break;
+            case PortalDirection.Villiage:
+                player.GetComponent<PlayerProfile>().PlayerMoveToVillage();
+                break;
         }
-        else if (Direction == 1) //µÚ
-        {
-            directionX = 0;
-            directionZ = -20;
-        }
-        else if (Direction == 2) //¿Þ
-        {
-            directionX = -20;
-            directionZ = 0;
-        }
-        else if (Direction == 3) //¿À
-        {
-            directionX = 20;
-            directionZ = 0;
-        }
-        else
-        {
-        }
+
+        GameManager.instance.OnPortalEnter?.Invoke();
+        stageManager.SyncPlayerToMinimap();
+
+        yield return null;
     }
 }

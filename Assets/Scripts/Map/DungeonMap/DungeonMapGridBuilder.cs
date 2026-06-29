@@ -1,0 +1,430 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class DungeonMapGridBuilder : MonoBehaviour
+{
+    public bool HasCells => cells.Count > 0;
+    [SerializeField] GameObject cellPrefab;
+    [SerializeField] MapMarkSpriteSet markSpriteSet;
+    [SerializeField] float cellSpacing = 25f;
+    [SerializeField] float cellVisualSize = 20f;
+    [SerializeField] bool buildOnStart = false;
+    [SerializeField] bool showPlayerPin = true;
+    [SerializeField] bool allowCellInteraction = true;
+    [SerializeField] bool centerOnPlayer = false;
+    [SerializeField] bool centerOnGridBounds = false;
+    [SerializeField] Vector2 anchoredOffset = Vector2.zero;
+
+    readonly Dictionary<Vector2Int, DungeonMapCellView> cells = new();
+
+    RectTransform rectTransform;
+    public bool built;
+
+
+    void Awake()
+    {
+        if (DungeonMapService.Instance != null && DungeonMapService.Instance.ActiveData != null)
+        {
+            BuildGrid(DungeonMapService.Instance.ActiveData);
+        }
+
+        rectTransform = transform as RectTransform;
+    }
+
+    void OnEnable()
+    {
+        DungeonMapService.OnMapDataChanged += RefreshAll;
+        DungeonMapService.OnMapLoaded += BuildGrid;
+
+        if (DungeonMapService.Instance != null && DungeonMapService.Instance.ActiveData != null)
+        {
+            BuildGrid(DungeonMapService.Instance.ActiveData);
+        }
+        //BindServiceEvents();
+    }
+
+    private void OnDisable()
+    {
+        DungeonMapService.OnMapDataChanged -= RefreshAll;
+        DungeonMapService.OnMapLoaded -= BuildGrid;
+    }
+    void OnDestroy()
+    {
+        
+        //UnbindServiceEvents();
+    }
+
+    void Start()
+    {
+        BindServiceEvents();
+        RefreshAll();
+
+    }
+
+    public void BindServiceEventsForPanel() => BindServiceEvents();
+
+    void BindServiceEvents()
+    {
+        var service = DungeonMapService.Instance;
+        if (service == null) return;
+
+        service.OnDungeonLoaded += ForceRebuild;
+    }
+
+    void UnbindServiceEvents()
+    {
+        var service = DungeonMapService.Instance;
+        if (service == null) return;
+
+        service.OnDungeonLoaded -= ForceRebuild;
+    }
+
+    void OnPendingMarkChanged(DungeonMapMarkType? _) => RefreshAll();
+
+    public void ForceRebuild()
+    {
+        var data = DungeonMapService.Instance?.ActiveData;
+
+        // 데이터가 없으면 로그 대신 그냥 조용히 리턴합니다.
+        if (data == null)
+        {
+            return;
+        }
+        BuildGrid(DungeonMapService.Instance.ActiveData);
+    }
+
+    public void SetCellPrefab(GameObject prefab) => cellPrefab = prefab;
+
+    public void SetMarkSpriteSet(MapMarkSpriteSet spriteSet) => markSpriteSet = spriteSet;
+
+    public void ConfigureForCornerMinimap()
+    {
+        cellSpacing = CornerMinimapSettings.CellSize;
+        cellVisualSize = CornerMinimapSettings.CellVisualSize;
+        showPlayerPin = CornerMinimapSettings.ShowPlayerPin;
+        allowCellInteraction = CornerMinimapSettings.AllowCellInteraction;
+        centerOnPlayer = true;
+        centerOnGridBounds = false;
+        anchoredOffset = new Vector2(0f, -CornerMinimapSettings.BackgroundPadding);
+        if (built)
+            ApplyCellLayout();
+    }
+
+    public void ConfigureForMapBoard(bool allowMarking)
+    {
+        cellSpacing = MapBoardPanelSettings.CellSize;
+        cellVisualSize = MapBoardPanelSettings.CellVisualSize;
+        showPlayerPin = MapBoardPanelSettings.ShowPlayerPin;
+        allowCellInteraction = allowMarking;
+        centerOnPlayer = false;
+        centerOnGridBounds = true;
+        anchoredOffset = Vector2.zero;
+
+        if (rectTransform != null)
+        {
+            rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        }
+
+        if (cells != null)
+        {
+            var deadKeys = new System.Collections.Generic.List<Vector2Int>();
+            foreach (var pair in cells)
+            {
+                if (pair.Value == null || !pair.Value)
+                {
+                    deadKeys.Add(pair.Key);
+                }
+            }
+            // 터진 유령 키들만 골라 제거
+            foreach (var key in deadKeys)
+            {
+                cells.Remove(key);
+            }
+        }
+
+        ApplyCellLayout();
+
+    }
+
+    public void BuildGrid(DungeonMapData data)
+    {
+        Debug.Log($"[BuildGrid] 데이터 수신 완료. Revealed 개수: {data.Revealed?.Count}");
+
+        if (data == null || data.Revealed == null || data.Revealed.Count == 0)
+        {
+            Debug.LogWarning("[BuildGrid] 데이터가 비어있습니다!");
+            return;
+        }
+
+        ClearGrid();
+
+        if (cellPrefab == null)
+            cellPrefab = CreateRuntimeCellPrefab();
+
+        // 2. [핵심] Revealed가 아니라 전체 ValidCells를 기준으로 반복문을 돌립니다!
+        foreach (var pos in data.ValidCells)
+        {
+            var cellObject = Instantiate(cellPrefab, transform);
+            cellObject.name = $"MapCell_{pos.x}_{pos.y}";
+
+            var cellRect = cellObject.GetComponent<RectTransform>();
+            if (cellRect != null)
+                cellRect.anchoredPosition = new Vector2(pos.x * cellSpacing, pos.y * cellSpacing);
+
+            var cellView = cellObject.GetComponent<DungeonMapCellView>();
+            if (cellView == null) cellView = cellObject.AddComponent<DungeonMapCellView>();
+
+            // 3. 밝혀졌는지 여부를 체크
+            bool isRevealed = data.IsRevealed(pos);
+
+            // 4. CellView에 밝혀졌는지 여부를 알려줌 (이게 없으면 안 보일 수 있음)
+            cellView.Initialize(pos, markSpriteSet);
+            cellView.SetVisibility(isRevealed); // <--- 이 메서드를 DungeonMapCellView에 추가해야 합니다
+
+            // 마크 표시
+            if (data.Marks != null && data.Marks.TryGetValue(pos, out var markType))
+            {
+                cellView.SetMark(markType);
+            }
+
+            cells[pos] = cellView;
+        }
+
+        built = true;
+        ApplyCellLayout();
+        RefreshAll();
+    }
+
+    static void SanitizeCellHierarchy(GameObject cellObject)
+    {
+        var rootButton = cellObject.GetComponent<Button>();
+        if (rootButton != null)
+            UnityEngine.Object.Destroy(rootButton);
+
+        foreach (var childButton in cellObject.GetComponentsInChildren<Button>(true))
+        {
+            if (childButton.gameObject == cellObject)
+                continue;
+
+            childButton.gameObject.SetActive(false);
+        }
+
+        foreach (var graphic in cellObject.GetComponentsInChildren<Graphic>(true))
+        {
+            if (graphic.gameObject == cellObject)
+                continue;
+
+            graphic.raycastTarget = false;
+        }
+    }
+
+    void ApplyCellLayout()
+    {
+        if (cells == null || cells.Count == 0) return;
+
+        foreach (var pair in cells)
+        {
+            if (pair.Value == null)
+                continue;
+            
+            if (!pair.Value || pair.Value.gameObject == null)
+                continue;
+
+            var cellRect = pair.Value.transform as RectTransform;
+            if (cellRect == null)
+                continue;
+
+            cellRect.sizeDelta = new Vector2(cellVisualSize, cellVisualSize);
+            cellRect.anchoredPosition = new Vector2(pair.Key.x * cellSpacing, pair.Key.y * cellSpacing);
+        }
+    }
+
+    HashSet<Vector2Int> GetStagePositions()
+    {
+        if (StageManager.instance == null && DungeonMapService.Instance != null && DungeonMapService.Instance.Current != null)
+        {
+            var data = DungeonMapService.Instance.Current;
+            if (data.Revealed != null && data.Revealed.Count > 0)
+            {
+                Debug.Log($"[그리드 빌더] 마을 환경 - 로드된 데이터의 Revealed 좌표 {data.Revealed.Count}개를 기반으로 그리드를 생성합니다.");
+                return new HashSet<Vector2Int>(data.Revealed);
+            }
+        }
+
+        var resolved = DungeonMapLayoutResolver.CollectStagePositions();
+        if (resolved.Count > 0)
+            return resolved;
+
+        if (StageManager.instance != null)
+        {
+            StageManager.instance.EnsureStagePositions();
+            if (StageManager.instance.StagePositions.Count > 0)
+                return new HashSet<Vector2Int>(StageManager.instance.StagePositions);
+        }
+
+        var fallback = new HashSet<Vector2Int>();
+        var stageCount = StageManager.instance != null ? StageManager.instance.StageCount : 7;
+        var countHalf = (stageCount % 2 == 1) ? stageCount / 2 + 1 : stageCount / 2;
+
+        for (int x = -countHalf; x < stageCount - countHalf + 2; x++)
+        {
+            for (int y = -countHalf; y < stageCount - countHalf + 2; y++)
+            {
+                if (x >= -1 && x <= 1 && y >= -1 && y <= 1)
+                    continue;
+
+                fallback.Add(new Vector2Int(x, y));
+            }
+        }
+
+        return fallback;
+    }
+
+    static bool SameCellLayout(IEnumerable<Vector2Int> current, HashSet<Vector2Int> next)
+    {
+        var count = 0;
+        foreach (var pos in current)
+        {
+            count++;
+            if (!next.Contains(pos))
+                return false;
+        }
+
+        return count == next.Count;
+    }
+
+    public void ClearGrid()
+    {
+        cells.Clear();
+        for (int i = transform.childCount - 1; i >= 0; i--)
+            Destroy(transform.GetChild(i).gameObject);
+    }
+
+    void OnSelectionChanged(Vector2Int? _) => RefreshAll();
+
+    public void RefreshAll()
+    {
+        var data = DungeonMapService.Instance.ActiveData;
+        if (data == null) return;
+
+        if (cells.Count > 0)
+            DungeonMapService.Instance.TrySyncPlayerPositionFromWorld(cells.Keys);
+
+        var selected = DungeonMapService.Instance.SelectedCell;
+
+        foreach (var pair in cells)
+        {
+            if (pair.Value == null || pair.Value.gameObject == null) continue;
+            // 순정 상태의 깔끔한 리프레시 기능만 남겨둡니다.
+            pair.Value.Refresh(data, selected, markSpriteSet, showPlayerPin, allowCellInteraction);
+        }
+
+        if (centerOnPlayer && data.PlayerPosition.HasValue) CenterOnPlayer();
+        else if (centerOnGridBounds) CenterOnGridBounds();
+    }
+
+    public void CenterOnPlayer()
+    {
+        if (rectTransform == null || DungeonMapService.Instance == null)
+            return;
+
+        if (!DungeonMapService.Instance.Current.PlayerPosition.HasValue)
+        {
+            CenterOnGridBounds();
+            return;
+        }
+
+        var playerPos = DungeonMapService.Instance.Current.PlayerPosition.Value;
+        rectTransform.anchoredPosition = anchoredOffset + new Vector2(-playerPos.x * cellSpacing, -playerPos.y * cellSpacing);
+    }
+
+    static bool IsWithinPlayerWindow(Vector2Int cell, Vector2Int player)
+    {
+        return Mathf.Abs(cell.x - player.x) <= CornerMinimapSettings.VisibleRadius
+            && Mathf.Abs(cell.y - player.y) <= CornerMinimapSettings.VisibleRadius;
+    }
+
+    void CenterOnGridBounds()
+    {
+        if (rectTransform == null || cells.Count == 0)
+            return;
+
+        if (cells.ContainsKey(Vector2Int.zero))
+        {
+            rectTransform.anchoredPosition = anchoredOffset;
+            return;
+        }
+
+        var minX = int.MaxValue;
+        var maxX = int.MinValue;
+        var minY = int.MaxValue;
+        var maxY = int.MinValue;
+
+        foreach (var pos in cells.Keys)
+        {
+            minX = Mathf.Min(minX, pos.x);
+            maxX = Mathf.Max(maxX, pos.x);
+            minY = Mathf.Min(minY, pos.y);
+            maxY = Mathf.Max(maxY, pos.y);
+        }
+
+        var centerX = (minX + maxX) * 0.5f;
+        var centerY = (minY + maxY) * 0.5f;
+        rectTransform.anchoredPosition = anchoredOffset + new Vector2(-centerX * cellSpacing, -centerY * cellSpacing);
+    }
+
+    public DungeonMapCellView GetCell(Vector2Int index)
+    {
+        cells.TryGetValue(index, out var cell);
+        return cell;
+    }
+
+    public DungeonMapCellView PickCellAtScreen(Vector2 screenPosition, Camera eventCamera)
+    {
+        if (rectTransform == null || cells.Count == 0)
+            return null;
+
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectTransform, screenPosition, eventCamera, out var localPoint))
+            return null;
+
+        var halfExtent = Mathf.Max(cellVisualSize * 0.5f, 1f);
+        DungeonMapCellView bestCell = null;
+        var bestDistance = float.MaxValue;
+
+        foreach (var pair in cells)
+        {
+            var cellCenter = new Vector2(pair.Key.x * cellSpacing, pair.Key.y * cellSpacing);
+            var delta = localPoint - cellCenter;
+            if (Mathf.Abs(delta.x) > halfExtent || Mathf.Abs(delta.y) > halfExtent)
+                continue;
+
+            var distance = delta.sqrMagnitude;
+            if (distance >= bestDistance)
+                continue;
+
+            bestDistance = distance;
+            bestCell = pair.Value;
+        }
+
+        return bestCell;
+    }
+
+    static GameObject CreateRuntimeCellPrefab()
+    {
+        var go = new GameObject("MapCellRuntime", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(DungeonMapCellView));
+        var rect = go.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(20f, 20f);
+        var image = go.GetComponent<Image>();
+        image.sprite = MapUiSpriteUtil.White;
+        image.color = new Color(0.92f, 0.9f, 0.85f, 1f);
+        image.raycastTarget = false;
+        return go;
+    }
+
+    
+}

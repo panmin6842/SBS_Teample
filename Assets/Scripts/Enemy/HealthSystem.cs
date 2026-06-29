@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Interface;
 using UnityEngine;
 using Utility;
 
@@ -10,20 +8,19 @@ namespace Enemy
     {
         public IReadOnlyNotifyValue<int> CurrentHp => _currentHp;
         public IReadOnlyNotifyValue<int> MaxHp => _maxHp;
-        
-        public event Action<int,int> OnHealthDecreased;
-        public event Action<int,int> OnHealthIncreased;
+
+        public event Action<int, int> OnHealthDecreased;
+        public event Action<int, int> OnHealthIncreased;
         public event Action OnDead;
-        
+
         private NotifyValue<int> _currentHp;
         private NotifyValue<int> _maxHp;
-        
 
         public void Init(int maxHp)
         {
             _currentHp.Value = maxHp;
             _maxHp.Value = maxHp;
-            
+
             CurrentHp.OnValueChanged += (beforeHp, currentHp) =>
             {
                 if (currentHp <= 0)
@@ -57,12 +54,12 @@ namespace Enemy
         {
             if (CurrentHp.Value <= 0 || CurrentHp.Value + heal >= _maxHp.Value)
             {
-                _currentHp.Value =  MaxHp.Value;
+                _currentHp.Value = MaxHp.Value;
             }
             else
             {
                 _currentHp.Value += heal;
             }
         }
-    } 
+    }
 }

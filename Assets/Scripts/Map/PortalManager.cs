@@ -1,56 +1,186 @@
-using NUnit.Framework;
-using UnityEngine;
+using System;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using Unity.Cinemachine;
+using UnityEngine;
+using UnityEngine.UI;
+
+public enum WallDirection
+{
+    North,
+    South,
+    East,
+    West
+}
 
 public class PortalManager : MonoBehaviour
 {
-    public static PortalManager instance;
-
+    public StageType stageType;
+    public List<GameObject> SpawnPrefabs = new List<GameObject>();
+    public bool isCleared;
+    [Space(10f), HideInInspector]
     public bool isPortalActive;
     [Space(10f)]
-    public GameObject PortalObject;
+    public List<GameObject> PortalObject = new List<GameObject>();
     [Space(10f)]
     public Transform PlayerTpSpotTransform;
     public Transform MainCameraTpSpotTransform;
     [Space(10f)]
+    public Dictionary<WallDirection, GameObject> NearStage = new Dictionary<WallDirection, GameObject>();
+
+    StageManager stageManager;
+    [HideInInspector] public GameObject ThisStage;
     [HideInInspector] public GameObject PlayerObject;
     [HideInInspector] public GameObject MainCameraObject;
     [HideInInspector] public Image PortalEffectImage;
     [HideInInspector] public CinemachineCamera CinemachineCamera;
     [HideInInspector] public Transform PlayerTransform;
-    [HideInInspector] public Transform MainCameraTransform;
 
     void Awake()
     {
-        instance = this;
+        ThisStage = transform.parent != null ? transform.parent.gameObject : gameObject;
+
+        stageManager = StageManager.instance;
+
+        if (stageManager == null)
+        {
+            stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+        }
+
         PlayerObject = GameObject.FindGameObjectWithTag("Player");
         MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
-        CinemachineCamera = GameObject.Find("PlayerCamera").GetComponent<CinemachineCamera>();
-        PortalEffectImage = GameObject.FindWithTag("FadeBackground").GetComponent<Image>();
+
+        var playerCameraObj = GameObject.Find("PlayerCamera");
+        if (playerCameraObj != null)
+            CinemachineCamera = playerCameraObj.GetComponent<CinemachineCamera>();
     }
 
     void Start()
     {
-        PlayerTransform = PlayerObject.GetComponent<Transform>();
-        MainCameraTransform = MainCameraObject.GetComponent<Transform>();
+        if (PlayerObject != null)
+            PlayerTransform = PlayerObject.GetComponent<Transform>();
+        else
+            PlayerObject = GameObject.FindGameObjectWithTag("Player");
+
+        PortalEffectImage = UIManager.Instance.fade.GetComponent<Image>();
+
+        if (MainCameraObject == null)
+            MainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+
+        if (stageManager == null)
+            stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+
+        if (stageType == StageType.Normal || stageType == StageType.Boss || stageType == StageType.SealedStone)
+        {
+            isPortalActive = false;
+            isCleared = false;
+        }
+        else
+        {
+            isPortalActive = true;
+        }
     }
 
     void Update()
     {
-        PortalActiveCheck();
+        if (stageManager == null)
+        {
+            stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+            return;
+        }
+
+        if (stageType == StageType.Normal || stageType == StageType.Boss || stageType == StageType.SealedStone)
+        {
+            isPortalActive = stageManager.activePortal;
+        }
+
+        PortalActivation();
+
+        if (!stageManager.Tutorial)
+        {
+            SurroundStageCheck();
+            BossPortalCheck();
+        }
+
+        for (int i = 0; i < PortalObject.Count; i++)
+        {
+            if (PortalObject[i] == null)
+                continue;
+
+            var portalSystem = PortalObject[i].GetComponent<PortalSystem>();
+            if (portalSystem == null)
+                continue;
+
+            if (portalSystem.toBoss)
+            {
+                PortalObject[i].SetActive(stageManager.SealedStoneLeft == 0 && stageManager.curStageCleared);
+            }
+        }
     }
 
-    void PortalActiveCheck()
+    void BossPortalCheck()
     {
-        if (true) //Portal activation check
+        if (PortalObject[0] != null && stageManager.curStagePos.y == -2 && (stageManager.curStagePos.x >= -1 && stageManager.curStagePos.x <= 1))
+            PortalObject[0].GetComponent<PortalSystem>().toBoss = true;
+
+        if (PortalObject[1] != null && stageManager.curStagePos.y == 2 && (stageManager.curStagePos.x >= -1 && stageManager.curStagePos.x <= 1))
+            PortalObject[1].GetComponent<PortalSystem>().toBoss = true;
+
+        if (PortalObject[2] != null && stageManager.curStagePos.x == 2 && (stageManager.curStagePos.y >= -1 && stageManager.curStagePos.y <= 1))
+            PortalObject[2].GetComponent<PortalSystem>().toBoss = true;
+
+        if (PortalObject[3] != null && stageManager.curStagePos.x == -2 && (stageManager.curStagePos.y >= -1 && stageManager.curStagePos.y <= 1))
+            PortalObject[3].GetComponent<PortalSystem>().toBoss = true;
+    }
+
+    void PortalActivation()
+    {
+        Vector2Int pos = stageManager.WorldToGrid(ThisStage.transform.position);
+
+        bool north = stageManager.StagePositions.Contains(new Vector2Int(pos.x, pos.y + 1));
+        bool south = stageManager.StagePositions.Contains(new Vector2Int(pos.x, pos.y - 1));
+        bool west = stageManager.StagePositions.Contains(new Vector2Int(pos.x - 1, pos.y));
+        bool east = stageManager.StagePositions.Contains(new Vector2Int(pos.x + 1, pos.y));
+
+        if (PortalObject[0] != null && !PortalObject[0].GetComponent<PortalSystem>().toBoss)
         {
-            isPortalActive = true;
+            PortalObject[0].SetActive(north && isPortalActive);
+            PortalObject[0].SetActive(isPortalActive);
         }
-        //else
-        //{
-        //    isPortalActive = false;
-        //}
+        if (PortalObject[1] != null && !PortalObject[1].GetComponent<PortalSystem>().toBoss)
+        {
+            PortalObject[1].SetActive(south && isPortalActive);
+            PortalObject[1].SetActive(isPortalActive);
+        }
+        if (PortalObject[2] != null && !PortalObject[2].GetComponent<PortalSystem>().toBoss)
+        {
+            PortalObject[2].SetActive(west && isPortalActive);
+            PortalObject[2].SetActive(isPortalActive);
+        }
+        if (PortalObject[3] != null && !PortalObject[3].GetComponent<PortalSystem>().toBoss)
+        {
+            PortalObject[3].SetActive(east && isPortalActive);
+            PortalObject[3].SetActive(isPortalActive);
+        }
+    }
+
+    void SurroundStageCheck()
+    {
+        Vector2Int stageV2I = stageManager.WorldToGrid(ThisStage.transform.position);
+        Vector2Int frontStageV2I = new Vector2Int(stageV2I.x, stageV2I.y + 1);
+        Vector2Int backStageV2I = new Vector2Int(stageV2I.x, stageV2I.y - 1);
+        Vector2Int leftStageV2I = new Vector2Int(stageV2I.x - 1, stageV2I.y);
+        Vector2Int rightStageV2I = new Vector2Int(stageV2I.x + 1, stageV2I.y);
+
+        if (PortalObject[0] != null && !stageManager.surroundStagePositions.Contains(frontStageV2I) && stageType != StageType.Boss)
+            PortalObject[0].SetActive(false);
+
+        if (PortalObject[1] != null && !stageManager.surroundStagePositions.Contains(backStageV2I) && stageType != StageType.Boss)
+            PortalObject[1].SetActive(false);
+
+        if (PortalObject[2] != null && !stageManager.surroundStagePositions.Contains(leftStageV2I) && stageType != StageType.Boss)
+            PortalObject[2].SetActive(false);
+
+        if (PortalObject[3] != null && !stageManager.surroundStagePositions.Contains(rightStageV2I) && stageType != StageType.Boss)
+            PortalObject[3].SetActive(false);
     }
 }

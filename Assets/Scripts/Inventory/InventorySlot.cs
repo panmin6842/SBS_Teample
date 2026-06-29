@@ -1,12 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
 /// 인벤토리 슬롯 하나를 담당
 /// </summary>
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Item item;
     public Item Item
@@ -24,7 +25,29 @@ public class InventorySlot : MonoBehaviour
 
     [Header("아이템 슬롯에 있는 UI 오브젝트")]
     [SerializeField] private Image itemImage;
-    [SerializeField] TextMeshProUGUI textCount;
+    [SerializeField] private GameObject explanToolTip;
+    [SerializeField] private TextMeshProUGUI textCount;
+    [SerializeField] private TextMeshProUGUI explanText;
+    [SerializeField] private TextMeshProUGUI nameText;
+
+    [SerializeField] private Animator ani;
+
+    private InventoryMain inventory;
+    private StorageToInventory storageToInventory;
+
+    private void OnEnable()
+    {
+        inventory = GameObject.Find("InventorySystem").GetComponent<InventoryMain>();
+        storageToInventory = GameObject.Find("InventorySystem").GetComponent<StorageToInventory>();
+
+        if (explanToolTip != null)
+        {
+            explanToolTip.SetActive(false);
+            inventory.slotClick = false;
+        }
+
+        SlotCount();
+    }
 
     // 아이템 이미지의 투명도 조절
     private void SetColor(float _alpha)
@@ -50,12 +73,15 @@ public class InventorySlot : MonoBehaviour
         item = nItem;
         itemCount = count;
         itemImage.sprite = item.Image;
-
-        if (item.Type <= ItemType.Equipment_WEAPON)
+        if (explanText != null)
         {
-            //textCount.text = "";
-            //임시
-            textCount.text = itemCount.ToString();
+            explanText.text = item.Explanation;
+            nameText.text = item.ItemName;
+        }
+
+        if (item.IsEquipment || item.IsAccessory)
+        {
+            textCount.text = "";
         }
         else
         {
@@ -77,6 +103,16 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
+    private void SlotCount()
+    {
+        textCount.text = itemCount.ToString();
+
+        if (itemCount <= 0)
+        {
+            ClearSlot();
+        }
+    }
+
     //해당 슬롯 하나 삭제
     public void ClearSlot()
     {
@@ -86,5 +122,70 @@ public class InventorySlot : MonoBehaviour
         SetColor(0);
 
         textCount.text = "";
+    }
+
+    /// <summary>
+    /// 슬롯 드래그하면 설명창이 나옴
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (item != null && item.Type != ItemType.ArtiFact && eventData.clickCount == 2)
+        {
+            storageToInventory.Install(this);
+        }
+        else if (item != null && item.Type == ItemType.ArtiFact && eventData.clickCount == 2)
+        {
+            if (DayManager.instance.curDay == Day.day)
+            {
+                storageToInventory.ArtiFactInstall(this);
+            }
+            else if(DayManager.instance.curDay == Day.night)
+            {
+                ani.SetTrigger("OnClick");
+            }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null && explanToolTip != null)
+        {
+            explanToolTip.SetActive(true);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (explanToolTip != null)
+        {
+            explanToolTip.SetActive(false);
+        }
+    }
+
+    public void InstallButton()
+    {
+        if (item != null)
+        {
+            if (item.Type == ItemType.HealPotion_Small || item.Type == ItemType.HealPotion_Middle
+                || item.Type == ItemType.HealPotion_Big)
+                inventory.hpPotionSlot = this;
+            else if (item.Type == ItemType.MPPotion_Small || item.Type == ItemType.MPPotion_Middle
+                || item.Type == ItemType.MPPotion_Big)
+                inventory.mpPotionSlot = this;
+            else if (item.Type == ItemType.GoldBox)
+            {
+                int random = Random.Range(item.MinGold, item.MaxGold);
+                int bounusGold = Mathf.RoundToInt(random * GameManager.instance.goldMultiplier);
+                GameManager.instance.gold += bounusGold;
+                inventory.goldText.text = "Gold : " + GameManager.instance.gold.ToString();
+                itemCount--;
+                textCount.text = itemCount.ToString();
+                if (itemCount <= 0)
+                {
+                    ClearSlot();
+                }
+            }
+        }
     }
 }
