@@ -5,21 +5,19 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 
-public class AttackState : IStateBase
+public class AttackState : StateBase
 {
-    private EnemyBase enemy;
     private IAttackBehavior attackBehavior;
     private NavMeshAgent agent;
     private GameObject enemyObject;
     private CancellationTokenSource cts;
 
-    public AttackState(EnemyBase enemy)
+    public AttackState(EnemyBase enemy) : base(enemy)
     {
         this.enemy = enemy;
         this.attackBehavior = enemy.attackBehavior;
     }
-    public bool IsCompleted => true;
-    public async UniTask Enter(CancellationToken token)
+    public override async UniTask Enter(CancellationToken token)
     {
         Debug.Log("공격 상태로 진입");
         this.agent = enemy.agent;
@@ -28,7 +26,7 @@ public class AttackState : IStateBase
         await UniTask.CompletedTask;
     }
 
-    public async UniTask Tick(CancellationToken token)
+    public override async UniTask Tick(CancellationToken token)
     {
         Debug.Log("공격 상태에서 행동 중");
         try
@@ -46,7 +44,7 @@ public class AttackState : IStateBase
         await UniTask.CompletedTask;
     }
 
-    public async UniTask Exit(CancellationToken token)
+    public override async UniTask Exit(CancellationToken token)
     {
         Debug.Log("공격 상태에서 나감");
         if (cts != null)

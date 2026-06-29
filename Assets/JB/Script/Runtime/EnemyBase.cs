@@ -7,14 +7,22 @@ using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
-public interface IStateBase
+public abstract class StateBase
 {
-    public UniTask Enter(CancellationToken token);
-    public UniTask Tick(CancellationToken token);
-    public UniTask Exit(CancellationToken token);
-    public bool IsCompleted => true;
-}
+    protected EnemyBase enemy;
 
+    public StateBase(EnemyBase enemy)
+    {
+        this.enemy = enemy;
+    }
+
+    public abstract UniTask Enter(CancellationToken token);
+
+    public abstract UniTask Tick(CancellationToken token);
+
+    public abstract UniTask Exit(CancellationToken token);
+    public bool IsCompleted { get; protected set; } = true;
+}
 
 public class EnemyBase : MonoBehaviour
 {
@@ -22,11 +30,11 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected EnemyInfoSO enemyInfo;
 
     // 상태 관리
-    protected IStateBase currentState;
+    protected StateBase currentState;
     public IAttackBehavior attackBehavior;
-    public IStateBase approachState;
-    public IStateBase retreatState;
-    public IStateBase attackState;
+    public StateBase approachState;
+    public StateBase retreatState;
+    public StateBase attackState;
     public GameObject[] projectilePrefab;
 
     [Header("적 스탯")]
@@ -64,7 +72,7 @@ public class EnemyBase : MonoBehaviour
     }
     
     // 상태 전환 시 실행
-    protected virtual void TransitionToState(IStateBase newState, CancellationToken token)
+    protected virtual void TransitionToState(StateBase newState, CancellationToken token)
     {
         currentState?.Exit(token).Forget();
         currentState = newState;
