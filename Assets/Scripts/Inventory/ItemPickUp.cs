@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ItemÀ» ³Ö´Â °ø°£ ÇÁ¸®Æé¿¡ ÄÄÆ÷³ÍÆ®·Î Ãß°¡ÇÏ°í ÀÎ½ºÆåÅÍ¿¡ ¾ÆÀÌÅÛÀ» ÇÒ´ç
+/// ItemÂÂ„ Â„ï½‹ÂŠÂ” æ€¨ë“¦Â„ Â”Â„ç”±Ñ‹â‘¹Â—Â è€ŒëŒ„Ñ‰Â„ÂŒÂŠëªƒÂœ ç•°Â”åª›Â€Â•Â˜æ€¨ Âëª„ÂŠã…½Â™Â„ê³—Â—Â Â•Â„ÂëŒ„Â…ÂœÂÂ„ Â•Â‹
 /// </summary>
 
 public class ItemPickUp : MonoBehaviour
@@ -16,10 +16,10 @@ public class ItemPickUp : MonoBehaviour
     {
         canPickUp = true;
     }
-    [Header("ÇØ´ç ¿ÀºêÁ§Æ®¿¡ ÇÒ´çµÇ´Â ¾ÆÀÌÅÛ")]
+    [Header("í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ì— í• ë‹¹ë˜ëŠ” ì•„ì´í…œ")]
     [SerializeField] private Item item;
     /// <summary>
-    /// »óÈ£ÀÛ¿ë °¡´ÉÇÑ °´Ã¼°¡ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ
+    /// ÂƒÂÂ˜ëª„ÂÂ‘Âš åª›Â€ÂŠÎ½Â•Âœ åª›Âï§£ë‹¿Â€ åª›Â€ï§Â€æ€¨ ÂÂˆÂŠÂ” Â•Â„ÂëŒ„Â…Âœ
     /// /// </summary>
     /// <value></value>
     public Item Item
@@ -30,7 +30,7 @@ public class ItemPickUp : MonoBehaviour
         }
     }
 
-    [Header("ÇØ´ç ¿ÀºêÁ§Æ®¿¡ »óÈ£ÀÛ¿ë ½Ã, º¸À¯ÁÙ ÀÎµğÄÉÀÌÅÍÀÇ ³ôÀÌ")]
+    [Header("Â•ëŒ€Â‹ Â˜ã…»ÂŒï¿½ÂÂŠëª„Â—Â ÂƒÂÂ˜ëª„ÂÂ‘Âš Â‹Âœ, è¹‚ëŒÂœä»¥Â„ ÂëªƒÂ”Â”è€³Â€ÂëŒ„Â„ê³—ÂÂ˜ Â†Â’Â")]
     [SerializeField] private float indicatorHeight;
 
     public float IndicatorHeight
