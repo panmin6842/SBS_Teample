@@ -10,6 +10,10 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerProfile>().GetDamage(this.GetComponentInParent<EnemyBase>().EnemyInfo.AttackPower);
+        }
         Destroy(this.gameObject);
     }
 }

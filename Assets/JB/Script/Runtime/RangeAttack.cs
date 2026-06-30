@@ -12,17 +12,19 @@ public class ProjectileTypePattern : IAttackBehavior
         this.projectilePrefab = projectilePrefab;
         this.enemy = enemy;
     }
-    
+
     public void SingleProjectile()
     {
         Debug.Log("Single Projectile Attack!");
-        GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        GameObject projectile = GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        projectile.GetComponent<Transform>().parent = enemy.transform;
     }
     
     public void SpreadProjectile()
     {
         Debug.Log("Spread Projectile Attack!");
-        GameObject.Instantiate(projectilePrefab[1], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        GameObject projectile = GameObject.Instantiate(projectilePrefab[1], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        projectile.GetComponent<Transform>().parent = enemy.transform;
     }
 
     
@@ -31,7 +33,8 @@ public class ProjectileTypePattern : IAttackBehavior
         Debug.Log("Sniping Projectile Attack!");
         for (int i = 0; i < 3; i++)
         {
-            GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+            GameObject projectile = GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+            projectile.GetComponent<Transform>().parent = enemy.transform;
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }
     }

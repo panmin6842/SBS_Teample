@@ -50,6 +50,8 @@ public class EnemyBase : MonoBehaviour
     public NavMeshAgent agent { get; private set; }
 
     private CancellationToken token;
+
+    public EnemyInfoSO EnemyInfo => enemyInfo;
     protected virtual void Awake()
     {
         GameObject playerObj = GameObject.FindWithTag("Player");
