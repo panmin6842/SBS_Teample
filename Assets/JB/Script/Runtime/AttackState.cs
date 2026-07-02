@@ -11,6 +11,7 @@ public class AttackState : StateBase
     private NavMeshAgent agent;
     private GameObject enemyObject;
     private CancellationTokenSource cts;
+    private int attackNumber = 0;
 
     public AttackState(EnemyBase enemy) : base(enemy)
     {
@@ -29,12 +30,13 @@ public class AttackState : StateBase
     public override async UniTask Tick(CancellationToken token)
     {
         Debug.Log("공격 상태에서 행동 중");
+        attackNumber = UnityEngine.Random.Range(0, enemy.totalRatioOfAttacks); // 0, 1, 2 중 하나를 랜덤으로 선택
         try
         {
             await AttackAnim(cts.Token);
             if (!cts.Token.IsCancellationRequested)
             {
-                attackBehavior.Attack();
+                attackBehavior.Attack(attackNumber);
             }
         }
         catch (OperationCanceledException)

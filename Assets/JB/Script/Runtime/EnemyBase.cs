@@ -50,6 +50,7 @@ public class EnemyBase : MonoBehaviour
     public NavMeshAgent agent { get; private set; }
 
     private CancellationToken token;
+    public int totalRatioOfAttacks { get; private set; } = 0;
 
     public EnemyInfoSO EnemyInfo => enemyInfo;
     protected virtual void Awake()
@@ -90,6 +91,19 @@ public class EnemyBase : MonoBehaviour
             this.attackRange = enemyInfo.AttackRange;
             this.detectionRange = enemyInfo.DetectionRange;
             this.attackCoolDown = enemyInfo.AttackCoolTime;
+            switch (enemyInfo.Type)
+            {
+                case EnemyType.Mage:
+                    this.totalRatioOfAttacks = 2;
+                    break;
+                case EnemyType.Projectile:
+                    this.totalRatioOfAttacks = 3;
+                    break;
+                default:
+                    Debug.LogError("Unknown enemy type: " + enemyInfo.Type);
+                    break;
+            }
+
         }
     }
 
