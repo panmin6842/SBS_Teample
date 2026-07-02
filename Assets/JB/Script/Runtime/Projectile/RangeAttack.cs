@@ -39,10 +39,8 @@ public class ProjectileTypePattern : IAttackBehavior
         }
     }
 
-    public void Attack()
+    public void Attack(int randomAttack)
     {
-
-        int randomAttack = UnityEngine.Random.Range(0, 3); // 0, 1, 2 중 하나를 랜덤으로 선택
         switch (randomAttack)
         {
             case 0:
