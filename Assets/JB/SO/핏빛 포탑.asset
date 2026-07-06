@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: "\uD54F\uBE5B \uD3EC\uD0D1"
   m_EditorClassIdentifier: 
   <Name>k__BackingField: "\uD54F\uBE5B \uD3EC\uD0D1"
+  <Type>k__BackingField: 2
   <Desc>k__BackingField: 
   <MaxHp>k__BackingField: 500
   <DefensePower>k__BackingField: 0.1

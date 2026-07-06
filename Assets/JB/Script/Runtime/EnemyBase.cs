@@ -94,7 +94,7 @@ public class EnemyBase : MonoBehaviour
             switch (enemyInfo.Type)
             {
                 case EnemyType.Mage:
-                    this.totalRatioOfAttacks = 2;
+                    this.totalRatioOfAttacks = 4;
                     break;
                 case EnemyType.Projectile:
                     this.totalRatioOfAttacks = 3;

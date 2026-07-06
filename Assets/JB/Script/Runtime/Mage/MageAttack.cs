@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MageAttack : IAttackBehavior
 {
@@ -19,6 +19,7 @@ public class MageAttack : IAttackBehavior
     private void Fireball()
     {
         GameObject magic = GameObject.Instantiate(magePrefabs[1], enemy.transform.position, enemy.transform.rotation);
+        magic.transform.parent = enemy.transform;
     }
 
     public void Attack(int randomAttack)
@@ -26,11 +27,11 @@ public class MageAttack : IAttackBehavior
         Debug.Log("Mage Attack!");
         switch (randomAttack)
         {
-            default:
-                MPBullet();
-                break;
             case 3:
                 Fireball();
+                break;
+            default:
+                MPBullet();
                 break;
         }
     }
