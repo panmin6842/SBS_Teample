@@ -2,8 +2,7 @@
 
 public class FireSphere : MonoBehaviour
 {
-    private Vector3 destination;
-    private SphereCollider explosionRange;
+    [SerializeField] private Vector3 destination;
     private EnemyBase enemyBase;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,20 +14,29 @@ public class FireSphere : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.Translate((destination - transform.position).normalized);
-        if (destination.sqrMagnitude == this.transform.position.sqrMagnitude)
+        this.transform.LookAt(destination);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, destination, Time.deltaTime * 4f);
+        if (Vector3.Distance(destination, this.transform.position) < 0.1f)
             Explosion();
     }
 
     private void Explosion()
     {
-        SphereCollider explosion = null;
-        explosion = Instantiate(explosionRange, this.transform);
-        if (explosion != null && explosion.GetComponent<Collision>().gameObject.CompareTag("Player"))
+        // SphereCollider의 중심점과 반지름을 사용해 범위 안의 모든 Collider 검출                 
+        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 2f);
+
+        foreach (var hitCollider in hitColliders)
         {
-            explosion.GetComponent<Collision>().gameObject.GetComponent<PlayerProfile>().GetDamage((int)(enemyBase.EnemyInfo.AttackPower * 0.8f));
+            if (hitCollider.CompareTag("Player"))
+            {
+                Debug.Log("<color=orange>Player Hit</color>");
+                PlayerProfile player = hitCollider.GetComponent<PlayerProfile>();
+                if (player != null)
+                {
+                    player.GetDamage((int)(enemyBase.EnemyInfo.AttackPower * 0.8f));
+                }
+            }
         }
-        Destroy(explosion);
     }
 
     private void OnCollisionEnter(Collision col)
