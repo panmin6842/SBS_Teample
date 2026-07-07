@@ -365,13 +365,12 @@ public class PlayerProfile : PlayerState
         curMp = maxMp;
     }
 
-    public void GetDamage(int damage)
+    public void GetDamage(float damage)
     {
         if (!barrier)
         {
             if (!noDamage)
             {
-                //curHp -= damage * (1 - curDEF);
                 curHp -= damage * (100f / (100f + curDEF));
                 ani.SetTrigger("Hit");
                 noDamage = true;
