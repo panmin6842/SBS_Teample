@@ -9,6 +9,7 @@ public class FireSphere : MonoBehaviour
     {
         destination = GameObject.FindWithTag("Player").transform.position;
         enemyBase = this.transform.parent.GetComponent<EnemyBase>();
+        this.transform.parent = null;
     }
 
     // Update is called once per frame
@@ -37,6 +38,7 @@ public class FireSphere : MonoBehaviour
                 }
             }
         }
+        Destroy(this.gameObject);
     }
 
     private void OnCollisionEnter(Collision col)

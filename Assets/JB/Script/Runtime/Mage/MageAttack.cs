@@ -5,6 +5,9 @@ public class MageAttack : IAttackBehavior
     private GameObject[] magePrefabs;
     private EnemyBase enemy;
 
+
+    public bool GetIsMultiProjectileAttack(int randomAttack) => false;
+    
     public MageAttack(GameObject[] magePrefabs, EnemyBase enemy)
     {
         this.magePrefabs = magePrefabs;

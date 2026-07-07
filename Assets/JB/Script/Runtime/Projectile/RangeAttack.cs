@@ -7,6 +7,8 @@ public class ProjectileTypePattern : IAttackBehavior
     private GameObject[] projectilePrefab;
     private EnemyBase enemy;
 
+    public bool GetIsMultiProjectileAttack(int randomAttack)    =>  randomAttack == 1;
+
     public ProjectileTypePattern(GameObject[] projectilePrefab, EnemyBase enemy)
     {
         this.projectilePrefab = projectilePrefab;

@@ -63,9 +63,19 @@ public class AttackState : StateBase
         float timeSpent = 0f;
 
         Debug.Log("<color=red>" + enemyObject.name + " Prepares to Attack!</color>");
-        // 공격 범위 표시
-        DecalProjector decal = enemyObject.GetComponentInChildren<DecalProjector>();
-        if (decal != null) decal.enabled = true;
+
+        DecalProjector[] decals = enemyObject.GetComponentsInChildren<DecalProjector>();
+        DecalProjector centerDecal = decals[1];
+
+        if (attackBehavior.GetIsMultiProjectileAttack(attackNumber))
+        {
+            foreach (var item in decals)
+            {
+                if (item != null) item.enabled = true;
+            }
+        }
+        else
+            if (centerDecal != null) centerDecal.enabled = true;
 
         try
         {
@@ -85,9 +95,10 @@ public class AttackState : StateBase
         }
         finally
         {
-            if (enemyObject != null && decal != null)
+            if (enemyObject != null && decals != null)
             {
-                decal.enabled = false;
+                foreach (var item in decals)
+                    item.enabled = false;
             }
             if (agent != null)
             {
