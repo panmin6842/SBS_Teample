@@ -365,13 +365,12 @@ public class PlayerProfile : PlayerState
         curMp = maxMp;
     }
 
-    public void GetDamage(int damage)
+    public void GetDamage(float damage)
     {
         if (!barrier)
         {
             if (!noDamage)
             {
-                //curHp -= damage * (1 - curDEF);
                 curHp -= damage * (100f / (100f + curDEF));
                 ani.SetTrigger("Hit");
                 noDamage = true;
@@ -391,6 +390,16 @@ public class PlayerProfile : PlayerState
         yield return new WaitForSeconds(0.4f);
         ani.ResetTrigger("Hit");
         noDamage = false;
+    }
+
+    public void EnemyAttack(Collider enemy, float damage)
+    {
+        if (enemy.gameObject.GetComponent<MonsterBehavior>() != null)
+            enemy.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
+        if (enemy.gameObject.GetComponent<SealStoneManager>() != null)
+            enemy.gameObject.GetComponent<SealStoneManager>().Damage(damage);
+        if (enemy.gameObject.GetComponent<SealedStone>() != null)
+            enemy.gameObject.GetComponent<SealedStone>().TakeDamage(damage);
     }
 
     public void PlayerDie()

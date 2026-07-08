@@ -9,8 +9,8 @@ public class PlayerState : MonoBehaviour
 
     [SerializeField] protected float maxHp;
     [SerializeField] protected float curHp;
-    [SerializeField] protected int maxMp = 20;
-    [SerializeField] protected int curMp = 20;
+    [SerializeField] protected int maxMp = 10;
+    [SerializeField] protected int curMp = 10;
     [SerializeField] protected float curATK;
     [SerializeField] protected float maxATK;
     [SerializeField] protected float passiveATK;

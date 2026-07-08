@@ -55,12 +55,7 @@ public class SelfBombSkill : MonoBehaviour
             else if (enemy.CompareTag("Enemy"))
             {
                 Debug.Log("스킬 : 자폭" + enemy.gameObject.name + "을(를) 공격했습니다!" + "damage = " + damage);
-                if (enemy.gameObject.GetComponent<MonsterBehavior>() != null)
-                    enemy.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
-                if (enemy.gameObject.GetComponent<SealStoneManager>() != null)
-                    enemy.gameObject.GetComponent<SealStoneManager>().Damage(damage);
-                if (enemy.gameObject.GetComponent<SealedStone>() != null)
-                    enemy.gameObject.GetComponent<SealedStone>().TakeDamage(damage);
+                playerProfile.EnemyAttack(enemy, damage);
             }
 
             if (playerProfile.BloodHeal)

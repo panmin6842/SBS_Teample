@@ -52,12 +52,7 @@ public class MultipleLaunchesSkill : MonoBehaviour
                 else if (other.CompareTag("Enemy"))
                 {
                     Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage1 = " + damage1);
-                    if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                        other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage1);
-                    if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                        other.gameObject.GetComponent<SealStoneManager>().Damage(damage1);
-                    if (other.gameObject.GetComponent<SealedStone>() != null)
-                        other.gameObject.GetComponent<SealedStone>().TakeDamage(damage1);
+                    playerProfile.EnemyAttack(other, damage1);
                 }
                 if (playerProfile.BloodHeal)
                 {
@@ -76,12 +71,7 @@ public class MultipleLaunchesSkill : MonoBehaviour
                 else if (other.CompareTag("Enemy"))
                 {
                     Debug.Log("스킬 : 다중 발사" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
-                    if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                        other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage2);
-                    if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                        other.gameObject.GetComponent<SealStoneManager>().Damage(damage2);
-                    if (other.gameObject.GetComponent<SealedStone>() != null)
-                        other.gameObject.GetComponent<SealedStone>().TakeDamage(damage2);
+                    playerProfile.EnemyAttack(other, damage2);
                 }
                 if (playerProfile.BloodHeal)
                 {

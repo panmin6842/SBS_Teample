@@ -53,33 +53,6 @@ public class ArrowStormSkill : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        //if (dist < 5 && !rush)
-        //{
-
-        //}
-        //else if (dist >= 5 && !rush)
-        //{
-        //    rush = true;
-        //}
-
-        //if (dist < stopDist && rush)
-        //{
-        //    Vector3 dir = (targetPos - transform.position).normalized;
-        //    if (dir != Vector3.zero)
-        //    {
-        //        Quaternion targetRotation = Quaternion.LookRotation(dir);
-        //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-        //    }
-
-        //    transform.position += transform.forward * moveSpeed * Time.deltaTime;
-
-        //    if (Vector3.Distance(transform.position, targetPos) < 0.2f)
-        //    {
-        //        playerProfile.SkillStart = false;
-        //        Destroy(gameObject);
-        //    }
-        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -96,12 +69,7 @@ public class ArrowStormSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("��ų : ȭ�� ��ǳ" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage = " + damage);
-                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
-                if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
-                if (other.gameObject.GetComponent<SealedStone>() != null)
-                    other.gameObject.GetComponent<SealedStone>().TakeDamage(damage);
+                playerProfile.EnemyAttack(other, damage);
 
                 StartCoroutine(NuckBack(other.GetComponent<Rigidbody>(), other));
             }

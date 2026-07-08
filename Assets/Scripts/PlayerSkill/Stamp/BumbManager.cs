@@ -83,10 +83,7 @@ public class BumbManager : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             Debug.Log("스탬프 기본 폭발 공격" + other.gameObject.name + "을(를) 공격했습니다!" + "damage2 = " + damage2);
-            if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage2);
-            if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                other.gameObject.GetComponent<SealStoneManager>().Damage(damage2);
+            playerProfile.EnemyAttack(other, damage2);
         }
     }
 }

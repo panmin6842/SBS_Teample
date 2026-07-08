@@ -56,12 +56,7 @@ public class StrongFireSkill : MonoBehaviour
             else if (other.CompareTag("Enemy"))
             {
                 Debug.Log("��ų : ū�� �ѹ�" + other.gameObject.name + "��(��) �����߽��ϴ�!" + "damage = " + damage);
-                if (other.gameObject.GetComponent<MonsterBehavior>() != null)
-                    other.gameObject.GetComponent<MonsterBehavior>().TakeDamage(damage);
-                if (other.gameObject.GetComponent<SealStoneManager>() != null)
-                    other.gameObject.GetComponent<SealStoneManager>().Damage(damage);
-                if (other.gameObject.GetComponent<SealedStone>() != null)
-                    other.gameObject.GetComponent<SealedStone>().TakeDamage(damage);
+                playerProfile.EnemyAttack(other, damage);
 
                 StartCoroutine(NuckBack(other.GetComponent<Rigidbody>(), other));
             }
