@@ -45,13 +45,12 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float attackCoolDown = 0f;
 
     [Header("플레이어와의 거리")]
-    [SerializeField] public float distanceToPlayer { get; private set; }
+    public float distanceToPlayer { get; private set; }
     public Transform player { get; private set; }
     public NavMeshAgent agent { get; private set; }
 
-    private CancellationToken token;
     public int totalRatioOfAttacks { get; private set; } = 0;
-
+    private CancellationToken token;
     public EnemyInfoSO EnemyInfo => enemyInfo;
     protected virtual void Awake()
     {

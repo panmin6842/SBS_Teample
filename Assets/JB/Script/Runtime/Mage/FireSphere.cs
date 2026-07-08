@@ -34,7 +34,7 @@ public class FireSphere : MonoBehaviour
                 PlayerProfile player = hitCollider.GetComponent<PlayerProfile>();
                 if (player != null)
                 {
-                    player.GetDamage((int)(enemyBase.EnemyInfo.AttackPower * 0.8f));
+                    player.GetDamage(enemyBase.EnemyInfo.AttackPower * 0.8f);
                 }
             }
         }
