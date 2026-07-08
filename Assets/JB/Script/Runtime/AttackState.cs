@@ -33,7 +33,7 @@ public class AttackState : StateBase
     {
         Debug.Log("공격 상태에서 행동 중");
         this.animator.SetTrigger("Attack");
-        attackNumber = UnityEngine.Random.Range(0, enemy.totalRatioOfAttacks); // 0, 1, 2 중 하나를 랜덤으로 선택
+        attackNumber = UnityEngine.Random.Range(0, enemy.totalRatioOfAttacks);
         try
         {
             await AttackAnim(cts.Token);
@@ -99,6 +99,7 @@ public class AttackState : StateBase
         }
         finally
         {
+            if (token.IsCancellationRequested) await UniTask.CompletedTask;
             if (enemyObject != null && decals != null)
             {
                 foreach (var item in decals)
@@ -107,10 +108,6 @@ public class AttackState : StateBase
             if (agent != null)
             {
                 agent.isStopped = false;
-            }
-            if (!token.IsCancellationRequested)
-            {
-                Debug.Log("<color=red>" + (enemyObject != null ? enemyObject.name : "Enemy") + " Attacks!</color>");
             }
         }
     }
