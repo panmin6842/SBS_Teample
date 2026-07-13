@@ -29,6 +29,8 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     {
         playerDisplayImage = GetComponent<Image>();
         pos = GetComponent<RectTransform>();
+
+        SoundManager.instance.CharacterChoiceSceneSFXVolume();
     }
 
     // Update is called once per frame
@@ -113,8 +115,14 @@ public class CreatingCharacter : MonoBehaviour, IPointerClickHandler
     public void GamePlay()
     {
         //SceneManager.LoadScene("MainScene");
-        SceneLoader.instance.LoadScene(SceneNames.MainScene);
+        SoundManager.instance.characterChoiceUiAudioSource.PlayOneShot(SoundManager.instance.buttonClickSoundClip);
+        Invoke("LoadSceneGo", 0.5f);
         GameManager.instance.character1Spawn = true;
+    }
+
+    private void LoadSceneGo()
+    {
+        SceneLoader.instance.LoadScene(SceneNames.MainScene);
     }
 
     public void Back()

@@ -60,6 +60,8 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.playerAudioSource = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
+        SoundManager.instance.MainSceneSFXVolume();
         GameManager.instance.mapState = MapState.Stage;
         Invoke("StartDialogue", 0.2f);
     }

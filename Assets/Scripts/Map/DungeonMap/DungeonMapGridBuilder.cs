@@ -152,7 +152,6 @@ public class DungeonMapGridBuilder : MonoBehaviour
 
     public void BuildGrid(DungeonMapData data)
     {
-        Debug.Log($"[BuildGrid] 데이터 수신 완료. Revealed 개수: {data.Revealed?.Count}");
 
         if (data == null || data.Revealed == null || data.Revealed.Count == 0)
         {

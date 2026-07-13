@@ -170,6 +170,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 case Job.Sword:
                     {
+                        SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.swordBasicAttackSoundClip);
                         Instantiate(swordAttackObj, transform.position, attackPos.transform.rotation);
                         playerProfile.ani.SetTrigger("Attack1");
                         PlayerAttackDirection();
@@ -189,6 +190,7 @@ public class PlayerAttack : MonoBehaviour
                     break;
                 case Job.Stamp:
                     {
+                        SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.stampBasicAttackSoundClip);
                         Instantiate(stampAttackObj, transform.position, attackPos.transform.rotation);
                         playerProfile.ani.SetTrigger("Attack1");
                         PlayerAttackDirection();

@@ -24,6 +24,7 @@ public class Meteo : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.meteoAttackSoundClip);
             playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
             if (other.CompareTag("Boss"))
             {

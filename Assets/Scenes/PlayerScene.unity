@@ -119,6 +119,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &874757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 874759}
+  - component: {fileID: 874758}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &874758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea43156ca8651349b0e5898af7329be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleUiAudioSource: {fileID: 0}
+  characterChoiceUiAudioSource: {fileID: 0}
+  playerAudioSource: {fileID: 1379467551}
+  buttonClickSoundClip: {fileID: 8300000, guid: 3d1fc54a2f6df7840a89b832c0c32427, type: 3}
+  buffGetSoundClip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  hpGetSoundClip: {fileID: 8300000, guid: d654174ef194bd7479bf4b8d8f753318, type: 3}
+--- !u!4 &874759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874757}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.224135, y: -30.116673, z: 13.78837}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3731429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3266,6 +3316,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1379467551 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: -244446703484479066, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
+  m_PrefabInstance: {fileID: 7530613635763980717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1414388925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4574478456222418816, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
@@ -5320,6 +5375,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RageEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5485792224993639171, guid: bc0e451166bf3ed48b8c38e17ce3d7d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5333,6 +5392,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -244446703484479066, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5053195077053781742, guid: 258ade3af7bba1c469aa53d13ce16ed5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.2
@@ -5422,3 +5485,4 @@ SceneRoots:
   - {fileID: 1286757940}
   - {fileID: 1032407242}
   - {fileID: 7323155463554513069}
+  - {fileID: 874759}

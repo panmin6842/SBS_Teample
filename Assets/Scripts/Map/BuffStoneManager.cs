@@ -32,6 +32,7 @@ public class BuffStoneManager : MonoBehaviour
     {
         if (isbuffActive && !getBuff)
         {
+            SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.buffGetSoundClip);
             PlayerProfile playerProfile = player.GetComponent<PlayerProfile>();
             playerProfile.BuffStoneRelease();
             playerProfile.GetBuffStone();

@@ -138,6 +138,7 @@ public class MonsterSpawnManager : MonoBehaviour
 
         if (playerProfile != null)
         {
+            SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.hpGetSoundClip);
             playerProfile.MPBuff(4);
 
             if (!GameManager.instance.shelterHpBan)

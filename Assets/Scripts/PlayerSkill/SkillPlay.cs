@@ -341,6 +341,7 @@ public class SkillPlay : MonoBehaviour
                 break;
             case 2:
                 {
+                    SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.mpPowerAttackSoundClip);
                     Instantiate(stamp2, transform.position,
                         Quaternion.Euler(0, playerAttack.AttackPos.transform.eulerAngles.y, 0));
                     SkillAnimation("Attack2");

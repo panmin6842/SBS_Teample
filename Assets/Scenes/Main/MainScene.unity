@@ -20894,6 +20894,60 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c863f656782d099438e2f1ba789301c8, type: 3}
+--- !u!1 &1854208502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1854208504}
+  - component: {fileID: 1854208503}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1854208503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854208502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea43156ca8651349b0e5898af7329be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleUiAudioSource: {fileID: 0}
+  characterChoiceUiAudioSource: {fileID: 0}
+  playerAudioSource: {fileID: 0}
+  buttonClickSoundClip: {fileID: 8300000, guid: 3d1fc54a2f6df7840a89b832c0c32427, type: 3}
+  buffGetSoundClip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  hpGetSoundClip: {fileID: 8300000, guid: d654174ef194bd7479bf4b8d8f753318, type: 3}
+  swordBasicAttackSoundClip: {fileID: 8300000, guid: 2b8670b132d29984c93743808adbfcb3, type: 3}
+  stampBasicAttackSoundClip: {fileID: 8300000, guid: a652877b012108e41871f867ada9f176, type: 3}
+  meteoAttackSoundClip: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
+  mpPowerAttackSoundClip: {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
+--- !u!4 &1854208504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854208502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1855720898
 GameObject:
   m_ObjectHideFlags: 0
@@ -24183,3 +24237,4 @@ SceneRoots:
   - {fileID: 1594288674}
   - {fileID: 389669190}
   - {fileID: 1653460180}
+  - {fileID: 1854208504}
