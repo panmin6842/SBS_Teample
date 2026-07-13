@@ -7,22 +7,26 @@ public class ProjectileTypePattern : IAttackBehavior
     private GameObject[] projectilePrefab;
     private EnemyBase enemy;
 
+    public bool GetIsMultiProjectileAttack(int randomAttack)    =>  randomAttack == 1;
+
     public ProjectileTypePattern(GameObject[] projectilePrefab, EnemyBase enemy)
     {
         this.projectilePrefab = projectilePrefab;
         this.enemy = enemy;
     }
-    
+
     public void SingleProjectile()
     {
         Debug.Log("Single Projectile Attack!");
-        GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        GameObject projectile = GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        projectile.GetComponent<Transform>().parent = enemy.transform;
     }
     
     public void SpreadProjectile()
     {
         Debug.Log("Spread Projectile Attack!");
-        GameObject.Instantiate(projectilePrefab[1], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        GameObject projectile = GameObject.Instantiate(projectilePrefab[1], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+        projectile.GetComponent<Transform>().parent = enemy.transform;
     }
 
     
@@ -31,15 +35,14 @@ public class ProjectileTypePattern : IAttackBehavior
         Debug.Log("Sniping Projectile Attack!");
         for (int i = 0; i < 3; i++)
         {
-            GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+            GameObject projectile = GameObject.Instantiate(projectilePrefab[0], enemy.GetComponentInChildren<Transform>().position, enemy.GetComponentInChildren<Transform>().rotation);
+            projectile.GetComponent<Transform>().parent = enemy.transform;
             await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
         }
     }
 
-    public void Attack()
+    public void Attack(int randomAttack)
     {
-
-        int randomAttack = UnityEngine.Random.Range(0, 3); // 0, 1, 2 중 하나를 랜덤으로 선택
         switch (randomAttack)
         {
             case 0:

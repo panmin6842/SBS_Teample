@@ -5,21 +5,22 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 
-public class AttackState : IStateBase
+public class AttackState : StateBase
 {
-    private EnemyBase enemy;
     private IAttackBehavior attackBehavior;
     private NavMeshAgent agent;
     private GameObject enemyObject;
     private CancellationTokenSource cts;
+    private Animator animator;
+    private int attackNumber = 0;
 
-    public AttackState(EnemyBase enemy)
+    public AttackState(EnemyBase enemy) : base(enemy)
     {
         this.enemy = enemy;
         this.attackBehavior = enemy.attackBehavior;
+        this.animator = enemy.GetComponentInChildren<Animator>();
     }
-    public bool IsCompleted => true;
-    public async UniTask Enter(CancellationToken token)
+    public override async UniTask Enter(CancellationToken token)
     {
         Debug.Log("공격 상태로 진입");
         this.agent = enemy.agent;
@@ -28,15 +29,17 @@ public class AttackState : IStateBase
         await UniTask.CompletedTask;
     }
 
-    public async UniTask Tick(CancellationToken token)
+    public override async UniTask Tick(CancellationToken token)
     {
         Debug.Log("공격 상태에서 행동 중");
+        this.animator.SetTrigger("Attack");
+        attackNumber = UnityEngine.Random.Range(0, enemy.totalRatioOfAttacks);
         try
         {
             await AttackAnim(cts.Token);
             if (!cts.Token.IsCancellationRequested)
             {
-                attackBehavior.Attack();
+                attackBehavior.Attack(attackNumber);
             }
         }
         catch (OperationCanceledException)
@@ -46,7 +49,7 @@ public class AttackState : IStateBase
         await UniTask.CompletedTask;
     }
 
-    public async UniTask Exit(CancellationToken token)
+    public override async UniTask Exit(CancellationToken token)
     {
         Debug.Log("공격 상태에서 나감");
         if (cts != null)
@@ -55,6 +58,7 @@ public class AttackState : IStateBase
             cts.Dispose();
             cts = null;
         }
+        this.animator.ResetTrigger("Attack");
         await UniTask.CompletedTask;
     }
     protected virtual async UniTask AttackAnim(CancellationToken token)
@@ -63,9 +67,19 @@ public class AttackState : IStateBase
         float timeSpent = 0f;
 
         Debug.Log("<color=red>" + enemyObject.name + " Prepares to Attack!</color>");
-        // 공격 범위 표시
-        DecalProjector decal = enemyObject.GetComponentInChildren<DecalProjector>();
-        if (decal != null) decal.enabled = true;
+
+        DecalProjector[] decals = enemyObject.GetComponentsInChildren<DecalProjector>();
+        DecalProjector centerDecal = decals[1];
+
+        if (attackBehavior.GetIsMultiProjectileAttack(attackNumber))
+        {
+            foreach (var item in decals)
+            {
+                if (item != null) item.enabled = true;
+            }
+        }
+        else
+            if (centerDecal != null) centerDecal.enabled = true;
 
         try
         {
@@ -85,17 +99,15 @@ public class AttackState : IStateBase
         }
         finally
         {
-            if (enemyObject != null && decal != null)
+            if (token.IsCancellationRequested) await UniTask.CompletedTask;
+            if (enemyObject != null && decals != null)
             {
-                decal.enabled = false;
+                foreach (var item in decals)
+                    item.enabled = false;
             }
             if (agent != null)
             {
                 agent.isStopped = false;
-            }
-            if (!token.IsCancellationRequested)
-            {
-                Debug.Log("<color=red>" + (enemyObject != null ? enemyObject.name : "Enemy") + " Attacks!</color>");
             }
         }
     }

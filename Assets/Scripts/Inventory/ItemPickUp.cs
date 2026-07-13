@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Item을 줍는 공간 프리팹에 컴포넌트로 추가하고 인스턴스에 아이템을 할당
+/// </summary>
 
 public class ItemPickUp : MonoBehaviour
 {
@@ -15,6 +18,10 @@ public class ItemPickUp : MonoBehaviour
     }
     [Header("해당 오브젝트에 할당되는 아이템")]
     [SerializeField] private Item item;
+    /// <summary>
+    /// 상호작용 가능한 객체가 가지고 있는 아이템
+    /// /// </summary>
+    /// <value></value>
     public Item Item
     {
         get
@@ -23,7 +30,7 @@ public class ItemPickUp : MonoBehaviour
         }
     }
 
-    [Header("대 ㅻ�몄 몄 , 蹂댁以 몃耳댄곗 ")]
+    [Header("해당 오브젝트에 상호작용 시, 보여줄 인디케이터의 높이")]
     [SerializeField] private float indicatorHeight;
 
     public float IndicatorHeight
