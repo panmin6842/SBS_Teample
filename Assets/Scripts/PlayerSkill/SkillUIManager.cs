@@ -24,7 +24,7 @@ public class SkillUIManager : MonoBehaviour
     private InventoryMain inventory;
     private SkillPlay skillPlay;
 
-    private bool statusTutorial = false;
+    [SerializeField] private bool statusTutorial = false;
     private void Awake()
     {
         inventory = GetComponent<InventoryMain>();

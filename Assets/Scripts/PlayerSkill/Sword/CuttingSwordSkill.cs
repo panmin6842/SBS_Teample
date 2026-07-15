@@ -14,7 +14,9 @@ public class CuttingSwordSkill : MonoBehaviour
 
     [SerializeField] private GameObject effect;
     [SerializeField] private GameObject hitEffect;
+    [SerializeField] private GameObject swordSpin;
     GameObject newEffect;
+    GameObject newSwordSpin;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,7 +31,8 @@ public class CuttingSwordSkill : MonoBehaviour
                 damage = playerProfile.ATK(190f);
             playerProfile.ChangeMoveSpeed(-90f);
         }
-        newEffect = Instantiate(effect, transform.position, effect.transform.rotation);
+        //newEffect = Instantiate(effect, transform.position, effect.transform.rotation);
+        newSwordSpin = Instantiate(swordSpin, transform.position, swordSpin.transform.rotation);
         //InvokeRepeating("CheckAttack", 0.01f, 0.1f);
     }
 
@@ -45,7 +48,8 @@ public class CuttingSwordSkill : MonoBehaviour
     {
         playerProfile.ChangeMoveSpeed(0);
         playerProfile.SkillStart = false;
-        Destroy(newEffect);
+        //Destroy(newEffect);
+        Destroy(newSwordSpin);
         Destroy(gameObject);
     }
 

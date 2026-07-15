@@ -224,6 +224,7 @@ public class SkillPlay : MonoBehaviour
             case 1:
                 {
                     Instantiate(sword1, transform.position, sword1.transform.rotation);
+                    
                     SkillAnimation("Attack2");
                 }
                 break;
