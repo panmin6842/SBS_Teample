@@ -32,7 +32,7 @@ public class AttackState : StateBase
     public override async UniTask Tick(CancellationToken token)
     {
         Debug.Log("공격 상태에서 행동 중");
-        this.animator.SetTrigger("Attack");
+        //this.animator.SetTrigger("Attack");
         attackNumber = UnityEngine.Random.Range(0, enemy.totalRatioOfAttacks);
         try
         {
