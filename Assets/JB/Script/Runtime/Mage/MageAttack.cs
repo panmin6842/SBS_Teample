@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class MageAttack : IAttackBehavior
 {
@@ -25,7 +27,7 @@ public class MageAttack : IAttackBehavior
         magic.transform.parent = enemy.transform;
     }
 
-    public void Attack(int randomAttack)
+    public async UniTask Attack(int randomAttack, CancellationToken token)
     {
         Debug.Log("Mage Attack!");
         switch (randomAttack)
@@ -37,5 +39,6 @@ public class MageAttack : IAttackBehavior
                 MPBullet();
                 break;
         }
+        await UniTask.CompletedTask;
     }
 }

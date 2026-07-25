@@ -1,7 +1,8 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 public interface IAttackBehavior
 {
-    void Attack(int number);
+    UniTask Attack(int number, CancellationToken token);
     bool GetIsMultiProjectileAttack(int randomNum);
 }

@@ -1,9 +1,13 @@
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class TurretAttack : IAttackBehavior
 {
     private GameObject[] turretPrefabs;
     private EnemyBase enemy;
+
 
     public bool GetIsMultiProjectileAttack(int randomNum) => false;
 
@@ -32,7 +36,7 @@ public class TurretAttack : IAttackBehavior
         GameObject obj = GameObject.Instantiate(turretPrefabs[1], enemy.transform.position, enemy.transform.rotation);
     }
 
-    public void Attack(int randomAttack)
+    public async UniTask Attack(int randomAttack, CancellationToken token)
     {
         switch (randomAttack)
         {
@@ -50,7 +54,9 @@ public class TurretAttack : IAttackBehavior
                 break;
             case 4:
                 SnipingShot();
+                await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: enemy.token);
                 break;
         }
+        await UniTask.CompletedTask;
     }
 }

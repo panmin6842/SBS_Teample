@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Enemy;
 using UnityEngine;
@@ -49,7 +50,7 @@ public class EnemyBase : MonoBehaviour
     public Transform player { get; private set; }
     public NavMeshAgent agent { get; private set; }
     public int totalRatioOfAttacks { get; private set; } = 0;
-    private CancellationToken token;
+    public CancellationToken token {get; private set;}
     public EnemyInfoSO EnemyInfo => enemyInfo;
     protected virtual void Awake()
     {
@@ -113,7 +114,7 @@ public class EnemyBase : MonoBehaviour
         while(!token.IsCancellationRequested)
         {
             await CheckDistance(token);
-            currentState?.Tick(token).Forget();
+            await currentState.Tick(token);
             if(currentState == attackState)
                 await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
             await ChangeState(token);

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ public class ProjectileTypePattern : IAttackBehavior
         }
     }
 
-    public void Attack(int randomAttack)
+    public async UniTask Attack(int randomAttack, CancellationToken token)
     {
         switch (randomAttack)
         {
@@ -55,5 +56,6 @@ public class ProjectileTypePattern : IAttackBehavior
                 SnipingProjectile().Forget();
                 break;
         }
+        await UniTask.CompletedTask;
     }
 }

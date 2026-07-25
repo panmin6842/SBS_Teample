@@ -41,7 +41,7 @@ public class AttackState : StateBase
             await AttackAnim(cts.Token, isTurret);
             if (!cts.Token.IsCancellationRequested)
             {
-                attackBehavior.Attack(attackNumber);
+                await attackBehavior.Attack(attackNumber, enemy.token);
             }
         }
         catch (OperationCanceledException)
@@ -90,7 +90,7 @@ public class AttackState : StateBase
                     }
                     break;
                 case 4:
-                    // if (decals[1] != null) decals[1].enabled = true;
+                    if (decals[0] != null) decals[0].enabled = true;
                     break;
             }
         }
@@ -104,7 +104,7 @@ public class AttackState : StateBase
             while (timeSpent < 0.5f && !token.IsCancellationRequested)
             {
                 if (enemy.player == null || enemyObject == null) break;
-                if(!isTurret) LookAtPlayer();
+                LookAtPlayer();
                 timeSpent += Time.deltaTime;
                 await UniTask.Yield(PlayerLoopTiming.Update, token);
             }

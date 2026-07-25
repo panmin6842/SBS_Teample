@@ -149,6 +149,7 @@ MonoBehaviour:
   enemyInfo: {fileID: 11400000, guid: a54ca293a0f7a9b4db4134a41bba7453, type: 2}
   projectilePrefab:
   - {fileID: 8662376331357575570, guid: 692a402b882cf5443984372b875e9000, type: 3}
+  - {fileID: 8487292401651206242, guid: bf19f72f77ff97d4ebaf10049d0eda9b, type: 3}
   health: 0
   speed: 0
   attackRange: 0
