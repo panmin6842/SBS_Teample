@@ -44,6 +44,7 @@ public class Meteo : MonoBehaviour
         }
         if (other.CompareTag("Place"))
         {
+            SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.meteoAttackSoundClip);
             playerProfile.ShakeCamera(0.2f, 3.0f, 15.0f);
             playerProfile.SkillStart = false;
             Destroy(gameObject);

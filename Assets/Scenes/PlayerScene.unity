@@ -154,10 +154,10 @@ MonoBehaviour:
   buttonClickSoundClip: {fileID: 8300000, guid: 3d1fc54a2f6df7840a89b832c0c32427, type: 3}
   buffGetSoundClip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
   hpGetSoundClip: {fileID: 8300000, guid: d654174ef194bd7479bf4b8d8f753318, type: 3}
-  swordBasicAttackSoundClip: {fileID: 0}
-  stampBasicAttackSoundClip: {fileID: 0}
-  meteoAttackSoundClip: {fileID: 0}
-  mpPowerAttackSoundClip: {fileID: 0}
+  swordBasicAttackSoundClip: {fileID: 8300000, guid: 2b8670b132d29984c93743808adbfcb3, type: 3}
+  stampBasicAttackSoundClip: {fileID: 8300000, guid: a652877b012108e41871f867ada9f176, type: 3}
+  meteoAttackSoundClip: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
+  mpPowerAttackSoundClip: {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
 --- !u!4 &874759
 Transform:
   m_ObjectHideFlags: 0
@@ -5086,7 +5086,7 @@ PrefabInstance:
       objectReference: {fileID: 1858061601}
     - target: {fileID: 5750485747784054226, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5867903555799650005, guid: 8887c03577ef6854fa13ac4b3c662cdf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
