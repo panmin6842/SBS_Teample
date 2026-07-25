@@ -2,19 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Enemy;
 using UnityEngine;
 using UnityEngine.AI;
 
-public interface IStateBase
+public abstract class StateBase
 {
-    public UniTask Enter(CancellationToken token);
-    public UniTask Tick(CancellationToken token);
-    public UniTask Exit(CancellationToken token);
-    public bool IsCompleted => true;
-}
+    protected EnemyBase enemy;
 
+    public StateBase(EnemyBase enemy)
+    {
+        this.enemy = enemy;
+    }
+
+    public abstract UniTask Enter(CancellationToken token);
+
+    public abstract UniTask Tick(CancellationToken token);
+
+    public abstract UniTask Exit(CancellationToken token);
+    public bool IsCompleted { get; protected set; } = true;
+}
 
 public class EnemyBase : MonoBehaviour
 {
@@ -22,11 +31,11 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected EnemyInfoSO enemyInfo;
 
     // 상태 관리
-    protected IStateBase currentState;
+    protected StateBase currentState;
     public IAttackBehavior attackBehavior;
-    public IStateBase approachState;
-    public IStateBase retreatState;
-    public IStateBase attackState;
+    public StateBase approachState;
+    public StateBase retreatState;
+    public StateBase attackState;
     public GameObject[] projectilePrefab;
 
     [Header("적 스탯")]
@@ -37,11 +46,12 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float attackCoolDown = 0f;
 
     [Header("플레이어와의 거리")]
-    [SerializeField] public float distanceToPlayer { get; private set; }
+    public float distanceToPlayer { get; private set; }
     public Transform player { get; private set; }
     public NavMeshAgent agent { get; private set; }
-
-    private CancellationToken token;
+    public int totalRatioOfAttacks { get; private set; } = 0;
+    public CancellationToken token {get; private set;}
+    public EnemyInfoSO EnemyInfo => enemyInfo;
     protected virtual void Awake()
     {
         GameObject playerObj = GameObject.FindWithTag("Player");
@@ -64,7 +74,7 @@ public class EnemyBase : MonoBehaviour
     }
     
     // 상태 전환 시 실행
-    protected virtual void TransitionToState(IStateBase newState, CancellationToken token)
+    protected virtual void TransitionToState(StateBase newState, CancellationToken token)
     {
         currentState?.Exit(token).Forget();
         currentState = newState;
@@ -80,6 +90,22 @@ public class EnemyBase : MonoBehaviour
             this.attackRange = enemyInfo.AttackRange;
             this.detectionRange = enemyInfo.DetectionRange;
             this.attackCoolDown = enemyInfo.AttackCoolTime;
+            switch (enemyInfo.Type)
+            {
+                case EnemyType.Mage:
+                    this.totalRatioOfAttacks = 4;
+                    break;
+                case EnemyType.Projectile:
+                    this.totalRatioOfAttacks = 3;
+                    break;
+                case EnemyType.Turret:
+                    this.totalRatioOfAttacks = 5;
+                    break;
+                default:
+                    Debug.LogError("Unknown enemy type: " + enemyInfo.Type);
+                    break;
+            }
+
         }
     }
 
@@ -88,7 +114,7 @@ public class EnemyBase : MonoBehaviour
         while(!token.IsCancellationRequested)
         {
             await CheckDistance(token);
-            currentState?.Tick(token).Forget();
+            await currentState.Tick(token);
             if(currentState == attackState)
                 await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
             await ChangeState(token);

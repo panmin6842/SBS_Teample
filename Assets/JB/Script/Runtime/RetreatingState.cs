@@ -3,20 +3,18 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RetreatingState : IStateBase
+public class RetreatingState : StateBase
 {
-    private EnemyBase enemy;
     private NavMeshAgent agent;
-    public bool IsCompleted { get; private set; }
     private bool isRunning { get; set; }
     private CancellationTokenSource cts;
 
-    public RetreatingState(EnemyBase enemy)
+    public RetreatingState(EnemyBase enemy) : base(enemy)
     {
         this.enemy = enemy;
     }
-
-    public UniTask Enter(CancellationToken token)
+    
+    public override UniTask Enter(CancellationToken token)
     {
         Debug.Log("RetreatingState Enter");
         this.agent = enemy.agent;
@@ -26,7 +24,7 @@ public class RetreatingState : IStateBase
         return UniTask.CompletedTask;
     }
 
-    public UniTask Tick(CancellationToken token)
+    public override UniTask Tick(CancellationToken token)
     {
         Debug.Log("RetreatingState Tick");
         if(!isRunning && !IsCompleted)
@@ -34,7 +32,7 @@ public class RetreatingState : IStateBase
         return UniTask.CompletedTask;
     }
 
-    public UniTask Exit(CancellationToken token)
+    public override UniTask Exit(CancellationToken token)
     {
         Debug.Log("RetreatingState Exit");
         if (cts != null)

@@ -3,22 +3,20 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ApproachState : IStateBase
+public class ApproachState : StateBase
 {
-    private EnemyBase enemy;
     private NavMeshAgent agent;
     private GameObject enemyObject;
 
-    public bool IsCompleted { get; private set; } = false;
     private bool isRunning { get; set; } = false;
     private CancellationTokenSource cts;
 
-    public ApproachState(EnemyBase enemy)
+    public ApproachState(EnemyBase enemy) : base(enemy)
     {
         this.enemy = enemy;
     }
 
-    public UniTask Enter(CancellationToken token)
+    public override UniTask Enter(CancellationToken token)
     {
         Debug.Log("ApproachState Enter");
         this.agent = enemy.agent;
@@ -29,7 +27,7 @@ public class ApproachState : IStateBase
         return UniTask.CompletedTask;
     }
 
-    public UniTask Tick(CancellationToken token)
+    public override UniTask Tick(CancellationToken token)
     {
         Debug.Log("ApproachState Tick");
         if (!isRunning && !IsCompleted)
@@ -39,7 +37,7 @@ public class ApproachState : IStateBase
         return UniTask.CompletedTask;
     }
 
-    public UniTask Exit(CancellationToken token)
+    public override UniTask Exit(CancellationToken token)
     {
         Debug.Log("ApproachState Exit");
         if (cts != null)
