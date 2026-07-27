@@ -40,10 +40,6 @@ public class EnemyBase : MonoBehaviour
 
     [Header("적 스탯")]
     [SerializeField] protected float health = 0f;
-    [SerializeField] protected float speed = 0f;
-    [SerializeField] protected float attackRange = 0f;
-    [SerializeField] protected float detectionRange = 0f;
-    [SerializeField] protected float attackCoolDown = 0f;
 
     [Header("플레이어와의 거리")]
     public float distanceToPlayer { get; private set; }
@@ -62,7 +58,7 @@ public class EnemyBase : MonoBehaviour
         
         token = this.GetCancellationTokenOnDestroy();
         agent = GetComponent<NavMeshAgent>();
-        if (agent != null) agent.speed = speed;
+        if (agent != null) agent.speed = EnemyInfo.MoveSpeed;
 
         SetupEnemyInfo();
         MainLoop(token).Forget();
@@ -86,10 +82,6 @@ public class EnemyBase : MonoBehaviour
         if (enemyInfo != null)
         {
             this.health = enemyInfo.MaxHp;
-            this.speed = enemyInfo.MoveSpeed;
-            this.attackRange = enemyInfo.AttackRange;
-            this.detectionRange = enemyInfo.DetectionRange;
-            this.attackCoolDown = enemyInfo.AttackCoolTime;
             switch (enemyInfo.Type)
             {
                 case EnemyType.Mage:
@@ -116,7 +108,7 @@ public class EnemyBase : MonoBehaviour
             await CheckDistance(token);
             await currentState.Tick(token);
             if(currentState == attackState)
-                await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(enemyInfo.AttackCoolTime), cancellationToken: token);
             await ChangeState(token);
         }
     }
@@ -134,7 +126,7 @@ public class EnemyBase : MonoBehaviour
             return;
         }
 
-        if (distanceToPlayer <= attackRange * attackRange && currentState != attackState)
+        if (distanceToPlayer <= enemyInfo.AttackRange * enemyInfo.AttackRange && currentState != attackState)
         {
             TransitionToState(attackState, token);
         }
@@ -174,7 +166,7 @@ public class EnemyBase : MonoBehaviour
             else if (player == null)
             {
                 // 플레이어가 없으면 attackCoolDown 초 대기 (토큰 포함)
-                await UniTask.Delay(TimeSpan.FromSeconds(attackCoolDown), cancellationToken: token);
+                await UniTask.Delay(TimeSpan.FromSeconds(enemyInfo.AttackCoolTime), cancellationToken: token);
             }
             await UniTask.Yield(PlayerLoopTiming.Update, token);
         }
