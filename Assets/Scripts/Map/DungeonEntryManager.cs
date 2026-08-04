@@ -59,7 +59,7 @@ public class DungeonEntryManager : MonoBehaviour, IPointerClickHandler
             GameManager.instance.mapState = MapState.Stage;
             MinimapManager.ApplyMainSceneMinimapMode();
 
-            StartCoroutine(SetupAndLoadDungeon(data)); ;
+            StartCoroutine(SetupAndLoadDungeon(data));
         }
     }
 

@@ -400,6 +400,8 @@ public class PlayerProfile : PlayerState
             enemy.gameObject.GetComponent<SealStoneManager>().Damage(damage);
         if (enemy.gameObject.GetComponent<SealedStone>() != null)
             enemy.gameObject.GetComponent<SealedStone>().TakeDamage(damage);
+        if(enemy.gameObject.GetComponent<ProjectileEnemy>() != null)
+            enemy.gameObject.GetComponent<ProjectileEnemy>().TakeDamage(damage);
     }
 
     public void PlayerDie()
@@ -762,6 +764,7 @@ public class PlayerProfile : PlayerState
         DayManager.instance.NightIconAppear();
         DayManager.instance.ItemGetAllCheck();
         GameObject.FindGameObjectWithTag("Player").transform.position = UIManager.Instance.villagePos.position;
+        MinimapManager.ApplyMainSceneMinimapMode();
     }
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)
     {

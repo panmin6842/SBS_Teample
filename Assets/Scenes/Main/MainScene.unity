@@ -8686,6 +8686,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2395173052697843662, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 3156120228798825275, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 2169358294439897910, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 8877317124371318213, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 3918012165444489248, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 3526247707923985236, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 8061441339214049570, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 271780493638466932, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 4739616898418345678, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 5934251969063198587, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
+    - {fileID: 3061332302967532496, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5535886021212429081, guid: 163aa95d14003fe4d992f1c73003c75e, type: 3}
       insertIndex: -1
@@ -14064,6 +14074,7 @@ MonoBehaviour:
   - {fileID: 1848170946}
   - {fileID: 1848170945}
   - {fileID: 1365823689}
+  statusTutorial: 0
 --- !u!114 &1208749652
 MonoBehaviour:
   m_ObjectHideFlags: 0

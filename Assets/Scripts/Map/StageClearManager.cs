@@ -17,7 +17,6 @@ public class StageClearManager : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Debug.Log("clear");
             if(!GameManager.instance.tutorialClear)
             {
                 if (DungeonMapService.Instance != null)
