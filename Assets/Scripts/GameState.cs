@@ -62,6 +62,8 @@ public class GameState : MonoBehaviour
     {
         SoundManager.instance.playerAudioSource = GameObject.FindWithTag("Player").GetComponent<AudioSource>();
         SoundManager.instance.MainSceneSFXVolume();
+        SoundManager.instance.bgmAudioSource.clip = SoundManager.instance.tutorialDungeonBGM;
+        SoundManager.instance.bgmAudioSource.Play();
         GameManager.instance.mapState = MapState.Stage;
         Invoke("StartDialogue", 0.2f);
     }

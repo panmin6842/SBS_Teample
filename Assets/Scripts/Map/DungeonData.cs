@@ -7,4 +7,5 @@ public class DungeonData : ScriptableObject
     public string dungeonName;
     public GameObject mapPrefab;
     public int floor;
+    public AudioClip bgm;
 }

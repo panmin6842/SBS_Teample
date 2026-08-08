@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource titleUiAudioSource;
     public AudioSource characterChoiceUiAudioSource;
     public AudioSource playerAudioSource;
+    public AudioSource bgmAudioSource;
 
     [Header("UI 관련 사운드")]
     public AudioClip buttonClickSoundClip;
@@ -17,6 +18,10 @@ public class SoundManager : MonoBehaviour
     public AudioClip stampBasicAttackSoundClip;
     public AudioClip meteoAttackSoundClip;
     public AudioClip mpPowerAttackSoundClip;
+
+    [Header("비지엠 관련 사운드")]
+    public AudioClip villageBGM;
+    public AudioClip tutorialDungeonBGM;
 
     private float clampedVolume;
 

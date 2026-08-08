@@ -16,3 +16,4 @@ MonoBehaviour:
   dungeonName: "\uD3D0\uAD11 1F"
   mapPrefab: {fileID: 2491353122495895482, guid: 86ebae51297451d4ca8ec3ac3e3df582, type: 3}
   floor: 1
+  bgm: {fileID: 8300000, guid: c0f5786f639278d479c9da914217fdad, type: 3}

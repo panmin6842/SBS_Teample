@@ -60,6 +60,9 @@ public class DungeonEntryManager : MonoBehaviour, IPointerClickHandler
             MinimapManager.ApplyMainSceneMinimapMode();
 
             StartCoroutine(SetupAndLoadDungeon(data));
+
+            SoundManager.instance.bgmAudioSource.clip = data.bgm;
+            SoundManager.instance.bgmAudioSource.Play();
         }
     }
 

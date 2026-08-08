@@ -16,3 +16,4 @@ MonoBehaviour:
   dungeonName: Tutorial2F
   mapPrefab: {fileID: 2027069352563740379, guid: 80b95b25fe286354b887f35bf6a57c89, type: 3}
   floor: 2
+  bgm: {fileID: 8300000, guid: b442123a67071894ca2beeb4a6185aae, type: 3}

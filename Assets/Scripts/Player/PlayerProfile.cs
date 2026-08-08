@@ -764,6 +764,8 @@ public class PlayerProfile : PlayerState
         DayManager.instance.NightIconAppear();
         DayManager.instance.ItemGetAllCheck();
         GameObject.FindGameObjectWithTag("Player").transform.position = UIManager.Instance.villagePos.position;
+        SoundManager.instance.bgmAudioSource.clip = SoundManager.instance.villageBGM;
+        SoundManager.instance.bgmAudioSource.Play();
         MinimapManager.ApplyMainSceneMinimapMode();
     }
     private void UpdateStateBarStatue(float curState, float maxState, TextMeshProUGUI stateText, Image _mask, Image _background)

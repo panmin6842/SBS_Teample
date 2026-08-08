@@ -38,6 +38,8 @@ public class StageClearManager : MonoBehaviour
                 = Quaternion.Euler(DayManager.instance.nightSunRotation);
                 DayManager.instance.curDay = Day.night;
                 DayManager.instance.NightIconAppear();
+                SoundManager.instance.bgmAudioSource.clip = SoundManager.instance.villageBGM;
+                SoundManager.instance.bgmAudioSource.Play();
                 return;
             }
             artifactGet.ArtiFactRandomGet();
@@ -67,6 +69,8 @@ public class StageClearManager : MonoBehaviour
         DayManager.instance.NightIconAppear();
         DayManager.instance.ItemGetAllCheck();
         GameObject.FindGameObjectWithTag("Player").transform.position = UIManager.Instance.villagePos.position;
+        SoundManager.instance.bgmAudioSource.clip = SoundManager.instance.villageBGM;
+        SoundManager.instance.bgmAudioSource.Play();
     }
 
     private void MapDestroy()
