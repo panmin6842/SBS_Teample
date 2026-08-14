@@ -16,6 +16,10 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Transform pSprite;
     private Animator ani;
 
+    //발 소리 관련
+    private float footstepTimer;
+    private float footstepInterval = 0.3f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -57,7 +61,21 @@ public class PlayerMove : MonoBehaviour
         movement = ReadMovementInput();
 
         if (movement.sqrMagnitude > 0.01f)
+        {
             playerProfile.EnsureCanMove();
+
+            footstepTimer += Time.deltaTime;
+
+            if (footstepTimer >= footstepInterval)
+            {
+                FootstepSound();
+                footstepTimer = 0;
+            }
+        }
+        else
+        {
+            footstepTimer = 0;
+        }
 
         ApplyMovement();
 
@@ -167,5 +185,22 @@ public class PlayerMove : MonoBehaviour
         movement = context.ReadValue<Vector2>();
         if (movement.sqrMagnitude < 0.01f)
             movement = ReadKeyboardWasd();
+    }
+
+    private int currentIndex = 0;
+
+    private void FootstepSound()
+    {
+        if (SoundManager.instance == null)
+            return;
+
+        AudioClip currentSound = SoundManager.instance.footstepSoundClips[currentIndex];
+
+        if (currentSound != null)
+        {
+            SoundManager.instance.playerAudioSource.PlayOneShot(currentSound);
+        }
+
+        currentIndex = (currentIndex + 1) % SoundManager.instance.footstepSoundClips.Length;
     }
 }

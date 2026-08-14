@@ -1535,6 +1535,7 @@ GameObject:
   - component: {fileID: 229048111}
   - component: {fileID: 229048110}
   - component: {fileID: 229048113}
+  - component: {fileID: 229048114}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -1677,6 +1678,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &229048114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229048108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 88582693}
+          m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+          m_MethodName: ButtonPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &229423862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2513,16 +2543,17 @@ MonoBehaviour:
   playerAudioSource: {fileID: 0}
   bgmAudioSource: {fileID: 0}
   buttonClickSoundClip: {fileID: 8300000, guid: 3d1fc54a2f6df7840a89b832c0c32427, type: 3}
+  buttonPointerEnterSoundClip: {fileID: 8300000, guid: 6106d8410a9ae2249a8bd9beb250258e, type: 3}
   buffGetSoundClip: {fileID: 0}
   hpGetSoundClip: {fileID: 0}
   swordBasicAttackSoundClip: {fileID: 0}
   stampBasicAttackSoundClip: {fileID: 0}
   meteoAttackSoundClip: {fileID: 0}
   mpPowerAttackSoundClip: {fileID: 0}
-  titleBGM: {fileID: 8300000, guid: 29dd52cfe177c6048bbc45326f36a5e0, type: 3}
+  hitVoiceSoundClip: {fileID: 0}
+  skillVoiceSoundClip: {fileID: 0}
   villageBGM: {fileID: 0}
   tutorialDungeonBGM: {fileID: 0}
-  mineDungeonBGM: {fileID: 0}
 --- !u!4 &333759484
 Transform:
   m_ObjectHideFlags: 0
@@ -6821,6 +6852,7 @@ GameObject:
   - component: {fileID: 1282460979}
   - component: {fileID: 1282460978}
   - component: {fileID: 1282460981}
+  - component: {fileID: 1282460982}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -6963,6 +6995,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1282460982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282460976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 88582693}
+          m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+          m_MethodName: ButtonPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1301907850
 GameObject:
   m_ObjectHideFlags: 0

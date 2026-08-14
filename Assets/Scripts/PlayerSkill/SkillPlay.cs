@@ -169,6 +169,8 @@ public class SkillPlay : MonoBehaviour
         {
             if (context.control.name == "1" && slots[0].coolTime > 0)
             {
+                SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.skillVoiceSoundClip);
+
                 if (skill1Start) return;
 
                 skill1Start = true;
@@ -185,6 +187,8 @@ public class SkillPlay : MonoBehaviour
 
             if (context.control.name == "2" && slots[1].coolTime > 0)
             {
+                SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.skillVoiceSoundClip);
+
                 if (skill2Start) return;
 
                 skill2Start = true;

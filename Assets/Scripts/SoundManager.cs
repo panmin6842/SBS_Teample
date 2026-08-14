@@ -10,14 +10,19 @@ public class SoundManager : MonoBehaviour
 
     [Header("UI 관련 사운드")]
     public AudioClip buttonClickSoundClip;
+    public AudioClip buttonPointerEnterSoundClip;
 
     [Header("플레이어 관련 사운드")]
     public AudioClip buffGetSoundClip;
     public AudioClip hpGetSoundClip;
     public AudioClip swordBasicAttackSoundClip;
     public AudioClip stampBasicAttackSoundClip;
+    public AudioClip bowBasicAttackSoundClip;
     public AudioClip meteoAttackSoundClip;
     public AudioClip mpPowerAttackSoundClip;
+    public AudioClip hitVoiceSoundClip;
+    public AudioClip skillVoiceSoundClip;
+    public AudioClip[] footstepSoundClips = new AudioClip[5];
 
     [Header("비지엠 관련 사운드")]
     public AudioClip villageBGM;

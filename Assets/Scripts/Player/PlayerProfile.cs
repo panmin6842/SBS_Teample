@@ -372,6 +372,7 @@ public class PlayerProfile : PlayerState
             if (!noDamage)
             {
                 curHp -= damage * (100f / (100f + curDEF));
+                SoundManager.instance.playerAudioSource.PlayOneShot(SoundManager.instance.hitVoiceSoundClip);
                 ani.SetTrigger("Hit");
                 noDamage = true;
             }

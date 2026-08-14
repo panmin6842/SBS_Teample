@@ -24,4 +24,9 @@ public class TitleManager : MonoBehaviour
     {
         option.SetActive(false);
     }
+
+    public void ButtonPointerEnter()
+    {
+        SoundManager.instance.titleUiAudioSource.PlayOneShot(SoundManager.instance.buttonPointerEnterSoundClip);
+    }
 }

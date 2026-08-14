@@ -8039,7 +8039,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.248
+  m_Volume: 0.113
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -21068,12 +21068,22 @@ MonoBehaviour:
   playerAudioSource: {fileID: 0}
   bgmAudioSource: {fileID: 876809898}
   buttonClickSoundClip: {fileID: 8300000, guid: 3d1fc54a2f6df7840a89b832c0c32427, type: 3}
+  buttonPointerEnterSoundClip: {fileID: 0}
   buffGetSoundClip: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
   hpGetSoundClip: {fileID: 8300000, guid: d654174ef194bd7479bf4b8d8f753318, type: 3}
-  swordBasicAttackSoundClip: {fileID: 8300000, guid: 2b8670b132d29984c93743808adbfcb3, type: 3}
+  swordBasicAttackSoundClip: {fileID: 8300000, guid: 6eb72c75e0fcdc04b905b225912096e7, type: 3}
   stampBasicAttackSoundClip: {fileID: 8300000, guid: a652877b012108e41871f867ada9f176, type: 3}
+  bowBasicAttackSoundClip: {fileID: 8300000, guid: 07cc499b4e48b544aadf3af4b86365bd, type: 3}
   meteoAttackSoundClip: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
   mpPowerAttackSoundClip: {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
+  hitVoiceSoundClip: {fileID: 8300000, guid: 941907831ba7e9d45a62b6713def1365, type: 3}
+  skillVoiceSoundClip: {fileID: 8300000, guid: 014b31856745e454688290e4ccc689a2, type: 3}
+  footstepSoundClips:
+  - {fileID: 8300000, guid: fa814d67374ed744ea0b38a8d40b2057, type: 3}
+  - {fileID: 8300000, guid: 94694e45e6df53747989df08b65db81a, type: 3}
+  - {fileID: 8300000, guid: 54b9b74c6b0f18245844af77e67c69f4, type: 3}
+  - {fileID: 8300000, guid: fed97abe594138846b76967a2205680c, type: 3}
+  - {fileID: 8300000, guid: 7f77fe66c774635428ba17a7be808310, type: 3}
   villageBGM: {fileID: 8300000, guid: edfbabfa74ab4244e97a03181ee9dafd, type: 3}
   tutorialDungeonBGM: {fileID: 8300000, guid: b442123a67071894ca2beeb4a6185aae, type: 3}
 --- !u!4 &1854208504
